@@ -2,7 +2,7 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const session = require('express-session');
-const Test = require('../database/index.js');
+const routes = require('./routes.js');
 
 const app = express();
 
@@ -27,21 +27,16 @@ app.use(session({
 /*
   routes
  */
-app.get('/', (req, res) => {
-  new Test({name: 'testing', about_me:'magic ponies in the skys'})
-  .save()
-  .then(function(saved) {
-    res.end();
-  })
-  .catch(function(err) {
-    err ? console.error(err): undefined;
-  })
-});
+app.all('/*', routes);
+
 
 /*
   PORT
 */
-app.listen(process.env.PORT || 1337, () => {
+app.listen(1337, () => {
   console.log(new Date());
   console.log('Listening on http://localhost:1337');
-})
+});
+
+module.exports = app;
+
