@@ -8,10 +8,10 @@ export default class App extends React.Component {
 
   render() {
     return (
-      <NavBar/>
       <div>
+        <NavBar/>
         This the main parent, always displaying nav bar
-      </div>
+      </div> 
     )
   }
 };

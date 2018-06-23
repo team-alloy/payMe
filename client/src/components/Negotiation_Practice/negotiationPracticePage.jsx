@@ -11,9 +11,9 @@ export default class NegotiationPracticePage extends React.Component {
     return (
       <div>
         This is the page for all things negotiation practice
+        <NegotiationPracticeVideo/>
+        <NegotiationPracticeTopic/>
       </div>
-      <NegotiationPracticeVideo/>
-      <NegotiationPracticeTopic/>
     )
   }
 };
