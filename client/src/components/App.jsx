@@ -1,4 +1,5 @@
 import React from 'react';
+import NavBar from './navbar';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -7,8 +8,9 @@ export default class App extends React.Component {
 
   render() {
     return (
+      <NavBar/>
       <div>
-        This is an app
+        This the main parent, always displaying nav bar
       </div>
     )
   }
