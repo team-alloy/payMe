@@ -51,6 +51,5 @@
     "redux": "^4.0.0",
     "redux-promise": "^0.6.0",
     "request": "^2.87.0"
-
   }
 }
