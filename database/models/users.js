@@ -1,7 +1,11 @@
 const bookshelf = require('../index.js');
 
-var User = bookshelf.Model.extend({
+const Cat = require('./cats.js');
+
+module.exports = bookshelf.Model.extend({
   tableName: 'users',
+  cats: function() {
+    return this.hasMany('Cat');
+  }
 });
 
-module.exports = User;
