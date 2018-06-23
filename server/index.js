@@ -29,6 +29,7 @@ app.use(session({
  */
 app.all('/*', routes);
 
+
 /*
   PORT
 */
@@ -38,3 +39,4 @@ app.listen(1337, () => {
 });
 
 module.exports = app;
+
