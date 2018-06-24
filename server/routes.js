@@ -28,37 +28,8 @@ router.route('/test')
         res.send(users);
       })
   });
-  // findUsers((users, code, res) => {
-  //   users = users.map((user) => {
-  //     findCatsForUser((cats) => {
-  //       user.cats = cats;
-  //     }, user);
-  //     // console.log('hey there', user);
-  //     return user;
-  //   });
-  //   // console.log(users, '---------------------------')
-  //   return users;
-  // }).then(users => {
-  //   console.log(users[0])
-  //   let temp = users[0];
-  //   console.log(temp)
-  //   res.send(temp)
-  // });
-})
-// .post((req, res) => {
-//   new User({
-//     first_name: req.body.first_name,
-//     last_name: req.body.last_name,
-//     username: req.body.username,
-//     hash: req.body.hash
-//   })
-//   .save()
-//   .then(saved => res.json({ saved }))
-//   .catch(err => {
-//     console.error(err);
-//     // if the username already exists
-//   });
-// });
+
+});
 
 var findUsers = (obj, res) => {
   return db.knex.select().from('users');

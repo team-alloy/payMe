@@ -7,7 +7,7 @@ exports.up = (knex, Promise) => {
     }),
     knex.schema.createTable('roles', (table) => {
       table.increments('id').primary();
-      table.string('name', 100).notNullable().unique();
+      table.string('name', 100).notNullable();
       table.integer('salary');
       table.integer('company_id').unsigned().references('id').inTable('companies');
     }),
