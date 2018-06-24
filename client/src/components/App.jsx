@@ -1,5 +1,5 @@
 import React from 'react';
-import NavBar from './navbar';
+import NavBar from './navbar.jsx';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -11,7 +11,7 @@ export default class App extends React.Component {
       <div>
         <NavBar/>
         This the main parent, always displaying nav bar
-      </div> 
+      </div>
     )
   }
 };
