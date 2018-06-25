@@ -8,7 +8,7 @@ const company_controller = require('./controllers/company-controller.js');
 // const offer_controller = require('./controllers/offer-controller.js');
 const role_controller = require('./controllers/role-controller.js');
 const milestone_controller = require('./controllers/milestone-controller.js');
-// const application_controller = require('./controllers/application-controller.js');
+const application_controller = require('./controllers/application-controller.js');
 
 router.route('/').get((req, res) => {
   res.status(200).sendFile(staticFile);
@@ -27,31 +27,37 @@ a8"     "" a8"     "8a 88P'   "88"    "8a 88P'    "8a ""     `Y8 88P'   `"8a 88 
                                           88
                                           88
 
-*/router.route('/companies')
+*/router.route('/api/companies')
 .get((req, res) => {
   if(req.query.id) {
     let {id} = req.query;
     company_controller
       .getCompanyById({ id: id})
       .then(company => {
+        if(!company.length) {
+          throw ('No records found for this company');
+        }
+        let {id} = company[0];
+        return role_controller
+          .getRolesForCompany({company_id: id})
+          .then(roles => {
+            company[0].roles = roles;
+            // console.log('roles added? ', company);
+            return company;
+          });
+      }).then(company => {
         res.send(company);
+      }).catch(err => {
+        res.status(404).send({error: err});
+      });
+  } else {
+    company_controller
+      .getCompanies()
+      .then(companies => {
+        res.send(companies);
       });
   }
-  company_controller
-    .getCompanies()
-    .then(companies => {
-      res.send(companies);
-    })
-})
-.post((req, res) => {
-  res.send('post/companies');
-})
-.patch((req, res) => {
-  res.send('patch/companies');
-})
-.delete((req, res) => {
-  res.send('delete/companies');
-})
+});
 
 /*
                        88
@@ -65,17 +71,7 @@ a8"     "" a8"     "8a 88P'   "88"    "8a 88P'    "8a ""     `Y8 88P'   `"8a 88 
 
 */
 router.route('/roles').get((req, res) => {
-  role_controller.getRoles().then(roles => {
-    roles = roles.map(role => {
-      return company_controller.getCompanyById({id: role.company_id}).then(company => {
-        role.company = company[0];
-        delete role.company_id;
-        return role;
-      });
-      return role;
-    });
-    return roles;
-  })
+  role_controller.getRoles()
   .then(roles => {
     Promise.all(roles).then(roles => {
       // console.log('Promise.all', roles);
@@ -107,11 +103,18 @@ router.route('/roles').get((req, res) => {
            88          88
            88          88
 */
-router.route('/applications').get((req, res) => {
-  res.send('get/applications');
+router.route('/api/applications')
+.get((req, res) => {
+  application_controller.getAllApplications().then(applications => {
+    Promise.all(applications).then(applications => res.send(applications))
+  });
 })
 .post((req, res) => {
-  res.send('post/applications');
+  application_controller.saveNewApplication(req.body).then(app => {
+    Promise.all(app).then(app => {
+      res.status(200).send(app);
+    })
+  })
 })
 .patch((req, res) => {
   res.send('patch/applications');
@@ -227,18 +230,18 @@ a8"     "8a  88      88   a8P_____88 88P'   "Y8 I8[    ""
 
 */
 
-router.route('/offers').get((req, res) => {
-  res.send('get/offers');
-})
-.post((req, res) => {
-  res.send('post/offers');
-})
-.patch((req, res) => {
-  res.send('patch/offers');
-})
-.delete((req, res) => {
-  res.send('delete/offers');
-})
+// router.route('/offers').get((req, res) => {
+//   res.send('get/offers');
+// })
+// .post((req, res) => {
+//   res.send('post/offers');
+// })
+// .patch((req, res) => {
+//   res.send('patch/offers');
+// })
+// .delete((req, res) => {
+//   res.send('delete/offers');
+// })
 
 
 // var findUsers = (obj, res) => {
