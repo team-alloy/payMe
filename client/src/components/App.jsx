@@ -9,8 +9,8 @@ export default class App extends React.Component {
   render() {
     return (
       <div>
-        <NavBar/>
         This the main parent, always displaying nav bar
+        <NavBar />
       </div>
     )
   }
