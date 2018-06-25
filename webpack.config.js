@@ -6,7 +6,7 @@ module.exports = {
   entry: `${SRC}/index.jsx`,
   output: {
     filename: 'bundle.js',
-    path: DEST
+    path: DEST,
   },
   module: {
     rules: [
@@ -14,6 +14,9 @@ module.exports = {
         exclude: ['node_modules'],
         loader: 'babel-loader',
         test: /\.jsx?$/
+      },
+      devServer: {
+        historyApiFallback: true,
       },
       {
         test: /\.jsx?/,
