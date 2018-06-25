@@ -2,17 +2,18 @@
 exports.up = (knex, Promise) => {
   return Promise.all([
     knex.schema.createTable('companies', (table) => {
-      table.increments('id').primary();
+      table.increments('id').primary().notNullable();
       table.string('name').notNullable().unique();
+      table.timestamps(true, true);
     }),
     knex.schema.createTable('roles', (table) => {
-      table.increments('id').primary();
+      table.increments('id').primary().notNullable();
       table.string('name', 100).notNullable();
       table.integer('salary');
-      table.integer('company_id').unsigned().references('id').inTable('companies');
+      table.integer('company_id').unsigned().references('id').inTable('companies').notNullable();
     }),
     knex.schema.createTable('users', (table) => {
-      table.increments('id').primary();
+      table.increments('id').primary().notNullable();
       table.string('first_name', 100);
       table.string('last_name', 100);
       table.string('email', 200).unique('email').notNullable();
@@ -23,26 +24,26 @@ exports.up = (knex, Promise) => {
       table.timestamps(true, true);
     }),
     knex.schema.createTable('applications', (table) => {
-      table.increments('id').primary();
-      table.integer('user_id').unsigned().references('id').inTable('users');
-      table.integer('role_id').unsigned().references('id').inTable('roles');
+      table.increments('id').primary().notNullable();
+      table.integer('user_id').unsigned().references('id').inTable('users').notNullable();
+      table.integer('role_id').unsigned().references('id').inTable('roles').notNullable();
       table.string('location', 100);
       table.timestamps(true, true);
     }),
     knex.schema.createTable('offers', (table) => {
-      table.increments('id').primary();
-      table.integer('application_id').unsigned().references('id').inTable('applications');
-      table.integer('base_salary');
+      table.increments('id').primary().notNullable();
+      table.integer('application_id').unsigned().references('id').inTable('applications').notNullable();
+      table.integer('base_salary').notNullable();
       table.boolean('hasHealthBeneits');
       table.boolean('hasPTO');
       table.boolean('hasRetirement');
       table.boolean('coversRelocation');
     }),
     knex.schema.createTable('milestones', (table) => {
-      table.increments('id').primary();
-      table.integer('user_id').unsigned().references('id').inTable('users');
-      table.string('name', 100);
-      table.string('description', 500);
+      table.increments('id').primary().notNullable();
+      table.integer('user_id').unsigned().references('id').inTable('users').notNullable();
+      table.string('name', 100).notNullable();
+      table.string('description', 500).notNullable();
       table.string('repo_link', 300);
       table.string('tech_used',300);
       table.timestamps(true, true);

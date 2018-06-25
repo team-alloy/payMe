@@ -1,12 +1,14 @@
-const knex = require('./knexfile');
+const config = require('./knexfile');
 
-test('knexfile has the correct client type', () => {
-  expect( knex.client).toBe('mysql');
+const knex = require('knex')(require('./knexfile.js'));
+
+test('config has the correct client type', () => {
+  expect( config.client).toBe('mysql');
 });
 
 test('knexfile requires you to have at lease these four keys in it\'s export: host, user, password, database', () => {
-  expect(knex.connection.host).toBeDefined();
-  expect(knex.connection.user).toBeDefined();
-  expect(knex.connection.password).toBeDefined();
-  expect(knex.connection.database).toBeDefined();
+  expect(config.connection.host).toBeDefined();
+  expect(config.connection.user).toBeDefined();
+  expect(config.connection.password).toBeDefined();
+  expect(config.connection.database).toBeDefined();
 });
