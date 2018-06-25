@@ -93,8 +93,8 @@ router.route('/roles').get((req, res) => {
   .then(roles => {
     console.log('new then statement',roles);
     Promise.all(roles).then(roles => {
-      console.log('Promise.all', roles);
-      console.log(Object.keys(roles[0]))
+      // console.log('Promise.all', roles);
+      // console.log(Object.keys(roles[0]))
       res.status(200).send(roles);
     });
   });
