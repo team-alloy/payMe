@@ -29,9 +29,19 @@ a8"     "" a8"     "8a 88P'   "88"    "8a 88P'    "8a ""     `Y8 88P'   `"8a 88 
 
 */router.route('/companies')
 .get((req, res) => {
-  company_controller.getCompanies().then(companies => {
-    res.send(companies);
-  })
+  if(req.query.id) {
+    let {id} = req.query;
+    company_controller
+      .getCompanyById({ id: id})
+      .then(company => {
+        res.send(company);
+      });
+  }
+  company_controller
+    .getCompanies()
+    .then(companies => {
+      res.send(companies);
+    })
 })
 .post((req, res) => {
   res.send('post/companies');
