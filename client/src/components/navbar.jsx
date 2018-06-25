@@ -12,7 +12,7 @@ const Header = () => (
     <nav>
       <ul>
         <li><Link to='/'>Home</Link></li>
-        <li><Link to='/api/milstones'>Milestones</Link></li>
+        <li><Link to='/api/milestones'>Milestones</Link></li>
         <li><Link to='/api/tips'>Interview Tips</Link></li>
         <li><Link to='/api/applications'>Application History</Link></li>
         <li><Link to='/api/login'>Logout</Link></li>
@@ -37,18 +37,6 @@ export default class NavBar extends React.Component {
   constructor(props) {
     super(props);
   }
-  
-  // const Main = () => { 
-  //   <main>
-  //     <Switch>
-  //       <Route exact path='/' component={HomePage} />
-  //       <Route path='/api/milestone' component={MilestonePage} />
-  //       <Route path='/api/tips' component={TipsPage} />
-  //       <Route path='/api/applications' component={ApplicationHistoryPage} />
-  //       <Route path='/api/login' component={Login}/>
-  //     </Switch>
-  //   </main>
-  // }
 
   render() {
     return (
