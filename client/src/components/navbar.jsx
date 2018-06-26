@@ -10,7 +10,7 @@ import SignUp from './Signup/signup.jsx';
 import NegotiationPracticePage from './Negotiation_Practice/negotiationPracticePage.jsx';
 
 const Header = () => (
-  <div>
+  <div className="ui centered grid">
     <div className="ui secondary pointing green menu">
       <div className="active item">
         <Link to="/">Home</Link>
