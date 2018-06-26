@@ -133,7 +133,9 @@ export default class NegotiationPracticeVideo extends React.Component {
           <div id="remotes" className="row">
             <div className="col-md-6">
               <div className="videoContainer">
+                <h3>You</h3>
                 <video id="localVideo" autoPlay muted></video>
+                <h3>Your Interviewer</h3>
                 <video id="remoteVideo" autoPlay></video>  
                 <meter id="localVolume" className="volume"></meter>
               </div>
