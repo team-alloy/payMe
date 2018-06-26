@@ -31,15 +31,15 @@ const Header = () => (
 
 const Main = () => (
   <main>
-    <Switch>
-      <Route exact path='/' render={(props) => {
-        return <HomePage {...props} />
-       }} />
-      <Route path='/milestones' component={MilestonePage} />
-      <Route path='/tips' component={TipsPage} />
-      <Route path='/applications' component={ApplicationHistoryPage} />
-      <Route path='/login' component={Login}/>
-    </Switch>
+      <Switch>
+        <Route exact path='/' render={(props) => {
+          return <HomePage {...props} />
+        }} />
+        <Route path='/milestones' component={MilestonePage} />
+        <Route path='/tips' component={TipsPage} />
+        <Route path='/applications' component={ApplicationHistoryPage} />
+        <Route path='/login' component={Login} />
+      </Switch>
   </main>
 )
 
