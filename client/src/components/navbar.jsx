@@ -13,7 +13,7 @@ const Header = () => (
       <ul>
         <li><Link to='/'>Home</Link></li>
         <li><Link to='/api/milestones'>Milestones</Link></li>
-        <li><Link to='/api/tips'>Interview Tips</Link></li>
+        <li><Link to='/api/tips'>Negotiation Tips</Link></li>
         <li><Link to='/api/applications'>Application History</Link></li>
         <li><Link to='/api/login'>Logout</Link></li>
       </ul>
@@ -43,6 +43,30 @@ export default class NavBar extends React.Component {
       <div>
         <Header />
         <Main />
+
+        <div class="ui secondary pointing menu">
+          <a class="active item">
+            Home
+          </a>
+          <a class="item">
+            Milestones
+          </a>
+          <a class="item">
+            Negotiation Tips
+          </a>
+          <a class="item">
+            Job Application History
+          </a>
+          <div class="right menu">
+            <a class="ui item">
+              Logout
+            </a>
+          </div>
+        </div>
+
+        <div class="ui segment">
+          <p>Display stuff underneath the navbar here</p>
+        </div>
       </div>
     )
   }

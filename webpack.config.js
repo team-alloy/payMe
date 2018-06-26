@@ -15,9 +15,6 @@ module.exports = {
         loader: 'babel-loader',
         test: /\.jsx?$/
       },
-      devServer: {
-        historyApiFallback: true,
-      },
       {
         test: /\.jsx?/,
         include: SRC,
