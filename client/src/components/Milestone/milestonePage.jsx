@@ -1,4 +1,6 @@
 import React from 'react';
+import MilestoneListView from './milestoneListView.jsx';
+import MilestoneForm from './milestoneForm.jsx';
 
 export default class MilestonePage extends React.Component {
   constructor(props){
@@ -8,7 +10,8 @@ export default class MilestonePage extends React.Component {
   render() {
     return (
       <div>
-        This page will house all of the milestones component
+        <MilestoneListView />
+        <MilestoneForm />
       </div>
     )
   }
