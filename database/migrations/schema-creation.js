@@ -4,7 +4,7 @@ exports.up = (knex, Promise) => {
     knex.schema.createTable('companies', (table) => {
       table.increments('id').primary().notNullable();
       table.string('name').notNullable().unique();
-      table.timestamps(true, true);
+      table.timestamp('created_at', true).notNullable();
     }),
     knex.schema.createTable('roles', (table) => {
       table.increments('id').primary().notNullable();
@@ -21,14 +21,14 @@ exports.up = (knex, Promise) => {
       table.string('hash', 200).notNullable();
       table.integer('current_salary');
       table.integer('active_role')
-      table.timestamps(true, true);
+      table.timestamp('created_at', true).notNullable();
     }),
     knex.schema.createTable('applications', (table) => {
       table.increments('id').primary().notNullable();
       table.integer('user_id').unsigned().references('id').inTable('users').notNullable();
       table.integer('role_id').unsigned().references('id').inTable('roles').notNullable();
       table.string('location', 100);
-      table.timestamps(true, true);
+      table.timestamp('created_at', true).notNullable();
     }),
     knex.schema.createTable('offers', (table) => {
       table.increments('id').primary().notNullable();
@@ -46,7 +46,7 @@ exports.up = (knex, Promise) => {
       table.string('description', 500).notNullable();
       table.string('repo_link', 300);
       table.string('tech_used',300);
-      table.timestamps(true, true);
+      table.timestamp('created_at',true).notNullable();
     })
   ]);
 };

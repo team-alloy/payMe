@@ -53,9 +53,9 @@ export default class NavBar extends React.Component {
       <div>
         <Header />
         <div className="ui segment">
-          <p>Display stuff underneath the navbar here
+          <div>Display stuff underneath the navbar here
             <Main />
-          </p>
+          </div>
 
         </div>
       </div>

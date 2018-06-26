@@ -5,7 +5,6 @@ const db = require('../database/index.js');
 
 const user_controller = require('./controllers/user-controller.js');
 const company_controller = require('./controllers/company-controller.js');
-// const offer_controller = require('./controllers/offer-controller.js');
 const role_controller = require('./controllers/role-controller.js');
 const milestone_controller = require('./controllers/milestone-controller.js');
 const application_controller = require('./controllers/application-controller.js');
