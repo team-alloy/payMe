@@ -67,7 +67,6 @@ router.route('/roles').get((req, res) => {
     return roles;
   })
   .then(roles => {
-    console.log('new then statement',roles);
     Promise.all(roles).then(roles => {
       // console.log('Promise.all', roles);
       // console.log(Object.keys(roles[0]))
@@ -149,7 +148,6 @@ router.route('/signup')
 
 router.route('/user/:username')
   .get((req, res) => {
-    console.log(req.params)
     user_controller.findOneUser({username: req.params.username}).then(user => {
       if(!user.length) {
         res.status(400).send({ error:'No account by that name exists'});
@@ -198,7 +196,6 @@ router.route('/api/milestones')
   .catch((err) => res.status(404).send({error: err.sqlMessage}));
 })
 .patch((req, res) => {
-  console.log(req.body,'in here');
   milestone_controller.updateMilestone(req.body.id, req.body)
   .then((milestones) => {
     res.status(200).send('success!')
