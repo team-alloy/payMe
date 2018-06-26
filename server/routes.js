@@ -188,11 +188,14 @@ router.route('/api/milestones')
   .catch((err) => res.status(400).send(err));
 })
 .post((req, res) => {
+  if(!req.body.user_id) {
+    res.status(404).send({ error: 'An account needs a user_id'});
+  }
   milestone_controller.insertMilestone(req.body)
   .then((milestones) => {
     res.status(200).send('milestone inserted');
   })
-  .catch((err) => res.status(400).send(err));
+  .catch((err) => res.status(404).send({error: err.sqlMessage}));
 })
 .patch((req, res) => {
   console.log(req.body,'in here');
