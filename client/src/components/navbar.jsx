@@ -9,7 +9,7 @@ import Login from './Login/login.jsx';
 
   const Header = () => (
     <div>
-      <div className="ui secondary pointing menu">
+      <div className="ui secondary pointing green inverted menu">
         <div className="active item">
           <Link to='/'>Home</Link>
         </div>
