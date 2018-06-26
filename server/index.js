@@ -33,7 +33,7 @@ app.all('/*', routes);
 /*
   PORT
 */
-app.listen(1337, () => {
+app.listen(process.env.PORT || 1337, () => {
   console.log(new Date());
   console.log('Listening on http://localhost:1337');
 });

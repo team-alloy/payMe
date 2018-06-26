@@ -5,7 +5,6 @@ const db = require('../database/index.js');
 
 const user_controller = require('./controllers/user-controller.js');
 const company_controller = require('./controllers/company-controller.js');
-// const offer_controller = require('./controllers/offer-controller.js');
 const role_controller = require('./controllers/role-controller.js');
 const milestone_controller = require('./controllers/milestone-controller.js');
 const application_controller = require('./controllers/application-controller.js');
@@ -43,15 +42,15 @@ a8"     "" a8"     "8a 88P'   "88"    "8a 88P'    "8a ""     `Y8 88P'   `"8a 88 
             return company;
           });
       }).then(company => {
-        res.send(company);
+        res.json(company);
       }).catch(err => {
-        res.status(404).send({error: err});
+        res.status(404).json({error: err});
       });
   } else {
     company_controller
       .getCompanies()
       .then(companies => {
-        res.send(companies);
+        res.json(companies);
       });
   }
 });
@@ -73,19 +72,19 @@ router.route('/roles').get((req, res) => {
     Promise.all(roles).then(roles => {
       // console.log('Promise.all', roles);
       // console.log(Object.keys(roles[0]))
-      res.status(200).send(roles);
+      res.status(200).json(roles);
     });
   });
-  // res.send('get/roles')
+  // res.json('get/roles')
 })
 .post((req, res) => {
-  res.send('post/roles');
+  res.json('post/roles');
 })
 .patch((req, res) => {
-  res.send('post/roles');
+  res.json('post/roles');
 })
 .delete((req, res) => {
-  res.send('post/roles');
+  res.json('post/roles');
 })
 
 /*
@@ -103,25 +102,25 @@ router.route('/roles').get((req, res) => {
 router.route('/api/applications')
 .get((req, res) => {
   application_controller.getAllApplications(req.query).then(applications => {
-    Promise.all(applications).then(applications => res.send(applications))
+    Promise.all(applications).then(applications => res.json(applications))
   });
 })
 .post((req, res) => {
   application_controller.saveNewApplication(req.body).then(app => {
     Promise.all(app).then(app => {
-      res.status(200).send(app);
+      res.status(200).json(app);
     })
   })
 })
 .patch((req, res) => {
   application_controller.updateApplication(req.body).then(application => {
     return application_controller.getAllApplications({id: application[0].id}).then(app => {
-      return Promise.all(app).then(app => res.status(201).send(app));
+      return Promise.all(app).then(app => res.status(201).json(app));
     });
   });
 })
 .delete((req, res) => {
-  res.send('delete/applications');
+  res.json('delete/applications');
 })
 
 /*
@@ -136,27 +135,27 @@ router.route('/api/applications')
 router.route('/api/user')
   .get( (req, res) => {
     user_controller.findAllUsers()
-      .then(users => res.status(200).send(users))
-      .catch(err => res.status(400).send(err));
+      .then(users => res.status(200).json(users))
+      .catch(err => res.status(400).json(err));
   });
 
 router.route('/api/signup')
 .post( (req, res) => {
 
   if(!req.body.email) {
-    res.status(404).send({ error: 'An account needs an email'});
+    res.status(404).json({ error: 'An account needs an email'});
   }
   if(!req.body.username) {
-    res.status(404).send({ error: 'An account needs a username'});
+    res.status(404).json({ error: 'An account needs a username'});
   }
   if(!req.body.hash) {
-    res.status(404).send({ error: 'An account needs a password'});
+    res.status(404).json({ error: 'An account needs a password'});
   }
 
   user_controller.signUpNewUser(req.body).then( newUser =>
-    res.status(200).send('user created'))
+    res.status(200).json('user created'))
     .catch(err => {
-      res.status(404).send({error: err.sqlMessage});
+      res.status(404).json({error: err.sqlMessage});
     });
   })
 
@@ -164,20 +163,20 @@ router.route('/api/user/:username')
   .get((req, res) => {
     user_controller.findOneUser({username: req.params.username}).then(user => {
       if(!user.length) {
-        res.status(400).send({ error:'No account by that name exists'});
+        res.status(400).json({ error:'No account by that name exists'});
       }
-      res.status(200).send(user);
+      res.status(200).json(user);
     })
-    .catch(err => (res.status(404).send('cannot find user')));
+    .catch(err => (res.status(404).json('cannot find user')));
   })
   .post((req, res) => {
-    res.send('post/user');
+    res.json('post/user');
   })
   .patch((req, res) => {
-    res.send('patch/user');
+    res.json('patch/user');
   })
   .delete((req, res) => {
-    res.send('delete/user');
+    res.json('delete/user');
   });
 
 /*
@@ -195,27 +194,27 @@ router.route('/api/milestones')
 .get((req, res) => {
   milestone_controller.findAllMilestones()
   .then((milestones) => {
-    res.status(200).send(milestones);
+    res.status(200).json(milestones);
   })
-  .catch((err) => res.status(400).send(err));
+  .catch((err) => res.status(400).json(err));
 })
 .post((req, res) => {
   if(!req.body.user_id) {
-    res.status(404).send({ error: 'An account needs a user_id'});
+    res.status(404).json({ error: 'An account needs a user_id'});
   }
   milestone_controller.insertMilestone(req.body)
   .then((milestones) => {
-    res.status(200).send('milestone inserted');
+    res.status(200).json('milestone inserted');
   })
-  .catch((err) => res.status(404).send({error: err.sqlMessage}));
+  .catch((err) => res.status(404).json({error: err.sqlMessage}));
 })
 .patch((req, res) => {
   milestone_controller.updateMilestone(req.body.id, req.body)
   .then((milestones) => {
-    res.status(200).send('success!')
+    res.status(200).json('success!')
   })
   .catch((err) => {
-    res.status(404).send(err);
+    res.status(404).json(err);
   })
 });
 
