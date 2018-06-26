@@ -6,6 +6,7 @@ import MilestonePage from './Milestone/milestonePage.jsx';
 import TipsPage from './Tips/tipsPage.jsx';
 import ApplicationHistoryPage from './Application_History/ApplicationHistoryPage.jsx';
 import Login from './Login/login.jsx';
+import SignUp from './Signup/signup.jsx';
 
 const Header = () => (
   <div>
@@ -39,6 +40,7 @@ const Main = () => (
         <Route path='/tips' component={TipsPage} />
         <Route path='/applications' component={ApplicationHistoryPage} />
         <Route path='/login' component={Login} />
+        <Route path='/signup' component={SignUp} />
       </Switch>
   </main>
 )
@@ -54,7 +56,6 @@ export default class NavBar extends React.Component {
         <Header />
         <div className="ui segment">
           <div>
-            Display stuff underneath the navbar here
             <Main />
           </div>
         </div>
