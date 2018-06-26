@@ -34,9 +34,11 @@ a8"     "" a8"     "8a 88P'   "88"    "8a 88P'    "8a ""     `Y8 88P'   `"8a 88 
           throw ('No records found for this company');
         }
         let {id} = company[0];
+        console.log('at', id)
         return role_controller
           .getRolesForCompany({company_id: id})
           .then(roles => {
+            console.log('!!!!!!!!!!!1', roles)
             company[0].roles = roles;
             // console.log('roles added? ', company);
             return company;

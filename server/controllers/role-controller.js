@@ -35,7 +35,6 @@ module.exports = {
     }
   },
   getRolesForCompany: (query) => {
-    console.log('getRolesForCompany', query)
     return db.knex.select('name')
     .from('roles')
     .groupBy('name')
@@ -48,13 +47,20 @@ module.exports = {
   updateRole: (query, role, companyName, salary) => {
      company_controller.getCompanyByName({ name: companyName})
      .then(company => {
+       console.warn('SOMETHING IS WRONG HERE AND I SHOULD COME BACK TO IT ');
+       // new companys have a update bug
        if(!company.length) {
-         company[0] = company_controller.saveNewCompany({name: companyName}).then(id => {
+         return company_controller.saveNewCompany({name: companyName}).then(id => {
+           console.log('between woot', id);
            return Promise.all(id).then(id => id[0]);
          })
+       } else {
+         return company[0].id;
        }
-      return db.knex('roles').where(query).update({name: role, company_id: company[0].id, salary: salary})
-      .then(updated => updated);
+    }).then(company => {
+      console.log('i got this ', company)
+      return db.knex('roles').where(query).update({ name: role, company_id: company, salary: salary })
+        .then(updated => updated);
     });
   },
 

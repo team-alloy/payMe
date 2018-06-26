@@ -31,20 +31,26 @@ module.exports = {
     let name = capitalizeWords(values.company);
     let role = capitalizeWords(values.role);
     let loc = capitalizeWords(values.location);
+    let salary = Number(values.salary) === NaN ? 0: values.salary;
 
     return company_controller.getCompanyByName({ name: name})
     .then(company => {
       if(!company.length) {
         //create new company if one does not exist
-        company[0] = company_controller.saveNewCompany({ name: name }).then(id => {
+        return company_controller.saveNewCompany({ name: name }).then(id => {
           return Promise.all(id).then(id => id[0]);
         });
+      } else {
+        return company;
       }
-       return role_controller.saveNewRole({name: role, company_id: company[0].id})
-       .then(roleIndex => {
-        return db.knex('applications')
-        .insert({user_id: values.user_id, role_id: roleIndex[0], location: loc});
-      })
+    })
+    .then(company => {
+      company = typeof company === 'object' ? company[0].id : company;
+      return role_controller.saveNewRole({ name: role, company_id: company, salary: salary })
+        .then(roleIndex => {
+          return db.knex('applications')
+            .insert({ user_id: values.user_id, role_id: roleIndex[0], location: loc});
+        });
     })
     .then(application => {
       return db.knex('applications').select().where({id: application[0]})
@@ -63,6 +69,7 @@ module.exports = {
     location = capitalizeWords(location);
     company = capitalizeWords(company);
     role = capitalizeWords(role);
+    salary = isNaN(salary) === NaN ? 0 : salary;
 
     return db.knex('applications').where({id: id}).then(application => {
       application[0].location !== location ? updateLocation({id: application[0].id}, location) : undefined;
@@ -84,7 +91,6 @@ const fillUsersName = (applications) => {
   return applications.map(app => {
     return user_controller.getFullNameById({ id: app.user_id }).then(user => {
       app.user = user[0].first_name + ' ' + user[0].last_name;
-      delete app.user_id;
       return app;
     });
   });
