@@ -41,28 +41,27 @@ export default class NavBar extends React.Component {
   render() {
     return (
       <div>
-
-        <div class="ui secondary pointing menu">
-          <a class="active item">
+        <div className="ui secondary pointing menu">
+          <a className="active item">
             <Link to='/'>Home</Link>
           </a>
-          <a class="item">
+          <a className="item">
             <Link to='/api/milestones'>Milestones</Link>
           </a>
-          <a class="item">
+          <a className="item">
             <Link to='/api/tips'>Negotiation Tips</Link>
           </a>
-          <a class="item">
+          <a className="item">
             <Link to='/api/applications'>Job Application History</Link>
           </a>
-          <div class="right menu">
-            <a class="ui item">
+          <div className="right menu">
+            <a className="ui item">
               <Link to='/api/login'>Logout</Link>
             </a>
           </div>
         </div>
 
-        <div class="ui segment">
+        <div className="ui segment">
           <p>Display stuff underneath the navbar here</p>
           <Main />
         </div>
