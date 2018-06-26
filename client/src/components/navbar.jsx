@@ -7,26 +7,26 @@ import TipsPage from './Tips/tipsPage.jsx';
 import ApplicationHistoryPage from './Application_History/ApplicationHistoryPage.jsx';
 import Login from './Login/login.jsx';
 
-  const Header = () => (
-    <div>
-      <div className="ui secondary pointing menu">
-        <div className="active item">
-          <Link to='/'>Home</Link>
-        </div>
-        <div className="item">
-          <Link to='/milestones'>Milestones</Link>
-        </div>
-        <div className="item">
-          <Link to='/tips'>Negotiation Tips</Link>
-        </div>
-        <div className="item">
-          <Link to='/applications'>Job Application History</Link>
-        </div>
-        <div className="ui item right menu">
-          <Link to='/login'>Logout</Link>
-        </div>
+const Header = () => (
+  <div>
+    <div className="ui secondary pointing green menu">
+      <div className="active item">
+        <Link to="/">Home</Link>
+      </div>
+      <div className="item">
+        <Link to="/milestones">Milestones</Link>
+      </div>
+      <div className="item">
+        <Link to="/tips">Negotiation Tips</Link>
+      </div>
+      <div className="item">
+        <Link to="/applications">Job Application History</Link>
+      </div>
+      <div className="ui item right menu">
+        <Link to="/login">Logout</Link>
       </div>
     </div>
+  </div>
 )
 
 const Main = () => (
@@ -53,10 +53,10 @@ export default class NavBar extends React.Component {
       <div>
         <Header />
         <div className="ui segment">
-          <div>Display stuff underneath the navbar here
+          <div>
+            Display stuff underneath the navbar here
             <Main />
           </div>
-
         </div>
       </div>
     )
