@@ -22,3 +22,5 @@ node_modules/*
 config.js
 
 .vscode/*
+
+*.DS_Store
