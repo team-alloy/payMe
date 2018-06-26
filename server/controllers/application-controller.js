@@ -58,26 +58,19 @@ module.exports = {
   },
   updateApplication: (params) => {
     console.warn(params)
-    let {id, location, company, salary, role, role_id} = params;
+    let {id, location, company, salary, role} = params;
 
     location = capitalizeWords(location);
     company = capitalizeWords(company);
     role = capitalizeWords(role);
 
     return db.knex('applications').where({id: id}).then(application => {
-      console.log(application, location);
-
-      application[0].location !== location ? updateLocation({id: application[0].id}, location, company) : undefined;
-      role_id ? updateRole({id: role_id}, role) : undefined;
+      application[0].location !== location ? updateLocation({id: application[0].id}, location) : undefined;
+      updateRole({id: application[0].role_id}, role, company, salary);
       return application;
-    }).then(application => {
-      console.log('final', application)
-    });
+    }).then(application => application);
   }
-}
-
-// let query = {};
-// query.user_id = values.user_id;
+};
 
 var capitalizeWords = (words) => {
   words = words.toLowerCase().split(' ');
@@ -92,7 +85,6 @@ const fillUsersName = (applications) => {
     return user_controller.getFullNameById({ id: app.user_id }).then(user => {
       app.user = user[0].first_name + ' ' + user[0].last_name;
       delete app.user_id;
-      // console.log(app, 'changing user name ')
       return app;
     });
   });
@@ -109,10 +101,10 @@ const fillRole = (applications) => {
       });
     });
   });
-}
+};
 
-const updateRole = (query, role) => {
-  return role_controller.updateRole(query, role);
+const updateRole = (query, role, company, salary) => {
+  return role_controller.updateRole(query, role, company, salary);
 };
 
 const updateLocation = (query, location) => {

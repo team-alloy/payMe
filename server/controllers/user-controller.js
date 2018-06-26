@@ -10,5 +10,9 @@ module.exports = {
   signUpNewUser: (userInfo) => {
     return db.knex('users')
       .insert(userInfo);
+  },
+  getFullNameById: (query) => {
+    return db.knex.select('first_name', 'last_name').from('users').where(query);
   }
 }; //end exports
+

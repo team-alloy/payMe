@@ -105,7 +105,7 @@ router.route('/roles').get((req, res) => {
 */
 router.route('/api/applications')
 .get((req, res) => {
-  application_controller.getAllApplications().then(applications => {
+  application_controller.getAllApplications(req.query).then(applications => {
     Promise.all(applications).then(applications => res.send(applications))
   });
 })
@@ -117,7 +117,11 @@ router.route('/api/applications')
   })
 })
 .patch((req, res) => {
-  res.send('patch/applications');
+  application_controller.updateApplication(req.body).then(application => {
+    return application_controller.getAllApplications({id: application[0].id}).then(app => {
+      return Promise.all(app).then(app => res.status(201).send(app));
+    });
+  });
 })
 .delete((req, res) => {
   res.send('delete/applications');
@@ -132,14 +136,14 @@ router.route('/api/applications')
  `"YbbdP'Y8 `"YbbdP"'  `"Ybbd8"' 88         `"YbbdP"'
 
 */
-router.route('/user')
+router.route('/api/user')
   .get( (req, res) => {
     user_controller.findAllUsers()
       .then(users => res.status(200).send(users))
       .catch(err => res.status(400).send(err));
   });
 
-router.route('/signup')
+router.route('/api/signup')
 .post( (req, res) => {
 
   if(!req.body.email) {
@@ -159,7 +163,7 @@ router.route('/signup')
     });
   })
 
-router.route('/user/:username')
+router.route('/api/user/:username')
   .get((req, res) => {
     user_controller.findOneUser({username: req.params.username}).then(user => {
       if(!user.length) {
@@ -244,12 +248,5 @@ a8"     "8a  88      88   a8P_____88 88P'   "Y8 I8[    ""
 // })
 
 
-// var findUsers = (obj, res) => {
-//   return db.knex.select().from('users');
-// }
-
-// var findCatsForUser = ({id}) => {
-//   return db.knex('cats').where({owner_id: id});
-// };
-
 module.exports = router;
+

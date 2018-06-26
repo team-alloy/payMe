@@ -6,5 +6,11 @@ module.exports = {
   },
   getCompanyById: (query) => {
     return db.knex.select().from('companies').where(query);
+  },
+  getCompanyByName: (query) => {
+    return db.knex.select().from('companies').where(query);
+  },
+  saveNewCompany: (params) => {
+    return db.knex('companies').insert(params);
   }
 }; //end export
