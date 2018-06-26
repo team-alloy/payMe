@@ -136,10 +136,28 @@ router.route('/api/applications')
 */
 router.route('/api/user')
   .get( (req, res) => {
-    user_controller.findAllUsers()
-      .then(users => res.status(200).json(users))
+    if(!req.query) {
+      user_controller.findAllUsers()
+        .then(users => res.status(200).json(users))
+        .catch(err => res.status(400).json(err));
+    } else {
+      user_controller.findOneUser(req.query)
+      .then(user => res.status(200).json(user))
       .catch(err => res.status(400).json(err));
+    }
+  })
+  .patch((req, res) => {
+    if(req.query.id) {
+      console.log(req.query.id)
+      res.json('hey')
+    } else {
+      res.status(404).json({error: 'User is needed'});
+    }
+  })
+  .delete((req, res) => {
+    res.json('delete/user');
   });
+;
 
 router.route('/api/signup')
 .post( (req, res) => {
@@ -160,26 +178,6 @@ router.route('/api/signup')
       res.status(404).json({error: err.sqlMessage});
     });
   })
-
-router.route('/api/user/:username')
-  .get((req, res) => {
-    user_controller.findOneUser({username: req.params.username}).then(user => {
-      if(!user.length) {
-        res.status(400).json({ error:'No account by that name exists'});
-      }
-      res.status(200).json(user);
-    })
-    .catch(err => (res.status(404).json('cannot find user')));
-  })
-  .post((req, res) => {
-    res.json('post/user');
-  })
-  .patch((req, res) => {
-    res.json('patch/user');
-  })
-  .delete((req, res) => {
-    res.json('delete/user');
-  });
 
 /*
                    88 88
