@@ -10,9 +10,6 @@ const role_controller = require('./controllers/role-controller.js');
 const milestone_controller = require('./controllers/milestone-controller.js');
 const application_controller = require('./controllers/application-controller.js');
 
-router.route('/').get((req, res) => {
-  res.status(200).sendFile(staticFile);
-});
 
 /*
 
@@ -222,31 +219,10 @@ router.route('/api/milestones')
   })
 });
 
-/*
-              ad88    ad88
-             d8"     d8"
-             88      88
- ,adPPYba, MM88MMM MM88MMM ,adPPYba, 8b,dPPYba, ,adPPYba,
-a8"     "8a  88      88   a8P_____88 88P'   "Y8 I8[    ""
-8b       d8  88      88   8PP""""""" 88          `"Y8ba,
-"8a,   ,a8"  88      88   "8b,   ,aa 88         aa    ]8I
- `"YbbdP"'   88      88    `"Ybbd8"' 88         `"YbbdP"'
 
-*/
-
-// router.route('/offers').get((req, res) => {
-//   res.send('get/offers');
-// })
-// .post((req, res) => {
-//   res.send('post/offers');
-// })
-// .patch((req, res) => {
-//   res.send('patch/offers');
-// })
-// .delete((req, res) => {
-//   res.send('delete/offers');
-// })
-
+router.route('/*').get((req, res) => {
+  res.status(200).sendFile(staticFile);
+});
 
 module.exports = router;
 

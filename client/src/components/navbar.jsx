@@ -25,10 +25,10 @@ const Main = () => (
   <main>
     <Switch>
       <Route exact path='/' component={HomePage} />
-      <Route path='/api/milestones' component={MilestonePage} />
-      <Route path='/api/tips' component={TipsPage} />
-      <Route path='/api/applications' component={ApplicationHistoryPage} />
-      <Route path='/api/login' component={Login}/>
+      <Route path='/milestones' component={MilestonePage} />
+      <Route path='/tips' component={TipsPage} />
+      <Route path='/applications' component={ApplicationHistoryPage} />
+      <Route path='/login' component={Login}/>
     </Switch>
   </main>
 )
