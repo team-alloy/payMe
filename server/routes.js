@@ -192,9 +192,11 @@ router.route('/api/user/:username')
 */
 router.route('/api/milestones')
 .get((req, res) => {
-  milestone_controller.findAllMilestones()
+  milestone_controller.findAllMilestones(req.query)
   .then((milestones) => {
-    res.status(200).json(milestones);
+    Promise.all(milestones).then((milestones) => {
+      res.json(milestones);
+    });
   })
   .catch((err) => res.status(400).json(err));
 })
