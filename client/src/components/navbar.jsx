@@ -10,26 +10,21 @@ import Login from './Login/login.jsx';
   const Header = () => (
     <div>
       <div className="ui secondary pointing menu">
-        <a className="active item">
+        <div className="active item">
           <Link to='/'>Home</Link>
-        </a>
-        <a className="item">
+        </div>
+        <div className="item">
           <Link to='/milestones'>Milestones</Link>
-        </a>
-        <a className="item">
+        </div>
+        <div className="item">
           <Link to='/tips'>Negotiation Tips</Link>
-        </a>
-        <a className="item">
+        </div>
+        <div className="item">
           <Link to='/applications'>Job Application History</Link>
-        </a>
-      <div className="right menu">
-          <a className="ui item">
+        </div>
+        <div className="ui item right menu">
           <Link to='/login'>Logout</Link>
-          </a>
-      </div>
-      </div>
-      <div className="ui segment">
-        <p>Display stuff underneath the navbar here</p>
+        </div>
       </div>
     </div>
 )
@@ -57,7 +52,12 @@ export default class NavBar extends React.Component {
     return (
       <div>
         <Header />
-        <Main />
+        <div className="ui segment">
+          <p>Display stuff underneath the navbar here
+            <Main />
+          </p>
+
+        </div>
       </div>
     )
   }
