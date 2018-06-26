@@ -7,6 +7,7 @@ import TipsPage from './Tips/tipsPage.jsx';
 import ApplicationHistoryPage from './Application_History/ApplicationHistoryPage.jsx';
 import Login from './Login/login.jsx';
 import SignUp from './Signup/signup.jsx';
+import NegotiationPracticePage from './Negotiation_Practice/negotiationPracticePage.jsx';
 
 const Header = () => (
   <div>
@@ -22,6 +23,9 @@ const Header = () => (
       </div>
       <div className="item">
         <Link to="/applications">Job Application History</Link>
+      </div>
+      <div className="item">
+        <Link to="/practice">Negotiation Practice</Link>
       </div>
       <div className="ui item right menu">
         <Link to="/login">Logout</Link>
@@ -39,6 +43,7 @@ const Main = () => (
         <Route path='/milestones' component={MilestonePage} />
         <Route path='/tips' component={TipsPage} />
         <Route path='/applications' component={ApplicationHistoryPage} />
+        <Route path='/practice' component={NegotiationPracticePage} />
         <Route path='/login' component={Login} />
         <Route path='/signup' component={SignUp} />
       </Switch>

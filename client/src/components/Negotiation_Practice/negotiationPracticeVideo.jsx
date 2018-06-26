@@ -8,7 +8,7 @@ export default class NegotiationPracticeVideo extends React.Component {
   render() {
     return (
       <div>
-        This is the live video chat for negotiation practice
+        Insert live video chat for negotiation practice
       </div>
     )
   }
