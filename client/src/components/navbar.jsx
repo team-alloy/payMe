@@ -7,19 +7,19 @@ import TipsPage from './Tips/tipsPage.jsx';
 import ApplicationHistoryPage from './Application_History/ApplicationHistoryPage.jsx';
 import Login from './Login/login.jsx';
 
-const Header = () => (
-  <header>
-    <nav>
-      <ul>
-        <li><Link to='/'>Home</Link></li>
-        <li><Link to='/api/milestones'>Milestones</Link></li>
-        <li><Link to='/api/tips'>Negotiation Tips</Link></li>
-        <li><Link to='/api/applications'>Application History</Link></li>
-        <li><Link to='/api/login'>Logout</Link></li>
-      </ul>
-    </nav>
-  </header>
-)
+// const Header = () => (
+//   <header>
+//     <nav>
+//       <ul>
+//         <li><Link to='/'>Home</Link></li>
+//         <li><Link to='/api/milestones'>Milestones</Link></li>
+//         <li><Link to='/api/tips'>Negotiation Tips</Link></li>
+//         <li><Link to='/api/applications'>Job Application History</Link></li>
+//         <li><Link to='/api/login'>Logout</Link></li>
+//       </ul>
+//     </nav>
+//   </header>
+// )
 
 const Main = () => (
   <main>
@@ -41,31 +41,30 @@ export default class NavBar extends React.Component {
   render() {
     return (
       <div>
-        <Header />
-        <Main />
 
         <div class="ui secondary pointing menu">
           <a class="active item">
-            Home
+            <Link to='/'>Home</Link>
           </a>
           <a class="item">
-            Milestones
+            <Link to='/api/milestones'>Milestones</Link>
           </a>
           <a class="item">
-            Negotiation Tips
+            <Link to='/api/tips'>Negotiation Tips</Link>
           </a>
           <a class="item">
-            Job Application History
+            <Link to='/api/applications'>Job Application History</Link>
           </a>
           <div class="right menu">
             <a class="ui item">
-              Logout
+              <Link to='/api/login'>Logout</Link>
             </a>
           </div>
         </div>
 
         <div class="ui segment">
           <p>Display stuff underneath the navbar here</p>
+          <Main />
         </div>
       </div>
     )
