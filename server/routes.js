@@ -7,36 +7,12 @@ const user_controller = require('./controllers/user-controller.js');
 const company_controller = require('./controllers/company-controller.js');
 // const offer_controller = require('./controllers/offer-controller.js');
 const role_controller = require('./controllers/role-controller.js');
-// const milestone_controller = require('./controllers/milestone-controller.js');
+const milestone_controller = require('./controllers/milestone-controller.js');
 // const application_controller = require('./controllers/application-controller.js');
 
 router.route('/').get((req, res) => {
   res.status(200).sendFile(staticFile);
 });
-
-router.route('/test')
-.get((req, res) => {
-  let result;
-
-  findUsers().then(users => {
-    return users.map((user) => {
-      return findCatsForUser(user).then(cats => {
-        // console.log(user, '#17');
-        // console.log(cats, '#18');
-        user.cats = cats;
-        // console.log(user, '#19');
-        return user;
-      })
-    });
-  }).then(users => {
-      Promise.all(users).then((users) => {
-        // console.log(users);
-        // console.log(Object.keys(users[0]));
-        res.send(users);
-      })
-  });
-
-})
 
 /*
 
@@ -203,19 +179,31 @@ router.route('/user/:username')
 88      88      88 88 88  `"Ybbd8"' `"YbbdP"'   "Y888 `"YbbdP"'  88       88  `"Ybbd8"' `"YbbdP"'
 
 */
-router.route('/milestones')
+router.route('/api/milestones')
 .get((req, res) => {
-  res.send('get/milestones');
+  milestone_controller.findAllMilestones()
+  .then((milestones) => {
+    res.status(200).send(milestones);
+  })
+  .catch((err) => res.status(400).send(err));
 })
 .post((req, res) => {
-  res.send('post/milestones');
+  milestone_controller.insertMilestone(req.body)
+  .then((milestones) => {
+    res.status(200).send('milestone inserted');
+  })
+  .catch((err) => res.status(400).send(err));
 })
 .patch((req, res) => {
-  res.send('patch/milestones');
-})
-.delete((req, res) => {
-  res.send('delete/milestones');
-})
+  console.log(req.body,'in here');
+  milestone_controller.updateMilestone(req.body.id, req.body)
+  .then((milestones) => {
+    res.status(200).send('success!')
+  })
+  .catch((err) => {
+    res.status(404).send(err);
+  })
+});
 
 /*
               ad88    ad88
@@ -243,12 +231,12 @@ router.route('/offers').get((req, res) => {
 })
 
 
-var findUsers = (obj, res) => {
-  return db.knex.select().from('users');
-}
+// var findUsers = (obj, res) => {
+//   return db.knex.select().from('users');
+// }
 
-var findCatsForUser = ({id}) => {
-  return db.knex('cats').where({owner_id: id});
-};
+// var findCatsForUser = ({id}) => {
+//   return db.knex('cats').where({owner_id: id});
+// };
 
 module.exports = router;
