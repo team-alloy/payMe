@@ -27,7 +27,7 @@ const Header = () => (
       <div className="item">
         <Link to="/practice">Negotiation Practice</Link>
       </div>
-      <div className="ui item right menu">
+      <div className="item">
         <Link to="/login">Logout</Link>
       </div>
     </div>
