@@ -37,13 +37,9 @@ import Login from './Login/login.jsx';
 const Main = () => (
   <main>
     <Switch>
-<<<<<<< HEAD
-      <Route exact path='/' component={HomePage} />
-=======
-      <Route exact path='/' render={(props) => { 
+      <Route exact path='/' render={(props) => {
         return <HomePage {...props} />
        }} />
->>>>>>> Refactor navBar
       <Route path='/milestones' component={MilestonePage} />
       <Route path='/tips' component={TipsPage} />
       <Route path='/applications' component={ApplicationHistoryPage} />
