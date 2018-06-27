@@ -10,8 +10,8 @@ export default class MilestonePage extends React.Component {
   render() {
     return (
       <div>
-        {/* <MilestoneListView /> */}
-        <MilestoneForm />
+        <MilestoneListView />
+        {/* <MilestoneForm /> */}
       </div>
     )
   }
