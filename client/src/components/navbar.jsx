@@ -10,28 +10,26 @@ import SignUp from './Signup/signup.jsx';
 import NegotiationPracticePage from './Negotiation_Practice/negotiationPracticePage.jsx';
 
 const Header = () => (
-  
-    <div className="ui stackable grey inverted six item menu">
-      <div className="item">
-        <Link to="/">Home</Link>
-      </div>
-      <div className="item">
-        <Link to="/milestones">Milestones</Link>
-      </div>
-      <div className="item">
-        <Link to="/tips">Negotiation Tips</Link>
-      </div>
-      <div className="item">
-        <Link to="/applications">Job Application History</Link>
-      </div>
-      <div className="item">
-        <Link to="/practice">Negotiation Practice</Link>
-      </div>
-      <div className="item">
-        <Link to="/login">Logout</Link>
-      </div>
+  <div className="ui stackable grey inverted six item menu">
+    <div className="item">
+      <Link to="/">Home</Link>
     </div>
-  
+    <div className="item">
+      <Link to="/milestones">Milestones</Link>
+    </div>
+    <div className="item">
+      <Link to="/tips">Negotiation Tips</Link>
+    </div>
+    <div className="item">
+      <Link to="/applications">Job Application History</Link>
+    </div>
+    <div className="item">
+      <Link to="/practice">Negotiation Practice</Link>
+    </div>
+    <div className="item">
+      <Link to="/login">Logout</Link>
+    </div>
+  </div>
 )
 
 const Main = () => (
@@ -56,17 +54,10 @@ export default class NavBar extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  handleClick() {
-    $('.ui .item').on('click', function() {
-      $('.ui .item').removeClass('active');
-      $(this).addClass('active');
-    }); 
-  }
-
   render() {
     return (
       <div>
-        <Header onClick={this.handleClick}/>
+        <Header />
         <div className="ui segment">
           <div>
             <Main />
