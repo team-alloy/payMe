@@ -6,7 +6,7 @@ if (!location.hash) {
 }
 const roomHash = location.hash.substring(1);
 
-// TODO: Replace with your own channel ID
+// TODO: Replace with own channel ID
 const drone = new ScaleDrone('yiS12Ts5RdNhebyM');
 // Room name needs to be prefixed with 'observable-'
 const roomName = 'observable-' + roomHash;
@@ -82,9 +82,9 @@ function startWebRTC(isOfferer) {
     audio: true,
     video: true,
   }).then(stream => {
-    // Display your local video in #localVideo element
+    // Display local video in #localVideo element
     localVideo.srcObject = stream;
-    // Add your stream to be sent to the conneting peer
+    // Add stream to be sent to the conneting peer
     stream.getTracks().forEach(track => pc.addTrack(track, stream));
   }, onError);
 
