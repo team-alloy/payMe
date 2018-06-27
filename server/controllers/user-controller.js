@@ -29,11 +29,8 @@ module.exports = {
   updateAccountInformation: (id, query, password) => {
     let { first_name, last_name, hash, current_salary, active_role, old_password} = query;
 
-
-    //check if passwords match then replace them if they do.
-    // current_salary = isNaN(current_salary) ? 0 : current_salary;
     active_role = isNaN(active_role) ? null : active_role;
-    // search for role (allows us to check if the role exists)
+
     return role_controller.getRoles({id: active_role})
     .then(roles => {
       return Promise.all(roles).then(roles => {
@@ -50,7 +47,6 @@ module.exports = {
               return old_password !== '' ? bcrypt.compare(old_password, password).then(res => {
                 if(res) {
                   return bcrypt.hash(hash, saltRounds).then( hash => {
-                    console.log('level 1')
                     return db.knex('users').where({ id: id })
                       .update({
                         first_name: first_name,
@@ -76,7 +72,6 @@ module.exports = {
           });
         }
       })
-
     }).catch(err => console.error(err));
 
   },
