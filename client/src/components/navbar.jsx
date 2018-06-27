@@ -51,7 +51,6 @@ const Main = () => (
 export default class NavBar extends React.Component {
   constructor(props) {
     super(props);
-    this.handleClick = this.handleClick.bind(this);
   }
 
   render() {
