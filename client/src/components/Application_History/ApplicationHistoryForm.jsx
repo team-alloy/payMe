@@ -31,6 +31,10 @@ export default class ApplicationHistoryForm extends React.Component {
     return (
       <div>
         {this.historyFormDisplay()}
+        <div className="button-container">
+          <button className="ui-button-cancel" tabIndex="0">Cancel</button>
+          <button className="ui-button-confirm" tabIndex="1">Confirm</button>
+        </div>
       </div>
     )
   }

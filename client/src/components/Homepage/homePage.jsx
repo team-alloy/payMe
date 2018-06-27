@@ -1,4 +1,5 @@
 import React from 'react';
+import UserCardForm from './userCardForm.jsx';
 
 export default class HomePage extends React.Component {
   constructor(props){
@@ -6,10 +7,9 @@ export default class HomePage extends React.Component {
   }
 
   render() {
-    console.log(this.props);
     return (
       <div>
-        This page will render the entire homepage!
+        <UserCardForm />
       </div>
     )
   }

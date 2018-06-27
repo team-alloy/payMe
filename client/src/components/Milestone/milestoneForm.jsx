@@ -92,10 +92,10 @@ export default class MilestoneForm extends React.Component {
             {this.techStackDisplay()}
             {this.repositoryDisplay()}
             {this.dateDisplay()}
-            <div className="button-container">
-              <button className="ui-button-confirm" tabIndex="0">Confirm</button>
-              <button className="ui-button-cancel" tabIndex="1">Cancel</button>
-            </div>
+          <div className="button-container">
+            <button className="ui-button-cancel" tabIndex="0">Cancel</button>
+            <button className="ui-button-confirm" tabIndex="1">Confirm</button>
+          </div>
           </div>
         </form>
       </div>
