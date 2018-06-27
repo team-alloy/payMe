@@ -9,8 +9,7 @@ export default class TipsPage extends React.Component {
 
   render() {
     return (
-      <div>
-        Tips Page displays all things tips-related
+      <div className='ui column stackable center page grid'>
         <TipsStatistic/>
         <TipsListContainer/>
       </div>

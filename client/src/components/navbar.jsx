@@ -10,9 +10,9 @@ import SignUp from './Signup/signup.jsx';
 import NegotiationPracticePage from './Negotiation_Practice/negotiationPracticePage.jsx';
 
 const Header = () => (
-  <div className="ui centered grid">
-    <div className="ui secondary pointing green menu">
-      <div className="active item">
+  
+    <div className="ui stackable grey inverted six item menu">
+      <div className="item">
         <Link to="/">Home</Link>
       </div>
       <div className="item">
@@ -31,7 +31,7 @@ const Header = () => (
         <Link to="/login">Logout</Link>
       </div>
     </div>
-  </div>
+  
 )
 
 const Main = () => (
@@ -53,12 +53,20 @@ const Main = () => (
 export default class NavBar extends React.Component {
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    $('.ui .item').on('click', function() {
+      $('.ui .item').removeClass('active');
+      $(this).addClass('active');
+    }); 
   }
 
   render() {
     return (
       <div>
-        <Header />
+        <Header onClick={this.handleClick}/>
         <div className="ui segment">
           <div>
             <Main />
