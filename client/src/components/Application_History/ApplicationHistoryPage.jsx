@@ -1,4 +1,5 @@
 import React from 'react';
+import ApplicationHistoryFeed from './ApplicationHistoryFeed.jsx';
 
 export default class ApplicationHistoryPage extends React.Component{
   constructor(props){
@@ -8,7 +9,7 @@ export default class ApplicationHistoryPage extends React.Component{
   render() {
     return (
       <div>
-        This class will render all of our Application History page.
+        <ApplicationHistoryFeed />
       </div>
     )
   }
