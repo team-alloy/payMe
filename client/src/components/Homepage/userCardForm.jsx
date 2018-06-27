@@ -67,6 +67,11 @@ export default class UserCardForm extends React.Component {
             </div>
           </div>
 
+        <div className="button-container">
+          <button className="ui-button-cancel" tabIndex="0">Cancel</button>
+          <button className="ui-button-confirm" tabIndex="1">Confirm</button>
+        </div>
+        
         </form>
       </div>
     )
@@ -75,11 +80,8 @@ export default class UserCardForm extends React.Component {
   render() {
     return (
       <div>
-        {this.userFormDisplay()}
-        <div className="button-container">
-          <button className="ui-button-cancel" tabIndex="0">Cancel</button>
-          <button className="ui-button-confirm" tabIndex="1">Confirm</button>
-        </div>
+        {/* {this.userFormDisplay()} */}
+        {this.currentDisplay()}
       </div>
     )
   }
