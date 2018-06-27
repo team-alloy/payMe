@@ -148,13 +148,17 @@ router.route('/api/user')
     if(req.query.id) {
       user_controller.findOneUser({ id })
       .then(user => { // we have the user information
-        return user_controller.updateAccountInformation(user[0].id,req.body, user[0].hash);
+        return user_controller.updateAccountInformation(user[0].id, req.body, user[0].hash);
       })
-      .then(test => {
-        if(test > 0) {
-          res.status(201).json({message: 'Account updated'});
+      .then(response => {
+        if(!isNaN(response)) {
+          if (response > 0) {
+            res.status(201).json({ message: 'Account updated' });
+          } else {
+            res.status(200).json({ message: 'Account was not updated' });
+          }
         } else {
-          res.status(200).json({message: 'Account was not updated'});
+          res.status(201).json(response)
         }
       })
       .catch(err => res.status(404).json({ error: err }));
