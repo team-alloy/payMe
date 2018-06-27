@@ -8,6 +8,9 @@ export default class SignUp extends React.Component {
   render() {
     return (
       <div>
+        <h2>Register</h2>
+        <h5>...to get that raise you deserve</h5>
+        <br></br>
         <form className="ui form">
           <div className="field">
             <label>First Name</label>
