@@ -8,8 +8,11 @@ export default class NegotiationPracticeTopic extends React.Component {
   render() {
     return (
       <div>
-        This is the section to let users know of their negotiation topic and 
-        practice interview partner
+        This is your negotiation topic of the day: 
+        <ul><li>Paid Time Off</li></ul>
+        Your partner who will interview you is: 
+        Kenny Le,
+        Software Engineer at Google
       </div>
     )
   }

@@ -1,6 +1,6 @@
 import React from 'react';
-// import TipsStatistic from './tipsStatistic.jsx';
-// import TipsListContainer from './tipsListContainer.jsx';
+import TipsStatistic from './tipsStatistic.jsx';
+import TipsListContainer from './tipsListContainer.jsx';
 
 export default class TipsPage extends React.Component {
   constructor(props) {
@@ -9,10 +9,9 @@ export default class TipsPage extends React.Component {
 
   render() {
     return (
-      <div>
-        Tips Page displays all things tips-related
-        {/* <TipsStatistic/> 
-        <Tips/> */}
+      <div className='ui column stackable center page grid'>
+        <TipsStatistic/>
+        <TipsListContainer/>
       </div>
     )
   }

@@ -38,7 +38,7 @@ export default class Login extends React.Component {
                 </Segment>
               </Form>
               <Message>
-                New User? <a href='#'>Registration</a>
+                New User? <a href='/signup'>Sign Up to Get That Bonus!</a>
               </Message>
             </Grid.Column>
           </Grid>

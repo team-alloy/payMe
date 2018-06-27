@@ -8,7 +8,7 @@ export default class TipsStatistic extends React.Component {
   render() {
     return (
       <div>
-        Tips Stats
+        Tips Stats: A Software Engineer in San Francisco, CA makes an average salary of $120,000...
       </div>
     )
   }

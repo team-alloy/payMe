@@ -73,7 +73,6 @@ module.exports = {
         }
       })
     }).catch(err => console.error(err));
-
   },
   checkCredentials: (query) => {
     if(query.body.email) {

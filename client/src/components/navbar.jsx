@@ -6,25 +6,28 @@ import MilestonePage from './Milestone/milestonePage.jsx';
 import TipsPage from './Tips/tipsPage.jsx';
 import ApplicationHistoryPage from './Application_History/ApplicationHistoryPage.jsx';
 import Login from './Login/login.jsx';
+import SignUp from './Signup/signup.jsx';
+import NegotiationPracticePage from './Negotiation_Practice/negotiationPracticePage.jsx';
 
 const Header = () => (
-  <div>
-    <div className="ui secondary pointing green menu">
-      <div className="active item">
-        <Link to="/">Home</Link>
-      </div>
-      <div className="item">
-        <Link to="/milestones">Milestones</Link>
-      </div>
-      <div className="item">
-        <Link to="/tips">Negotiation Tips</Link>
-      </div>
-      <div className="item">
-        <Link to="/applications">Job Application History</Link>
-      </div>
-      <div className="ui item right menu">
-        <Link to="/login">Logout</Link>
-      </div>
+  <div className="ui stackable grey inverted six item menu">
+    <div className="item">
+      <Link to="/">Home</Link>
+    </div>
+    <div className="item">
+      <Link to="/milestones">Milestones</Link>
+    </div>
+    <div className="item">
+      <Link to="/tips">Negotiation Tips</Link>
+    </div>
+    <div className="item">
+      <Link to="/applications">Job Application History</Link>
+    </div>
+    <div className="item">
+      <Link to="/practice">Negotiation Practice</Link>
+    </div>
+    <div className="item">
+      <Link to="/login">Logout</Link>
     </div>
   </div>
 )
@@ -38,7 +41,9 @@ const Main = () => (
         <Route path='/milestones' component={MilestonePage} />
         <Route path='/tips' component={TipsPage} />
         <Route path='/applications' component={ApplicationHistoryPage} />
+        <Route path='/practice' component={NegotiationPracticePage} />
         <Route path='/login' component={Login} />
+        <Route path='/signup' component={SignUp} />
       </Switch>
   </main>
 )
@@ -46,6 +51,7 @@ const Main = () => (
 export default class NavBar extends React.Component {
   constructor(props) {
     super(props);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   render() {
@@ -54,7 +60,6 @@ export default class NavBar extends React.Component {
         <Header />
         <div className="ui segment">
           <div>
-            Display stuff underneath the navbar here
             <Main />
           </div>
         </div>
