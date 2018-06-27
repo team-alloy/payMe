@@ -73,7 +73,7 @@ export default class MilestoneListView extends React.Component {
   formUpdate() {
     return (
       <div className="edit-button-container">
-        <button className="ui-button-edit" tabIndex="0" onClick={() => {this.editFormButton()}}>Update</button>
+        <button className="ui-button-edit" tabIndex="0" onClick={() => {this.displayChanger()}}>Update</button>
       </div>
     )
   }
@@ -94,7 +94,7 @@ export default class MilestoneListView extends React.Component {
   }
 
   //this function will change the state from default to form
-  editFormButton() {
+  displayChanger() {
     this.setState({
       display: 'form',
     })
