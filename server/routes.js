@@ -25,6 +25,7 @@ a8"     "" a8"     "8a 88P'   "88"    "8a 88P'    "8a ""     `Y8 88P'   `"8a 88 
 
 */router.route('/api/companies')
 .get((req, res) => {
+  // make it work with names too.
   if(req.query.id) {
     let {id} = req.query;
     company_controller
@@ -37,6 +38,7 @@ a8"     "" a8"     "8a 88P'   "88"    "8a 88P'    "8a ""     `Y8 88P'   `"8a 88 
         return role_controller
           .getRolesForCompany({company_id: id})
           .then(roles => {
+            console.log('!!!!!!!!!!!1', roles)
             company[0].roles = roles;
             // console.log('roles added? ', company);
             return company;
@@ -70,22 +72,10 @@ router.route('/roles').get((req, res) => {
   role_controller.getRoles()
   .then(roles => {
     Promise.all(roles).then(roles => {
-      // console.log('Promise.all', roles);
-      // console.log(Object.keys(roles[0]))
       res.status(200).json(roles);
     });
   });
-  // res.json('get/roles')
-})
-.post((req, res) => {
-  res.json('post/roles');
-})
-.patch((req, res) => {
-  res.json('post/roles');
-})
-.delete((req, res) => {
-  res.json('post/roles');
-})
+});
 
 /*
                                   88 88                               88
@@ -134,10 +124,48 @@ router.route('/api/applications')
 */
 router.route('/api/user')
   .get( (req, res) => {
-    user_controller.findAllUsers()
-      .then(users => res.status(200).json(users))
+    if(!req.query) {
+      user_controller.findAllUsers()
+        .then(users => res.status(200).json(users))
+        .catch(err => res.status(400).json(err));
+    } else {
+      user_controller.findOneUser(req.query)
+      .then(user => res.status(200).json(user))
       .catch(err => res.status(400).json(err));
+    }
+  })
+  .patch((req, res) => {
+    let {
+      first_name,
+      last_name,
+      hash,
+      current_salary,
+      active_role
+    } = req.body;
+
+    let {id} = req.query;
+
+    if(req.query.id) {
+      user_controller.findOneUser({ id })
+      .then(user => { // we have the user information
+        return user_controller.updateAccountInformation(user[0].id,req.body, user[0].hash);
+      })
+      .then(test => {
+        if(test > 0) {
+          res.status(201).json({message: 'Account updated'});
+        } else {
+          res.status(200).json({message: 'Account was not updated'});
+        }
+      })
+      .catch(err => res.status(404).json({ error: err }));
+    } else {
+      res.status(404).json({error: 'User is needed'});
+    }
+  })
+  .delete((req, res) => {
+    res.json('delete/user');
   });
+;
 
 router.route('/api/signup')
 .post( (req, res) => {
@@ -152,33 +180,21 @@ router.route('/api/signup')
     res.status(404).json({ error: 'An account needs a password'});
   }
 
-  user_controller.signUpNewUser(req.body).then( newUser =>
-    res.status(200).json('user created'))
-    .catch(err => {
-      res.status(404).json({error: err.sqlMessage});
-    });
-  })
-
-router.route('/api/user/:username')
-  .get((req, res) => {
-    user_controller.findOneUser({username: req.params.username}).then(user => {
-      if(!user.length) {
-        res.status(400).json({ error:'No account by that name exists'});
-      }
-      res.status(200).json(user);
-    })
-    .catch(err => (res.status(404).json('cannot find user')));
-  })
-  .post((req, res) => {
-    res.json('post/user');
-  })
-  .patch((req, res) => {
-    res.json('patch/user');
-  })
-  .delete((req, res) => {
-    res.json('delete/user');
+  user_controller.signUpNewUser(req.body)
+  .then(newUser => res.status(200).json('user created'))
+  .catch(err => {
+    res.status(404).json({error: err.sqlMessage});
   });
+});
 
+router.route('/api/login')
+.post( (req, res) => {
+
+  user_controller.checkCredentials(req).then(session => {
+    res.status(200).json(session);
+  })
+  .catch( err => res.status(404).json({ error: err}));
+})
 /*
                    88 88
                    "" 88                        ,d
