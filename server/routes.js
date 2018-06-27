@@ -78,16 +78,7 @@ router.route('/roles').get((req, res) => {
     });
   });
   // res.json('get/roles')
-})
-.post((req, res) => {
-  res.json('post/roles');
-})
-.patch((req, res) => {
-  res.json('post/roles');
-})
-.delete((req, res) => {
-  res.json('post/roles');
-})
+});
 
 /*
                                   88 88                               88
@@ -147,9 +138,29 @@ router.route('/api/user')
     }
   })
   .patch((req, res) => {
+    let {
+      first_name,
+      last_name,
+      hash,
+      current_salary,
+      active_role
+    } = req.body;
+
+    let {id} = req.query;
+
     if(req.query.id) {
-      console.log(req.query.id)
-      res.json('hey')
+      user_controller.findOneUser({ id })
+      .then(user => { // we have the user information
+        return user_controller.updateAccountInformation(user[0].id,req.body, user[0].hash);
+      })
+      .then(test => {
+        if(test > 0) {
+          res.status(201).json({message: 'Account updated'});
+        } else {
+          res.status(200).json({message: 'Account was not updated'});
+        }
+      })
+      .catch(err => res.status(404).json({ error: err }));
     } else {
       res.status(404).json({error: 'User is needed'});
     }
@@ -172,13 +183,21 @@ router.route('/api/signup')
     res.status(404).json({ error: 'An account needs a password'});
   }
 
-  user_controller.signUpNewUser(req.body).then( newUser =>
-    res.status(200).json('user created'))
-    .catch(err => {
-      res.status(404).json({error: err.sqlMessage});
-    });
-  })
+  user_controller.signUpNewUser(req.body)
+  .then(newUser => res.status(200).json('user created'))
+  .catch(err => {
+    res.status(404).json({error: err.sqlMessage});
+  });
+});
 
+router.route('/api/login')
+.post( (req, res) => {
+
+  user_controller.checkCredentials(req).then(session => {
+    res.status(200).json(session);
+  })
+  .catch( err => res.status(404).json({ error: err}));
+})
 /*
                    88 88
                    "" 88                        ,d
