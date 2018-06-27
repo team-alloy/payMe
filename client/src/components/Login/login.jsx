@@ -19,7 +19,7 @@ export default class Login extends React.Component {
           `}</style>
           <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
             <Grid.Column style={{ maxWidth: 450 }}>
-              <Header as='h2' color='blue' textAlign='center'>
+              <Header as='h2' color='green' textAlign='center'>
                 Please log in!
               </Header>
               <Form size='large'>
@@ -32,7 +32,7 @@ export default class Login extends React.Component {
                     placeholder='Password'
                     type='password'
                   />
-                  <Button color='blue' fluid size='large'>
+                  <Button color='green' fluid size='large'>
                     Login
                   </Button>
                 </Segment>
