@@ -9,6 +9,7 @@ const company_controller = require('./controllers/company-controller.js');
 const role_controller = require('./controllers/role-controller.js');
 const milestone_controller = require('./controllers/milestone-controller.js');
 const application_controller = require('./controllers/application-controller.js');
+const offer_controller = require('./controllers/offer-controller.js');
 
 let currentSession;
 
@@ -121,7 +122,7 @@ router.route('/api/applications')
     Promise.all(applications).then(applications => res.json(applications))
   });
 })
-.post((req, res) => {
+.post((req, res) => {// req.body.offer
   application_controller.saveNewApplication(req.body).then(app => {
     Promise.all(app).then(app => {
       res.status(200).json(app);
@@ -281,6 +282,16 @@ router.route('/api/milestones')
   milestone_controller.updateMilestone(req.body.id, req.body)
   .then((milestones) => {
     res.status(200).json('success!')
+  })
+  .catch((err) => {
+    res.status(404).json(err);
+  })
+});
+
+router.route('/api/test').post((req, res) => {
+  offer_controller.addOffer(req.body.offer)
+  .then((offers) => {
+    res.status(200).json(offers,'success!')
   })
   .catch((err) => {
     res.status(404).json(err);
