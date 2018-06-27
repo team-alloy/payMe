@@ -1,6 +1,6 @@
 import React from 'react';
 import ApplicationHistoryFeed from './ApplicationHistoryFeed.jsx';
-// import ApplicationHistoryForm from './ApplicationHistoryForm';
+import ApplicationHistoryForm from './ApplicationHistoryForm.jsx';
 
 export default class ApplicationHistoryPage extends React.Component{
   constructor(props){
@@ -11,7 +11,7 @@ export default class ApplicationHistoryPage extends React.Component{
     return (
       <div>
         <ApplicationHistoryFeed />
-        {/* <ApplicationHistoryForm /> */}
+        <ApplicationHistoryForm />
       </div>
     )
   }
