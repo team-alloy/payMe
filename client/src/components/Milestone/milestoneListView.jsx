@@ -1,20 +1,13 @@
 import React from 'react';
+import MilestoneForm from './milestoneForm.jsx';
 
 export default class MilestoneListView extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      display: 'default',
+    }
   }
-  
-  // this function will render our read-only form
-    //previous projects
-      //project's name
-        //project description
-      //tech stack
-        //tech stack list
-      //repository link
-        //repositorylink
-      //date
-        //date
 
   projectDisplayView() {
     return (
@@ -76,6 +69,15 @@ export default class MilestoneListView extends React.Component {
     )
   }
 
+  //this function will invoke our state change
+  formUpdate() {
+    return (
+      <div className="edit-button-container">
+        <button className="ui-button-edit" tabIndex="0" onClick={() => {this.editFormButton()}}>Update</button>
+      </div>
+    )
+  }
+
   milestoneDisplayView() {
     return (
       <div>
@@ -86,14 +88,40 @@ export default class MilestoneListView extends React.Component {
         {this.techStackDisplayView()}
         {this.repositoryLinkDisplay()}
         {this.dateDisplay()}
+        {this.formUpdate()}
       </div>
     )
+  }
+
+  //this function will change the state from default to form
+  editFormButton() {
+    this.setState({
+      display: 'form',
+    })
+  }
+
+  //this function will render the default view or editable form depending on the state
+  milestoneFormView() {
+    const {display} = this.state;
+    if (display === 'default') {
+      return (
+        <div>
+          {this.milestoneDisplayView()}
+        </div>
+      )
+    } else if (display === 'form') {
+      return (
+        <div>
+          <MilestoneForm currentFormState={this.state}/>
+        </div>
+      )
+    }
   }
 
   render() {
     return (
       <div>
-        {this.milestoneDisplayView()}
+        {this.milestoneFormView()}
       </div>
     )
   }

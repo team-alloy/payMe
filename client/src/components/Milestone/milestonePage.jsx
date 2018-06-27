@@ -11,7 +11,6 @@ export default class MilestonePage extends React.Component {
     return (
       <div>
         <MilestoneListView />
-        {/* <MilestoneForm /> */}
       </div>
     )
   }
