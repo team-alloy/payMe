@@ -10,7 +10,10 @@ import SignUp from './Signup/signup.jsx';
 import NegotiationPracticePage from './Negotiation_Practice/negotiationPracticePage.jsx';
 
 const Header = () => (
-  <div className="ui stackable grey inverted six item menu">
+  <div className="ui top seven item menu">
+    <div className="item">
+      <img src="/images/logo.png" style={{width: 60, height: 60}}/>
+    </div>
     <div className="item">
       <Link to="/">Home</Link>
     </div>
@@ -57,7 +60,8 @@ export default class NavBar extends React.Component {
     return (
       <div>
         <Header />
-        <div className="ui segment">
+        <center><img src="/images/opening.png" style={{width: 400, height: 100}}/></center>
+        <div className="ui segment"> 
           <div>
             <Main />
           </div>
