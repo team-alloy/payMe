@@ -25,6 +25,7 @@ a8"     "" a8"     "8a 88P'   "88"    "8a 88P'    "8a ""     `Y8 88P'   `"8a 88 
 
 */router.route('/api/companies')
 .get((req, res) => {
+  // make it work with names too.
   if(req.query.id) {
     let {id} = req.query;
     company_controller
@@ -34,7 +35,6 @@ a8"     "" a8"     "8a 88P'   "88"    "8a 88P'    "8a ""     `Y8 88P'   `"8a 88 
           throw ('No records found for this company');
         }
         let {id} = company[0];
-        console.log('at', id)
         return role_controller
           .getRolesForCompany({company_id: id})
           .then(roles => {
@@ -72,12 +72,9 @@ router.route('/roles').get((req, res) => {
   role_controller.getRoles()
   .then(roles => {
     Promise.all(roles).then(roles => {
-      // console.log('Promise.all', roles);
-      // console.log(Object.keys(roles[0]))
       res.status(200).json(roles);
     });
   });
-  // res.json('get/roles')
 });
 
 /*
