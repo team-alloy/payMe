@@ -6,26 +6,18 @@ export default class MilestoneForm extends React.Component {
     super(props);
   }
 
-  companyDisplay() {
+  projectDisplay() {
     return (
       <div className="previous-company-fill-in">
-        <label>Previous Experience</label>
+        <label>Previous Project(s)</label>
           <div className="employment-history-fill-in">
-            <label>Company</label>
+            <label>Project's Name</label>
               <div className="field">
-            <input 
-              type="text" 
-              name="milestone[employment-history]" 
-              placeholder="Company" 
-            />
-              </div>
-            <label>Position's Title</label>
-              <div className="field">
-            <input 
-              type="text" 
-              name="milstone[position-history]" 
-              placeholder="Position's Title" 
-            />
+                <input 
+                  type="text" 
+                  name="milestone[project-history]" 
+                  placeholder="Enter Your Project's Name Here!" 
+                />
               </div>
           </div>
       </div>
@@ -39,7 +31,7 @@ export default class MilestoneForm extends React.Component {
           <div className="field">
             <textarea 
               rows="4" 
-              placeholder="Please provide a brief description regarding your responsibilities."
+              placeholder="Please provide a brief description regarding your project."
             ></textarea>
           </div>
       </div>  
@@ -60,30 +52,6 @@ export default class MilestoneForm extends React.Component {
     )
   }
 
-  keyAccomplishmentsDisplay() {
-    return (
-      <div className="achievements-fill-in">
-        <label>Key Accomplishments</label>
-          <div className="inline-fields">
-            <label>Job Accomplishment: </label>
-            <div className="field">
-              <textarea 
-                rows="4"
-                placeholder="Please enter your key achievements here i.e. Implemented algorithm that improved company's efficiency by 50%!" 
-              ></textarea>
-            </div>
-            <label>Accomplishment's Result: </label>
-            <div className="field">
-              <textarea 
-                rows="4"
-                placeholder="Please enter the quantifiable result of your achievements here i.e. Saved the company over $100 million USD and was promoted to Chief Technology Officer." 
-              ></textarea>
-            </div>
-          </div>
-      </div>
-    )
-  }
-
   repositoryDisplay() {
     return (
       <div className="repository-fill-in">
@@ -98,17 +66,31 @@ export default class MilestoneForm extends React.Component {
     )
   }
 
+  dateDisplay() {
+    return (
+      <div className="date-fill-in">
+        <label>Date Completed</label>
+        <div className="field">
+            <textarea 
+              rows="2" 
+              placeholder="Please enter the date this project was completed."
+            ></textarea>
+        </div>
+      </div>
+    )
+  }
+
   milestoneDisplayForm() {
     return (
       <div>
         <form className="ui-form">
           <h4 className="ui-title-header">Career Milestones and Achievements</h4>
           <div className="employment-history-field">
-            {this.companyDisplay()}
+            {this.projectDisplay()}
             {this.jobDescriptionDisplay()}
             {this.techStackDisplay()}
-            {this.keyAccomplishmentsDisplay()}
             {this.repositoryDisplay()}
+            {this.dateDisplay()}
             <div className="button-container">
               <button className="ui-button-confirm" tabIndex="0">Confirm</button>
               <button className="ui-button-cancel" tabIndex="1">Cancel</button>
