@@ -1,7 +1,7 @@
 import React from 'react';
 import TipsListView from './tipsListView.jsx';
 
-export default class Tips extends React.Component {
+export default class TipsListContainer extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -9,7 +9,7 @@ export default class Tips extends React.Component {
   render() {
     return (
       <div>
-        Handle all tips, pass down to tipsListView
+        {/* Handle all tips, pass down to tipsListView */}
         <TipsListView />
       </div>
     )
