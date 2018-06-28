@@ -81,9 +81,11 @@ export default class MilestoneListView extends React.Component {
   milestoneDisplayView() {
     return (
       <div>
-        <div className="title-header">
-          <h4>Milestones and Achievements</h4>
-        </div>
+        <table className="ui single line table">
+          <thead>
+            <th>Milestones and Achievements</th>
+          </thead>
+        </table>
         {this.projectDisplayView()}
         {this.techStackDisplayView()}
         {this.repositoryLinkDisplay()}
