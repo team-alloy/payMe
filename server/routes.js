@@ -289,9 +289,17 @@ router.route('/api/milestones')
 });
 
 router.route('/api/test').post((req, res) => {
-  offer_controller.addOffer(req.body.offer)
+  offer_controller.addOffer(req.body)
   .then((offers) => {
-    res.status(200).json(offers,'success!')
+    res.status(200).json(offers);
+  })
+  .catch((err) => {
+    res.status(404).json(err);
+  })
+}).patch((req, res) => {
+  offer_controller.updateOffer(req.body)
+  .then((offers) => {
+    res.status(200).json(offers);
   })
   .catch((err) => {
     res.status(404).json(err);

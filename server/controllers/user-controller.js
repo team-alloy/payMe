@@ -15,10 +15,11 @@ module.exports = {
   signUpNewUser: (userInfo) => {
     let {first_name, last_name, email, pass, username} = userInfo;
 
-    first_name = capitalizeWords(first_name);
-    last_name = capitalizeWords(last_name);
-    return bcrypt.hash(pass, saltRounds).then(pass => {
-      console.log('secret ', pass)
+
+    first_name = first_name ? capitalizeWords(first_name) : null;
+    last_name = last_name ? capitalizeWords(last_name) : null;
+    return bcrypt.hash(hash, saltRounds).then(hash => {
+      console.log('secret ', hash)
       return db.knex('users')
         .insert({first_name: first_name, last_name: last_name, email: email, hash:pass, username: username});
     });

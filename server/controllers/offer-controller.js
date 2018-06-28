@@ -1,15 +1,27 @@
 const db = require('../../database/index.js');
 
 module.exports = {
-  updateOffer: () => {
-
+  updateOffer: (body) => {
+    var offer = JSON.parse(body.offer);
+    if(!offer.id || !offer.application_id || !offer.base_salary) {
+      throw 'need to complete nonNullable fields';
+    } else {
+      console.log('in here');
+      return db.knex('offers')
+      .where('id', offer.id)
+      .update(offer);
+    }
   },
-  addOffer: (obj) => { // req.body.offer
-    console.log(obj,'yo!');
-    return db.knex('offers')
-    .insert(obj);
+  addOffer: (body) => {
+    var offer = JSON.parse(body.offer);
+    if(!offer.id) {
+      return db.knex('offers')
+      .insert(offer);
+    } else {
+      throw 'error';
+    }
   },
-  deleteOffer: () => {
+  deleteOffer: (body) => {
 
   }
 }
