@@ -4,7 +4,6 @@ export default class SignUp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
     };
   }
 
@@ -72,6 +71,7 @@ export default class SignUp extends React.Component {
               Login With Your New Account
             </a>
           </button>
+
         </form>
       </div>
     );
