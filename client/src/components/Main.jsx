@@ -5,7 +5,7 @@ import HomePage from './Homepage/HomePage.jsx';
 import MilestonePage from './Milestone/MilestonePage.jsx';
 import TipsPage from './Tips/TipsPage.jsx';
 import ApplicationHistoryPage from './Application_History/ApplicationHistoryPage.jsx';
-import Login from './Login/login.jsx';
+import Login from './Login/Login.jsx';
 import SignUp from './Signup/Signup.jsx';
 import NegotiationPracticePage from './Negotiation_Practice/NegotiationPracticePage.jsx';
 
