@@ -7,10 +7,29 @@ export default class ApplicationHistoryPage extends React.Component{
     super(props);
   }
 
+  applicationHistoryDisplay() {
+    return (
+      <div>
+        <div className="ui four column centered grid">
+            <div className="column">
+            </div>
+            <div className="column">
+              <ApplicationHistoryFeed />
+            </div>
+            <div className="column">
+              <ApplicationHistoryFeed />
+            </div>
+            <div className="column">
+            </div>
+        </div>
+      </div>
+    )
+  }
+
   render() {
     return (
       <div>
-        <ApplicationHistoryFeed />
+        {this.applicationHistoryDisplay()}
         {/* <ApplicationHistoryForm /> */}
       </div>
     )
