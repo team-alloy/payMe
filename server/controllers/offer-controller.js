@@ -19,7 +19,9 @@ module.exports = {
     }
     return db.knex('offers').where({'id': id})
     .then((offer) => {
+      console.log(hasHealthBenefits);
       hasHealthBenefits = hasHealthBenefits ? hasHealthBenefits : offer[0].hasHealthBenefits;
+      console.log(hasHealthBenefits);
       hasPTO = hasPTO ? hasPTO : offer[0].hasPTO;
       hasRetirement = hasRetirement ? hasRetirement : offer[0].hasRetirement;
       coversRelocation = coversRelocation ? coversRelocation : offer[0].coversRelocation;
@@ -28,8 +30,8 @@ module.exports = {
       .then(() => db.knex('offers').where({'id': offer[0].id}));
     })
   },
-  addOffer: (body) => {
-    var offer = JSON.parse(body.offer);
+  addOffer: (offer) => {
+
     if(!offer.id) {
       return db.knex('offers')
       .insert(offer);
@@ -37,7 +39,7 @@ module.exports = {
       throw 'error';
     }
   },
-  deleteOffer: (body) => {
+  deleteOffer: (offer) => {
 
   }
 }

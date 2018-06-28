@@ -1,13 +1,13 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import HomePage from './Homepage/HomePage.jsx';
-import MilestonePage from './Milestone/MilestonePage.jsx';
-import TipsPage from './Tips/TipsPage.jsx';
-import ApplicationHistoryPage from './Application_History/ApplicationHistoryPage.jsx';
-import Login from './Login/Login.jsx';
-import SignUp from './Signup/Signup.jsx';
-import NegotiationPracticePage from './Negotiation_Practice/NegotiationPracticePage.jsx';
+import HomePage from './Homepage/HomePage';
+import MilestonePage from './Milestone/MilestonePage';
+import TipsPage from './Tips/TipsPage';
+import ApplicationHistoryPage from './Application_History/ApplicationHistoryPage';
+import Login from './Login/Login';
+import SignUp from './Signup/Signup';
+import NegotiationPracticePage from './Negotiation_Practice/NegotiationPracticePage';
 
 
 export default class Main extends React.Component {

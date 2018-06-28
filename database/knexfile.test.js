@@ -3,7 +3,7 @@ const config = require('./knexfile');
 const knex = require('knex')(require('./knexfile.js'));
 
 test('config has the correct client type', () => {
-  expect( config.client).toBe('mysql');
+  expect(config.client).toBe('mysql');
 });
 
 test('knexfile requires you to have at lease these four keys in it\'s export: host, user, password, database', () => {
