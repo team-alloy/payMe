@@ -13,14 +13,14 @@ module.exports = {
     return db.knex.select().from('users').where(query);
   },
   signUpNewUser: (userInfo) => {
-    let {first_name, last_name, email, hash, username} = userInfo;
+    let {first_name, last_name, email, pass, username} = userInfo;
 
     first_name = capitalizeWords(first_name);
     last_name = capitalizeWords(last_name);
-    return bcrypt.hash(hash, saltRounds).then(hash => {
-      console.log('secret ', hash)
+    return bcrypt.hash(pass, saltRounds).then(pass => {
+      console.log('secret ', pass)
       return db.knex('users')
-        .insert({first_name: first_name, last_name: last_name, email: email, hash:hash, username: username});
+        .insert({first_name: first_name, last_name: last_name, email: email, hash:pass, username: username});
     });
   },
   getFullNameById: (query) => {
