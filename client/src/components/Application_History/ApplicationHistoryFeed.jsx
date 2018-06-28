@@ -1,4 +1,5 @@
 import React from 'react';
+import ApplicationHistoryFeedListView from './ApplicationHistoryFeedListView.jsx';
 
 export default class ApplicationHistoryFeed extends React.Component {
   constructor(props) {
@@ -8,7 +9,7 @@ export default class ApplicationHistoryFeed extends React.Component {
   render() {
     return (
       <div>
-        This page will render the feed for our application history and pass it down to the list view.
+        <ApplicationHistoryFeedListView />
       </div>
     )
   }

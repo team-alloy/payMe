@@ -5,10 +5,36 @@ export default class ApplicationHistoryForm extends React.Component {
     super(props);
   }
 
+  historyFormDisplay() {
+    return (
+      <div>
+        <label style={{fontWeight: 'bold'}}>Application Information:</label>
+        <form className="ui-form">
+          <div className="app-field">
+            <input className="company-name" placeholder="Company's Name"></input>
+          </div>
+          <div className="app-field">
+            <input className="position-name" placeholder="Position's Title"></input>
+          </div>
+          <div className="app-field">
+            <input className="location-name" placeholder="Company's Location"></input>
+          </div>
+          <div className="app-field">
+            <input className="date-name" placeholder="Date Applied"></input>
+          </div>
+        </form>
+      </div>
+    )
+  }
+
   render() {
     return (
       <div>
-        This page will render a form for user to fill out their application history.
+        {this.historyFormDisplay()}
+        <div className="button-container">
+          <button className="ui-button-cancel" tabIndex="0">Cancel</button>
+          <button className="ui-button-confirm" tabIndex="1">Confirm</button>
+        </div>
       </div>
     )
   }
