@@ -7,23 +7,30 @@ export default class ReminderListView extends React.Component {
 
   reminderListDisplay() {
     return (
-      <div>
-        <div className="reminder-display">
-          <li>Don't forget to buy milk!</li>
-        </div>
-
-        <div className="reminder-display">
-          <li>Interview with Google in 3 hours.</li>
-        </div>
-
-        <div className="reminder-display">
-          <li>Interview with LinkedIn in 4 days.</li>
-        </div>
-
-        <div className="reminder-display">
-          <li>Follow-up with Netflix's interview in 3 days.</li>
-        </div>
-      </div>
+      <table class="ui celled striped table">
+        <tbody>
+          <tr>
+            <div className="reminder-display">
+              <td className="single line">Don't forget to buy milk!</td>
+            </div>
+          </tr>
+          <tr>
+            <div className="reminder-display">
+              <td>Interview with Google in 3 hours.</td>
+            </div>
+          </tr>
+          <tr>
+            <div className="reminder-display">
+              <td>Interview with LinkedIn in 4 days.</td>
+            </div>
+          </tr>
+          <tr>
+            <div className="reminder-display">
+              <td>Follow-up with Netflix's interview in 3 days.</td>
+            </div>
+          </tr>
+        </tbody>
+      </table>
     )
   }
 
