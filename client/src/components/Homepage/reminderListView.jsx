@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default class reminderListView extends React.Component {
+export default class ReminderListView extends React.Component {
   constructor(props) {
     super(props);
   }

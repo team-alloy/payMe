@@ -1,5 +1,5 @@
 import React from 'react';
-import ReminderListView from './reminderListView.jsx';
+import ReminderListView from './ReminderListView';
 
 export default class Reminder extends React.Component {
   constructor(props) {

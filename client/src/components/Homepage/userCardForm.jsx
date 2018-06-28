@@ -1,5 +1,5 @@
 import React from 'react';
-import UserCard from './userCard.jsx';
+import UserCard from './UserCard';
 
 export default class UserCardForm extends React.Component {
   constructor(props) {
