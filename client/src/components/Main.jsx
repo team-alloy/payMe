@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import HomePage from './Homepage/homePage.jsx';
-import MilestonePage from './Milestone/milestonePage.jsx';
+import HomePage from './Homepage/HomePage.jsx';
+import MilestonePage from './Milestone/MilestonePage.jsx';
 import TipsPage from './Tips/tipsPage.jsx';
 import ApplicationHistoryPage from './Application_History/ApplicationHistoryPage.jsx';
 import Login from './Login/login.jsx';

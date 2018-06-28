@@ -14,10 +14,10 @@ export default class MilestoneForm extends React.Component {
           <div className="employment-history-fill-in">
             <label>Project's Name</label>
               <div className="field">
-                <input 
-                  type="text" 
-                  name="milestone[project-history]" 
-                  placeholder="Enter Your Project's Name Here!" 
+                <input
+                  type="text"
+                  name="milestone[project-history]"
+                  placeholder="Enter Your Project's Name Here!"
                 />
               </div>
           </div>
@@ -30,12 +30,12 @@ export default class MilestoneForm extends React.Component {
       <div className="job-description-fill-in">
         <label>Job Description</label>
           <div className="field">
-            <textarea 
-              rows="4" 
+            <textarea
+              rows="4"
               placeholder="Please provide a brief description regarding your project."
             ></textarea>
           </div>
-      </div>  
+      </div>
     )
   }
 
@@ -44,11 +44,11 @@ export default class MilestoneForm extends React.Component {
       <div className="tech-stack-fill-in">
         <label>Tech Stack</label>
           <div className="field">
-            <textarea 
-                rows="4" 
+            <textarea
+                rows="4"
                 placeholder="Please enter the tech stack used at your previous company, separated by commas."
-            ></textarea>    
-          </div>  
+            ></textarea>
+          </div>
       </div>
     )
   }
@@ -58,8 +58,8 @@ export default class MilestoneForm extends React.Component {
       <div className="repository-fill-in">
         <label>Repository Link</label>
           <div className="field">
-            <textarea 
-              rows="1" 
+            <textarea
+              rows="1"
               placeholder="Please enter your repository link here."
             ></textarea>
           </div>
@@ -72,8 +72,8 @@ export default class MilestoneForm extends React.Component {
       <div className="date-fill-in">
         <label>Date Completed</label>
         <div className="field">
-            <textarea 
-              rows="2" 
+            <textarea
+              rows="2"
               placeholder="Please enter the date this project was completed."
             ></textarea>
         </div>
@@ -109,5 +109,5 @@ export default class MilestoneForm extends React.Component {
       </div>
     )
   }
-  
+
 }
