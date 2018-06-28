@@ -1,5 +1,5 @@
 import React from 'react';
-import UserCard from './UserCard';
+import UserCard from './UserCard.jsx';
 
 export default class UserCardForm extends React.Component {
   constructor(props) {
@@ -80,7 +80,7 @@ export default class UserCardForm extends React.Component {
   render() {
     return (
       <div>
-        {this.userFormDisplay()}
+        {/* {this.userFormDisplay()} */}
         {this.currentDisplay()}
       </div>
     )

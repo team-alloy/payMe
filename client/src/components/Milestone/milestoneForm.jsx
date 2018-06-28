@@ -1,6 +1,6 @@
 import React from 'react';
-import MilestonePage from './MilestonePage';
-import MilestoneListView from './MilestoneListView';
+import MilestonePage from './MilestonePage.jsx';
+import MilestoneListView from './MilestoneListView.jsx';
 
 export default class MilestoneForm extends React.Component {
   constructor(props){
