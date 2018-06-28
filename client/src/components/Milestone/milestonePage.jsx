@@ -7,6 +7,13 @@ export default class MilestonePage extends React.Component {
     super(props);
   }
 
+  milestonePageDisplay() {
+    return (
+      <div>
+      </div>
+    )
+  }
+
   render() {
     return (
       <div>
