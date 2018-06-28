@@ -8,9 +8,11 @@ export default class Reminder extends React.Component {
 
   reminderContainer() {
     return (
-      <div className="reminder-container">
-        <h4>Reminders</h4>
-      </div>
+      <table class="ui celled padded table">
+        <thead>
+          <th>Reminders <i className="calendar outline icon"></i></th>
+        </thead>
+      </table>
     )
   }
 
