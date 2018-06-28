@@ -10,6 +10,22 @@ export default class MilestonePage extends React.Component {
   milestonePageDisplay() {
     return (
       <div>
+        <div className="ui four column grid">
+          <div className="column"></div>
+          <div className="column"></div>
+          <div className="column">
+            <MilestoneListView />
+          </div>
+          <div className="column"></div>
+          <div className="row">
+          <div className="column"></div>
+            <div className="column">
+              <MilestoneListView />
+            </div>
+          <div className="column"></div>
+          <div className="column"></div>
+          </div>
+        </div>
       </div>
     )
   }
@@ -17,7 +33,7 @@ export default class MilestonePage extends React.Component {
   render() {
     return (
       <div>
-        <MilestoneListView />
+        {this.milestonePageDisplay()}
       </div>
     )
   }
