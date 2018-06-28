@@ -4,16 +4,16 @@ const config = {
     user: process.env.DB_USERNAME || 'root',
     password: process.env.DB_PASSWORD || 'gotohell12',
     database: process.env.DB_NAME || 'payme',
-  }
-}
+  },
+};
 
 module.exports = {
   client: 'mysql',
   connection: {
-    host:  config.database.host,
+    host: config.database.host,
     user: config.database.user,
     password: config.database.password,
     database: config.database.database,
-    useNullAsDefault: true
-  }
+    useNullAsDefault: true,
+  },
 };
