@@ -116,6 +116,8 @@ router.route('/roles').get((req, res) => {
            88          88
            88          88
 */
+
+
 router.route('/api/applications')
 .get((req, res) => {
   application_controller.getAllApplications(req.query).then(applications => {
@@ -288,7 +290,7 @@ router.route('/api/milestones')
   })
 });
 
-router.route('/api/test').post((req, res) => {
+router.route('/api/offers').post((req, res) => {
   offer_controller.addOffer(req.body)
   .then((offers) => {
     res.status(200).json(offers);
@@ -297,14 +299,22 @@ router.route('/api/test').post((req, res) => {
     res.status(404).json(err);
   })
 }).patch((req, res) => {
-  offer_controller.updateOffer(req.body)
+  offer_controller.updateOffer(req)
   .then((offers) => {
     res.status(200).json(offers);
   })
   .catch((err) => {
     res.status(404).json(err);
   })
-});
+}).get((req, res) => {
+    offer_controller.getOffers(req.query)
+    .then((offers) => {
+      res.status(200).json(offers)
+    })
+    .catch((err) => {
+      res.status(404).json(err)
+    })
+  })
 
 
 router.route('/*').get((req, res) => {

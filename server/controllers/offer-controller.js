@@ -1,16 +1,35 @@
 const db = require('../../database/index.js');
 
 module.exports = {
-  updateOffer: (body) => {
-    var offer = JSON.parse(body.offer);
-    if(!offer.id || !offer.application_id || !offer.base_salary) {
-      throw 'need to complete nonNullable fields';
-    } else {
-      console.log('in here');
+  getOffers: (query) => {
+    if(query.id || query.application_id) {
       return db.knex('offers')
-      .where('id', offer.id)
-      .update(offer);
+      .where(query)
+      .then((offer) => offer);
+    } else {
+      return db.knex('offers');
     }
+  },
+  updateOffer: (req) => {
+    // var offer = JSON.parse(body.offer);
+    console.log(req.body, 'hello');
+    console.log(req.query, 'hello again');
+    let {application_id, base_salary, hasHealthBenefits, hasPTO, hasRetirement, coversRelocation} = req.body;
+    let {id} = req.query;
+
+    if(req.body && !application_id || !base_salary) {
+      throw 'need application_id and base_salary';
+    }
+    return db.knex('offers').where({'id': id})
+    .then((offer) => {
+      hasHealthBenefits = hasHealthBenefits ? hasHealthBenefits : offer[0].hasHealthBenefits;
+      hasPTO = hasPTO ? hasPTO : offer[0].hasPTO;
+      hasRetirement = hasRetirement ? hasRetirement : offer[0].hasRetirement;
+      coversRelocation = coversRelocation ? coversRelocation : offer[0].coversRelocation;
+      return db.knex('offers').where({'id': id})
+      .update({application_id, base_salary, hasHealthBenefits, hasPTO, hasRetirement, coversRelocation})
+      .then(() => db.knex('offers').where({'id': offer[0].id}));
+    })
   },
   addOffer: (body) => {
     var offer = JSON.parse(body.offer);
