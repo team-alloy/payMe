@@ -10,19 +10,16 @@ export default class MilestoneForm extends React.Component {
 
   projectDisplay() {
     return (
-      <div className="previous-company-fill-in">
-        <label>Previous Project(s)</label>
-          <div className="employment-history-fill-in">
-            <label>Project's Name</label>
-              <div className="field">
-                <textarea
-                  rows="1"
-                  cols="32"
-                  type="text"
-                  name="milestone[project-history]"
-                  placeholder="Enter Your Project's Name Here!"
-                ></textarea>
-              </div>
+      <div className="employment-history-fill-in">
+        <label>Project's Name</label>
+          <div className="field">
+            <textarea
+              rows="1"
+              cols="32"
+              type="text"
+              name="milestone[project-history]"
+              placeholder="Enter Your Project's Name Here!"
+            ></textarea>
           </div>
       </div>
     )
