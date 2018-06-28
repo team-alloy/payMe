@@ -10,12 +10,12 @@ export default class TipsPage extends React.Component {
   render() {
     return (
       <div className="ui column stackable center page grid">
-        <div class="two column row">
-          <div class="column">
+        <div className="two column row">
+          <div className="column">
             <img src="/images/statistic_example.jpg" style={{width: 450, height: 300}}/>
             <TipsStatistic/>
           </div>
-          <div class="column"><TipsListContainer/></div>
+          <div className="column"><TipsListContainer/></div>
         </div>
       </div>
     )

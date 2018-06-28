@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form, Grid, Header, Image, Message, Segment } from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -19,7 +19,7 @@ export default class Login extends React.Component {
           `}</style>
           <Grid textAlign='center' style={{ height: '100%' }} verticalAlign='middle'>
             <Grid.Column style={{ maxWidth: 450 }}>
-              <Header as='h2' color='green' textAlign='center'>
+              <Header as='h2' color='teal' textAlign='center'>
                 Please log in!
               </Header>
               <Form size='large'>
@@ -32,7 +32,7 @@ export default class Login extends React.Component {
                     placeholder='Password'
                     type='password'
                   />
-                  <Button color='green' fluid size='large'>
+                  <Button color='teal' fluid size='large'>
                     Login
                   </Button>
                 </Segment>
