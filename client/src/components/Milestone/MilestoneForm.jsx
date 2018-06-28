@@ -1,6 +1,7 @@
 import React from 'react';
 import MilestonePage from './MilestonePage.jsx';
 import MilestoneListView from './MilestoneListView.jsx';
+import $ from 'jquery';
 
 export default class MilestoneForm extends React.Component {
   constructor(props){
@@ -14,11 +15,13 @@ export default class MilestoneForm extends React.Component {
           <div className="employment-history-fill-in">
             <label>Project's Name</label>
               <div className="field">
-                <input
+                <textarea
+                  rows="1"
+                  cols="32"
                   type="text"
                   name="milestone[project-history]"
                   placeholder="Enter Your Project's Name Here!"
-                />
+                ></textarea>
               </div>
           </div>
       </div>
@@ -31,7 +34,8 @@ export default class MilestoneForm extends React.Component {
         <label>Job Description</label>
           <div className="field">
             <textarea
-              rows="4"
+              rows="3"
+              cols="32"
               placeholder="Please provide a brief description regarding your project."
             ></textarea>
           </div>
@@ -46,6 +50,7 @@ export default class MilestoneForm extends React.Component {
           <div className="field">
             <textarea
                 rows="4"
+                cols="32"
                 placeholder="Please enter the tech stack used at your previous company, separated by commas."
             ></textarea>
           </div>
@@ -60,6 +65,7 @@ export default class MilestoneForm extends React.Component {
           <div className="field">
             <textarea
               rows="1"
+              cols="32"
               placeholder="Please enter your repository link here."
             ></textarea>
           </div>
@@ -72,10 +78,11 @@ export default class MilestoneForm extends React.Component {
       <div className="date-fill-in">
         <label>Date Completed</label>
         <div className="field">
-            <textarea
-              rows="2"
-              placeholder="Please enter the date this project was completed."
-            ></textarea>
+            <input type="date"
+              rows="1"
+              cols="32"
+              placeholder="Please enter the date for this project."
+            ></input>
         </div>
       </div>
     )
