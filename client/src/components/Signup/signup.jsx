@@ -48,7 +48,7 @@ export default class SignUp extends React.Component {
 
           <br></br>
 
-          <button className="small teal basic ui button" tabindex="0" type="submit">
+          <button className="small teal basic ui button" tabIndex="0" type="submit">
             <a href='/login'>Login With Your New Account</a>
           </button>
         </form>
