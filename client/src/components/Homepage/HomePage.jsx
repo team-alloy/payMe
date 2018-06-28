@@ -8,36 +8,13 @@ export default class HomePage extends React.Component {
     super(props);
   }
 
-  // homePageDisplay() {
-  //   return (
-  //     <div>
-  //       <div className="ui internally celled grid">
-  //         <div className="row">
-  //           <div className="three wide column">
-  //             <UserCardForm />
-  //           </div>
-  //           <div className="ten wide column">
-  //             <Reminder />
-  //           </div>
-  //         </div>
-  //         <div className="row">
-  //           <div className="three wide column">
-  //           </div>
-  //           <div className="ten wide column">
-  //             <TipOfTheDay />
-  //           </div>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   )
-  // }
-
   homePageDisplay() {
     return (
       <div>
         <div className="ui two column grid">
           <div className="two column row">
             <div className="three wide column">
+              <img src="/images/gitchardhubbard.png"></img>
               <UserCardForm />
             </div>
             <div className="ten wide column">
