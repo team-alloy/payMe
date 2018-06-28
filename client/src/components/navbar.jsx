@@ -13,7 +13,7 @@ export default class NavBar extends React.Component {
       <div>
         <Header />
         <center>
-          <img src="/images/opening.png" style={{width: 400, height: 100}}/>
+          <img src="/images/opening.png" style={{width: 400, height: 150}}/>
         </center>  
         <div className="ui segment"> 
           <div>
