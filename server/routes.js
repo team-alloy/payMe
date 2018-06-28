@@ -9,6 +9,7 @@ const company_controller = require('./controllers/company-controller.js');
 const role_controller = require('./controllers/role-controller.js');
 const milestone_controller = require('./controllers/milestone-controller.js');
 const application_controller = require('./controllers/application-controller.js');
+const offer_controller = require('./controllers/offer-controller.js');
 
 let currentSession;
 
@@ -115,13 +116,15 @@ router.route('/roles').get((req, res) => {
            88          88
            88          88
 */
+
+
 router.route('/api/applications')
 .get((req, res) => {
   application_controller.getAllApplications(req.query).then(applications => {
     Promise.all(applications).then(applications => res.json(applications))
   });
 })
-.post((req, res) => {
+.post((req, res) => {// req.body.offer
   application_controller.saveNewApplication(req.body).then(app => {
     Promise.all(app).then(app => {
       res.status(200).json(app);
@@ -286,6 +289,32 @@ router.route('/api/milestones')
     res.status(404).json(err);
   })
 });
+
+router.route('/api/offers').post((req, res) => {
+  offer_controller.addOffer(req.body)
+  .then((offers) => {
+    res.status(200).json(offers);
+  })
+  .catch((err) => {
+    res.status(404).json(err);
+  })
+}).patch((req, res) => {
+  offer_controller.updateOffer(req)
+  .then((offers) => {
+    res.status(200).json(offers);
+  })
+  .catch((err) => {
+    res.status(404).json(err);
+  })
+}).get((req, res) => {
+    offer_controller.getOffers(req.query)
+    .then((offers) => {
+      res.status(200).json(offers)
+    })
+    .catch((err) => {
+      res.status(404).json(err)
+    })
+  })
 
 
 router.route('/*').get((req, res) => {

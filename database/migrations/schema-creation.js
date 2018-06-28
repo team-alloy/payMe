@@ -34,7 +34,7 @@ exports.up = (knex, Promise) => {
       table.increments('id').primary().notNullable();
       table.integer('application_id').unsigned().references('id').inTable('applications').notNullable();
       table.integer('base_salary').notNullable();
-      table.boolean('hasHealthBeneits');
+      table.boolean('hasHealthBenefits');
       table.boolean('hasPTO');
       table.boolean('hasRetirement');
       table.boolean('coversRelocation');
