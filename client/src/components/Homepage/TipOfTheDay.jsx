@@ -7,14 +7,16 @@ export default class TipOfTheDay extends React.Component {
 
   TipOfTheDayDisplay() {
     return (
-      <div>
-        <div className="tip-header">
-          <h4>Tip of the Day</h4>
-        </div>
-        <div className="tip-container">
-          Getting a good night sleep is a key to a good interview!
-        </div>
-      </div>
+      <table class="ui celled padded table">
+        <thead>
+          <th>Tip of the Day</th>
+        </thead>
+        <tbody>
+          <div className="tip-container">
+            <td>Getting a good night sleep is a key to a good interview!</td>
+          </div>
+        </tbody>
+      </table>
     )
   }
 
