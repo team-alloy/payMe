@@ -10,7 +10,7 @@ export default class Header extends React.Component {
     return (
       <div className="ui top grey inverted seven item menu">
         <div className="item">
-            <img src="/images/logo.png" style={{width: 75, height: 75}}/>
+        <Link to="/"><img src="/images/logo.png" style={{width: 75, height: 75}}/></Link>
         </div>
         <div className="item">
             <Link to="/">Home</Link>
