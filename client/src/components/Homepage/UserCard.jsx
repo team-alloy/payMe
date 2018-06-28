@@ -9,11 +9,11 @@ export default class UserCard extends React.Component {
     return (
       <div>
         <div className="name-display">
-          <label style={{fontWeight: 'bold'}}>Gichard Hubbard</label>
+          <label style={{fontWeight: 'bold'}}>Gitchard Hubbard</label>
         </div>
 
         <div className="email-display">
-          <label style={{fontWeight: 'bold'}}>Email: </label>SirGichardHubbard@gmail.com
+          <label style={{fontWeight: 'bold'}}>Email: </label>SirGitchardHubbard@gmail.com
         </div>
 
         <div className="position-display">
