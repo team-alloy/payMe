@@ -1,5 +1,5 @@
 import React from 'react';
-import TipsListView from './tipsListView.jsx';
+import TipsListView from './TipsListView';
 
 export default class TipsListContainer extends React.Component {
   constructor(props) {
