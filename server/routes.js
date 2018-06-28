@@ -3,12 +3,14 @@ const path = require('path');
 const staticFile = path.join(__dirname + '/../client/dist/index.html');
 const db = require('../database/index.js');
 
+const utils = require('./services/utils.js');
 const user_controller = require('./controllers/user-controller.js');
 const company_controller = require('./controllers/company-controller.js');
 const role_controller = require('./controllers/role-controller.js');
 const milestone_controller = require('./controllers/milestone-controller.js');
 const application_controller = require('./controllers/application-controller.js');
 
+let currentSession;
 
 /*
 
@@ -26,27 +28,51 @@ a8"     "" a8"     "8a 88P'   "88"    "8a 88P'    "8a ""     `Y8 88P'   `"8a 88 
 */router.route('/api/companies')
 .get((req, res) => {
   // make it work with names too.
-  if(req.query.id) {
-    let {id} = req.query;
+  if (req.query.id) {
+    let { id } = req.query;
     company_controller
-      .getCompanyById({ id: id})
+      .getCompanyById({ id: id })
       .then(company => {
-        if(!company.length) {
+        if (!company.length) {
           throw ('No records found for this company');
         }
-        let {id} = company[0];
+        let { id } = company[0];
         return role_controller
-          .getRolesForCompany({company_id: id})
+          .getRolesForCompany({ company_id: id })
           .then(roles => {
             console.log('!!!!!!!!!!!1', roles)
             company[0].roles = roles;
-            // console.log('roles added? ', company);
             return company;
           });
       }).then(company => {
         res.json(company);
       }).catch(err => {
-        res.status(404).json({error: err});
+        res.status(404).json({ error: err });
+      });
+  } else if(req.query.name) {
+    let { name } = req.query;
+
+    name = name.toLowerCase().split(' ').map(word => {
+      return word[0].toUpperCase().concat(word.substr(1));
+    }).join(' ');
+    company_controller
+      .getCompanyByName({ name: name })
+      .then(company => {
+        if (!company.length) {
+          throw ('No records found for this company');
+        }
+        let { id } = company[0];
+        return role_controller
+          .getRolesForCompany({ company_id: id })
+          .then(roles => {
+            console.log('!!!!!!!!!!!1', roles)
+            company[0].roles = roles;
+            return company;
+          });
+      }).then(company => {
+        res.json(company);
+      }).catch(err => {
+        res.status(404).json({ error: err });
       });
   } else {
     company_controller
@@ -103,7 +129,7 @@ router.route('/api/applications')
   })
 })
 .patch((req, res) => {
-  application_controller.updateApplication(req.body).then(application => {
+  application_controller.updateApplication(req).then(application => {
     return application_controller.getAllApplications({id: application[0].id}).then(app => {
       return Promise.all(app).then(app => res.status(201).json(app));
     });
@@ -123,15 +149,22 @@ router.route('/api/applications')
 
 */
 router.route('/api/user')
-  .get( (req, res) => {
-    if(!req.query) {
-      user_controller.findAllUsers()
-        .then(users => res.status(200).json(users))
-        .catch(err => res.status(400).json(err));
+  .get((req, res) => {
+    console.log(req.session)
+    let check = utils.isLoggedIn(currentSession, res);
+    console.log(check)
+    if(check && !check.error) {
+      if (!req.query) {
+        user_controller.findAllUsers()
+          .then(users => res.status(200).json(users))
+          .catch(err => res.status(400).json(err));
+      } else {
+        user_controller.findOneUser(req.query)
+          .then(user => res.status(200).json(user))
+          .catch(err => res.status(400).json(err));
+      }
     } else {
-      user_controller.findOneUser(req.query)
-      .then(user => res.status(200).json(user))
-      .catch(err => res.status(400).json(err));
+      res.status(400).json(check);
     }
   })
   .patch((req, res) => {
@@ -172,7 +205,7 @@ router.route('/api/user')
 ;
 
 router.route('/api/signup')
-.post( (req, res) => {
+.post((req, res) => {
 
   if(!req.body.email) {
     res.status(404).json({ error: 'An account needs an email'});
@@ -195,10 +228,26 @@ router.route('/api/login')
 .post( (req, res) => {
 
   user_controller.checkCredentials(req).then(session => {
-    res.status(200).json(session);
+    console.log('hey', session)
+    currentSession = session;
+    res.status(200).send(currentSession);
   })
   .catch( err => res.status(404).json({ error: err}));
 })
+
+router.route('/api/logout')
+.get((req, res) => {
+  console.log('hey', currentSession)
+  currentSession = req.session.destroy((err) => {
+    if(err) {
+      res.status(400).json(err);
+    } else {
+      console.log(currentSession, '11111111')
+      res.status(200).json({ message: 'Good Bye!', path: '/login' });
+    }
+  });
+
+});
 /*
                    88 88
                    "" 88                        ,d

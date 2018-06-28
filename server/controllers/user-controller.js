@@ -162,9 +162,9 @@ module.exports = {
         return bcrypt.compare(query.body.password, user[0].hash).then( res => {
           if(res) {
             let session = query.session.regenerate( () => {
-              return;
+              session.user = user[0];
+              return session;
             });
-            session.user = user[0];
             console.log(session);
             return session;
             // create session and return it.
