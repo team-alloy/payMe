@@ -33,11 +33,14 @@ module.exports = {
     let loc = capitalizeWords(values.location);
     let salary = Number(values.salary) === NaN ? 0: values.salary;
 
+    // get the company information
     return company_controller.getCompanyByName({ name: name})
     .then(company => {
+      //if it does not exist
       if(!company.length) {
-        //create new company if one does not exist
+        //create new company
         return company_controller.saveNewCompany({ name: name }).then(id => {
+          //return index of company
           return Promise.all(id).then(id => id[0]);
         });
       } else {
@@ -64,14 +67,14 @@ module.exports = {
   },
   updateApplication: (params) => {
     console.warn(params)
-    let {id, location, company, salary, role} = params;
-
+    let { location, company, salary, role } = params.body;
+    let { id } = params.query;
     location = capitalizeWords(location);
     company = capitalizeWords(company);
     role = capitalizeWords(role);
     salary = isNaN(salary) === NaN ? 0 : salary;
 
-    return db.knex('applications').where({id: id}).then(application => {
+    return db.knex('applications').where({ id: id }).then(application => {
       application[0].location !== location ? updateLocation({id: application[0].id}, location) : undefined;
       updateRole({id: application[0].role_id}, role, company, salary);
       return application;
