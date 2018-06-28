@@ -11,22 +11,17 @@ export default class ReminderListView extends React.Component {
         <tbody>
           <tr>
             <div className="reminder-display">
-              <td className="single line">Don't forget to buy milk!</td>
+              <td className="single line">Have you made any interesting updates on the Hello Fresh project?</td>
             </div>
           </tr>
           <tr>
             <div className="reminder-display">
-              <td>Interview with Google in 3 hours.</td>
+              <td>Have you heard back from Google? It may be time to update your application.</td>
             </div>
           </tr>
           <tr>
             <div className="reminder-display">
-              <td>Interview with LinkedIn in 4 days.</td>
-            </div>
-          </tr>
-          <tr>
-            <div className="reminder-display">
-              <td>Follow-up with Netflix's interview in 3 days.</td>
+              <td>Did you do anything interesting recently for a project? Make a new milestone and let's keep track</td>
             </div>
           </tr>
         </tbody>
