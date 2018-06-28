@@ -7,7 +7,7 @@ export default class SignUp extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="ui column stackable center page grid">
         <h2>Register</h2>
         <h5>...to get that raise you deserve</h5>
         <br></br>

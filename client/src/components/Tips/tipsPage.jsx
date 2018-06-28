@@ -9,7 +9,8 @@ export default class TipsPage extends React.Component {
 
   render() {
     return (
-      <div className='ui column stackable center page grid'>
+      <div className="ui column stackable center page grid">
+        <img src="/images/statistic_example.jpg" style={{width: 700, height: 500}}/>
         <TipsStatistic/>
         <TipsListContainer/>
       </div>
