@@ -9,8 +9,13 @@ export default class MilestonePage extends React.Component {
 
   milestonePageDisplay() {
     return (
-        <div className="ui four column grid">
-          <div className="column"></div>
+        <div className="ui three column grid">
+          <div className="column">
+            <MilestoneForm />
+          </div>
+          <div className="column">
+            <MilestoneListView />
+          </div>
           <div className="column">
             <MilestoneListView />
           </div>

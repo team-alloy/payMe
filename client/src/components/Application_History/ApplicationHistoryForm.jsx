@@ -8,19 +8,23 @@ export default class ApplicationHistoryForm extends React.Component {
   historyFormDisplay() {
     return (
       <div>
-        <label style={{fontWeight: 'bold'}}>Application Information:</label>
+        <h4>Application Information:</h4>
         <form className="ui-form">
+          <label>Company's Name</label>
           <div className="app-field">
-            <input className="company-name" placeholder="Company's Name"></input>
+            <textarea className="company-name" placeholder="Company's Name"></textarea>
           </div>
+          <label>Position's Title</label>
           <div className="app-field">
-            <input className="position-name" placeholder="Position's Title"></input>
+            <textarea className="position-name" placeholder="Position's Title"></textarea>
           </div>
+          <label>Company's Location</label>
           <div className="app-field">
-            <input className="location-name" placeholder="Company's Location"></input>
+            <textarea className="location-name" placeholder="Company's Location"></textarea>
           </div>
+          <label>Date Applied</label>
           <div className="app-field">
-            <input className="date-name" placeholder="Date Applied"></input>
+            <input className="date-name" type="date"></input>
           </div>
         </form>
       </div>

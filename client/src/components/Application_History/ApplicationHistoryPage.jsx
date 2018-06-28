@@ -10,16 +10,15 @@ export default class ApplicationHistoryPage extends React.Component{
   applicationHistoryDisplay() {
     return (
       <div>
-        <div className="ui four column centered grid">
+        <div className="ui three column grid">
             <div className="column">
+              <ApplicationHistoryForm />
             </div>
             <div className="column">
               <ApplicationHistoryFeed />
             </div>
             <div className="column">
               <ApplicationHistoryFeed />
-            </div>
-            <div className="column">
             </div>
         </div>
       </div>

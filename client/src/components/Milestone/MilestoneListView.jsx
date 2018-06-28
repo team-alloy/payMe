@@ -83,7 +83,7 @@ export default class MilestoneListView extends React.Component {
       <div>
         <table className="ui single line table">
           <thead>
-            <th>Milestones and Achievements</th>
+            <tr><td>Milestones and Achievements</td></tr>
           </thead>
         </table>
         {this.projectDisplayView()}
