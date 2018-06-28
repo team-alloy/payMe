@@ -32,6 +32,7 @@ module.exports = {
   },
   addOffer: (offer) => {
 
+
     if(!offer.id) {
       return db.knex('offers')
       .insert(offer);
