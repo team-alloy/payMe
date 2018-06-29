@@ -9,7 +9,6 @@ export default class UserCard extends React.Component {
   }
 
   render() {
-    console.log(this.props, 'freaking A')
     return (
       <div>
         <div className="name-display">
@@ -20,28 +19,28 @@ export default class UserCard extends React.Component {
 
         <div className="email-display">
           <label htmlFor="email" style={{ fontWeight: 'bold' }}>
-            Email:
+            {'Email: '}
           </label>
           SirGitchardHubbard@gmail.com
         </div>
 
         <div className="position-display">
           <label htmlFor="position" style={{ fontWeight: 'bold' }}>
-            Position:
+            {'Position: '}
           </label>
           Software Engineer
         </div>
 
         <div className="employer-display">
           <label htmlFor="employer" style={{ fontWeight: 'bold' }}>
-            Employer:
+            {'Employer: '}
           </label>
           Google
         </div>
 
         <div className="salary-display">
           <label htmlFor="salary" style={{ fontWeight: 'bold' }}>
-            Current Salary:
+            {'Current Salary: '}
           </label>
           $105,000
         </div>
