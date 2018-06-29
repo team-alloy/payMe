@@ -1,8 +1,10 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import axios from 'axios';
-
-export default class Login extends React.Component {
+import { bindActionCreators } from 'redux';
+import login from '../../store/reducers/userReducer'
+class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,6 +38,7 @@ export default class Login extends React.Component {
   }
 
   render() {
+    console.log(this.props, 'woot');
     return (
       <div>
         <div className="login-form">
@@ -84,3 +87,14 @@ export default class Login extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {test: state}
+}
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({
+    login
+  })
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Login);
