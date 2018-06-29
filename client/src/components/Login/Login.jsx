@@ -1,8 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import axios from 'axios';
-
-export default class Login extends React.Component {
+import { bindActionCreators } from 'redux';
+import {setSession} from '../../store/actions/userActions';
+import $ from 'jquery';
+class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -24,14 +27,20 @@ export default class Login extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    axios({
-      method:'post',
-      url: '/api/login',
-      data: this.state
-    });
-    this.setState({
-      email: '',
-      password: ''
+
+    axios.post('/api/login', this.state).then(response => {
+      this.props.setSession(response.data);
+      this.setState({
+        email: '',
+        password: ''
+      })
+      this.props.history.push('/');
+    }).catch(err => {
+      // dynamic error handling for login
+      $('#message').text(err.response.data.error);
+      setTimeout(() => {
+        $('#message').text("Please log in!");
+      }, 1500);
     })
   }
 
@@ -50,7 +59,7 @@ export default class Login extends React.Component {
           </style>
           <Grid textAlign="center" style={{ height: '100%' }} verticalAlign="middle">
             <Grid.Column style={{ maxWidth: 450 }}>
-              <Header as="h2" color="teal" textAlign="center">
+              <Header as="h2" id="message" color="teal" textAlign="center">
                 Please log in!
               </Header>
               <Form size="large">
@@ -84,3 +93,14 @@ export default class Login extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {session: state.user}
+}
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({
+    setSession
+  }, dispatch)
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

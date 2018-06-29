@@ -1,6 +1,6 @@
 import React from 'react';
 import UserCard from './UserCard';
-
+import { connect } from 'react-redux';
 export default class UserCardForm extends React.Component {
   constructor(props) {
     super(props);
@@ -78,9 +78,10 @@ export default class UserCardForm extends React.Component {
   }
 
   render() {
+    console.log(this.props, 'testing')
     const { display } = this.state;
     if (display === 'default') {
-      return <UserCard />;
+      return <UserCard user={this.props.session.user}/>;
     }
     return (null);
   }
