@@ -80,8 +80,7 @@ class Login extends React.Component {
                 </Segment>
               </Form>
               <Message>
-                New User?
-                {' '}
+                {'New User? '}
                 <a href="/signup">
                   Sign Up to Get That Bonus!
                 </a>
