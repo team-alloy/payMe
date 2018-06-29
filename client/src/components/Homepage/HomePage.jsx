@@ -1,8 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import UserCardForm from './UserCardForm';
 import TipOfTheDay from './TipOfTheDay';
 import Reminder from './Reminder';
-import { connect } from 'react-redux';
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -13,11 +13,13 @@ class HomePage extends React.Component {
   }
 
   render() {
-    if(!this.props.session.user) {
+    if (!this.props.session.user) {
       this.props.history.push('/login');
-      return(<div>Redirecting</div>);
-    } else {
-      console.log(this.props, 'hello')
+      return (
+        <div>
+         Redirecting
+        </div>);
+    } 
       return (
         <div>
           <div className="ui two column grid">
@@ -39,7 +41,7 @@ class HomePage extends React.Component {
           </div>
         </div>
       );
-    }
+    
   }
 }
 const mapStateToProps = (state) => {
