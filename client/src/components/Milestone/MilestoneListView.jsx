@@ -6,7 +6,7 @@ export default class MilestoneListView extends React.Component {
     super(props);
     this.state = {
       display: 'default',
-    }
+    };
   }
 
   projectDisplayView() {
@@ -69,13 +69,15 @@ export default class MilestoneListView extends React.Component {
     )
   }
 
-  //this function will invoke our state change
+  // this function will invoke our state change
   formUpdate() {
     return (
       <div className="edit-button-container">
-        <button className="ui-button-edit" tabIndex="0" onClick={() => {this.displayChanger()}}>Update</button>
+        <button className="ui-button-edit" type="submit" onClick={() => { this.displayChanger(); }}>
+          Update
+        </button>
       </div>
-    )
+    );
   }
 
   milestoneDisplayView() {
@@ -92,39 +94,31 @@ export default class MilestoneListView extends React.Component {
         {this.dateDisplay()}
         {this.formUpdate()}
       </div>
-    )
+    );
   }
 
-  //this function will change the state from default to form
+  // this function will change the state from default to form
   displayChanger() {
     this.setState({
       display: 'form',
-    })
+    });
   }
 
-  //this function will render the default view or editable form depending on the state
-  milestoneFormView() {
+  render() {
     const {display} = this.state;
     if (display === 'default') {
       return (
         <div>
           {this.milestoneDisplayView()}
         </div>
-      )
-    } else if (display === 'form') {
+      );
+    } if (display === 'form') {
       return (
         <div>
           <MilestoneForm currentFormState={this.state}/>
         </div>
-      )
+      );
     }
-  }
-
-  render() {
-    return (
-      <div>
-        {this.milestoneFormView()}
-      </div>
-    )
+    return (null);
   }
 }
