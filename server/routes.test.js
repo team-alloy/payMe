@@ -23,7 +23,6 @@ describe('POST', () => {
   })
 })
 
-
 describe('GET request', () => {
   describe('users', () => {
     test('It should connect to user GET', () => {
