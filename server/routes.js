@@ -221,7 +221,6 @@ router.route('/api/signup')
 
   user_controller.signUpNewUser(req.body)
   .then(newUser => {
-    console.log(newUser,'route');
     res.status(200).json('user created')})
   .catch(err => {
     res.status(404).json({error: err.sqlMessage});
@@ -230,9 +229,7 @@ router.route('/api/signup')
 
 router.route('/api/login')
 .post( (req, res) => {
-
   user_controller.checkCredentials(req).then(session => {
-    console.log('hey', session)
     currentSession = session;
     res.status(200).send(currentSession);
   })
