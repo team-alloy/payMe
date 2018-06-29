@@ -1,5 +1,5 @@
 import React from 'react';
-import ApplicationHistoryFeedListView from './ApplicationHistoryFeedListView.jsx';
+import ApplicationHistoryFeedListView from './ApplicationHistoryFeedListView';
 
 export default class ApplicationHistoryFeed extends React.Component {
   constructor(props) {

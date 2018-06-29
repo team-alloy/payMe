@@ -1,14 +1,10 @@
 import React from 'react';
-import $ from 'jquery';
 import { connect } from 'react-redux';
-import {
-  Button, Form, Grid, Header, Message, Segment,
-} from 'semantic-ui-react';
-
+import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
-import { setSession } from '../../store/actions/userActions';
-
+import {setSession} from '../../store/actions/userActions';
+import $ from 'jquery';
 
 class Login extends React.Component {
   constructor(props) {
@@ -23,10 +19,10 @@ class Login extends React.Component {
 
   handleChange(e) {
     e.preventDefault();
-    const { name } = e.target.name;
-    const { value } = e.target.value;
+    const name  = e.target.name;
+    const value = e.target.value;
     this.setState({
-      [name]: value,
+      [name]: value
     });
   }
 
@@ -99,7 +95,7 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return {session: state.user}
+  return { session: state.user }
 }
 
 const mapDispatchToProps = (dispatch) => { 

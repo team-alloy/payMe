@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import ReminderListView from './ReminderListView';
 
 export default class Reminder extends React.Component {
@@ -11,17 +11,9 @@ export default class Reminder extends React.Component {
 
   render() {
     return (
-      <div>
-        <table className="ui celled padded table">
-          <thead>
-            <th>
-              Reminders
-              <i className="calendar outline icon" />
-            </th>
-          </thead>
-        </table>
+      <Fragment>
         <ReminderListView />
-      </div>
+      </Fragment>
     );
   }
 }
