@@ -26,6 +26,6 @@ export default class ApplicationHistoryPage extends React.Component {
         </div>
         {/* <ApplicationHistoryForm /> */}
       </div>
-    )
+    );
   }
 }
