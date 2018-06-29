@@ -156,19 +156,35 @@ export default class NegotiationPracticeVideo extends React.Component {
 		) : (
 			''
 		);
-		
-    return (
-      
+		// Hide 'Join Room' button if user has already joined a room.
+		let joinOrLeaveRoomButton = this.state.hasJoinedRoom ? (
+			<button className="ui button" secondary={true} onClick={this.leaveRoom}>
+        Leave Room
+      </button>
+		) : (
+			<button className="ui button" primary={true} onClick={this.joinRoom}>
+        Join Room
+      </button>
+		);
+		return (
+			<div className="ui card">
+				<div className="content">
 					<div className="flex-container">
 						{showLocalTrack}
 						<div className="flex-item">
-            
+							<div className="ui input"
+								onChange={this.handleRoomNameChange}
+								errorText={this.state.roomNameErr ? 'Room Name is required' : undefined}
+							>
+                <input type="text" placeholder="Room Name" />
+              </div>
 							<br />
-	
+							{joinOrLeaveRoomButton}
 						</div>
 						<div className="flex-item" ref="remoteMedia" id="remote-media" />
 					</div>
-			
+				</div>
+			</div>
     );
   }
 }
