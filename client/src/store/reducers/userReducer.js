@@ -1,11 +1,12 @@
-import { LOGIN } from '../actions/userActions';
+import { SET_SESSION } from '../actions/userActions';
 
-export default (state ={}, action) => {
+export default (state = {}, action) => {
+  console.log('action', action)
   switch(action.type) {
-    case LOGIN : {
-      console.log(action.payload)
-      return action.payload.data;
-    };
+    case SET_SESSION : {
+
+      return Object.assign({}, state, action.payload);
+    }
     default: return state;
   }
 }

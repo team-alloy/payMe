@@ -229,6 +229,14 @@ router.route('/api/signup')
 
 router.route('/api/login')
 .post( (req, res) => {
+  if (!req.body.email ) {
+    res.status(400).json({ error: 'email must be provided' });
+  }
+
+  if (!req.body.password) {
+    res.status(400).json({ error: 'password must be provided' });
+  }
+
   user_controller.checkCredentials(req).then(session => {
     currentSession = session;
     res.status(200).send(currentSession);

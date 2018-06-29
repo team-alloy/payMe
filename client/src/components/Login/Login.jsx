@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
-import {login} from '../../store/actions/userActions';
+import {setSession} from '../../store/actions/userActions';
+import $ from 'jquery';
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -26,10 +27,16 @@ class Login extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    this.props.login(this.state)
-    this.setState({
-      email: '',
-      password: ''
+
+    axios.post('/api/login', this.state).then(response => {
+      this.props.setSession(response.data);
+      this.setState({
+        email: '',
+        password: ''
+      })
+      this.props.history.push('/');
+    }).catch(err => {
+      console.error(err.response.data.error);
     })
   }
 
@@ -90,7 +97,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({
-    login
+    setSession
   }, dispatch)
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

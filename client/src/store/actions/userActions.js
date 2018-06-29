@@ -1,11 +1,9 @@
-import axios from 'axios';
+export const SET_SESSION = 'SET_SESSION';
 
-export const LOGIN = 'LOGIN';
-
-export const login = (credentials) => {
-  const request = axios.post('/api/login', credentials).then(sess => sess);
+export const setSession = (session) => {
+  console.log(session)
   return {
-    type: LOGIN,
-    payload: request
+    type: SET_SESSION,
+    payload: session
   }
 };

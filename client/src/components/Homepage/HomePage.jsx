@@ -2,8 +2,9 @@ import React from 'react';
 import UserCardForm from './UserCardForm';
 import TipOfTheDay from './TipOfTheDay';
 import Reminder from './Reminder';
+import { connect } from 'react-redux';
 
-export default class HomePage extends React.Component {
+class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -12,6 +13,10 @@ export default class HomePage extends React.Component {
   }
 
   render() {
+    if(!this.props.session.user) {
+      this.props.history.push('/login');
+    }
+
     return (
       <div>
         <div className="ui two column grid">
@@ -35,3 +40,7 @@ export default class HomePage extends React.Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return { session: state.user }
+}
+export default connect(mapStateToProps)(HomePage);
