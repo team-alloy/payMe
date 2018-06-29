@@ -1,5 +1,5 @@
 const db = require('../../database/index.js');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const saltRounds = 10;
 
 const role_controller = require('./role-controller.js');
