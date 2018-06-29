@@ -1,18 +1,18 @@
 import React from 'react';
-import UserCard from './UserCard.jsx';
+import UserCard from './UserCard';
 
 export default class UserCardForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       display: 'default',
-    }
+    };
   }
 
   displayChanger() {
     this.setState({
       display: 'form',
-    })
+    });
   }
 
   currentDisplay() {
@@ -20,7 +20,7 @@ export default class UserCardForm extends React.Component {
     if (display === 'default') {
       return (
         <UserCard />
-      )
+      );
     }
   }
 
@@ -78,11 +78,10 @@ export default class UserCardForm extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        {/* {this.userFormDisplay()} */}
-        {this.currentDisplay()}
-      </div>
-    )
+    const { display } = this.state;
+    if (display === 'default') {
+      return <UserCard />;
+    }
+    return (null);
   }
 }

@@ -1,5 +1,7 @@
 import React from 'react';
-import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
+import {
+  Button, Form, Grid, Header, Message, Segment,
+} from 'semantic-ui-react';
 
 export default class Login extends React.Component {
   constructor(props) {
@@ -45,7 +47,7 @@ export default class Login extends React.Component {
                 New User?
                 {' '}
                 <a href="/signup">
-                   Sign Up to Get That Bonus!
+                  Sign Up to Get That Bonus!
                 </a>
               </Message>
             </Grid.Column>

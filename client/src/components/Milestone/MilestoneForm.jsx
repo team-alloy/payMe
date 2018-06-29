@@ -4,8 +4,11 @@ import MilestoneListView from './MilestoneListView.jsx';
 import $ from 'jquery';
 
 export default class MilestoneForm extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
+    this.state = {
+
+    };
   }
 
   projectDisplay() {
@@ -85,33 +88,30 @@ export default class MilestoneForm extends React.Component {
     )
   }
 
-  milestoneDisplayForm() {
+  render() {
     return (
       <div>
         <form className="ui-form">
-          <h4 className="ui-title-header">Career Milestones and Achievements</h4>
+          <h4 className="ui-title-header">
+            Career Milestones and Achievements
+          </h4>
           <div className="employment-history-field">
             {this.projectDisplay()}
             {this.jobDescriptionDisplay()}
             {this.techStackDisplay()}
             {this.repositoryDisplay()}
             {this.dateDisplay()}
-          <div className="button-container">
-            <button className="ui-button-cancel" tabIndex="0">Cancel</button>
-            <button className="ui-button-confirm" tabIndex="1">Confirm</button>
-          </div>
+            <div className="button-container">
+              <button className="ui-button-cancel" type="reset">
+                Cancel
+              </button>
+              <button className="ui-button-confirm" type="submit">
+                Confirm
+              </button>
+            </div>
           </div>
         </form>
       </div>
-    )
+    );
   }
-
-  render() {
-    return (
-      <div>
-        {this.milestoneDisplayForm()}
-      </div>
-    )
-  }
-
 }

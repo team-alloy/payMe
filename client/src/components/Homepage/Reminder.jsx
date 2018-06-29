@@ -1,27 +1,27 @@
 import React from 'react';
-import ReminderListView from './ReminderListView.jsx';
+import ReminderListView from './ReminderListView';
 
 export default class Reminder extends React.Component {
   constructor(props) {
     super(props);
-  }
+    this.state = {
 
-  reminderContainer() {
-    return (
-      <table class="ui celled padded table">
-        <thead>
-          <th>Reminders <i className="calendar outline icon"></i></th>
-        </thead>
-      </table>
-    )
+    };
   }
 
   render() {
     return (
       <div>
-        {this.reminderContainer()}
+        <table className="ui celled padded table">
+          <thead>
+            <th>
+              Reminders
+              <i className="calendar outline icon" />
+            </th>
+          </thead>
+        </table>
         <ReminderListView />
       </div>
-    )
+    );
   }
 }
