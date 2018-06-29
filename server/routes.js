@@ -153,9 +153,8 @@ router.route('/api/applications')
 */
 router.route('/api/user')
   .get((req, res) => {
-    console.log(req.session)
+
     let check = utils.isLoggedIn(currentSession, res);
-    console.log(check)
     if(check && !check.error) {
       if (!req.query) {
         user_controller.findAllUsers()
@@ -203,7 +202,13 @@ router.route('/api/user')
     }
   })
   .delete((req, res) => {
-    res.json('delete/user');
+    if (!req.query) {
+      res.status(400).json({error: 'must provide username'});
+    } else {
+      user_controller.deleteUser(req.query).then(response => {
+        res.status(200).json({message:'user was deleted from database'});
+      })
+    }
   });
 ;
 
@@ -222,7 +227,7 @@ router.route('/api/signup')
 
   user_controller.signUpNewUser(req.body)
   .then(newUser => {
-    res.status(200).json('user created')})
+    res.status(200).json({message: 'user created'})})
   .catch(err => {
     res.status(404).json({error: err.sqlMessage});
   });

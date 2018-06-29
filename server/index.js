@@ -33,10 +33,10 @@ app.all('/*', routes);
 /*
   PORT
 */
-app.listen(process.env.PORT || 1337, () => {
+const server = app.listen(process.env.PORT || 1337, () => {
   console.log(new Date());
   console.log('Listening on http://localhost:1337');
 });
 
-module.exports = app;
+module.exports = {server, app};
 

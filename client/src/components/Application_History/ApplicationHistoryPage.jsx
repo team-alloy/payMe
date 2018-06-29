@@ -23,6 +23,18 @@ export default class ApplicationHistoryPage extends React.Component {
           <div className="column">
             <ApplicationHistoryFeed />
           </div>
+          <div className="column">
+            <ApplicationHistoryFeed />
+          </div>
+          <div className="column">
+            <ApplicationHistoryFeed />
+          </div>
+          <div className="column">
+            <ApplicationHistoryFeed />
+          </div>
+          <div className="column">
+            <ApplicationHistoryFeed />
+          </div>
         </div>
         {/* <ApplicationHistoryForm /> */}
       </div>

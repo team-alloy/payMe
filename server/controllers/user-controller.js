@@ -13,7 +13,6 @@ module.exports = {
     return db.knex.select().from('users').where(query);
   },
   signUpNewUser: (userInfo) => {
-    console.log(userInfo,'here');
     let {first_name, last_name, email, pass, username} = userInfo;
 
 
@@ -166,7 +165,6 @@ module.exports = {
               session.user = user[0];
               return session;
             });
-            console.log(session);
             return session;
             // create session and return it.
           } else {
@@ -196,6 +194,9 @@ module.exports = {
     } else {
       throw ('username or email is required');
     }
+  },
+  deleteUser: (query) => {
+    return db.knex('users').where(query).del();
   }
 }; //end exports
 
