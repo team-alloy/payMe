@@ -1,6 +1,6 @@
 import React from 'react';
-import TipsStatistic from './TipsStatistic';
 import TipsListContainer from './TipsListContainer';
+import TipsStatistic from './TipsStatistic';
 
 export default class TipsPage extends React.Component {
   constructor(props) {

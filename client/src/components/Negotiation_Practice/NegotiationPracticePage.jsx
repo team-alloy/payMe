@@ -1,6 +1,6 @@
 import React from 'react';
-import NegotiationPracticeVideo from './NegotiationPracticeVideo';
 import NegotiationPracticeTopic from './NegotiationPracticeTopic';
+import NegotiationPracticeVideo from './NegotiationPracticeVideo';
 
 export default class NegotiationPracticePage extends React.Component {
   constructor(props) {
