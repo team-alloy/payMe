@@ -1,7 +1,6 @@
 import { SET_SESSION } from '../actions/userActions';
 
 export default (state = {}, action) => {
-  console.log('action', action)
   switch(action.type) {
     case SET_SESSION : {
 

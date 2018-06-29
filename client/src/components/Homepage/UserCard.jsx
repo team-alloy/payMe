@@ -9,6 +9,7 @@ export default class UserCard extends React.Component {
   }
 
   render() {
+    console.log(this.props, 'freaking A')
     return (
       <div>
         <div className="name-display">

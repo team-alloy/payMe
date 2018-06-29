@@ -36,12 +36,15 @@ class Login extends React.Component {
       })
       this.props.history.push('/');
     }).catch(err => {
-      console.error(err.response.data.error);
+      // dynamic error handling for login
+      $('#message').text(err.response.data.error);
+      setTimeout(() => {
+        $('#message').text("Please log in!");
+      }, 1500);
     })
   }
 
   render() {
-    console.log(this.props)
     return (
       <div>
         <div className="login-form">
@@ -56,7 +59,7 @@ class Login extends React.Component {
           </style>
           <Grid textAlign="center" style={{ height: '100%' }} verticalAlign="middle">
             <Grid.Column style={{ maxWidth: 450 }}>
-              <Header as="h2" color="teal" textAlign="center">
+              <Header as="h2" id="message" color="teal" textAlign="center">
                 Please log in!
               </Header>
               <Form size="large">
