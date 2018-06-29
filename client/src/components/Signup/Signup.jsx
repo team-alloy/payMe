@@ -41,7 +41,7 @@ export default class SignUp extends React.Component {
         email: '',
         username: '',
         pass: '',
-        reEnterPW: ''
+        reEnterPW: '',
       });
     }
   }

@@ -11,30 +11,47 @@ export default class ReminderListView extends React.Component {
   render() {
     return (
       <table className="ui celled striped table">
+        <thead>
+          <tr>
+            <th className="single line">
+              Reminders
+              <i className="calendar outline icon" />
+            </th>
+          </tr>
+        </thead>
         <tbody>
           <tr>
-            <div className="reminder-display">
-              <td className="single line">
-                Have you made any interesting updates on the Hello Fresh project?
-              </td>
-            </div>
+            <td className="single line">
+              Have you made any interesting updates on the Hello Fresh project?
+            </td>
           </tr>
           <tr>
-            <div className="reminder-display">
-              <td>
-                Have you heard back from Google? It may be time to update your application.
-              </td>
-            </div>
+            <td className="single line">
+              Have you heard back from Google? It may be time to update your application.
+            </td>
           </tr>
           <tr>
-            <div className="reminder-display">
-              <td>
-                Did you do anything interesting recently for a project? Record it in Milestones!
-              </td>
-            </div>
+            <td className="single line">
+              Did you do anything interesting recently for a project? Record it in Milestones!
+            </td>
           </tr>
         </tbody>
       </table>
     );
   }
 }
+
+
+// <div>
+// <table className="ui single line table">
+//   <thead>
+//     <tr>
+//       <td>
+//         Milestones and Achievements
+//       </td>
+//     </tr>
+//   </thead>
+// </table>
+// <MilestoneListView />
+// </div>
+// );

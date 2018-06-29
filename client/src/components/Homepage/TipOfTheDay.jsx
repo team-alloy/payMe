@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
 export default class TipOfTheDay extends React.Component {
   constructor(props) {
@@ -10,22 +10,24 @@ export default class TipOfTheDay extends React.Component {
 
   render() {
     return (
-      <div>
+      <Fragment>
         <table className="ui celled padded table">
           <thead>
-            <th>
-              Tip of the Day
-            </th>
+            <tr>
+              <th className="single line">
+                Tip of the Day
+              </th>
+            </tr>
           </thead>
           <tbody>
-            <div className="tip-container">
-              <td>
+            <tr>
+              <td className="single line">
                 Getting a good night sleep is a key to a good interview!
               </td>
-            </div>
+            </tr>
           </tbody>
         </table>
-      </div>
+      </Fragment>
     );
   }
 }

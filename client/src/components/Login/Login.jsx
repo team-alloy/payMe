@@ -5,12 +5,13 @@ import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import {setSession} from '../../store/actions/userActions';
 import $ from 'jquery';
+
 class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       email: '',
-      password: ''
+      password: '',
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -18,8 +19,8 @@ class Login extends React.Component {
 
   handleChange(e) {
     e.preventDefault();
-    var name = e.target.name;
-    var value = e.target.value;
+    const name  = e.target.name;
+    const value = e.target.value;
     this.setState({
       [name]: value
     });
@@ -28,18 +29,18 @@ class Login extends React.Component {
   handleClick(e) {
     e.preventDefault();
 
-    axios.post('/api/login', this.state).then(response => {
+    axios.post('/api/login', this.state).then((response) => {
       this.props.setSession(response.data);
       this.setState({
         email: '',
-        password: ''
+        password: '',
       })
       this.props.history.push('/');
-    }).catch(err => {
+    }).catch((err) => {
       // dynamic error handling for login
       $('#message').text(err.response.data.error);
       setTimeout(() => {
-        $('#message').text("Please log in!");
+        $('#message').text('Please log in!');
       }, 1500);
     })
   }
@@ -80,8 +81,7 @@ class Login extends React.Component {
                 </Segment>
               </Form>
               <Message>
-                New User?
-                {' '}
+                {'New User? '}
                 <a href="/signup">
                   Sign Up to Get That Bonus!
                 </a>
@@ -95,12 +95,13 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return {session: state.user}
+  return { session: state.user }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => { 
   return bindActionCreators({
-    setSession
-  }, dispatch)
-}
+    setSession,
+  }, dispatch);
+};
+
 export default connect(mapStateToProps, mapDispatchToProps)(Login);

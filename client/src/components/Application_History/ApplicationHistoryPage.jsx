@@ -1,6 +1,6 @@
 import React from 'react';
-import ApplicationHistoryFeed from './ApplicationHistoryFeed.jsx';
-import ApplicationHistoryForm from './ApplicationHistoryForm.jsx';
+import ApplicationHistoryFeed from './ApplicationHistoryFeed';
+import ApplicationHistoryForm from './ApplicationHistoryForm';
 
 export default class ApplicationHistoryPage extends React.Component {
   constructor(props) {
