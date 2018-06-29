@@ -8,8 +8,8 @@ import { thunk } from 'redux-thunk';
 import root from './store/root';
 
 import App from './components/App.jsx';
-
-const store = createStore(root, window.devToolsExtension ? window.devToolsExtension() : f => f);
+const middleware = applyMiddleware(thunk);
+const store = createStore(root, middleware, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__());
 
 ReactDOM.render(
   (

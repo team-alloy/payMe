@@ -1,8 +1,8 @@
 export const LOGIN = 'LOGIN';
 
-export const login = () => (
-  {
+export const login = (credentials) => {
+  return   {
     type: LOGIN,
-    payload: 1
+    payload: credentials
   }
-)
+};

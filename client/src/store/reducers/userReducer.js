@@ -1,6 +1,8 @@
 import { LOGIN } from '../actions/userActions';
 
-const user = (state ={}, action) => {
+export default (state ={}, action) => {
+  console.log(state)
+  console.log(action)
   switch(action.type) {
     case LOGIN : {
       return Object.apply({}, state, {test: 100})
@@ -8,5 +10,3 @@ const user = (state ={}, action) => {
     default: return state;
   }
 }
-
-export default user;

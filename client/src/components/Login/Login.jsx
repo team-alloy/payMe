@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
-import login from '../../store/reducers/userReducer'
+import {login} from '../../store/actions/userActions';
 class Login extends React.Component {
   constructor(props) {
     super(props);
@@ -26,11 +26,9 @@ class Login extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    axios({
-      method:'post',
-      url: '/api/login',
-      data: this.state
-    });
+    console.log(this.props, 'woot');
+
+    console.log(this.props.login(this.state))
     this.setState({
       email: '',
       password: ''
@@ -38,7 +36,6 @@ class Login extends React.Component {
   }
 
   render() {
-    console.log(this.props, 'woot');
     return (
       <div>
         <div className="login-form">
@@ -89,12 +86,12 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return {test: state}
+  return {user: state.user}
 }
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators({
     login
-  })
+  }, dispatch)
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Login);
