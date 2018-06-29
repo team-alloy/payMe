@@ -1,8 +1,11 @@
+import axios from 'axios';
+
 export const LOGIN = 'LOGIN';
 
 export const login = (credentials) => {
-  return   {
+  const request = axios.post('/api/login', credentials).then(sess => sess);
+  return {
     type: LOGIN,
-    payload: credentials
+    payload: request
   }
 };

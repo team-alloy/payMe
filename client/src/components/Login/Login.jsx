@@ -26,9 +26,7 @@ class Login extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    console.log(this.props, 'woot');
-
-    console.log(this.props.login(this.state))
+    this.props.login(this.state)
     this.setState({
       email: '',
       password: ''
@@ -36,6 +34,7 @@ class Login extends React.Component {
   }
 
   render() {
+    console.log(this.props)
     return (
       <div>
         <div className="login-form">
@@ -86,7 +85,7 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return {user: state.user}
+  return {session: state.user}
 }
 
 const mapDispatchToProps = dispatch => {
