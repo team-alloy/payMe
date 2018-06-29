@@ -1,11 +1,13 @@
 import React from 'react';
 
-import Header from './Header.jsx';
-import Main from './Main.jsx';
+import Header from './Header';
+import Main from './Main';
 
 export default class NavBar extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+    };
   }
 
   render() {
@@ -13,7 +15,7 @@ export default class NavBar extends React.Component {
       <div>
         <Header />
         <center>
-          <img src="/images/opening.png" style={{width: 400, height: 150}}/>
+          <img src="/images/opening.png" style={{ width: 400, height: 150 }} />
         </center>
         <div className="ui segment">
           <div>
@@ -21,6 +23,6 @@ export default class NavBar extends React.Component {
           </div>
         </div>
       </div>
-    )
+    );
   }
-};
+}

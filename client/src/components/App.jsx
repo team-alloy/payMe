@@ -1,9 +1,11 @@
 import React from 'react';
-import NavBar from './Navbar.jsx';
+import NavBar from './Navbar';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+    };
   }
 
   render() {
@@ -11,6 +13,6 @@ export default class App extends React.Component {
       <div>
         <NavBar />
       </div>
-    )
+    );
   }
-};
+}

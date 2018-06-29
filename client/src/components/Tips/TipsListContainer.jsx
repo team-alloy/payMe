@@ -1,9 +1,11 @@
 import React from 'react';
-import TipsListView from './TipsListView.jsx';
+import TipsListView from './TipsListView';
 
 export default class TipsListContainer extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+    };
   }
 
   render() {
@@ -12,6 +14,6 @@ export default class TipsListContainer extends React.Component {
         {/* Handle all tips, pass down to tipsListView */}
         <TipsListView />
       </div>
-    )
+    );
   }
-};
+}
