@@ -209,19 +209,20 @@ router.route('/api/user')
 
 router.route('/api/signup')
 .post((req, res) => {
-
   if(!req.body.email) {
     res.status(404).json({ error: 'An account needs an email'});
   }
   if(!req.body.username) {
     res.status(404).json({ error: 'An account needs a username'});
   }
-  if(!req.body.hash) {
+  if(!req.body.pass) {
     res.status(404).json({ error: 'An account needs a password'});
   }
 
   user_controller.signUpNewUser(req.body)
-  .then(newUser => res.status(200).json('user created'))
+  .then(newUser => {
+    console.log(newUser,'route');
+    res.status(200).json('user created')})
   .catch(err => {
     res.status(404).json({error: err.sqlMessage});
   });
