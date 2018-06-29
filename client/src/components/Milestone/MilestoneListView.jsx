@@ -23,7 +23,7 @@ export default class MilestoneListView extends React.Component {
         </div>
         <div className="name-header">
           <h5>
-            Tech Stack
+            {'Tech Stack'}
           </h5>
         </div>
         <div className="stack-display-description-container">
@@ -33,7 +33,7 @@ export default class MilestoneListView extends React.Component {
         </div>
         <div className="name-header">
           <h5>
-            Repository
+            {'Repository'}
           </h5>
         </div>
         <div className="respository-display-description-container">

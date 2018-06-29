@@ -21,9 +21,6 @@ export default class MilestonePage extends React.Component {
           <div className="column">
             <MilestoneList />
           </div>
-          <div className="column">
-            <MilestoneListView />
-          </div>
         </div>
       </div>
     );
