@@ -3,9 +3,12 @@ import React from 'react';
 export default class ApplicationHistoryForm extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+
+    };
   }
 
-  historyFormDisplay() {
+  render() {
     return (
       <div>
         <h4>Application Information:</h4>
@@ -27,19 +30,13 @@ export default class ApplicationHistoryForm extends React.Component {
             <input className="date-name" type="date"></input>
           </div>
         </form>
-      </div>
-    )
-  }
-
-  render() {
-    return (
-      <div>
-        {this.historyFormDisplay()}
         <div className="button-container">
-          <button className="ui-button-cancel" tabIndex="0">Cancel</button>
-          <button className="ui-button-confirm" tabIndex="1">Confirm</button>
+          <button className="ui-button-cancel" type="reset">Cancel</button>
+          <button className="ui-button-confirm" type="submit">
+            Confirm
+          </button>
         </div>
       </div>
-    )
+    );
   }
 }
