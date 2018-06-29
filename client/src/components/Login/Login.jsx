@@ -1,13 +1,38 @@
 import React from 'react';
-import {
-  Button, Form, Grid, Header, Message, Segment,
-} from 'semantic-ui-react';
+import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
+import axios from 'axios';
 
 export default class Login extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      email: '',
+      password: ''
     };
+    this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleChange(e) {
+    e.preventDefault();
+    var name = e.target.name;
+    var value = e.target.value;
+    this.setState({
+      [name]: value
+    });
+  }
+
+  handleClick(e) {
+    e.preventDefault();
+    axios({
+      method:'post',
+      url: '/api/login',
+      data: this.state
+    });
+    this.setState({
+      email: '',
+      password: ''
+    })
   }
 
   render() {
@@ -30,15 +55,17 @@ export default class Login extends React.Component {
               </Header>
               <Form size="large">
                 <Segment stacked>
-                  <Form.Input fluid icon="user" iconPosition="left" placeholder="E-mail address" />
+                  <Form.Input onChange={this.handleChange} name="email" fluid icon="user" iconPosition="left" placeholder="E-mail address" />
                   <Form.Input
+                    onChange={this.handleChange}
+                    name="password"
                     fluid
                     icon="lock"
                     iconPosition="left"
                     placeholder="Password"
                     type="password"
                   />
-                  <Button color="teal" fluid size="large">
+                  <Button onClick={this.handleClick} color="teal" fluid size="large">
                     Login
                   </Button>
                 </Segment>
