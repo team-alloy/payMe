@@ -26,7 +26,7 @@ class HomePage extends React.Component {
           <div className="two column row">
             <div className="three wide column">
               <img src="/images/gitchardhubbard.png" alt="sirGitchardHubbard" />
-              <UserCardForm {...this.props}/>
+              <UserCardForm {...this.props} />
             </div>
             <div className="ten wide column">
               <Reminder />
