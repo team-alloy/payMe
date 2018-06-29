@@ -64,7 +64,12 @@
     "request": "^2.87.0",
     "semantic-ui": "^2.3.2",
     "semantic-ui-react": "^0.81.1",
+<<<<<<< HEAD
     "sinon": "^6.0.1",
+=======
+    "twilio": "^3.17.4",
+    "twilio-video": "^1.10.0",
+>>>>>>> Set up Twilio video chat
     "underscore": "^1.9.1"
   }
 }
