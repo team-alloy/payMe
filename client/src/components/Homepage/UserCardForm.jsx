@@ -82,5 +82,6 @@ export default class UserCardForm extends React.Component {
     if (display === 'default') {
       return <UserCard />;
     }
+    return (null);
   }
 }
