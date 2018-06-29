@@ -23,6 +23,7 @@ export default class MilestoneForm extends React.Component {
               <b>
                 {'Project\'s Name'}
               </b>
+              <br />
             </label>
             <textarea
               rows="1"
@@ -37,6 +38,7 @@ export default class MilestoneForm extends React.Component {
               <b>
                 {'Job Description'}
               </b>
+              <br />
             </label>
             <textarea
               rows="3"
@@ -49,6 +51,7 @@ export default class MilestoneForm extends React.Component {
               <b>
                 {'Tech Stack(s)'}
               </b>
+              <br />
             </label>
             <textarea
               rows="4"
@@ -61,6 +64,7 @@ export default class MilestoneForm extends React.Component {
               <b>
                 {'Repository Link'}
               </b>
+              <br />
             </label>
             <textarea
               rows="1"

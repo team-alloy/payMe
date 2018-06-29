@@ -20,23 +20,23 @@ export default class ApplicationHistoryFeedListView extends React.Component {
       <div>
         <div className="application-history-container">
           <label className="company-name" htmlFor="name" style={{ fontWeight: 'bold' }}>
-            Company's Name
+            {'Company\'s Name'}
           </label>
           <div className="role-display">
             <label htmlFor="position" style={{ fontWeight: 'bold' }}>
-              Position:
+              {'Position Title: '}
             </label>
               Senior Software Engineer
           </div>
           <div className="location-display">
             <label htmlFor="location" style={{ fontWeight: 'bold' }}>
-              Location:
+              {'Position Location: '}
             </label>
               San Francisco, CA
           </div>
           <div className="applied-date-display">
             <label htmlFor="date" style={{ fontWeight: 'bold' }}>
-              Application Date:
+              {'Application Date: '}
             </label>
               1/1/2018
           </div>
