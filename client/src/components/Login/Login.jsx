@@ -1,6 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Button, Form, Grid, Header, Message, Segment } from 'semantic-ui-react';
+import {
+  Button, Form, Grid, Header, Message, Segment,
+} from 'semantic-ui-react';
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import {setSession} from '../../store/actions/userActions';
@@ -34,7 +36,7 @@ class Login extends React.Component {
       this.setState({
         email: '',
         password: '',
-      })
+      });
       this.props.history.push('/');
     }).catch((err) => {
       // dynamic error handling for login
@@ -42,7 +44,7 @@ class Login extends React.Component {
       setTimeout(() => {
         $('#message').text('Please log in!');
       }, 1500);
-    })
+    });
   }
 
   render() {
@@ -64,7 +66,7 @@ class Login extends React.Component {
                 Please log in!
               </Header>
               <Form size="large">
-                <Segment stacked>
+                <Segment raised>
                   <Form.Input onChange={this.handleChange} name="email" fluid icon="user" iconPosition="left" placeholder="E-mail address" />
                   <Form.Input
                     onChange={this.handleChange}
@@ -80,12 +82,14 @@ class Login extends React.Component {
                   </Button>
                 </Segment>
               </Form>
-              <Message>
-                {'New User? '}
-                <a href="/signup">
-                  Sign Up to Get That Bonus!
-                </a>
-              </Message>
+                <Segment raised>
+                  <Message>
+                    {'New User? '}
+                    <a href="/signup">
+                      Sign Up to Get That Bonus!
+                    </a>
+                  </Message>
+                </Segment>
             </Grid.Column>
           </Grid>
         </div>
@@ -95,8 +99,8 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { session: state.user }
-}
+  return { session: state.user };
+};
 
 const mapDispatchToProps = (dispatch) => { 
   return bindActionCreators({
