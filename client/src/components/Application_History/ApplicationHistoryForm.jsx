@@ -1,11 +1,38 @@
 import React from 'react';
+import axios from 'axios';
 
 export default class ApplicationHistoryForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      company: '',
+      role: '',
+      location: '',
+      salary: 0
     };
+    this.handleClick = this.handleClick.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleClick(e) {
+    e.preventDefault();
+    this.props.makeApp(this.state, ()=>{
+      this.setState({
+      company: '',
+      role: '',
+      location: '',
+      salary: 0
+      });
+    });
+  }
+
+  handleChange(e) {
+    e.preventDefault();
+    var name = e.target.name;
+    var value = e.target.value;
+    this.setState({
+      [name]: value
+    });
   }
 
   render() {
@@ -22,7 +49,7 @@ export default class ApplicationHistoryForm extends React.Component {
             <br />
           </label>
           <div className="app-field">
-            <textarea className="company-name" placeholder="Company's Name" />
+            <input type="text" value={this.state.company} name="company" onChange={this.handleChange} className="company-name" placeholder="Company's Name" />
           </div>
           <label htmlFor="position">
             <b>
@@ -31,7 +58,7 @@ export default class ApplicationHistoryForm extends React.Component {
             <br />
           </label>
           <div className="app-field">
-            <textarea className="position-name" placeholder="Position's Title" />
+            <input type="text" value={this.state.role} name="role" onChange={this.handleChange} className="position-name" placeholder="Position's Title" />
           </div>
           <label htmlFor="location">
             <b>
@@ -40,7 +67,13 @@ export default class ApplicationHistoryForm extends React.Component {
             <br />
           </label>
           <div className="app-field">
-            <textarea className="location-name" placeholder="Company's Location" />
+            <input type="text" value={this.state.location} name="location" onChange={this.handleChange} className="location-name" placeholder="Company's Location" />
+          </div>
+          <label htmlFor="salary">
+            Salary
+          </label>
+          <div className="app-field">
+            <input type="text" value={this.state.salary} name="salary" onChange={this.handleChange}className="salary" placeholder="Salary" />
           </div>
           <label htmlFor="date">
             <b>
@@ -56,7 +89,7 @@ export default class ApplicationHistoryForm extends React.Component {
           <button className="ui-button-cancel" type="reset">
             Cancel
           </button>
-          <button className="ui-button-confirm" type="submit">
+          <button onClick={this.handleClick} className="ui-button-confirm" type="submit">
             Confirm
           </button>
         </div>
@@ -64,3 +97,12 @@ export default class ApplicationHistoryForm extends React.Component {
     );
   }
 }
+// const mapStateToProps = (state) => {
+//   return {session: state.user};
+// }
+// export default connect(mapStateToProps)(ApplicationHistoryFeed);
+// refactor application history form to get and post
+// applications
+// refactor to render dynamically
+// add offers button?
+  // maybe a modal for offers application ex: have PTO?
