@@ -26,17 +26,6 @@ module.exports = {
       },
     ],
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      hash: true,
-      template: path.join(__dirname, 'client/dist/index.html'),
-      inject: 'body',
-    }),
-    new webpack.BannerPlugin('React Twilio'),
-    new ExtractTextPlugin('[name]-[hash].css'),
-    new webpack.HotModuleReplacementPlugin(),
-
-  ],
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
   } 
