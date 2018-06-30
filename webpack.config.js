@@ -1,11 +1,6 @@
-require('dotenv').config();
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const path = require('path');
-const webpack = require('webpack');
-
-let SRC_DIR = path.join(__dirname, '/client/src');
-let DEST_DIR = path.join(__dirname, '/client/dist');
+var path = require('path');
+var SRC_DIR = path.join(__dirname, '/client/src');
+var DEST_DIR = path.join(__dirname, '/client/dist');
 
 module.exports = {
   entry: `${SRC_DIR}/index.jsx`,
@@ -21,12 +16,12 @@ module.exports = {
         exclude: ['node_modules'],
         loader: 'babel-loader',
         query: {
-          presets: ['react', 'env'],
-        },
-      },
-    ],
+          presets: ['react', 'env']
+        }
+      }
+    ]
   },
   resolve: {
-    extensions: ['.js', '.jsx', '.json'],
-  } 
+    extensions: ['.js','.jsx','.json']
+  }
 };

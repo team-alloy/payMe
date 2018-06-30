@@ -1,199 +1,153 @@
-import React, { Component } from 'react';
-import Video from 'twilio-video';
-import axios from 'axios';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import RaisedButton from 'material-ui/RaisedButton';
-import TextField from 'material-ui/TextField';
-import { Card, CardText } from 'material-ui/Card';
-import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import injectTapEventPlugin from "react-tap-event-plugin";
-injectTapEventPlugin();
+import React from 'react';
 
-export default class NegotiationPracticeVideo extends Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-      identity: null,
-      token: '',
-			roomName: '',
-			roomNameErr: false, // Track error for room name TextField
-			previewTracks: null,
-			localMediaAvailable: false,
-			hasJoinedRoom: false,
-      activeRoom: '' // Track the current active room
-		};
-		this.joinRoom = this.joinRoom.bind(this);
-		this.handleRoomNameChange = this.handleRoomNameChange.bind(this);
-		this.roomJoined = this.roomJoined.bind(this);
-		this.leaveRoom = this.leaveRoom.bind(this);
-		this.detachTracks = this.detachTracks.bind(this);
-		this.detachParticipantTracks = this.detachParticipantTracks.bind(this);
+export default class NegotiationPracticeVideo extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    };
   }
-  
-  componentDidMount() {
-		axios.get('/token').then(results => {
-      const { identity, token } = results.data;
-      this.setState({ identity, token });
-		});
-	}
 
-	handleRoomNameChange(e) {
-		let roomName = e.target.value;
-		this.setState({ roomName });
-	}
+  // function generateRoom() {
+  //   // Generate random room name if needed
+  //   if (!location.hash) {
+  //     location.hash = Math.floor(Math.random() * 0xFFFFFF).toString(16);
+  //   }
+  //   let roomHash = location.hash.substring(1);
 
-	joinRoom() {
-		if (!this.state.roomName.trim()) {
-			this.setState({ roomNameErr: true });
-			return;
-		}
+  //   // TODO: Replace with own channel ID
+  //   let drone = new ScaleDrone('yiS12Ts5RdNhebyM');
+  //   // Room name needs to be prefixed with 'observable-'
+  //   let roomName = 'observable-' + roomHash;
+  //   let configuration = {
+  //     iceServers: [{
+  //       urls: 'stun:stun.l.google.com:19302'
+  //     }]
+  //   };
+  //   let room;
+  //   let pc;
+  // };
 
-		console.log("Joining room '" + this.state.roomName + "'...");
-		let connectOptions = {
-			name: this.state.roomName
-		};
+  // function onSuccess() {};
+  // function onError(error) {
+  //   console.error(error);
+  // };
 
-		if (this.state.previewTracks) {
-			connectOptions.tracks = this.state.previewTracks;
-		}
+  // drone.on('open', error => {
+  //   if (error) {
+  //     return console.error(error);
+  //   }
+  //   room = drone.subscribe(roomName);
+  //   room.on('open', error => {
+  //     if (error) {
+  //       onError(error);
+  //     }
+  //   });
+  //   // We're connected to the room and received an array of 'members'
+  //   // connected to the room (including us). Signaling server is ready.
+  //   room.on('members', members => {
+  //     console.log('MEMBERS', members);
+  //     // If we are the second user to connect to the room we will be creating the offer
+  //     const isOfferer = members.length === 2;
+  //     startWebRTC(isOfferer);
+  //   });
+  // });
 
-		// Join the Room with the token from the server and the
-		// LocalParticipant's Tracks.
-		Video.connect(this.state.token, connectOptions).then(this.roomJoined, error => {
-			alert('Could not connect to Twilio: ' + error.message);
-		});
-	}
+  // // Send signaling data via Scaledrone
+  // function sendMessage(message) {
+  //   drone.publish({
+  //     room: roomName,
+  //     message
+  //   });
+  // }
 
-	attachTracks(tracks, container) {
-		tracks.forEach(track => {
-			container.appendChild(track.attach());
-		});
-	}
+  // function startWebRTC(isOfferer) {
+  //   pc = new RTCPeerConnection(configuration);
 
-	// Attaches a track to a specified DOM container
-	attachParticipantTracks(participant, container) {
-		var tracks = Array.from(participant.tracks.values());
-		this.attachTracks(tracks, container);
-	}
+  //   // 'onicecandidate' notifies us whenever an ICE agent needs to deliver a
+  //   // message to the other peer through the signaling server
+  //   pc.onicecandidate = event => {
+  //     if (event.candidate) {
+  //       sendMessage({'candidate': event.candidate});
+  //     }
+  //   };
 
-	detachTracks(tracks) {
-		tracks.forEach(track => {
-			track.detach().forEach(detachedElement => {
-				detachedElement.remove();
-			});
-		});
-	}
+  //   // If user is offerer let the 'negotiationneeded' event create the offer
+  //   if (isOfferer) {
+  //     pc.onnegotiationneeded = () => {
+  //       pc.createOffer().then(localDescCreated).catch(onError);
+  //     }
+  //   }
 
-	detachParticipantTracks(participant) {
-		var tracks = Array.from(participant.tracks.values());
-		this.detachTracks(tracks);
-	}
+  //   // When a remote stream arrives display it in the #remoteVideo element
+  //   pc.ontrack = event => {
+  //     const stream = event.streams[0];
+  //     if (!remoteVideo.srcObject || remoteVideo.srcObject.id !== stream.id) {
+  //       remoteVideo.srcObject = stream;
+  //     }
+  //   };
 
-	roomJoined(room) {
-		// Called when a participant joins a room
-		console.log("Joined as '" + this.state.identity + "'");
-		this.setState({
-			activeRoom: room,
-			localMediaAvailable: true,
-			hasJoinedRoom: true
-		});
+  //   navigator.mediaDevices.getUserMedia({
+  //     audio: true,
+  //     video: true,
+  //   }).then(stream => {
+  //     // Display local video in #localVideo element
+  //     localVideo.srcObject = stream;
+  //     // Add stream to be sent to the conneting peer
+  //     stream.getTracks().forEach(track => pc.addTrack(track, stream));
+  //   }, onError);
 
-		// Attach LocalParticipant's Tracks, if not already attached.
-		var previewContainer = this.refs.localMedia;
-		if (!previewContainer.querySelector('video')) {
-			this.attachParticipantTracks(room.localParticipant, previewContainer);
-		}
+  //   // Listen to signaling data from Scaledrone
+  //   room.on('data', (message, client) => {
+  //     // Message was sent by us
+  //     if (client.id === drone.clientId) {
+  //       return;
+  //     }
 
-		// Attach the Tracks of the Room's Participants.
-		room.participants.forEach(participant => {
-			console.log("Already in Room: '" + participant.identity + "'");
-			var previewContainer = this.refs.remoteMedia;
-			this.attachParticipantTracks(participant, previewContainer);
-		});
+  //     if (message.sdp) {
+  //       // This is called after receiving an offer or answer from another peer
+  //       pc.setRemoteDescription(new RTCSessionDescription(message.sdp), () => {
+  //         // When receiving an offer lets answer it
+  //         if (pc.remoteDescription.type === 'offer') {
+  //           pc.createAnswer().then(localDescCreated).catch(onError);
+  //         }
+  //       }, onError);
+  //     } else if (message.candidate) {
+  //       // Add the new ICE candidate to our connections remote description
+  //       pc.addIceCandidate(
+  //         new RTCIceCandidate(message.candidate), onSuccess, onError
+  //       );
+  //     }
+  //   });
+  // }
 
-		// When a Participant joins the Room, log the event.
-		room.on('participantConnected', participant => {
-			console.log("Joining: '" + participant.identity + "'");
-		});
+  // function localDescCreated(desc) {
+  //   pc.setLocalDescription(
+  //     desc,
+  //     () => sendMessage({'sdp': pc.localDescription}),
+  //     onError
+  //   );
+  // }
 
-		// When a Participant adds a Track, attach it to the DOM.
-		room.on('trackAdded', (track, participant) => {
-			console.log(participant.identity + ' added track: ' + track.kind);
-			var previewContainer = this.refs.remoteMedia;
-			this.attachTracks([track], previewContainer);
-		});
+  render() {
+    return (
+      <div>
+        
+        <div className="container">
+          <div id="remotes" className="row">
+            <div className="col-md-6">
+              <div className="videoContainer">
+                <h3>You</h3>
+                <video id="localVideo" autoPlay muted></video>
+                <h3>Your Interviewer</h3>
+                <video id="remoteVideo" autoPlay></video>  
+                <meter id="localVolume" className="volume"></meter>
+              </div>
+            </div>
+          </div>
+        </div>
 
-		// When a Participant removes a Track, detach it from the DOM.
-		room.on('trackRemoved', (track, participant) => {
-			this.log(participant.identity + ' removed track: ' + track.kind);
-			this.detachTracks([track]);
-		});
+      </div>
+    )
+  }
+};
 
-		// When a Participant leaves the Room, detach its Tracks.
-		room.on('participantDisconnected', participant => {
-			console.log("Participant '" + participant.identity + "' left the room");
-			this.detachParticipantTracks(participant);
-		});
-
-		// Once the LocalParticipant leaves the room, detach the Tracks
-		// of all Participants, including that of the LocalParticipant.
-		room.on('disconnected', () => {
-			if (this.state.previewTracks) {
-				this.state.previewTracks.forEach(track => {
-					track.stop();
-				});
-			}
-			this.detachParticipantTracks(room.localParticipant);
-			room.participants.forEach(this.detachParticipantTracks);
-			this.state.activeRoom = null;
-			this.setState({ hasJoinedRoom: false, localMediaAvailable: false });
-		});
-	}
-
-	leaveRoom() {
-		this.state.activeRoom.disconnect();
-		this.setState({ hasJoinedRoom: false, localMediaAvailable: false });
-	}
-
-	render() {
-		// Only show video track after user has joined a room
-		let showLocalTrack = this.state.localMediaAvailable ? (
-			<div className="flex-item">
-				<div ref="localMedia" />
-			</div>
-		) : (
-			''
-		);
-		// Hide 'Join Room' button if user has already joined a room.
-		let joinOrLeaveRoomButton = this.state.hasJoinedRoom ? (
-			<RaisedButton label="Leave Room" secondary={true} onClick={this.leaveRoom} />
-		) : (
-			<RaisedButton label="Join Room" primary={true} onClick={this.joinRoom} />
-    );
-
-    console.log('This is the state', this.state);
-   
-		return (
-      <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-			<Card>
-				<CardText>
-					<div className="flex-container">
-						{showLocalTrack}
-						<div className="flex-item">
-							<TextField
-								hintText="Room Name"
-								onChange={this.handleRoomNameChange}
-								errorText={this.state.roomNameErr ? 'Room Name is required' : undefined}
-							/>
-							<br />
-							{joinOrLeaveRoomButton}
-						</div>
-						<div className="flex-item" ref="remoteMedia" id="remote-media" />
-					</div>
-				</CardText>
-			</Card>
-      </MuiThemeProvider>
-		);
-	}
-}

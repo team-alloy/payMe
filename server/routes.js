@@ -1,4 +1,3 @@
-require("dotenv").config();
 const router = require('express').Router();
 const path = require('path');
 const staticFile = path.join(__dirname + '/../client/dist/index.html');
@@ -11,10 +10,6 @@ const role_controller = require('./controllers/role-controller.js');
 const milestone_controller = require('./controllers/milestone-controller.js');
 const application_controller = require('./controllers/application-controller.js');
 const offer_controller = require('./controllers/offer-controller.js');
-
-const faker = require("faker");
-const AccessToken = require("twilio").jwt.AccessToken;
-const VideoGrant = AccessToken.VideoGrant;
 
 let currentSession;
 
@@ -331,44 +326,6 @@ router.route('/api/offers').post((req, res) => {
     })
   })
 
-/*
-
-888888888888               88 88 88              
-     88                    "" 88 ""              
-     88                       88                 
-     88 8b      db      d8 88 88 88  ,adPPYba,   
-     88 `8b    d88b    d8' 88 88 88 a8"     "8a  
-     88  `8b  d8'`8b  d8'  88 88 88 8b       d8  
-     88   `8bd8'  `8bd8'   88 88 88 "8a,   ,a8"  
-     88     YP      YP     88 88 88  `"YbbdP"'   
-
-*/
-                                                 
-// Endpoint to generate access token for VIDEO
-router.route("/token").get((request, response) => {
-  var identity = faker.name.findName();
-
-  // Create an access token which we will sign and return to the client,
-  // containing the grant we just created
-  var token = new AccessToken(
-    process.env.TWILIO_ACCOUNT_SID,
-    process.env.TWILIO_API_KEY,
-    process.env.TWILIO_API_SECRET
-  );
-
-  // Assign the generated identity to the token
-  token.identity = identity;
-
-  const grant = new VideoGrant();
-  // Grant token access to the Video API features
-  token.addGrant(grant);
-
-  // Serialize the token to a JWT string and include it in a JSON response
-  response.json({
-     identity: identity,
-     token: token.toJwt()
-  });
-});
 
 router.route('/*').get((req, res) => {
   res.status(200).sendFile(staticFile);
