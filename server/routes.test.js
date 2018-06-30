@@ -1,5 +1,23 @@
 const {app, server} = require('./index');
 const request = require('supertest');
+let user = {};
+
+
+beforeAll(() => {
+  const parameters = {
+    username: 'oldUser',
+    email: 'real@user.com',
+    pass: '123'
+  };
+ request(app)
+    .post('/api/signup')
+    .send(parameters).then(response => {
+      request(app)
+        .post('/api/login')
+        .send({ email: parameters.email, password: parameters.pass })
+        .then(response => response.body.user)
+    });
+});
 
 beforeEach((done) => {
     request(app).post('/api/login')
@@ -14,17 +32,8 @@ describe('Users functionality', () => {
   const parameters = {
     username: 'newUser',
     email: 'fake@user.com',
-    pass: '123'
+    pass: 'test'
   };
-
-  test('Creates a user account with a minimum of username, email, and pass', () => {
-    return request(app)
-    .post('/api/signup')
-    .send(parameters)
-    .then(response => {
-      expect(response.body.message).toBe('user created');
-    });
-  });
 
   test('Should be able to update the user accounts first name and last_name', () => {
     return request(app)
@@ -94,12 +103,12 @@ describe('Users functionality', () => {
   });
 
   test('User can update their password with the correct credentials', () => {
+    console.log(parameters)
     return request(app)
       .post('/api/login')
       .send({ email: parameters.email, password: parameters.pass })
       .then(response => {
         let user = response.body.user;
-
         return request(app).patch(`/api/user?id=${user.id}`)
           .send({ pass: 'test', old_password: parameters.pass })
           .then(response => {
@@ -109,15 +118,6 @@ describe('Users functionality', () => {
           });
       });
   });
-
-  test('Should also delete that record for reuse in this test)', () => {
-    return request(app)
-    .delete('/api/user?username=newUser')
-    .then(response => {
-      expect(response.body.message).toEqual('user was deleted from database');
-    });
-  });
-
 });
 
 describe('GET request', () => {
@@ -168,6 +168,7 @@ describe('GET request', () => {
   });
 
   test('It should connect to companies GET', () => {
+    console.log(user)
     return request(app).get('/api/companies').expect(200);
   });
 });
@@ -176,6 +177,12 @@ describe('Application functionality', () => {
 
 });
 
+
 afterAll( () => {
-  server.close();
+    return request(app)
+    .delete('/api/user?username=oldUser')
+    .then(response => {
+      expect(response.body.message).toEqual('user was deleted from database');
+      server.close();
+    });
 });
