@@ -144,18 +144,17 @@ router.route('/api/applications')
 
 /*
 
-88       88 ,adPPYba,  ,adPPYba, 8b,dPPYba, ,adPPYba,
-88       88 I8[    "" a8P_____88 88P'   "Y8 I8[    ""
-88       88  `"Y8ba,  8PP""""""" 88          `"Y8ba,
-"8a,   ,a88 aa    ]8I "8b,   ,aa 88         aa    ]8I
- `"YbbdP'Y8 `"YbbdP"'  `"Ybbd8"' 88         `"YbbdP"'
+88       88 ,adPPYba,  ,adPPYba, 8b,dPPYba,
+88       88 I8[    "" a8P_____88 88P'   "Y8
+88       88  `"Y8ba,  8PP""""""" 88
+"8a,   ,a88 aa    ]8I "8b,   ,aa 88
+ `"YbbdP'Y8 `"YbbdP"'  `"Ybbd8"' 88
 
 */
 router.route('/api/user')
   .get((req, res) => {
-    console.log(req.session)
+
     let check = utils.isLoggedIn(currentSession, res);
-    console.log(check)
     if(check && !check.error) {
       if (!req.query) {
         user_controller.findAllUsers()
@@ -203,7 +202,13 @@ router.route('/api/user')
     }
   })
   .delete((req, res) => {
-    res.json('delete/user');
+    if (!req.query) {
+      res.status(400).json({error: 'must provide username'});
+    } else {
+      user_controller.deleteUser(req.query).then(response => {
+        res.status(200).json({message:'user was deleted from database'});
+      })
+    }
   });
 ;
 
@@ -222,7 +227,7 @@ router.route('/api/signup')
 
   user_controller.signUpNewUser(req.body)
   .then(newUser => {
-    res.status(200).json('user created')})
+    res.status(200).json({message: 'user created'})})
   .catch(err => {
     res.status(404).json({error: err.sqlMessage});
   });
@@ -232,17 +237,15 @@ router.route('/api/login')
 .post( (req, res) => {
   if (!req.body.email ) {
     res.status(400).json({ error: 'email must be provided' });
-  }
-
-  if (!req.body.password) {
+  } else if (!req.body.password) {
     res.status(400).json({ error: 'password must be provided' });
+  } else {
+    user_controller.checkCredentials(req).then(session => {
+      currentSession = session;
+      res.status(200).send(currentSession);
+    })
+      .catch(err => res.status(404).json({ error: err }))
   }
-
-  user_controller.checkCredentials(req).then(session => {
-    currentSession = session;
-    res.status(200).send(currentSession);
-  })
-  .catch( err => res.status(404).json({ error: err}));
 })
 
 router.route('/api/logout')
