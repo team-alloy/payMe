@@ -20,18 +20,21 @@ class HomePage extends React.Component {
         <div>
          Redirecting
         </div>);
-    } else {
-      return (
-        <div>
-          <div className="ui two column grid">
-            <div className="two column row">
-              <div className="three wide column">
-                <img src="/images/gitchardhubbard.png" alt="sirGitchardHubbard" />
-                <UserCardForm {...this.props}/>
-              </div>
-              <div className="ten wide column">
-                <Reminder />
-              </div>
+    }
+    return (
+      <div>
+        <div className="ui three column grid">
+          <div className="three column row">
+            <div className="four wide column">
+              <table className="ui celled striped table">
+                <tbody>
+                  <tr>
+                    <Segment raised className="ui teal segment">
+                      <UserCardForm {...this.props} />
+                    </Segment>
+                  </tr>
+                </tbody>
+              </table>
             </div>
             <div className="eight wide column centered">
               <Reminder />
@@ -41,8 +44,8 @@ class HomePage extends React.Component {
             </div>
           </div>
         </div>
-      );
-    }
+      </div>
+    );
   }
 }
 

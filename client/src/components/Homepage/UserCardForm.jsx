@@ -78,6 +78,7 @@ export default class UserCardForm extends React.Component {
   // }
 
   render() {
+    console.log(this.props, 'testing')
     const { display } = this.state;
     if (display === 'default') {
       return <UserCard user={this.props.session.user}/>;
