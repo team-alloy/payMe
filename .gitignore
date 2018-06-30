@@ -25,3 +25,5 @@ config.js
 
 .DS_Store
 .vs
+
+.env
