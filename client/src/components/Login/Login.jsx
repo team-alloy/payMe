@@ -34,7 +34,7 @@ class Login extends React.Component {
       this.setState({
         email: '',
         password: '',
-      })
+      });
       this.props.history.push('/');
     }).catch((err) => {
       // dynamic error handling for login
@@ -42,7 +42,7 @@ class Login extends React.Component {
       setTimeout(() => {
         $('#message').text('Please log in!');
       }, 1500);
-    })
+    });
   }
 
   render() {
@@ -95,8 +95,8 @@ class Login extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { session: state.user }
-}
+  return { session: state.user };
+};
 
 const mapDispatchToProps = (dispatch) => { 
   return bindActionCreators({
