@@ -11,8 +11,23 @@ class ApplicationHistoryPage extends React.Component {
 
     };
   }
+
+  componentDidMount() {
+    // axios({
+    //   method:'get',
+    //   url: '/api/applications?users_id=7'
+    // })
+    // .then((res) => {
+    //   console.log(res,'yo');
+    // });
+    axios('/api/applications?users_id=7')
+      .then((res) => {
+        console.log(res);
+      });
+  }
+
   makeApplication(query, callback) {
-    let appInfo = Object.assign({}, query, {user_id: this.props.session.user.id})
+    let appInfo = Object.assign({}, query, {user_id: this.props.session.user.id});
     axios.post('/api/applications', appInfo)
     .then((res) => {
       callback();
