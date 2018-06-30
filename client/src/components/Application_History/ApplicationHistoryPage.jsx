@@ -1,8 +1,10 @@
 import React from 'react';
-import ApplicationHistoryFeed from './ApplicationHistoryFeed';
-import ApplicationHistoryForm from './ApplicationHistoryForm';
+import ApplicationHistoryFeed from './ApplicationHistoryFeed.jsx';
+import ApplicationHistoryForm from './ApplicationHistoryForm.jsx';
+import {connect} from 'react-redux';
+import axios from 'axios';
 
-export default class ApplicationHistoryPage extends React.Component {
+class ApplicationHistoryPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -10,22 +12,55 @@ export default class ApplicationHistoryPage extends React.Component {
     };
   }
 
+  componentDidMount() {
+    // axios({
+    //   method:'get',
+    //   url: '/api/applications?users_id=7'
+    // })
+    // .then((res) => {
+    //   console.log(res,'yo');
+    // });
+    axios('/api/applications?users_id=7')
+      .then((res) => {
+        console.log(res,'compDid');
+      });
+  }
+
+  makeApplication(query, callback) {
+    let appInfo = Object.assign({}, query, {user_id: this.props.session.user.id});
+    axios.post('/api/applications', appInfo)
+    .then((res) => {
+      callback();
+    })
+
+  }
+
   render() {
-    return (
-      <div>
-        <div className="ui three column grid">
-          <div className="column">
-            <ApplicationHistoryForm />
+    if(!this.props.session.user) {
+      this.props.history.push('/login');
+      return (<div>Redirecting</div>);
+    } else {
+        return (
+        <div>
+          <div className="ui three column grid">
+            <div className="column">
+              <ApplicationHistoryForm makeApp={this.makeApplication.bind(this)}/>
+            </div>
+            <div className="column">
+              <ApplicationHistoryFeed />
+            </div>
+            <div className="column">
+              <ApplicationHistoryFeed />
+            </div>
           </div>
-          <div className="column">
-            <ApplicationHistoryFeed />
-          </div>
-          <div className="column">
-            <ApplicationHistoryFeed />
-          </div>
+          {/* <ApplicationHistoryForm /> */}
         </div>
-        {/* <ApplicationHistoryForm /> */}
-      </div>
-    );
+      );
+    }
   }
 }
+const mapStateToProps = (state) => {
+  return {session: state.user}
+}
+export default connect(mapStateToProps)(ApplicationHistoryPage);
+

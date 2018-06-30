@@ -120,11 +120,12 @@ router.route('/roles').get((req, res) => {
 
 router.route('/api/applications')
 .get((req, res) => {
+  console.log(req.query,'hey');
   application_controller.getAllApplications(req.query).then(applications => {
     Promise.all(applications).then(applications => res.json(applications))
   });
 })
-.post((req, res) => {// req.body.offer
+.post((req, res) => {
   application_controller.saveNewApplication(req.body).then(app => {
     Promise.all(app).then(app => {
       res.status(200).json(app);

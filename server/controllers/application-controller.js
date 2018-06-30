@@ -28,6 +28,7 @@ module.exports = {
   },
   saveNewApplication: (values) => {
     // making sure grammar is correct.
+    console.log(values);
     let name = capitalizeWords(values.company);
     let role = capitalizeWords(values.role);
     let loc = capitalizeWords(values.location);

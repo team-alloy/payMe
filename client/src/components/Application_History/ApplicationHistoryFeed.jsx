@@ -1,7 +1,8 @@
 import React from 'react';
-import ApplicationHistoryFeedListView from './ApplicationHistoryFeedListView';
+import ApplicationHistoryFeedListView from './ApplicationHistoryFeedListView.jsx';
+import {connect} from 'react-redux';
 
-export default class ApplicationHistoryFeed extends React.Component {
+ class ApplicationHistoryFeed extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -17,3 +18,7 @@ export default class ApplicationHistoryFeed extends React.Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {session: state.user};
+}
+export default connect(mapStateToProps)(ApplicationHistoryFeed);
