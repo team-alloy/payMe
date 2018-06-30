@@ -5,19 +5,23 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import { Card, CardText } from 'material-ui/Card';
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import injectTapEventPlugin from "react-tap-event-plugin";
+injectTapEventPlugin();
 
 export default class NegotiationPracticeVideo extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			identity: null,
+      identity: null,
+      token: '',
 			roomName: '',
 			roomNameErr: false, // Track error for room name TextField
 			previewTracks: null,
 			localMediaAvailable: false,
 			hasJoinedRoom: false,
-      activeRoom: '', // Track the current active room
-      token: ''
+      activeRoom: '' // Track the current active room
 		};
 		this.joinRoom = this.joinRoom.bind(this);
 		this.handleRoomNameChange = this.handleRoomNameChange.bind(this);
@@ -25,6 +29,13 @@ export default class NegotiationPracticeVideo extends Component {
 		this.leaveRoom = this.leaveRoom.bind(this);
 		this.detachTracks = this.detachTracks.bind(this);
 		this.detachParticipantTracks = this.detachParticipantTracks.bind(this);
+  }
+  
+  componentDidMount() {
+		axios.get('/token').then(results => {
+      const { identity, token } = results.data;
+      this.setState({ identity, token });
+		});
 	}
 
 	handleRoomNameChange(e) {
@@ -140,16 +151,6 @@ export default class NegotiationPracticeVideo extends Component {
 		});
 	}
 
-	componentDidMount() {
-		axios.get('/token').then(results => {
-      const { identity, token } = results.data;
-      console.log('RESULTS DATA', results.data)
-      console.log('identity', this.state.identity)
-      console.log('token', this.state.token)
-      this.setState({ identity, token });
-		});
-	}
-
 	leaveRoom() {
 		this.state.activeRoom.disconnect();
 		this.setState({ hasJoinedRoom: false, localMediaAvailable: false });
@@ -170,9 +171,11 @@ export default class NegotiationPracticeVideo extends Component {
 		) : (
 			<RaisedButton label="Join Room" primary={true} onClick={this.joinRoom} />
     );
+
     console.log('This is the state', this.state);
+   
 		return (
-      <MuiThemeProvider>
+      <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
 			<Card>
 				<CardText>
 					<div className="flex-container">

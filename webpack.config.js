@@ -1,5 +1,8 @@
 require('dotenv').config();
-let path = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
+const webpack = require('webpack');
 
 let SRC_DIR = path.join(__dirname, '/client/src');
 let DEST_DIR = path.join(__dirname, '/client/dist');
@@ -23,7 +26,18 @@ module.exports = {
       },
     ],
   },
+  plugins: [
+    new HtmlWebpackPlugin({
+      hash: true,
+      template: path.join(__dirname, 'client/dist/index.html'),
+      inject: 'body',
+    }),
+    new webpack.BannerPlugin('React Twilio'),
+    new ExtractTextPlugin('[name]-[hash].css'),
+    new webpack.HotModuleReplacementPlugin(),
+
+  ],
   resolve: {
     extensions: ['.js', '.jsx', '.json'],
-  },
+  } 
 };

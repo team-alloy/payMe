@@ -1,3 +1,4 @@
+require("dotenv").config();
 const router = require('express').Router();
 const path = require('path');
 const staticFile = path.join(__dirname + '/../client/dist/index.html');
@@ -10,6 +11,10 @@ const role_controller = require('./controllers/role-controller.js');
 const milestone_controller = require('./controllers/milestone-controller.js');
 const application_controller = require('./controllers/application-controller.js');
 const offer_controller = require('./controllers/offer-controller.js');
+
+const faker = require("faker");
+const AccessToken = require("twilio").jwt.AccessToken;
+const VideoGrant = AccessToken.VideoGrant;
 
 let currentSession;
 
@@ -327,6 +332,7 @@ router.route('/api/offers').post((req, res) => {
   })
 
 /*
+
 888888888888               88 88 88              
      88                    "" 88 ""              
      88                       88                 
@@ -335,6 +341,7 @@ router.route('/api/offers').post((req, res) => {
      88  `8b  d8'`8b  d8'  88 88 88 8b       d8  
      88   `8bd8'  `8bd8'   88 88 88 "8a,   ,a8"  
      88     YP      YP     88 88 88  `"YbbdP"'   
+
 */
                                                  
 // Endpoint to generate access token for VIDEO
@@ -356,11 +363,11 @@ router.route("/token").get((request, response) => {
   // Grant token access to the Video API features
   token.addGrant(grant);
 
- // Serialize the token to a JWT string and include it in a JSON response
- response.json({
+  // Serialize the token to a JWT string and include it in a JSON response
+  response.json({
      identity: identity,
      token: token.toJwt()
- });
+  });
 });
 
 router.route('/*').get((req, res) => {
