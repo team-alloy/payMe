@@ -22,7 +22,7 @@ class ApplicationHistoryPage extends React.Component {
     // });
     axios('/api/applications?users_id=7')
       .then((res) => {
-        console.log(res);
+        console.log(res,'compDid');
       });
   }
 
