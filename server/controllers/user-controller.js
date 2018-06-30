@@ -32,7 +32,7 @@ module.exports = {
     return db.knex('users').where({id: id})
     .then(user => {
       console.log(user,'~~~~~~~~~~~')
-      if(pass) {
+       if(pass) {
         return bcrypt.compare(old_password, password)
         .then(res => {
           if(res) {
@@ -84,14 +84,15 @@ module.exports = {
                     hash: pass,
                     email: email
                   }).then(() => {
-                    console.log(message)
                     return message;
                   });
               }
             });
           } else {
-            throw ('Wrong password');
+            throw ('wrong password');
           }
+        }).catch(err => {
+          throw ('wrong password')
         })
       } else {
         console.log('no pass')
@@ -108,8 +109,7 @@ module.exports = {
 
               if (roles[0]) {
                 return Promise.all(roles).then(roles => {
-                  current_salary = isNaN(current_salary) ? null : current_salary === roles[0].salary ? roles[0].salary : current_salary;
-
+                  current_salary = isNaN(current_salary) ? roles[0].salary : current_salary;
                   console.log('$$$$', 'no pass' , current_salary);
 
                   return db.knex('roles').where({ id: roles[0].id })
@@ -150,8 +150,9 @@ module.exports = {
             });
           }
         }
-    })
-    .catch(err => err);
+    }).catch(err => {
+      throw ('wrong password')
+    });
   },
   checkCredentials: (query) => {
     if(query.body.email) {
@@ -183,7 +184,6 @@ module.exports = {
               return;
             });
             session.user = user[0];
-            console.log(session);
             return session;
             // create session and return it.
           } else {

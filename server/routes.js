@@ -144,11 +144,11 @@ router.route('/api/applications')
 
 /*
 
-88       88 ,adPPYba,  ,adPPYba, 8b,dPPYba, ,adPPYba,
-88       88 I8[    "" a8P_____88 88P'   "Y8 I8[    ""
-88       88  `"Y8ba,  8PP""""""" 88          `"Y8ba,
-"8a,   ,a88 aa    ]8I "8b,   ,aa 88         aa    ]8I
- `"YbbdP'Y8 `"YbbdP"'  `"Ybbd8"' 88         `"YbbdP"'
+88       88 ,adPPYba,  ,adPPYba, 8b,dPPYba,
+88       88 I8[    "" a8P_____88 88P'   "Y8
+88       88  `"Y8ba,  8PP""""""" 88
+"8a,   ,a88 aa    ]8I "8b,   ,aa 88
+ `"YbbdP'Y8 `"YbbdP"'  `"Ybbd8"' 88
 
 */
 router.route('/api/user')
@@ -237,17 +237,15 @@ router.route('/api/login')
 .post( (req, res) => {
   if (!req.body.email ) {
     res.status(400).json({ error: 'email must be provided' });
-  }
-
-  if (!req.body.password) {
+  } else if (!req.body.password) {
     res.status(400).json({ error: 'password must be provided' });
+  } else {
+    user_controller.checkCredentials(req).then(session => {
+      currentSession = session;
+      res.status(200).send(currentSession);
+    })
+      .catch(err => res.status(404).json({ error: err }))
   }
-
-  user_controller.checkCredentials(req).then(session => {
-    currentSession = session;
-    res.status(200).send(currentSession);
-  })
-  .catch( err => res.status(404).json({ error: err}));
 })
 
 router.route('/api/logout')
