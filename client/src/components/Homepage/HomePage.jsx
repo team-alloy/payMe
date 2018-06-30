@@ -1,7 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Segment } from 'semantic-ui-react';
+<<<<<<< HEAD
 import UserCard from './UserCard';
+=======
+import UserCard from './UserCardForm';
+>>>>>>> Implementing userCardForm switch
 import TipOfTheDay from './TipOfTheDay';
 import Reminder from './Reminder';
 
@@ -27,9 +31,21 @@ class HomePage extends React.Component {
         <div className="ui three column grid">
           <div className="three column row">
             <div className="four wide column">
+<<<<<<< HEAD
                 <Segment raised className="ui teal segment">
                   <UserCardForm {...this.props} />
                 </Segment>
+=======
+              <table className="ui celled striped table">
+                <tbody>
+                  <tr>
+                    <Segment raised className="ui teal segment">
+                      <UserCard {...this.props} />
+                    </Segment>
+                  </tr>
+                </tbody>
+              </table>
+>>>>>>> Implementing userCardForm switch
             </div>
             <div className="eight wide column centered">
               <Reminder />
