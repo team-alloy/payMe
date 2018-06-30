@@ -155,7 +155,7 @@ module.exports = {
     if (query.body.email) {
       return db.knex('users').where({ email: query.body.email }).then((user) => {
         if (!user.length) {
-          throw new Error('email does not exist');
+          throw ('email does not exist');
         }
         return bcrypt.compare(query.body.password, user[0].hash).then((res) => {
           if (res) {
@@ -166,13 +166,13 @@ module.exports = {
             return session;
             // create session and return it.
           }
-          throw new Error('wrong password');
+          throw ('wrong password');
         });
       });
     } else if (query.body.username) {
       return db.knex('users').where({ username: query.body.username }).then((user) => {
         if (!user.length) {
-          throw new Error('username does not exist');
+          throw ('username does not exist');
         }
         return bcrypt.compare(query.body.password, user[0].hash).then((res) => {
           if (res) {
