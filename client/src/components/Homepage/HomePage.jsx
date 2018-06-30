@@ -30,7 +30,6 @@ class HomePage extends React.Component {
                 <tbody>
                   <tr>
                     <Segment raised className="ui teal segment">
-                      <img src="/images/gitchardhubbard.png" height="auto" width="100%" alt="sirGitchardHubbard" />
                       <UserCardForm {...this.props} />
                     </Segment>
                   </tr>
