@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { Segment } from 'semantic-ui-react';
 import UserCardForm from './UserCardForm';
 import TipOfTheDay from './TipOfTheDay';
 import Reminder from './Reminder';
@@ -22,19 +23,24 @@ class HomePage extends React.Component {
     }
     return (
       <div>
-        <div className="ui two column grid">
-          <div className="two column row">
-            <div className="three wide column">
-              <img src="/images/gitchardhubbard.png" alt="sirGitchardHubbard" />
-              <UserCardForm {...this.props} />
+        <div className="ui three column grid">
+          <div className="three column row">
+            <div className="four wide column">
+              <table className="ui celled striped table">
+                <tbody>
+                  <tr>
+                    <Segment raised className="ui teal segment">
+                      <img src="/images/gitchardhubbard.png" height="auto" width="100%" alt="sirGitchardHubbard" />
+                      <UserCardForm {...this.props} />
+                    </Segment>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <div className="ten wide column">
+            <div className="eight wide column centered">
               <Reminder />
             </div>
-          </div>
-          <div className="row">
-            <div className="three wide column" />
-            <div className="ten wide column">
+            <div className="four wide column centered">
               <TipOfTheDay />
             </div>
           </div>

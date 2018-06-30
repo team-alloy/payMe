@@ -1,4 +1,5 @@
 import React from 'react';
+import { Segment } from 'semantic-ui-react';
 
 export default class ReminderListView extends React.Component {
   constructor(props) {
@@ -10,33 +11,35 @@ export default class ReminderListView extends React.Component {
 
   render() {
     return (
-      <table className="ui celled striped table">
-        <thead>
-          <tr>
-            <th className="single line">
-              Reminders
-              <i className="calendar outline icon" />
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td className="single line">
-              Have you made any interesting updates on the Hello Fresh project?
-            </td>
-          </tr>
-          <tr>
-            <td className="single line">
-              Have you heard back from Google? It may be time to update your application.
-            </td>
-          </tr>
-          <tr>
-            <td className="single line">
-              Did you do anything interesting recently for a project? Record it in Milestones!
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <Segment raised className="segment ui teal segment">
+        <table className="ui celled striped table">
+          <thead>
+            <tr>
+              <th className="ui center aligned" text-align="center" >
+                {'Reminders '}
+                <i className="calendar outline icon" />
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td className="single line">
+                Have you made any interesting updates on the Hello Fresh project?
+              </td>
+            </tr>
+            <tr>
+              <td className="single line">
+                Have you heard back from Google? It may be time to update your application.
+              </td>
+            </tr>
+            <tr>
+              <td className="single line">
+                Did you do anything interesting recently for a project? Record it in Milestones!
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </Segment>
     );
   }
 }
