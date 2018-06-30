@@ -49,7 +49,11 @@ export default class UserCardForm extends React.Component {
 
           <div className="field">
             <label style={{fontWeight: 'bold'}}>
+<<<<<<< HEAD
               {'Current Salary: '} 
+=======
+              {'Salary: '} 
+>>>>>>> Refactor UserCardForm to prepare for Editable Form
             </label>
             <div className="field">
               <input type="text" />
