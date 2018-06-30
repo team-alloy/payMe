@@ -1,6 +1,8 @@
-var path = require('path');
-var SRC_DIR = path.join(__dirname, '/client/src');
-var DEST_DIR = path.join(__dirname, '/client/dist');
+require('dotenv').config();
+let path = require('path');
+
+let SRC_DIR = path.join(__dirname, '/client/src');
+let DEST_DIR = path.join(__dirname, '/client/dist');
 
 module.exports = {
   entry: `${SRC_DIR}/index.jsx`,
@@ -16,12 +18,12 @@ module.exports = {
         exclude: ['node_modules'],
         loader: 'babel-loader',
         query: {
-          presets: ['react', 'env']
-        }
-      }
-    ]
+          presets: ['react', 'env'],
+        },
+      },
+    ],
   },
   resolve: {
-    extensions: ['.js','.jsx','.json']
-  }
+    extensions: ['.js', '.jsx', '.json'],
+  },
 };

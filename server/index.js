@@ -1,8 +1,12 @@
+const path = require('path');
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const routes = require('./routes.js');
+const faker = require("faker");
+const AccessToken = require("twilio").jwt.AccessToken;
+const VideoGrant = AccessToken.VideoGrant;
 
 const app = express();
 
@@ -39,4 +43,3 @@ const server = app.listen(process.env.PORT || 1337, () => {
 });
 
 module.exports = {server, app};
-
