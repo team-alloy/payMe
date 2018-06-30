@@ -94,7 +94,7 @@ describe('Users functionality', () => {
       return request(app).patch(`/api/user?id=${user.id}`)
         .send({ pass: 1234, old_password: 1234 })
         .then(response => {
-          let error = JSON.parse(response.error.text);
+          let error = response.body;
           expect(response.statusCode).toBeGreaterThan(399);
           expect(error.error).toEqual('wrong password');
           // error message should appear in body telling the user that this is not allowed
@@ -168,7 +168,6 @@ describe('GET request', () => {
   });
 
   test('It should connect to companies GET', () => {
-    console.log(user)
     return request(app).get('/api/companies').expect(200);
   });
 });

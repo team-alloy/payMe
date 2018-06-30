@@ -41,6 +41,7 @@ exports.up = (knex, Promise) => Promise.all([
     table.boolean('hasPTO');
     table.boolean('hasRetirement');
     table.boolean('coversRelocation');
+    table.boolean('acceptedOffer')
   }),
   knex.schema.createTable('milestones', (table) => {
     table.increments('id').primary().notNullable();

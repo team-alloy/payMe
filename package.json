@@ -5,7 +5,7 @@
   "main": "server/index.js",
   "scripts": {
     "start": "nodemon --inspect server/index.js",
-    "build": "webpack --config webpack.config.js",
+    "postinstall": "webpack --config webpack.config.js",
     "react:dev": "webpack -d --watch",
     "test": "jest --watch",
     "migrate": "knex migrate:latest --knexfile database/knexfile.js"

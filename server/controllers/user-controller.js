@@ -93,9 +93,9 @@ module.exports = {
                   }).then(() => message);
                 });
               }
-              throw new Error('wrong password');
+              throw ('wrong password');
             }).catch((err) => {
-              throw new Error('wrong password');
+              throw ('wrong password');
             });
         }
         // console.log('no pass');
@@ -130,7 +130,7 @@ module.exports = {
                   });
                 });
               }
-              throw new Error('You need to make an application first');
+              throw ('You need to make an application first');
             });
         }
         // console.log('no role, no pass');
@@ -148,7 +148,7 @@ module.exports = {
           email,
         }).then(() => message);
       }).catch(() => {
-        throw new Error('wrong password');
+        throw ('wrong password');
       });
   },
   checkCredentials: (query) => {
