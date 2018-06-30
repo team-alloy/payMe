@@ -1,11 +1,8 @@
-require("dotenv").config();
-const bodyParser = require('body-parser');
 const express = require('express');
 const morgan = require('morgan');
-const path = require("path");
-const routes = require('./routes.js');
+const bodyParser = require('body-parser');
 const session = require('express-session');
-const webpack = require("webpack");
+const routes = require('./routes.js');
 
 const app = express();
 
@@ -27,26 +24,6 @@ app.use(session({
   cookie: {secure: true, maxAge: 60000}
 }));
 
-// Twilio env
-if(process.env.NODE_ENV === "DEV") { // Configuration for development environment
-  var webpackDevMiddleware = require("webpack-dev-middleware");
-  var webpackHotMiddleware = require("webpack-hot-middleware");
-  var webpackConfig = require("../webpack.config.js");
-  const webpackCompiler = webpack(webpackConfig);
-  app.use(webpackDevMiddleware(webpackCompiler, {
-    hot: true
-  }));
-  app.use(webpackHotMiddleware(webpackCompiler));
-  app.use(express.static(path.join(__dirname, "app")));
-} else if(process.env.NODE_ENV === "PROD") { // Configuration for production environment
-  app.use(express.static(path.join(__dirname, "dist")));
-}
-
-app.use(function(req, res, next){
-  console.log("Request from: ", req.url);
-  next();
-})
-
 /*
   routes
  */
@@ -62,3 +39,4 @@ const server = app.listen(process.env.PORT || 1337, () => {
 });
 
 module.exports = {server, app};
+
