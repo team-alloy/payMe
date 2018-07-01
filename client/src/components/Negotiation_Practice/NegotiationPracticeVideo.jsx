@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Video from 'twilio-video';
 import axios from 'axios';
-
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import { Card, CardText } from 'material-ui/Card';
@@ -21,8 +23,11 @@ export default class NegotiationPracticeVideo extends Component {
 			previewTracks: null,
 			localMediaAvailable: false,
 			hasJoinedRoom: false,
-			activeRoom: '' // Track the current active room
+			activeRoom: '', // Track the current active room
+			remoteMedia: null,
 		};
+		this.localMedia = React.createRef();
+		this.remoteMedia = React.createRef();
 		this.joinRoom = this.joinRoom.bind(this);
 		this.handleRoomNameChange = this.handleRoomNameChange.bind(this);
 		this.roomJoined = this.roomJoined.bind(this);
@@ -93,7 +98,7 @@ export default class NegotiationPracticeVideo extends Component {
 		});
 
 		// Attach LocalParticipant's Tracks, if not already attached.
-		var previewContainer = this.refs.localMedia;
+		var previewContainer = this.localMedia;
 		if (!previewContainer.querySelector('video')) {
 			this.attachParticipantTracks(room.localParticipant, previewContainer);
 		}
@@ -101,7 +106,7 @@ export default class NegotiationPracticeVideo extends Component {
 		// Attach the Tracks of the Room's Participants.
 		room.participants.forEach(participant => {
 			console.log("Already in Room: '" + participant.identity + "'");
-			var previewContainer = this.refs.remoteMedia;
+			var previewContainer = this.remoteMedia;
 			this.attachParticipantTracks(participant, previewContainer);
 		});
 
@@ -113,7 +118,7 @@ export default class NegotiationPracticeVideo extends Component {
 		// When a Participant adds a Track, attach it to the DOM.
 		room.on('trackAdded', (track, participant) => {
 			console.log(participant.identity + ' added track: ' + track.kind);
-			var previewContainer = this.refs.remoteMedia;
+			var previewContainer = this.remoteMedia;
 			this.attachTracks([track], previewContainer);
 		});
 
@@ -156,27 +161,48 @@ export default class NegotiationPracticeVideo extends Component {
 		this.setState({ hasJoinedRoom: false, localMediaAvailable: false });
 	}
 
+	
+
 	render() {
 	
-		return (
-			
-			<Card>
-				<CardText>
-					<div className="flex-container">
-					
-						<div className="flex-item">
-							<TextField
-								hintText="Room Name"
-								onChange={this.handleRoomNameChange}
-								errorText={this.state.roomNameErr ? 'Room Name is required' : undefined}
-							/>
-							<br />
+		/* 
+		 Controls showing of the local track
+		 Only show video track after user has joined a room else show nothing 
+		*/
+		let showLocalTrack = this.state.localMediaAvailable ? (
+			<div className="flex-item"><div s /> </div>) : '';  
+		/*
+		 Controls showing of ‘Join Room’ or ‘Leave Room’ button.  
+		 Hide 'Join Room' button if user has already joined a room otherwise 
+		 show `Leave Room` button.
+		*/
+		let joinOrLeaveRoomButton = this.state.hasJoinedRoom ? (
+		<RaisedButton label="Leave Room" secondary={true} onClick={() => alert("Leave Room")}  />) : (
+		<RaisedButton label="Join Room" primary={true} onClick={this.joinRoom} />);
 
-						</div>
-						<div className="flex-item" id="remote-media" />
-					</div>
-				</CardText>
+		return (
+			<MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
+			<Card>
+		<CardText>
+			<div className="flex-container">
+			{showLocalTrack} {/* Show local track if available */}
+			<div className="flex-item">
+			{/* 
+	The following text field is used to enter a room name. It calls  `handleRoomNameChange` method when the text changes which sets the `roomName` variable initialized in the state.
+			*/}
+			<TextField hintText="Room Name" onChange={this.handleRoomNameChange} 
+	errorText = {this.state.roomNameErr ? 'Room Name is required' : undefined} 
+			 /><br />
+			{joinOrLeaveRoomButton}  {/* Show either ‘Leave Room’ or ‘Join Room’ button */}
+			 </div>
+			{/* 
+	The following div element shows all remote media (other                             participant’s tracks) 
+			*/}
+			<div className="flex-item"  id="remote-media" />
+		</div>
+	</CardText>
 			</Card>
+			</MuiThemeProvider>
 		);
 	}
 }
