@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
+import axios from 'axios';
 
+import CompanyDropDown from './CompanyDropDown';
+import CityDropDown from './CityDropDown';
+import StateDropDown from './StateDropDown';
 export default class SearchPage extends Component {
   constructor(props) {
     super(props);
@@ -9,35 +13,61 @@ export default class SearchPage extends Component {
     };
   }
 
+  componentDidMount() {
+    const set = this.setState.bind(this);
+
+    this.getCompanies((data) => {
+      set({companies: data})
+    });
+
+    this.getCities((data) => {
+      set({cities: data});
+    });
+
+    this.getStates((data) => {
+      set({states: data});
+    });
+  }
+
+  getCompanies(callback) {
+    axios.get('/api/companies').then(response => callback(response.data))
+    .catch(err => console.error(err));
+  }
+
+  getCities(callback) {
+    axios.get('/api/search?cities=true').then(response => callback(response.data))
+      .catch(err => console.error(err));
+  }
+
+  getStates(callback) {
+    axios.get('/api/search?states=true').then(response => callback(response.data))
+      .catch(err => console.error(err));
+  }
+
+
   handleQueryChange(e) {
     this.setState({query: e.target.value})
   }
 
   searchDatabase(e) {
     e.preventDefault();
-    console.log(this.state.query, $('.search-term'));
   }
 
   render() {
+    console.log(this.state);
+
     return (
-      <div className="ui one column centered grid container">
-        <div className="column centered aligned">
-          <div className="ui icon input" style={{ 'marginTop': '15px', 'marginBottom': '15px', 'width': '300px' }}>
-            <input
-              className="search-term"
-              value={this.state.query}
-              type="text" placeholder="Search..."
-              onChange={this.handleQueryChange.bind(this)} />
-            <button
-              onClick={this.searchDatabase.bind(this)}
-              className="ui teal button" >
-              <i className="search icon"/>
-            </button>
-          </div>
+      <div className="ui grid">
+        <div className="three column row centered ">
+          <CompanyDropDown companies={this.state.companies} />
+          <CityDropDown cities={this.state.cities} />
+          <StateDropDown states={this.state.states} />
         </div>
-        <div className="column centered aligned">
-          test
+        <div className="one column row centered ">
+          <div>test</div>
+          <div>test</div>
         </div>
+
       </div>
     )
   }
