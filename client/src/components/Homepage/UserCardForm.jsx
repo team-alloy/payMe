@@ -13,7 +13,7 @@ export default class UserCardForm extends React.Component {
   render() {
     return (
       <div className="ui teal card">
-        <h4 class="ui dividing header left aligned segment">Edit User's Profile</h4>
+        <h4 className="ui dividing header left aligned segment">Edit User's Profile</h4>
         <form className="ui-form">
           <div className="field">
             <div className="left aligned segment" style={{ fontWeight: 'bold' }}>
@@ -49,7 +49,7 @@ export default class UserCardForm extends React.Component {
 
           <div className="field">
             <label style={{fontWeight: 'bold'}}>
-              {'Salary: '} 
+              {'Current Salary: '} 
             </label>
             <div className="field">
               <input type="text" />

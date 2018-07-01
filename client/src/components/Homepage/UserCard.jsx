@@ -1,5 +1,6 @@
 import React from 'react';
 import UserCardForm from 'react';
+import { Segment } from 'semantic-ui-react';
 
 export default class UserCard extends React.Component {
   constructor(props) {
