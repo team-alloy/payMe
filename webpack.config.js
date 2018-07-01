@@ -1,8 +1,8 @@
 require('dotenv').config();
 const path = require('path');
 
-let SRC_DIR = path.join(__dirname, '/client/src');
-let DEST_DIR = path.join(__dirname, '/client/dist');
+const SRC_DIR = path.join(__dirname, '/client/src');
+const DEST_DIR = path.join(__dirname, '/client/dist');
 
 module.exports = {
   entry: `${SRC_DIR}/index.jsx`,

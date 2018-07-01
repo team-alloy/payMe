@@ -1,34 +1,39 @@
+<<<<<<< HEAD
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+=======
+const bodyParser = require('body-parser');
+const express = require('express');
+const morgan = require('morgan');
+>>>>>>> Remove dependencies slowing down loading of website
 const session = require('express-session');
 const routes = require('./routes.js');
 
 const app = express();
 
 // static file serving
-app.use(express.static(__dirname+ '/../client/dist/'));
+app.use(express.static(`${__dirname}/../client/dist/`));
 
 /*
   MIDDLEWARE
  */
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
 
 app.use(session({
-  secret: "41hd35Y5tXo68w1",
+  secret: '41hd35Y5tXo68w1',
   resave: false,
   saveUninitialized: true,
-  cookie: {secure: true, maxAge: 60000}
+  cookie: { secure: true, maxAge: 60000 },
 }));
 
 /*
   routes
  */
 app.all('/*', routes);
-
 
 /*
   PORT
@@ -38,5 +43,9 @@ const server = app.listen(process.env.PORT || 1337, () => {
   console.log('Listening on http://localhost:1337');
 });
 
+<<<<<<< HEAD
 module.exports = {server, app};
 
+=======
+module.exports = { server, app };
+>>>>>>> Remove dependencies slowing down loading of website
