@@ -3,6 +3,7 @@ import UserCard from './UserCard';
 import { connect } from 'react-redux';
 import { ENGINE_METHOD_CIPHERS } from 'constants';
 
+
 export default class UserCardForm extends React.Component {
   constructor(props) {
     super(props);
@@ -55,6 +56,10 @@ export default class UserCardForm extends React.Component {
     this.nameChange();
   }
 
+  // this function will change the state to card display
+
+  // this function will check to see if the state is card, if it is change the view
+
   render() {
     return (
       <div className="ui teal card">
@@ -76,7 +81,7 @@ export default class UserCardForm extends React.Component {
 
           <div className="field">
             <label style={{fontWeight: 'bold'}}>
-              {'Position\'s Title: '} 
+              {'Position\'s Title: '}
             </label>
             <div className="field">
               <input type="text" value={this.state.position} onChange={this.positionChange} />
@@ -107,7 +112,6 @@ export default class UserCardForm extends React.Component {
         </div>
         </form>
       </div>
-    )
+    );
   }
 }
-

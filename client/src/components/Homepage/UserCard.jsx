@@ -1,16 +1,32 @@
 import React from 'react';
-import UserCardForm from 'react';
+import UserCardForm from './UserCardForm';
 import { Segment } from 'semantic-ui-react';
 
 export default class UserCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      display: 'default',
     };
   }
 
-  render () {
+  // this function will change the state to form display
+  formViewSwitch() {
+    this.setState({ display: 'form' });
+  }
+
+  viewChecker() {
+    const { display } = this.state;
+    if (display === 'form') {
+      return (
+        <div>
+          <UserCardForm />
+        </div>
+      );
+    }
+  }
+
+  render() {
     return (
       <div className="ui teal card">
         <div className="image">
@@ -36,13 +52,14 @@ export default class UserCard extends React.Component {
             <i className="dollar sign icon"></i>
             105,000
           </a>
-          <a>
+          {/* <a>
             <span className="right floated">
-              <i className="edit icon" />
+              <i className="edit icon" onClick={() => { this.formViewSwitch() }} />
             </span>
-          </a>
+          </a> */}
+          {/* { this.viewChecker() } */}
         </div>
       </div>
-    );
+    )
   }
 }
