@@ -8,21 +8,23 @@ class ApplicationHistoryPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      applications:[]
     };
   }
 
   componentDidMount() {
-    // axios({
-    //   method:'get',
-    //   url: '/api/applications?users_id=7'
-    // })
-    // .then((res) => {
-    //   console.log(res,'yo');
-    // });
-    axios('/api/applications?users_id=7')
+    this.getApplicationByUserID((data) => {
+      this.setState({
+        applications: data
+      });
+    });
+  }
+   getApplicationByUserID(callback) {
+    var userID = this.props.session.user.id;
+      axios.get('/api/applications?user_id='+userID)
       .then((res) => {
-        console.log(res,'compDid');
+        callback(res.data);
+        return res;
       });
   }
 
@@ -32,7 +34,6 @@ class ApplicationHistoryPage extends React.Component {
     .then((res) => {
       callback();
     })
-
   }
 
   render() {
@@ -47,7 +48,7 @@ class ApplicationHistoryPage extends React.Component {
               <ApplicationHistoryForm makeApp={this.makeApplication.bind(this)}/>
             </div>
             <div className="column">
-              <ApplicationHistoryFeed />
+              <ApplicationHistoryFeed apps={this.state.applications}/>
             </div>
             <div className="column">
               <ApplicationHistoryFeed />
