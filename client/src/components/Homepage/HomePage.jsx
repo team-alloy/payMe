@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Segment } from 'semantic-ui-react';
-import UserCard from './UserCardForm';
+import UserCard from './UserCard';
 import TipOfTheDay from './TipOfTheDay';
 import Reminder from './Reminder';
 
