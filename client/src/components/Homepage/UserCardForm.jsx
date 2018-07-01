@@ -2,6 +2,7 @@ import React from 'react';
 import UserCard from './UserCard';
 import { connect } from 'react-redux';
 import { ENGINE_METHOD_CIPHERS } from 'constants';
+// import { BADHINTS } from 'dns';
 
 
 export default class UserCardForm extends React.Component {
@@ -55,10 +56,6 @@ export default class UserCardForm extends React.Component {
     event.preventDefault();
     this.nameChange();
   }
-
-  // this function will change the state to card display
-
-  // this function will check to see if the state is card, if it is change the view
 
   render() {
     return (

@@ -15,6 +15,11 @@ export default class UserCard extends React.Component {
     this.setState({ display: 'form' });
   }
 
+  // this function will change the state to form display
+  formViewSwitch() {
+    this.setState({ display: 'form' });
+  }
+
   viewChecker() {
     const { display } = this.state;
     if (display === 'form') {

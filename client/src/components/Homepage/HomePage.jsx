@@ -14,33 +14,8 @@ class HomePage extends React.Component {
     };
   }
 
-  // this function will change the state to form display
-  formViewSwitch() {
-    this.setState({ display: 'form' });
-  }
-
-  viewChecker() {
-    const { display } = this.state;
-    if (display === 'form') {
-      return (
-        <div>
-          <UserCardForm />
-        </div>
-      );
-    } if (display === 'view') {
-      return (
-        <div>
-          <UserCard {...this.props} />
-          <span className="right floated">
-            <i className="edit icon" onClick={() => { this.formViewSwitch() }} />
-          </span>
-        </div>
-      );
-    }
-  }
-
   render() {
-    // console.log(this.props)
+    console.log(this.props)
     if (!this.props.session.user) {
       this.props.history.push('/login');
       return (
