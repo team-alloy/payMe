@@ -215,7 +215,6 @@ router.route('/api/user')
 router.route('/api/signup')
 .post((req, res) => {
   if(!req.body.email) {
-    console.log(res.body)
     res.status(404).json({ error: 'An account needs an email'});
   }
   if(!req.body.username) {
