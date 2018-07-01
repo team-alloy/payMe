@@ -6,8 +6,10 @@ import HomePage from './Homepage/HomePage';
 import Login from './Login/Login';
 import MilestonePage from './Milestone/MilestonePage';
 import NegotiationPracticePage from './Negotiation_Practice/NegotiationPracticePage';
+import SearchPage from './Search/SearchPage';
 import SignUp from './Signup/Signup';
 import TipsPage from './Tips/TipsPage';
+import { SearchCategory } from 'semantic-ui-react';
 
 export default class Main extends React.Component {
   constructor(props) {
@@ -29,6 +31,7 @@ export default class Main extends React.Component {
           <Route path="/tips" component={TipsPage} />
           <Route path="/applications" component={ApplicationHistoryPage} />
           <Route path="/practice" component={NegotiationPracticePage} />
+          <Route path="/search" component={SearchPage} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
         </Switch>
