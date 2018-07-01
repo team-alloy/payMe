@@ -338,19 +338,26 @@ aa    ]8I "8b,   ,aa 88,    ,88 88         "8a,   ,aa 88       88
 */
 
 router.route('/api/search').get( (req, res) => {
-  console.log(req.query);
-    if(req.query.cities) {
+  const l = Object.keys(req.query).length;
+  console.log(req.query, l);
+    if(req.query.cities && l <= 1) {
       console.log('ho');
 
       search_controller.getCities().then(cities => {
         res.status(200).json(cities);
       })
-     } else if (req.query.states) {
+    } else if (req.query.states && l <= 1) {
        console.log('hey');
 
-        search_controller.getStates().then(states => {
-          res.status(200).json(states);
+      search_controller.getStates().then(states => {
+        res.status(200).json(states);
       })
+    } else if (req.query.roles && l <= 1) {
+      search_controller.getRoles().then(roles => {
+        res.status(200).json(roles);
+      })
+    } else {
+      throw new Error('Unable to make search happen, we are sorry.')
     }
 });
 
