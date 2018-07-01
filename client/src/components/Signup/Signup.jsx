@@ -28,7 +28,7 @@ export default class SignUp extends React.Component {
     e.preventDefault();
     let {first_name, last_name, email, username, pass} = this.state;
     if(this.state.pass !== this.state.reEnterPW) {
-      console.log('one of the fields is wrong');
+      console.log('passwords do not match');
     } else {
       axios({
         method:'post',
