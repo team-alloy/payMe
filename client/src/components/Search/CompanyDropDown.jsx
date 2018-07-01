@@ -5,7 +5,7 @@ export default (props) => {
     <div className="ui floating dropdown labeled search icon button">
       <i className="industry icon"></i>
       <span className="text company">Select Company</span>
-      <div className="menu">
+      <div id="selected-company" className="menu">
         {props.companies ? props.companies.map((company) => {
           return (<div key={company.id} className="item">{company.name}</div>);
         }) : undefined}
