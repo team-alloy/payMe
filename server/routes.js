@@ -10,6 +10,7 @@ const role_controller = require('./controllers/role-controller.js');
 const milestone_controller = require('./controllers/milestone-controller.js');
 const application_controller = require('./controllers/application-controller.js');
 const offer_controller = require('./controllers/offer-controller.js');
+const search_controller = require('./controllers/search-controller.js');
 
 let currentSession;
 
@@ -215,7 +216,6 @@ router.route('/api/user')
 router.route('/api/signup')
 .post((req, res) => {
   if(!req.body.email) {
-    console.log(res.body)
     res.status(404).json({ error: 'An account needs an email'});
   }
   if(!req.body.username) {
@@ -324,8 +324,42 @@ router.route('/api/offers').post((req, res) => {
     .catch((err) => {
       res.status(404).json(err)
     })
-  })
+  });
 
+/*
+                                                      88
+                                                      88
+                                                      88
+,adPPYba,  ,adPPYba, ,adPPYYba, 8b,dPPYba,  ,adPPYba, 88,dPPYba,
+I8[    "" a8P_____88 ""     `Y8 88P'   "Y8 a8"     "" 88P'    "8a
+ `"Y8ba,  8PP""""""" ,adPPPPP88 88         8b         88       88
+aa    ]8I "8b,   ,aa 88,    ,88 88         "8a,   ,aa 88       88
+`"YbbdP"'  `"Ybbd8"' `"8bbdP"Y8 88          `"Ybbd8"' 88       88
+*/
+
+router.route('/api/search').get( (req, res) => {
+  const l = Object.keys(req.query).length;
+  console.log(req.query, l);
+    if(req.query.cities && l <= 1) {
+      console.log('ho');
+
+      search_controller.getCities().then(cities => {
+        res.status(200).json(cities);
+      })
+    } else if (req.query.states && l <= 1) {
+       console.log('hey');
+
+      search_controller.getStates().then(states => {
+        res.status(200).json(states);
+      })
+    } else if (req.query.roles && l <= 1) {
+      search_controller.getRoles().then(roles => {
+        res.status(200).json(roles);
+      })
+    } else {
+      throw new Error('Unable to make search happen, we are sorry.')
+    }
+});
 
 router.route('/*').get((req, res) => {
   res.status(200).sendFile(staticFile);

@@ -2,8 +2,7 @@
 exports.up = (knex, Promise) => Promise.all([
   knex.schema.createTable('companies', (table) => {
     table.increments('id').primary().notNullable();
-    table.string('name').notNullable().unique();
-    table.timestamp('created_at', true).notNullable();
+    table.string('name', 100).notNullable().unique();
   }),
   knex.schema.createTable('roles', (table) => {
     table.increments('id').primary().notNullable();
@@ -29,7 +28,9 @@ exports.up = (knex, Promise) => Promise.all([
       .notNullable();
     table.integer('role_id').unsigned().references('id').inTable('roles')
       .notNullable();
-    table.string('location', 100);
+    table.string('city', 100);
+    table.string('state', 2);
+    table.boolean('accepted');
     table.timestamp('created_at', true).notNullable();
   }),
   knex.schema.createTable('offers', (table) => {
@@ -41,15 +42,16 @@ exports.up = (knex, Promise) => Promise.all([
     table.boolean('hasPTO');
     table.boolean('hasRetirement');
     table.boolean('coversRelocation');
-    table.boolean('acceptedOffer')
+    table.boolean('acceptedOffer');
   }),
   knex.schema.createTable('milestones', (table) => {
     table.increments('id').primary().notNullable();
     table.integer('user_id').unsigned().references('id').inTable('users')
       .notNullable();
     table.string('name', 100).notNullable();
-    table.string('description', 500).notNullable();
-    table.string('repo_link', 300);
+    table.string('description', 1000).notNullable();
+    table.string('repo_link', 200);
+    table.string('goals', 1000)
     table.string('tech_used', 300);
     table.timestamp('created_at', true).notNullable();
   }),

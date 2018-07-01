@@ -50,7 +50,7 @@ class HomePage extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { session: state.user };
+  return { session: state.user, searchWords: state.searchWords };
 };
 
 export default connect(mapStateToProps)(HomePage);
