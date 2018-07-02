@@ -33,7 +33,7 @@ export default class UserCard extends React.Component {
 
   render() {
     console.log(this.props.user)
-    const currentUser = this.props;
+    const currentUser = this.props.session.user;
     return (
       <div className="ui teal card">
         <div className="image">
@@ -41,23 +41,23 @@ export default class UserCard extends React.Component {
         </div>
         <div className="content">
           <a>
-            {`${currentUser.user.first_name} ${currentUser.user.last_name}`}
+            {`${currentUser.first_name} ${currentUser.last_name}`}
           </a>
           <div className="meta">
             <span className="description">
-              {`${currentUser.user.active_role}` + ' at Google'}
+              {`${currentUser.active_role}` + ' at Google'}
             </span>
           </div>
         </div>
         <div className="extra content">
           <a>
             <i className="envelope icon"></i>
-            {currentUser.user.email}
+            {currentUser.email}
             <br />
           </a>
           <a>
             <i className="dollar sign icon"></i>
-            {currentUser.user.current_salary}
+            {currentUser.current_salary}
           </a>
           {/* <a>
             <span className="right floated">

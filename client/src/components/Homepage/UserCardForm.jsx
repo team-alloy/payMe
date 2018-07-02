@@ -64,7 +64,7 @@ export default class UserCardForm extends React.Component {
     this.nameChange();
 
     // axios#patch(url[, data[, config]])
-    axios.patch((`/api/user?id=${this.props.user.id}`), {
+    axios.patch((`/api/user?id=${this.props.session.user.id}`), {
       'first_name': this.state.firstName,
       'last_name': this.state.lastName,
       'email': this.state.email,
