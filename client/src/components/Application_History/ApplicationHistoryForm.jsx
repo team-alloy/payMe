@@ -12,16 +12,17 @@ export default class ApplicationHistoryForm extends React.Component {
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.clearFields = this.clearFields.bind(this);
   }
 
   handleClick(e) {
     e.preventDefault();
     this.props.makeApp(this.state, ()=>{
       this.setState({
-      company: '',
-      role: '',
-      location: '',
-      salary: 0
+        company: '',
+        role: '',
+        location: '',
+        salary: 0
       });
     });
   }
@@ -32,6 +33,15 @@ export default class ApplicationHistoryForm extends React.Component {
     var value = e.target.value;
     this.setState({
       [name]: value
+    });
+  }
+
+  clearFields() {
+    this.setState({
+      company: '',
+      role: '',
+      location: '',
+      salary: 0
     });
   }
 
@@ -86,7 +96,7 @@ export default class ApplicationHistoryForm extends React.Component {
           </div>
         </form>
         <div className="button-container">
-          <button className="ui-button-cancel" type="reset">
+          <button onClick={this.clearFields} className="ui-button-cancel" type="reset">
             Cancel
           </button>
           <button onClick={this.handleClick} className="ui-button-confirm" type="submit">
@@ -97,12 +107,5 @@ export default class ApplicationHistoryForm extends React.Component {
     );
   }
 }
-// const mapStateToProps = (state) => {
-//   return {session: state.user};
-// }
-// export default connect(mapStateToProps)(ApplicationHistoryFeed);
-// refactor application history form to get and post
-// applications
-// refactor to render dynamically
 // add offers button?
   // maybe a modal for offers application ex: have PTO?

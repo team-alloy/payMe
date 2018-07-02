@@ -10,10 +10,17 @@ export default class ApplicationHistoryFeed extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <ApplicationHistoryFeedListView />
-      </div>
-    );
+    if(this.props.apps) {
+      return (
+        <div>
+        {this.props.apps.map((app) => {
+          return <ApplicationHistoryFeedListView apps={app}/>
+        })}
+        </div>
+      );
+    } else {
+      return null;
+    }
+
   }
 }

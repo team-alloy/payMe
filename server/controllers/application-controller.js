@@ -30,6 +30,7 @@ const updateLocation = (query, city, state) => db.knex('applications').where(que
 module.exports = {
   getAllApplications: (query) => {
     if (query) {
+      console.log(query,'controller');
       return db.knex('applications').where(query)
         .then(applications => fillUsersName(applications)).then(applications => fillRole(applications))
         .then(applications => applications);
