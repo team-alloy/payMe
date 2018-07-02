@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-=======
 require('dotenv').config();
->>>>>>> Remove dependencies slowing down loading of website
 const router = require('express').Router();
 const path = require('path');
 
@@ -16,14 +13,10 @@ const role_controller = require('./controllers/role-controller.js');
 const milestone_controller = require('./controllers/milestone-controller.js');
 const application_controller = require('./controllers/application-controller.js');
 const offer_controller = require('./controllers/offer-controller.js');
-<<<<<<< HEAD
 const search_controller = require('./controllers/search-controller.js');
-=======
 
 const AccessToken = require('twilio').jwt.AccessToken;
-
 const VideoGrant = AccessToken.VideoGrant;
->>>>>>> Remove dependencies slowing down loading of website
 
 let currentSession;
 
@@ -40,7 +33,9 @@ a8"     "" a8"     "8a 88P'   "88"    "8a 88P'    "8a ""     `Y8 88P'   `"8a 88 
                                           88
                                           88
 
-*/router.route('/api/companies')
+*/
+
+router.route('/api/companies')
   .get((req, res) => {
   // make it work with names too.
     if (req.query.id) {
@@ -131,13 +126,12 @@ router.route('/roles').get((req, res) => {
 
 
 router.route('/api/applications')
-<<<<<<< HEAD
 .get((req, res) => {
   console.log(req.query,'query at route');
   application_controller.getAllApplications(req.query).then(applications => {
     Promise.all(applications).then(applications => {
       console.log(applications,'res at route');
-      res.json(applications)
+      res.json(applications);
     });
   });
 })
@@ -145,21 +139,9 @@ router.route('/api/applications')
   application_controller.saveNewApplication(req.body).then(app => {
     Promise.all(app).then(app => {
       res.status(200).json(app);
-    })
-=======
-  .get((req, res) => {
-    application_controller.getAllApplications(req.query).then((applications) => {
-      Promise.all(applications).then(applications => res.json(applications));
     });
->>>>>>> Remove dependencies slowing down loading of website
-  })
-  .post((req, res) => { // req.body.offer
-    application_controller.saveNewApplication(req.body).then((app) => {
-      Promise.all(app).then((app) => {
-        res.status(200).json(app);
-      });
-    });
-  })
+  });
+})
   .patch((req, res) => {
     application_controller.updateApplication(req).then(application => application_controller.getAllApplications({ id: application[0].id }).then(app => Promise.all(app).then(app => res.status(201).json(app))));
   })
@@ -235,24 +217,6 @@ router.route('/api/user')
 
 
 router.route('/api/signup')
-<<<<<<< HEAD
-.post((req, res) => {
-  if(!req.body.email) {
-    res.status(404).json({ error: 'An account needs an email'});
-  }
-  if(!req.body.username) {
-    res.status(404).json({ error: 'An account needs a username'});
-  }
-  if(!req.body.pass) {
-    res.status(404).json({ error: 'An account needs a password'});
-  }
-
-  user_controller.signUpNewUser(req.body)
-  .then(newUser => {
-    res.status(200).json({message: 'user created'})})
-  .catch(err => {
-    res.status(404).json({error: err.sqlMessage});
-=======
   .post((req, res) => {
     if (!req.body.email) {
       console.log(res.body);
@@ -272,11 +236,9 @@ router.route('/api/signup')
       .catch((err) => {
         res.status(404).json({ error: err.sqlMessage });
       });
->>>>>>> Remove dependencies slowing down loading of website
   });
 
 router.route('/api/login')
-<<<<<<< HEAD
 .post( (req, res) => {
   if (!req.body.email ) {
     res.status(400).json({ error: 'email must be provided' });
@@ -284,44 +246,38 @@ router.route('/api/login')
     res.status(400).json({ error: 'password must be provided' });
   } else {
     user_controller.checkCredentials(req).then(session => {
-      console.log(session)
+      console.log(session);
       currentSession = session;
       role_controller.getRoles({id:currentSession.user.active_role}).then(role => {
-        console.log(role)
+        console.log(role);
         Promise.all(role).then(role => {
           currentSession.user.active_role = role;
           console.log(currentSession);
           res.status(200).json(currentSession);
-        })
+        });
         // res.status(200).json(role);
-      })
+      });
       // res.status(200).send(currentSession);
     })
-      .catch(err => res.status(404).json({ error: err }))
+      .catch(err => res.status(404).json({ error: err }));
   }
-})
+});
 
-router.route('/api/logout')
-.get((req, res) => {
-  console.log('hey', currentSession)
-  currentSession = req.session.destroy((err) => {
-    if(err) {
-      res.status(400).json(err);
-=======
-  .post((req, res) => {
-    if (!req.body.email) {
-      res.status(400).json({ error: 'email must be provided' });
-    } else if (!req.body.password) {
-      res.status(400).json({ error: 'password must be provided' });
->>>>>>> Remove dependencies slowing down loading of website
-    } else {
-      user_controller.checkCredentials(req).then((session) => {
-        currentSession = session;
-        res.status(200).send(currentSession);
-      })
-        .catch(err => res.status(404).json({ error: err }));
-    }
-  });
+// router.route('/api/logout')
+// .get((req, res) => {
+//   console.log('hey', currentSession)
+//   currentSession = req.session.destroy((err) => {
+//     if(err) {
+//       res.status(400).json(err);
+//     } else {
+//       user_controller.checkCredentials(req).then((session) => {
+//         currentSession = session;
+//         res.status(200).json(currentSession);
+//       })
+//       .catch(err => res.status(404).json({ error: err }));
+//     }
+//   });
+// });
 
 router.route('/api/logout')
   .get((req, res) => {
@@ -335,6 +291,7 @@ router.route('/api/logout')
       }
     });
   });
+
 /*
                    88 88
                    "" 88                        ,d
@@ -395,14 +352,10 @@ router.route('/api/offers').post((req, res) => {
     .then((offers) => {
       res.status(200).json(offers);
     })
-<<<<<<< HEAD
-  });
-=======
     .catch((err) => {
       res.status(404).json(err);
     });
 });
->>>>>>> Remove dependencies slowing down loading of website
 
 /*
                                                       88
@@ -415,7 +368,6 @@ aa    ]8I "8b,   ,aa 88,    ,88 88         "8a,   ,aa 88       88
 `"YbbdP"'  `"Ybbd8"' `"8bbdP"Y8 88          `"Ybbd8"' 88       88
 */
 
-<<<<<<< HEAD
 router.route('/api/search').get( (req, res) => {
   const l = Object.keys(req.query).length;
   console.log(req.query, l);
@@ -450,7 +402,10 @@ router.route('/api/search').get( (req, res) => {
     } else {
       throw new Error('Unable to make search happen, we are sorry.')
     }
-=======
+});
+
+/*
+
 888888888888               88 88 88
      88                    "" 88 ""
      88                       88
@@ -466,13 +421,16 @@ router.route('/api/search').get( (req, res) => {
 router.route('/token').get((req, res) => {
   // const identity = req.session.passport.user.profile.displayName;
   var identity = faker.name.findName();
+  console.log('identity', identity)
 
   // Create access token, signed and returned to client containing grant
   const token = new AccessToken(
-    process.env.TWILIO_ACCOUNT_SID || require('../config').TWILIO_ACCOUNT_SID,
-    process.env.TWILIO_API_KEY || require('../config').TWILIO_API_KEY,
-    process.env.TWILIO_API_SECRET || require('../config').TWILIO_API_SECRET,
+    process.env.TWILIO_ACCOUNT_SID || require('../config').twilio.TWILIO_ACCOUNT_SID,
+    process.env.TWILIO_API_KEY || require('../config').twilio.TWILIO_API_KEY,
+    process.env.TWILIO_API_SECRET || require('../config').twilio.TWILIO_API_SECRET,
   );
+  console.log('token', token)
+
   // Assign generated identity to token
   token.identity = identity;
 
@@ -485,7 +443,6 @@ router.route('/token').get((req, res) => {
     identity: identity,
     token: token.toJwt(),
   });
->>>>>>> Remove dependencies slowing down loading of website
 });
 
 router.route('/*').get((req, res) => {

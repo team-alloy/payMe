@@ -15,6 +15,7 @@ injectTapEventPlugin();
 export default class NegotiationPracticeVideo extends Component {
   constructor(props) {
 		super(props);
+		this.refs = React.createRef();
 		this.state = {
 			identity: null,
 			token: '',
@@ -25,9 +26,7 @@ export default class NegotiationPracticeVideo extends Component {
 			hasJoinedRoom: false,
 			activeRoom: '', // Track the current active room
 			remoteMedia: null,
-		};
-		this.localMedia = React.createRef();
-		this.remoteMedia = React.createRef();
+		}
 		this.joinRoom = this.joinRoom.bind(this);
 		this.handleRoomNameChange = this.handleRoomNameChange.bind(this);
 		this.roomJoined = this.roomJoined.bind(this);
@@ -98,7 +97,7 @@ export default class NegotiationPracticeVideo extends Component {
 		});
 
 		// Attach LocalParticipant's Tracks, if not already attached.
-		var previewContainer = this.localMedia;
+		var previewContainer = this.refs.localMedia;
 		if (!previewContainer.querySelector('video')) {
 			this.attachParticipantTracks(room.localParticipant, previewContainer);
 		}
@@ -106,7 +105,7 @@ export default class NegotiationPracticeVideo extends Component {
 		// Attach the Tracks of the Room's Participants.
 		room.participants.forEach(participant => {
 			console.log("Already in Room: '" + participant.identity + "'");
-			var previewContainer = this.remoteMedia;
+			var previewContainer = this.refs.remoteMedia;
 			this.attachParticipantTracks(participant, previewContainer);
 		});
 
@@ -118,7 +117,7 @@ export default class NegotiationPracticeVideo extends Component {
 		// When a Participant adds a Track, attach it to the DOM.
 		room.on('trackAdded', (track, participant) => {
 			console.log(participant.identity + ' added track: ' + track.kind);
-			var previewContainer = this.remoteMedia;
+			var previewContainer = this.refs.remoteMedia;
 			this.attachTracks([track], previewContainer);
 		});
 
@@ -164,21 +163,24 @@ export default class NegotiationPracticeVideo extends Component {
 	
 
 	render() {
+
+		console.log('REFS local', this.refs.localMedia)
+		console.log('REFS remote', this.refs.remoteMedia)
 	
 		/* 
 		 Controls showing of the local track
 		 Only show video track after user has joined a room else show nothing 
 		*/
 		let showLocalTrack = this.state.localMediaAvailable ? (
-			<div className="flex-item"><div s /> </div>) : '';  
+			<div className="flex-item"> <div ref="localMedia" /> </div>) : '';  
 		/*
 		 Controls showing of ‘Join Room’ or ‘Leave Room’ button.  
 		 Hide 'Join Room' button if user has already joined a room otherwise 
 		 show `Leave Room` button.
 		*/
 		let joinOrLeaveRoomButton = this.state.hasJoinedRoom ? (
-		<RaisedButton label="Leave Room" secondary={true} onClick={() => alert("Leave Room")}  />) : (
-		<RaisedButton label="Join Room" primary={true} onClick={this.joinRoom} />);
+		<RaisedButton label="Leave Room" onClick={() => alert("Leave Room")}  />) : (
+		<RaisedButton label="Join Room" onClick={this.joinRoom} />);
 
 		return (
 			<MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
@@ -198,7 +200,7 @@ export default class NegotiationPracticeVideo extends Component {
 			{/* 
 	The following div element shows all remote media (other                             participant’s tracks) 
 			*/}
-			<div className="flex-item"  id="remote-media" />
+			<div className="flex-item" ref="remoteMedia" id="remote-media" />
 		</div>
 	</CardText>
 			</Card>

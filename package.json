@@ -67,6 +67,6 @@
     "semantic-ui-react": "^0.81.1",
     "sinon": "^6.0.1",
     "twilio": "^3.17.4",
-    "twilio-video": "^1.10.0",
+    "twilio-video": "^1.10.0"
   }
 }
