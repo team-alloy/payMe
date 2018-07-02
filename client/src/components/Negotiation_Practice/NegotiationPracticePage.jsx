@@ -11,7 +11,7 @@ export default class NegotiationPracticePage extends React.Component {
 
   render() {
     return (
-      <div className="ui column stackable center page grid">
+      <div className="ui column stackable center page grid"> 
         <NegotiationPracticeVideo />
         <NegotiationPracticeTopic />
       </div>
