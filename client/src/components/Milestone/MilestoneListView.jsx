@@ -13,7 +13,7 @@ export default class MilestoneListView extends React.Component {
     return (
       <Card raised className="ui teal segment">
         <Card.Content header="Achievement's Name" />
-        <Card.Content description={'This Application helps user negotiate their salary!'} />
+        <Card.Content description="This Application helps user negotiate their salary!" />
         <Card.Content extra>
           <div data-tooltip="Tech Stack">
             <Icon name="sitemap" />
@@ -30,8 +30,8 @@ export default class MilestoneListView extends React.Component {
             1/1/2018
             <br />
           </div>
-        </Card.Content>  
-    </Card>
+        </Card.Content>
+      </Card>
     );
   };
 }
