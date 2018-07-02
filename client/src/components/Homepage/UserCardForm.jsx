@@ -3,6 +3,7 @@ import UserCard from './UserCard';
 import { connect } from 'react-redux';
 import { ENGINE_METHOD_CIPHERS } from 'constants';
 // import { BADHINTS } from 'dns';
+import axios from 'axios';
 
 
 export default class UserCardForm extends React.Component {
@@ -55,6 +56,26 @@ export default class UserCardForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     this.nameChange();
+
+    // axios#patch(url[, data[, config]])
+    axios.patch((`/api/user?id=${this.props.user.id}`), {
+      'first_name': this.state.firstName,
+      'last_name': this.state.lastName,
+      'email': this.state.email,
+      'username': this.state.username,
+      'current_salary': this.state.current_salary,
+      'active_role': this.state.position,
+    })
+    .then((response) => {
+      console.log(response)
+    });
+
+    //make a patch request to the server
+   
+      //update the user's name
+      //update the user email
+      //update the user's position
+      //update the user's salary
   }
 
   render() {
