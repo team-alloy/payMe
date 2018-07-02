@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Segment } from 'semantic-ui-react';
+import UserCard from './UserCard';
 import UserCardForm from './UserCardForm';
 import TipOfTheDay from './TipOfTheDay';
 import Reminder from './Reminder';
@@ -9,11 +10,12 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      display: 'view',
     };
   }
 
   render() {
+    console.log(this.props)
     if (!this.props.session.user) {
       this.props.history.push('/login');
       return (
@@ -26,9 +28,12 @@ class HomePage extends React.Component {
         <div className="ui three column grid">
           <div className="three column row">
             <div className="four wide column">
-                <Segment raised className="ui teal segment">
-                  <UserCardForm {...this.props} />
-                </Segment>
+              <Segment raised className="ui teal segment">
+                <UserCard {...this.props} />
+              </Segment>
+              <Segment raised className="ui teal segment">
+                <UserCardForm {...this.props} />
+              </Segment>
             </div>
             <div className="eight wide column centered">
               <Reminder />
