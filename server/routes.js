@@ -102,7 +102,7 @@ router.route('/api/companies')
 88          `"YbbdP"'  88  `"Ybbd8"' `"YbbdP"'
 
 */
-router.route('/roles').get((req, res) => {
+router.route('/api/roles').get((req, res) => {
   role_controller.getRoles()
     .then((roles) => {
       Promise.all(roles).then((roles) => {
@@ -214,7 +214,6 @@ router.route('/api/user')
       });
     }
   });
-
 
 router.route('/api/signup')
   .post((req, res) => {

@@ -35,32 +35,33 @@ module.exports = {
     let {
       first_name, last_name, pass, email, current_salary, active_role, old_password,
     } = query;
+    console.log('heyyyy')
     return db.knex('users').where({ id })
       .then(() => { // user is available here
         if (pass) {
           return bcrypt.compare(old_password, password)
             .then((res) => {
               if (res) {
-                // console.log('correct pass');
+                console.log('correct pass');
                 // make new hash
                 return bcrypt.hash(pass, saltRounds).then((pass) => {
                   active_role = Number.isNaN(active_role) ? null : active_role;
                   if (active_role) {
-                    // console.log(active_role, 'active');
+                    console.log(active_role, 'active');
                     return role_controller.getRoles({ id: active_role })
                       .then((roles) => {
-                        // console.log('roles recieved', roles);
+                        console.log('roles recieved', roles);
                         if (roles[0]) {
                           return Promise.all(roles).then((roles) => {
                             current_salary = Number.isNaN(current_salary) ? null
                               : current_salary === roles[0].salary ? roles[0].salary
                                 : current_salary;
-                            // console.log('$$$$', current_salary);
+                            console.log('$$$$', current_salary);
                             return db.knex('roles').where({ id: roles[0].id })
                               .update({ name: roles[0].name, salary: current_salary })
                               .then(() => roles[0].id);
                           }).then((roleIndex) => {
-                            // console.log('role updated, about to update user');
+                            console.log('role updated, about to update user');
                             first_name = first_name ? capitalizeWords(first_name) : null;
                             last_name = last_name ? capitalizeWords(last_name) : null;
                             return db.knex('users').where({ id }).update({
@@ -76,7 +77,7 @@ module.exports = {
                         throw new Error('You need to make an application first');
                       });
                   }
-                  // console.log('no active_role');
+                  console.log('no active_role');
                   const message = {};
                   if (current_salary !== null && current_salary !== undefined) {
                     message.error = 'Current salary was not update. You must make an application for that role before you claim that you make that much.';
@@ -98,27 +99,28 @@ module.exports = {
               throw ('wrong password');
             });
         }
-        // console.log('no pass');
+        console.log('no pass');
 
         active_role = Number.isNaN(active_role) ? null : active_role;
         if (active_role) {
-          // console.log(active_role, 'active', 'no pass');
+          console.log(active_role, 'active', 'no pass');
 
           return role_controller.getRoles({ id: active_role })
             .then((roles) => {
-              // console.log('roles recieved', 'no pass', roles);
+              console.log('roles recieved', 'no pass', roles);
 
               if (roles[0]) {
                 return Promise.all(roles).then((roles) => {
-                  current_salary = Number.isNaN(current_salary) ? roles[0].salary
-                    : current_salary;
-                  // console.log('$$$$', 'no pass', current_salary);
+                  if(isNaN(current_salary)){
+                    current_salary = roles[0].salary;
+                  }
+                  console.log('$$$$', 'no pass', current_salary);
 
                   return db.knex('roles').where({ id: roles[0].id })
                     .update({ name: roles[0].name, salary: current_salary })
                     .then(() => roles[0].id);
                 }).then((roleIndex) => {
-                  // console.log('role updated, about to update user', 'no pass');
+                  console.log('role updated, about to update user', 'no pass');
                   first_name = first_name ? capitalizeWords(first_name) : null;
                   last_name = last_name ? capitalizeWords(last_name) : null;
                   return db.knex('users').where({ id }).update({
@@ -133,7 +135,7 @@ module.exports = {
               throw ('You need to make an application first');
             });
         }
-        // console.log('no role, no pass');
+        console.log('no role, no pass');
         const message = {};
         if (current_salary !== null && current_salary !== undefined) {
           message.error = 'Current salary was not update. You must make an application for that role before you claim that you make that much.';
