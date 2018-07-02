@@ -13,7 +13,6 @@ module.exports = {
   calculateAvgSalary: (query) => {
 
     if(query.city || query.state){
-      console.log(query.city, query.state);
       // find the company id from the company name
       if(query.company) {
         return db.knex('companies').where({ name: query.company })
@@ -46,7 +45,6 @@ module.exports = {
             })
           })
           .then(source => {
-            console.log(source);
             let avgSalary = source.reduce((accumulator, app) => {
               return accumulator + app.salary;
             }, 0) / source.length;
@@ -66,7 +64,6 @@ module.exports = {
         }))
 
         .then(source => {
-          console.log(source, 'woooooo');
 
           let companyIds = [];
 
@@ -81,7 +78,6 @@ module.exports = {
           let roleIds = source.roles.map( role => {
             return role.id;
           })
-          console.log(companyIds, roleIds);
           return Object.assign({}, source, {roleIds : roleIds},  {
             companies:  companyIds
           })
@@ -92,8 +88,6 @@ module.exports = {
             const findSalary = (id) => {
               for (var i = 0; i < source.roles.length; i++) {
                 if (source.roles[i].id === id) {
-                  console.log(source.roles[i].salary, source.roles[i]);
-
                   return source.roles[i].salary;
                 }
               }
@@ -108,7 +102,6 @@ module.exports = {
           })
         })
         .then(source => {
-          console.log(source);
           let avgSalary = source.apps.reduce((accumulator, app) => {
             return accumulator + app.salary;
           }, 0) / source.apps.length;
@@ -125,7 +118,21 @@ module.exports = {
     } else if(query.company || query.role) {
       console.log(query, 'ᕙ(⇀‸↼‶)ᕗ');
       if(query.company) {
-
+        if(query.role) {
+          return db.knex('companies').where({ name: query.company })
+            .then(company => Object.assign({}, query, { company: company[0] }))
+            .then(source => {
+              return db.knex('roles').where({ name: source.role, company_id: source.company.id })
+              .then(roles => {
+                let roleIds = roles.map(role => role.id);
+                console.log(roleIds)
+                return Object.assign({}, source, { roles: roles, roleIds: roleIds });
+              });
+            })
+            .then(source => {
+              console.log(source, '123');
+            });
+        }
       } else {
 
       }

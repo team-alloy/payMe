@@ -248,7 +248,7 @@ router.route('/api/login')
         Promise.all(role).then(role => {
           currentSession.user.active_role = role;
           console.log(currentSession);
-
+          res.status(200).json(currentSession);
         })
         // res.status(200).json(role);
       })
@@ -376,8 +376,7 @@ router.route('/api/search').get( (req, res) => {
       console.log(params, 'is this correct??');
 
       search_controller.calculateAvgSalary(params).then(salary => {
-        console.warn(salary);
-
+        res.status(200).json(salary);
       });
     } else {
       throw new Error('Unable to make search happen, we are sorry.')
