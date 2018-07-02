@@ -10,7 +10,6 @@ export default class ApplicationHistoryFeed extends React.Component {
   }
 
   render() {
-    console.log(this.props,'histFeedREnder');
     if(this.props.apps) {
       return (
         <div>
