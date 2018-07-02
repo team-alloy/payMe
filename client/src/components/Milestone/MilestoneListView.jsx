@@ -1,5 +1,6 @@
 import React from 'react';
 import MilestoneList from './MilestoneList';
+import { Card, Icon } from 'semantic-ui-react';
 
 export default class MilestoneListView extends React.Component {
   constructor(props) {
@@ -10,48 +11,27 @@ export default class MilestoneListView extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className="name-header">
-          <h5>
-            {'Project\'s Name'}
-          </h5>
-        </div>
-        <div className="project-display-description-container">
-          <div className="project-display-description">
-            This application helps user negotiate their salary!
-          </div>
-        </div>
-        <div className="name-header">
-          <h5>
-            {'Tech Stack'}
-          </h5>
-        </div>
-        <div className="stack-display-description-container">
-          <div className="stack-display-description">
+      <Card raised className="ui teal segment">
+        <Card.Content header="Achievement's Name" />
+        <Card.Content description={'This Application helps user negotiate their salary!'} />
+        <Card.Content extra>
+          <div data-tooltip="Tech Stack">
+            <Icon name="sitemap" />
             JavaScript, ReactJS, mySQL, SemanticUI, Google.
+            <br />
           </div>
-        </div>
-        <div className="name-header">
-          <h5>
-            {'Repository'}
-          </h5>
-        </div>
-        <div className="respository-display-description-container">
-          <div className="repository-display-description">
+          <div data-tooltip="Repository Link">
+            <Icon name="github" />
             www.github.com/SirGitchardHubbard
+            <br />
           </div>
-        </div>
-        <div className="name-header">
-          <h5>
-            {'Completed on: '}
-          </h5>
-        </div>
-        <div className="date-display-container">
-          <span className="date-display">
+          <div data-tooltip="Date Completed">
+            <Icon name="check square outline" />
             1/1/2018
-          </span>
-        </div>
-      </div>
+            <br />
+          </div>
+        </Card.Content>  
+    </Card>
     );
-  }
+  };
 }

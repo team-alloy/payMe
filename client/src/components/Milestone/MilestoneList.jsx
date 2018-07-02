@@ -23,15 +23,6 @@ export default class MilestoneList extends React.Component {
   render() {
     return (
       <div>
-        <table className="ui single line table">
-          <thead>
-            <tr>
-              <td>
-                Milestones and Achievements
-              </td>
-            </tr>
-          </thead>
-        </table>
         <MilestoneListView />
       </div>
     );
