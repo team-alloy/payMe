@@ -13,6 +13,7 @@ export default class UserCardForm extends React.Component {
       name: '',
       firstName: '',
       lastName: '',
+      email: '',
       position: '',
       employer: '',
       salary: '',
@@ -21,6 +22,7 @@ export default class UserCardForm extends React.Component {
     this.nameChange = this.nameChange.bind(this);
     this.firstNameChange = this.firstNameChange.bind(this);
     this.lastNameChange = this.lastNameChange.bind(this);
+    this.emailChange = this.emailChange.bind(this);
     this.positionChange = this.positionChange.bind(this);
     this.employerChange = this.employerChange.bind(this);
     this.salaryChange = this.salaryChange.bind(this);
@@ -39,6 +41,10 @@ export default class UserCardForm extends React.Component {
 
   lastNameChange(event) {
     this.setState({ lastName: event.target.value });
+  }
+
+  emailChange(event) {
+    this.setState({ email: event.target.value });
   }
 
   positionChange(event) {
@@ -62,20 +68,13 @@ export default class UserCardForm extends React.Component {
       'first_name': this.state.firstName,
       'last_name': this.state.lastName,
       'email': this.state.email,
-      'username': this.state.username,
-      'current_salary': this.state.current_salary,
-      'active_role': this.state.position,
+      'active_role[0].salary': this.state.salary,
+      'active_role[0].company.name': this.state.employer,
+      'active_role[0].name': this.state.position,
     })
     .then((response) => {
-      console.log(response)
+      console.log(response);
     });
-
-    //make a patch request to the server
-   
-      //update the user's name
-      //update the user email
-      //update the user's position
-      //update the user's salary
   }
 
   render() {
@@ -94,6 +93,15 @@ export default class UserCardForm extends React.Component {
               <div className="field">
                 <input type="text" placeholder="Last Name" value={this.state.lastName} onChange={this.lastNameChange}></input>
               </div>
+            </div>
+          </div>
+
+          <div className="field">
+            <label style={{fontWeight: 'bold'}}>
+              {'Email: '}
+            </label>
+            <div className="field">
+              <input type="text" value={this.state.email} onChange={this.emailChange} />
             </div>
           </div>
 
