@@ -26,15 +26,9 @@ class HomePage extends React.Component {
         <div className="ui three column grid">
           <div className="three column row">
             <div className="four wide column">
-              <table className="ui celled striped table">
-                <tbody>
-                  <tr>
-                    <Segment raised className="ui teal segment">
-                      <UserCardForm {...this.props} />
-                    </Segment>
-                  </tr>
-                </tbody>
-              </table>
+                <Segment raised className="ui teal segment">
+                  <UserCardForm {...this.props} />
+                </Segment>
             </div>
             <div className="eight wide column centered">
               <Reminder />

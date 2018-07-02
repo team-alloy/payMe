@@ -241,8 +241,18 @@ router.route('/api/login')
     res.status(400).json({ error: 'password must be provided' });
   } else {
     user_controller.checkCredentials(req).then(session => {
+      console.log(session)
       currentSession = session;
-      res.status(200).send(currentSession);
+      role_controller.getRoles({id:currentSession.user.active_role}).then(role => {
+        console.log(role)
+        Promise.all(role).then(role => {
+          currentSession.user.active_role = role;
+          console.log(currentSession);
+          res.status(200).json(currentSession);
+        })
+        // res.status(200).json(role);
+      })
+      // res.status(200).send(currentSession);
     })
       .catch(err => res.status(404).json({ error: err }))
   }
@@ -356,6 +366,18 @@ router.route('/api/search').get( (req, res) => {
       search_controller.getRoles().then(roles => {
         res.status(200).json(roles);
       })
+    } else if(l >= 1 && !(req.query.cities || req.query.states || req.query.roles)) {
+      let { state, city, role, company} = req.query;
+      let params = {};
+      state = state ? params.state = state: null;
+      city = city ? params.city = city: null;
+      role = role ? params.role = role: null;
+      company = company ? params.company = company: null;
+      console.log(params, 'is this correct??');
+
+      search_controller.calculateAvgSalary(params).then(salary => {
+        res.status(200).json(salary);
+      });
     } else {
       throw new Error('Unable to make search happen, we are sorry.')
     }
