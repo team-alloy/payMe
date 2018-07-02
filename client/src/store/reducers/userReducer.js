@@ -1,4 +1,4 @@
-import { SET_MILESTONES, SET_SESSION } from '../actions/userActions';
+import { SET_APPLIED_ROLES, SET_MILESTONES, SET_SESSION } from '../actions/userActions';
 
 export default (state = {}, action) => {
   switch (action.type) {

@@ -45,7 +45,7 @@ export default class UserCard extends React.Component {
           </a>
           <div className="meta">
             <span className="description">
-              {`${currentUser.active_role}` + ' at Google'}
+              {`${currentUser.active_role[0].name} at ${currentUser.active_role[0].company.name}`}
             </span>
           </div>
         </div>

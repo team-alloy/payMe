@@ -68,7 +68,7 @@ export default class UserCardForm extends React.Component {
       'first_name': this.state.firstName,
       'last_name': this.state.lastName,
       'email': this.state.email,
-      'active_role[0].salary': this.state.salary,
+      'current_salary': this.state.salary,
       'active_role[0].company.name': this.state.employer,
       'active_role[0].name': this.state.position,
     })
@@ -106,6 +106,16 @@ export default class UserCardForm extends React.Component {
           </div>
 
           <div className="field">
+            <label style={{fontWeight:'bold'}}>
+            {'Active role: '}
+            </label>
+            <div className="field">
+              <select id="applied-roles">
+              </select>
+            </div>
+          </div>
+
+          {/* <div className="field">
             <label style={{fontWeight: 'bold'}}>
               {'Position\'s Title: '}
             </label>
@@ -121,7 +131,7 @@ export default class UserCardForm extends React.Component {
             <div className="field">
               <input type="text" value={this.state.employer} onChange={this.employerChange} />
             </div>
-          </div>
+          </div> */}
 
           <div className="field">
             <label style={{fontWeight: 'bold'}}>
