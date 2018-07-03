@@ -23,7 +23,6 @@ export default class ApplicationOffersModal extends React.Component {
       hasRetirement: $("#hasRetirement").prop("checked"),
       coversRelocation: $("#coversRelocation").prop("checked")
     }
-    console.log(this.props.appID,'shtuff');
     axios.post('/api/offers', offerInfo)
     .then((res) => {
       console.log(res,'offer');
@@ -32,7 +31,6 @@ export default class ApplicationOffersModal extends React.Component {
 
   handleSalary(e) {
     e.preventDefault();
-    console.log(e.target.name, e.target.value,'yo');
     var name = e.target.name;
     var value = e.target.value;
     this.setState({
@@ -65,5 +63,5 @@ export default class ApplicationOffersModal extends React.Component {
   }
 }
 /*
-make modal to take down offer fields and application key and then send to database
+update modal???
 */
