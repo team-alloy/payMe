@@ -15,7 +15,7 @@ class HomePage extends React.Component {
   }
 
   render() {
-    console.log(this.props)
+    // console.log(this.props)
     if (!this.props.session.user) {
       this.props.history.push('/login');
       return (

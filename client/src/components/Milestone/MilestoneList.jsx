@@ -10,6 +10,7 @@ export class MilestoneList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      data: '',
     };
   }
 
@@ -31,15 +32,31 @@ export class MilestoneList extends React.Component {
   fetchMilestone() {
     axios.get(`api/milestones?userId=${this.props.session.user.id}`)
       .then((response) => {
-        console.log(response);
+        this.setState({ data: response });
       });
   }
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
+    const data = this.state.data.data;
+    if (!data) {
+      return (
+        <div />
+      );
+    }
+    const milestoneName = data[0].name;
+    const milestoneDescription = data[0].description;
+    const milestoneStack = data[0].tech_used;
+    const milestoneRepo = data[0].repo_link;
+    // const milestoneCompleted= ;
     return (
       <div>
-        <MilestoneListView />
+        <MilestoneListView
+          name={milestoneName}
+          description={milestoneDescription}
+          stack={milestoneStack}
+          repo={milestoneRepo}
+        />
       </div>
     );
   }
