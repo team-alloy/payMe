@@ -297,7 +297,7 @@ router.route('/api/logout')
 */
 router.route('/api/milestones')
   .get((req, res) => {
-    if (req.query) {
+    if (req.query) { // for get request use ? after endpoint url
       milestone_controller.findAllMilestones(req.query)
         .then((milestones) => {
           res.status(200).json(milestones);
