@@ -16,6 +16,7 @@ const offer_controller = require('./controllers/offer-controller.js');
 const search_controller = require('./controllers/search-controller.js');
 
 const AccessToken = require('twilio').jwt.AccessToken;
+
 const VideoGrant = AccessToken.VideoGrant;
 
 let currentSession;
@@ -103,21 +104,21 @@ router.route('/api/companies')
 
 */
 router.route('/api/roles').get((req, res) => {
-  if(!req.query){
+  if (!req.query) {
     role_controller.getRoles()
-    .then((roles) => {
-      Promise.all(roles).then((roles) => {
-        res.status(200).json(roles);
+      .then((roles) => {
+        Promise.all(roles).then((roles) => {
+          res.status(200).json(roles);
+        });
       });
-    });
   } else {
     role_controller.getAppliedRoles(req.query)
-    .then(roles => {
-      console.log(roles);
+      .then((roles) => {
+        console.log(roles);
 
-      res.status(200).json(roles)
-    })
-    .catch(err => res.status(400).json(err));
+        res.status(200).json(roles);
+      })
+      .catch(err => res.status(400).json(err));
   }
 });
 
@@ -136,22 +137,22 @@ router.route('/api/roles').get((req, res) => {
 
 
 router.route('/api/applications')
-.get((req, res) => {
-  console.log(req.query,'query at route');
-  application_controller.getAllApplications(req.query).then(applications => {
-    Promise.all(applications).then(applications => {
-      console.log(applications,'res at route');
-      res.json(applications);
+  .get((req, res) => {
+    console.log(req.query, 'query at route');
+    application_controller.getAllApplications(req.query).then((applications) => {
+      Promise.all(applications).then((applications) => {
+        console.log(applications, 'res at route');
+        res.json(applications);
+      });
     });
-  });
-})
-.post((req, res) => {// req.body.offer
-  application_controller.saveNewApplication(req.body).then(app => {
-    Promise.all(app).then(app => {
-      res.status(200).json(app);
+  })
+  .post((req, res) => { // req.body.offer
+    application_controller.saveNewApplication(req.body).then((app) => {
+      Promise.all(app).then((app) => {
+        res.status(200).json(app);
+      });
     });
-  });
-})
+  })
   .patch((req, res) => {
     application_controller.updateApplication(req).then(application => application_controller.getAllApplications({ id: application[0].id }).then(app => Promise.all(app).then(app => res.status(201).json(app))));
   })
@@ -248,54 +249,36 @@ router.route('/api/signup')
   });
 
 router.route('/api/login')
-.post( (req, res) => {
-  if (!req.body.email ) {
-    res.status(400).json({ error: 'email must be provided' });
-  } else if (!req.body.password) {
-    res.status(400).json({ error: 'password must be provided' });
-  } else {
-    user_controller.checkCredentials(req).then(session => {
-      console.log(session);
-      currentSession = session;
-      role_controller.getRoles({id:currentSession.user.active_role}).then(role => {
-        console.log(role);
-        Promise.all(role).then(role => {
-          currentSession.user.active_role = role;
-          console.log(currentSession);
-          res.status(200).json(currentSession);
-        });
+  .post((req, res) => {
+    if (!req.body.email) {
+      res.status(400).json({ error: 'email must be provided' });
+    } else if (!req.body.password) {
+      res.status(400).json({ error: 'password must be provided' });
+    } else {
+      user_controller.checkCredentials(req).then((session) => {
+        console.log(session);
+        currentSession = session;
+        role_controller.getRoles({ id: currentSession.user.active_role }).then((role) => {
+          console.log(role);
+          Promise.all(role).then((role) => {
+            currentSession.user.active_role = role;
+            console.log(currentSession);
+            res.status(200).json(currentSession);
+          });
         // res.status(200).json(role);
-      });
+        });
       // res.status(200).send(currentSession);
-    })
-      .catch(err => res.status(404).json({ error: err }));
-  }
-});
-
-// router.route('/api/logout')
-// .get((req, res) => {
-//   console.log('hey', currentSession)
-//   currentSession = req.session.destroy((err) => {
-//     if(err) {
-//       res.status(400).json(err);
-//     } else {
-//       user_controller.checkCredentials(req).then((session) => {
-//         currentSession = session;
-//         res.status(200).json(currentSession);
-//       })
-//       .catch(err => res.status(404).json({ error: err }));
-//     }
-//   });
-// });
+      })
+        .catch(err => res.status(404).json({ error: err }));
+    }
+  });
 
 router.route('/api/logout')
   .get((req, res) => {
-    console.log('hey', currentSession);
     currentSession = req.session.destroy((err) => {
       if (err) {
         res.status(400).json(err);
       } else {
-        console.log(currentSession, '11111111');
         res.status(200).json({ message: 'Good Bye!', path: '/login' });
       }
     });
@@ -314,11 +297,19 @@ router.route('/api/logout')
 */
 router.route('/api/milestones')
   .get((req, res) => {
-    milestone_controller.findAllMilestones()
-      .then((milestones) => {
-        res.status(200).json(milestones);
-      })
-      .catch(err => res.status(400).json(err));
+    if (req.query) {
+      milestone_controller.findAllMilestones(req.query)
+        .then((milestones) => {
+          res.status(200).json(milestones);
+        })
+        .catch(err => res.status(400).json(err));
+    } else {
+      milestone_controller.findAllMilestones()
+        .then((milestones) => {
+          res.status(200).json(milestones);
+        })
+        .catch(err => res.status(400).json(err));
+    }
   })
   .post((req, res) => {
     if (!req.body.user_id) {
@@ -377,40 +368,47 @@ aa    ]8I "8b,   ,aa 88,    ,88 88         "8a,   ,aa 88       88
 `"YbbdP"'  `"Ybbd8"' `"8bbdP"Y8 88          `"Ybbd8"' 88       88
 */
 
-router.route('/api/search').get( (req, res) => {
+router.route('/api/search').get((req, res) => {
   const l = Object.keys(req.query).length;
   console.log(req.query, l);
-    if(req.query.cities && l <= 1) {
-      console.log('ho');
+  if (req.query.cities && l <= 1) {
+    console.log('ho');
 
-      search_controller.getCities().then(cities => {
-        res.status(200).json(cities);
-      })
-    } else if (req.query.states && l <= 1) {
-       console.log('hey');
+    search_controller.getCities().then((cities) => {
+      res.status(200).json(cities);
+    });
+  } else if (req.query.states && l <= 1) {
+    console.log('hey');
 
-      search_controller.getStates().then(states => {
-        res.status(200).json(states);
-      })
-    } else if (req.query.roles && l <= 1) {
-      search_controller.getRoles().then(roles => {
-        res.status(200).json(roles);
-      })
-    } else if(l >= 1 && !(req.query.cities || req.query.states || req.query.roles)) {
-      let { state, city, role, company} = req.query;
-      let params = {};
-      state = state ? params.state = state: null;
-      city = city ? params.city = city: null;
-      role = role ? params.role = role: null;
-      company = company ? params.company = company: null;
-      console.log(params, 'is this correct??');
+    search_controller.getStates().then((states) => {
+      res.status(200).json(states);
+    });
+  } else if (req.query.roles && l <= 1) {
+    search_controller.getRoles().then((roles) => {
+      res.status(200).json(roles);
+    });
+  } else if (l >= 1 && !(req.query.cities || req.query.states || req.query.roles)) {
+    let {
+      state, city, role, company,
+    } = req.query;
+    const params = {};
+    state = state ? params.state = state : null;
+    city = city ? params.city = city : null;
+    role = role ? params.role = role : null;
+    company = company ? params.company = company : null;
+    console.log(params, 'is this correct??');
 
-      search_controller.calculateAvgSalary(params).then(salary => {
-        res.status(200).json(salary);
+    search_controller.calculateAvgSalary(params).then((salary) => {
+      console.log(salary);
+      res.status(200).json(salary);
+    })
+      .catch((err) => {
+        console.log(err);
+        res.status(400).json(err);
       });
-    } else {
-      throw new Error('Unable to make search happen, we are sorry.')
-    }
+  } else {
+    throw new Error('Unable to make search happen, we are sorry.');
+  }
 });
 
 /*
@@ -429,8 +427,8 @@ router.route('/api/search').get( (req, res) => {
 // Endpoint to generate access token for VIDEO
 router.route('/token').get((req, res) => {
   // const identity = req.session.passport.user.profile.displayName;
-  var identity = faker.name.findName();
-  console.log('identity', identity)
+  const identity = faker.name.findName();
+  console.log('identity', identity);
 
   // Create access token, signed and returned to client containing grant
   const token = new AccessToken(
@@ -438,7 +436,7 @@ router.route('/token').get((req, res) => {
     process.env.TWILIO_API_KEY || require('../config').twilio.TWILIO_API_KEY,
     process.env.TWILIO_API_SECRET || require('../config').twilio.TWILIO_API_SECRET,
   );
-  console.log('token', token)
+  console.log('token', token);
 
   // Assign generated identity to token
   token.identity = identity;
@@ -449,7 +447,7 @@ router.route('/token').get((req, res) => {
 
   // Serialize token to JWT string and include JSON response
   res.json({
-    identity: identity,
+    identity,
     token: token.toJwt(),
   });
 });

@@ -35,7 +35,7 @@ module.exports = {
     let {
       first_name, last_name, pass, email, current_salary, active_role, old_password,
     } = query;
-    console.log('heyyyy')
+    console.log('heyyyy');
     return db.knex('users').where({ id })
       .then(() => { // user is available here
         if (pass) {
@@ -111,7 +111,7 @@ module.exports = {
 
               if (roles[0]) {
                 return Promise.all(roles).then((roles) => {
-                  if(isNaN(current_salary)){
+                  if (isNaN(current_salary)) {
                     current_salary = roles[0].salary;
                   }
                   console.log('$$$$', 'no pass', current_salary);

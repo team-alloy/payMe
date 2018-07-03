@@ -19,14 +19,10 @@ export class UserCardForm extends React.Component {
 
     };
 
-    // this.nameChange = this.nameChange.bind(this);
     this.activeRoleChange = this.activeRoleChange.bind(this);
     this.firstNameChange = this.firstNameChange.bind(this);
     this.lastNameChange = this.lastNameChange.bind(this);
     this.emailChange = this.emailChange.bind(this);
-    // this.positionChange = this.positionChange.bind(this);
-    // this.employerChange = this.employerChange.bind(this);
-    // this.salaryChange = this.salaryChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -35,12 +31,6 @@ export class UserCardForm extends React.Component {
       this.props.setAppliedRoles(data);
     });
   }
-
-  // nameChange() {
-  //   const { firstName } = this.state;
-  //   const { lastName } = this.state;
-  //   this.setState({ name: `${firstName} ${lastName}` });
-  // }
 
   firstNameChange(event) {
     this.setState({ firstName: event.target.value });
@@ -58,14 +48,6 @@ export class UserCardForm extends React.Component {
     this.setState({ active_role: event.target.value });
   }
 
-  // employerChange(event) {
-  //   this.setState({ employer: event.target.value });
-  // }
-
-  // salaryChange(event) {
-  //   this.setState({ salary: event.target.value });
-  // }
-
   getAppliedRoles(callback) {
     axios.get(`/api/roles?user_id=${this.props.session.user.id}`).then(res => {
       callback(res.data);
@@ -75,9 +57,7 @@ export class UserCardForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    // this.nameChange();
 
-    // axios#patch(url[, data[, config]])
     axios.patch((`/api/user?id=${this.props.session.user.id}`), {
       'first_name': this.state.firstName,
       'last_name': this.state.lastName,

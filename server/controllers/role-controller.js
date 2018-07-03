@@ -1,6 +1,7 @@
 const db = require('../../database/index.js');
 
 const company_controller = require('./company-controller');
+
 module.exports = {
   getRoles: (query) => {
     if (!query) {
@@ -43,18 +44,15 @@ module.exports = {
       }).then(company => db.knex('roles').where(query).update({ name: role, company_id: company, salary })
         .then(updated => updated));
   },
-  getAppliedRoles: (query) => db.knex('applications').where({ user_id: query.user_id })
-      .then(apps => apps.map(app => app.role_id))
-      .then(roleIds => db.knex('roles').whereIn('id', roleIds))
-      .then(roles => roles.map(role => {
-        return company_controller.getCompanyById({ id: role.company_id }).then(company => {
-          role.company = company[0];
-          return role
-        })
-      }))
-      .then(roles => {
-        return Promise.all(roles).then(roles=> roles);
-      })
-      .then(roles => roles),
+  getAppliedRoles: query => db.knex('applications').where({ user_id: query.user_id })
+    .then(apps => apps.map(app => app.role_id))
+    .then(roleIds => db.knex('roles').whereIn('id', roleIds))
+    .then(roles => roles.map(role => company_controller.getCompanyById({ id: role.company_id })
+      .then((company) => {
+        role.company = company[0];
+        return role;
+      })))
+    .then(roles => Promise.all(roles).then(roles => roles))
+    .then(roles => roles),
 
 };
