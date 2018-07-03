@@ -2,9 +2,11 @@ import React from 'react';
 import MilestonePage from './MilestonePage.jsx';
 import MilestoneListView from './MilestoneListView.jsx';
 import { Card } from 'semantic-ui-react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import axios from 'axios';
 
-export default class MilestoneForm extends React.Component {
+export class MilestoneForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -45,9 +47,14 @@ export default class MilestoneForm extends React.Component {
   handleSubmit(event) {
     event.preventDefault();
     console.log(this.state)
+
+    // axios.post(url[, data[, config]])
+    // POST request to create a new milestone
+    // axios.post((`/api/milestones?userId=${}`))
   }
  
   render() {
+    console.log(this.props)
     return (
       <Card raised className="ui teal segment">
         <form className="ui-form" onSubmit={this.handleSubmit}>
@@ -145,3 +152,15 @@ export default class MilestoneForm extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return ({ session: state.user });
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+
+  });
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MilestoneForm);

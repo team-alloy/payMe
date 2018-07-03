@@ -61,7 +61,7 @@ export class MilestoneList extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return ({session: state.user})
+  return ({ session: state.user })
 };
 
 const mapDispatchToProps = (dispatch) => {
