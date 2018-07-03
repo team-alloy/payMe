@@ -18,6 +18,7 @@ export class MilestoneList extends React.Component {
     const set = this.setState.bind(this);
     this.fetchMilestone((data) => { console.log(data); });
   }
+
   // this function will invoke our state change
   formUpdate() {
     return (
