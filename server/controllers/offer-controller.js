@@ -5,19 +5,19 @@ module.exports = {
     if (query.id || query.application_id) {
       return db.knex('offers')
         .where(query)
-        .then(offer => {
-          if(!offer[0]) {
-            throw ({message: 'No offers found'});
+        .then((offer) => {
+          if (!offer[0]) {
+            throw ({ message: 'No offers found' });
           }
           return offer;
         })
-        .catch(err => err);;
+        .catch(err => err);
     }
     return db.knex('offers');
   },
   updateOffer: (req) => {
     let {
-      application_id, base_salary, hasHealthBenefits, hasPTO, hasRetirement, coversRelocation, acceptedOffer
+      application_id, base_salary, hasHealthBenefits, hasPTO, hasRetirement, coversRelocation, acceptedOffer,
     } = req.body;
     const { id } = req.query;
 
@@ -33,7 +33,13 @@ module.exports = {
         acceptedOffer = acceptedOffer || offer[0].acceptedOffer;
         return db.knex('offers').where({ id })
           .update({
-            application_id, base_salary, hasHealthBenefits, hasPTO, hasRetirement, coversRelocation, acceptedOffer,
+            application_id,
+            base_salary,
+            hasHealthBenefits,
+            hasPTO,
+            hasRetirement,
+            coversRelocation,
+            acceptedOffer,
           })
           .then(() => db.knex('offers').where({ id: offer[0].id }));
       });

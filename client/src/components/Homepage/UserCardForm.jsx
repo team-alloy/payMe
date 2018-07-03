@@ -1,38 +1,35 @@
 import React from 'react';
 import UserCard from './UserCard';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import { ENGINE_METHOD_CIPHERS } from 'constants';
+import { setAppliedRoles } from '../../store/actions/userActions'
 // import { BADHINTS } from 'dns';
 import axios from 'axios';
 
 
-export default class UserCardForm extends React.Component {
+export class UserCardForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
       firstName: '',
       lastName: '',
       email: '',
-      position: '',
-      employer: '',
-      salary: '',
+      active_role: '',
+
     };
 
-    this.nameChange = this.nameChange.bind(this);
+    this.activeRoleChange = this.activeRoleChange.bind(this);
     this.firstNameChange = this.firstNameChange.bind(this);
     this.lastNameChange = this.lastNameChange.bind(this);
     this.emailChange = this.emailChange.bind(this);
-    this.positionChange = this.positionChange.bind(this);
-    this.employerChange = this.employerChange.bind(this);
-    this.salaryChange = this.salaryChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  nameChange() {
-    const { firstName } = this.state;
-    const { lastName } = this.state;
-    this.setState({ name: `${firstName} ${lastName}` });
+  componentDidMount() {
+    this.getAppliedRoles((data) => {
+      this.props.setAppliedRoles(data);
+    });
   }
 
   firstNameChange(event) {
@@ -47,30 +44,25 @@ export default class UserCardForm extends React.Component {
     this.setState({ email: event.target.value });
   }
 
-  positionChange(event) {
-    this.setState({ position: event.target.value });
+  activeRoleChange(event) {
+    this.setState({ active_role: event.target.value });
   }
 
-  employerChange(event) {
-    this.setState({ employer: event.target.value });
-  }
-
-  salaryChange(event) {
-    this.setState({ salary: event.target.value });
+  getAppliedRoles(callback) {
+    axios.get(`/api/roles?user_id=${this.props.session.user.id}`).then(res => {
+      callback(res.data);
+    })
+    .catch(err => console.error(err));
   }
 
   handleSubmit(event) {
     event.preventDefault();
-    this.nameChange();
 
-    // axios#patch(url[, data[, config]])
     axios.patch((`/api/user?id=${this.props.session.user.id}`), {
       'first_name': this.state.firstName,
       'last_name': this.state.lastName,
-      'email': this.state.email,
-      'current_salary': this.state.salary,
-      'active_role[0].company.name': this.state.employer,
-      'active_role[0].name': this.state.position,
+      'email': this.state.email || this.props.session.user.email,
+      'active_role': this.state.active_role
     })
     .then((response) => {
       console.log(response);
@@ -78,6 +70,8 @@ export default class UserCardForm extends React.Component {
   }
 
   render() {
+    console.log(this.state);
+
     return (
       <div className="ui teal card">
         <h4 className="ui dividing header left aligned segment">Edit User's Profile</h4>
@@ -110,29 +104,17 @@ export default class UserCardForm extends React.Component {
             {'Active role: '}
             </label>
             <div className="field">
-              <select id="applied-roles">
+              <select id="applied-roles" style={{'width': '100%'}} onChange={this.activeRoleChange}>
+              { this.props.session.roles ? this.props.session.roles.map((role, index) => {
+                if(this.props.session.user.active_role[0].id === role.id) {
+                  return <option key={index} value={role.id} selected>{`${role.name} at ${role.company.name}`}</option>
+                } else {
+                  return <option key={index} value={role.id}>{`${role.name} at ${role.company.name}`}</option>
+                }
+              }) : undefined}
               </select>
             </div>
           </div>
-
-          {/* <div className="field">
-            <label style={{fontWeight: 'bold'}}>
-              {'Position\'s Title: '}
-            </label>
-            <div className="field">
-              <input type="text" value={this.state.position} onChange={this.positionChange} />
-            </div>
-          </div>
-
-          <div className="field">
-            <label style={{fontWeight: 'bold'}}>
-              {'Employer: '}
-            </label>
-            <div className="field">
-              <input type="text" value={this.state.employer} onChange={this.employerChange} />
-            </div>
-          </div> */}
-
           <div className="field">
             <label style={{fontWeight: 'bold'}}>
               {'Current Salary: '}
@@ -151,3 +133,13 @@ export default class UserCardForm extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {session : state.user}
+}
+ const mapDispatchToProps = (dispatch) => {
+   return bindActionCreators({
+     setAppliedRoles
+   }, dispatch);
+ }
+export default connect(mapStateToProps, mapDispatchToProps)(UserCardForm);

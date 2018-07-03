@@ -6,8 +6,9 @@ export default (props) => {
       <i className="building icon"></i>
       <span className="text company">Select city</span>
       <div id="selected-city"  className="menu">
+        <div className="item">Select city</div>
         {props.cities ? props.cities.map((city, index) => {
-          return (<div key={index} className="item">{city.city}</div>);
+          return (<div key={city.city} className="item">{city.city}</div>);
         }) : undefined}
       </div>
     </div>

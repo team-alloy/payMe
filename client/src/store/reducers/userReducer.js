@@ -2,6 +2,11 @@ import { SET_APPLIED_ROLES, SET_MILESTONES, SET_SESSION } from '../actions/userA
 
 export default (state = {}, action) => {
   switch (action.type) {
+    case SET_APPLIED_ROLES : {
+      console.log(action.payload);
+
+      return Object.assign({}, state, {roles: action.payload});
+    }
     case SET_MILESTONES: {
       return Object.assign({}, state, action.payload);
     }

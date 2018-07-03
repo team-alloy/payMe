@@ -2,6 +2,7 @@ export const SAVE_COMPANIES = 'SAVE_COMPANIES';
 export const SAVE_ROLES = 'SAVE_ROLES';
 export const SAVE_STATES = 'SAVE_STATES';
 export const SAVE_CITIES = 'SAVE_CITIES';
+export const SAVE_RESULTS = 'SAVE_RESULTS';
 
 export const saveCompanies = (companies) => {
   return {
@@ -28,5 +29,12 @@ export const saveRoles = (roles) => {
   return {
     type: SAVE_ROLES,
     payload: roles
+  }
+};
+
+export const saveResults = (results) => {
+  return {
+    type: SAVE_RESULTS,
+    payload: results
   }
 };
