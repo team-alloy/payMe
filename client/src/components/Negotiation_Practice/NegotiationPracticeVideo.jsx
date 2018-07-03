@@ -35,6 +35,17 @@ export default class NegotiationPracticeVideo extends Component {
     this.detachParticipantTracks = this.detachParticipantTracks.bind(this);
   }
 
+  componentDidMount() {
+    axios.get('/token').then((results) => {
+      const { identity, token } = results.data;
+      this.setState({ identity, token });
+    });
+
+    axios.get('/rooms').then((list) => {
+      console.log('list rooms', list);
+    });
+  }
+
   handleRoomNameChange(e) {
     const roomName = e.target.value;
     this.setState({ roomName });
@@ -148,18 +159,10 @@ export default class NegotiationPracticeVideo extends Component {
     });
   }
 
-  componentDidMount() {
-    axios.get('/token').then((results) => {
-      const { identity, token } = results.data;
-      this.setState({ identity, token });
-    });
-  }
-
   leaveRoom() {
     this.state.activeRoom.disconnect();
     this.setState({ hasJoinedRoom: false, localMediaAvailable: false });
   }
-
 
   render() {
     /*

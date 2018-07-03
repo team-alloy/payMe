@@ -443,7 +443,6 @@ router.route('/token').get((req, res) => {
     process.env.TWILIO_API_KEY || require('../config').twilio.TWILIO_API_KEY,
     process.env.TWILIO_API_SECRET || require('../config').twilio.TWILIO_API_SECRET,
   );
-  console.log('token', token);
 
   // Assign generated identity to token
   token.identity = identity;
@@ -458,6 +457,20 @@ router.route('/token').get((req, res) => {
     token: token.toJwt(),
   });
 });
+
+router.route('/rooms').get((req, res) => {
+  const accountSid = require('../config').twilio.TWILIO_ACCOUNT_SID;
+  const authToken = require('../config').twilio.TWILIO_AUTH_TOKEN;
+  const client = require('twilio')(accountSid, authToken);
+
+  client.video.rooms.each({
+    status: 'completed',
+  },
+    rooms => console.log(rooms.sid)
+  );
+});
+
+// End Twilio
 
 router.route('/*').get((req, res) => {
   res.status(200).sendFile(staticFile);
