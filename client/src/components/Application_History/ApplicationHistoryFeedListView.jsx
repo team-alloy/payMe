@@ -1,5 +1,6 @@
 import React from 'react';
 import ApplicationHistoryForm from 'react';
+import ApplicationOffersModal from './ApplicationOffersModal.jsx';
 
 export default class ApplicationHistoryFeedListView extends React.Component {
   constructor(props) {
@@ -16,7 +17,6 @@ export default class ApplicationHistoryFeedListView extends React.Component {
   }
 
   render() {
-    console.log(this.props.apps,'histFeedView');
     return (
       <div>
         <div className="application-history-container">
@@ -46,6 +46,7 @@ export default class ApplicationHistoryFeedListView extends React.Component {
           <button className="ui-button-edit" type="submit" onClick={() => { this.displayChanger(); }}>
             Update
           </button>
+          <ApplicationOffersModal appID={this.props.apps.id}/>
         </div>
       </div>
     );

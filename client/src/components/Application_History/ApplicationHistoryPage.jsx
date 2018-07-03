@@ -2,6 +2,7 @@ import React from 'react';
 import ApplicationHistoryFeed from './ApplicationHistoryFeed.jsx';
 import ApplicationHistoryForm from './ApplicationHistoryForm.jsx';
 import {connect} from 'react-redux';
+import jquery from 'jquery';
 import axios from 'axios';
 
 class ApplicationHistoryPage extends React.Component {
@@ -13,11 +14,13 @@ class ApplicationHistoryPage extends React.Component {
   }
 
   componentDidMount() {
-    this.getApplicationByUserID((data) => {
-      this.setState({
-        applications: data
+    if(this.props.session.user) {
+      this.getApplicationByUserID((data) => {
+        this.setState({
+          applications: data
+        });
       });
-    });
+    }
   }
    getApplicationByUserID(callback) {
     var userID = this.props.session.user.id;
@@ -54,7 +57,6 @@ class ApplicationHistoryPage extends React.Component {
               <ApplicationHistoryFeed />
             </div>
           </div>
-          {/* <ApplicationHistoryForm /> */}
         </div>
       );
     }
