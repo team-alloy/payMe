@@ -3,7 +3,7 @@ const bcrypt = require('bcryptjs');
 
 const saltRounds = 10;
 
-const role_controller = require('./role-controller.js');
+const roleController = require('./role');
 
 const capitalizeWords = (words) => {
   words = words.toLowerCase().split(' ');
@@ -48,7 +48,7 @@ module.exports = {
                   active_role = Number.isNaN(active_role) ? null : active_role;
                   if (active_role) {
                     console.log(active_role, 'active');
-                    return role_controller.getRoles({ id: active_role })
+                    return roleController.getRoles({ id: active_role })
                       .then((roles) => {
                         console.log('roles recieved', roles);
                         if (roles[0]) {
@@ -105,7 +105,7 @@ module.exports = {
         if (active_role) {
           console.log(active_role, 'active', 'no pass');
 
-          return role_controller.getRoles({ id: active_role })
+          return roleController.getRoles({ id: active_role })
             .then((roles) => {
               console.log('roles recieved', 'no pass', roles);
 

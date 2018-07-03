@@ -106,7 +106,7 @@ export class UserCardForm extends React.Component {
             <div className="field">
               <select id="applied-roles" style={{'width': '100%'}} onChange={this.activeRoleChange}>
               { this.props.session.roles ? this.props.session.roles.map((role, index) => {
-                if(this.props.session.user.active_role[0].id === role.id) {
+                if(this.props.session.user.active_role[0] && this.props.session.user.active_role[0].id === role.id) {
                   return <option key={index} value={role.id} selected>{`${role.name} at ${role.company.name}`}</option>
                 } else {
                   return <option key={index} value={role.id}>{`${role.name} at ${role.company.name}`}</option>

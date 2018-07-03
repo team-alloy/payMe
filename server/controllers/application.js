@@ -1,8 +1,8 @@
 const db = require('../../database/index.js');
 
-const role_controller = require('./role-controller.js');
-const user_controller = require('./user-controller.js');
-const company_controller = require('./company-controller.js');
+const roleController = require('./role');
+const userControllerr = require('./user');
+const companyController = require('./company');
 
 
 const capitalizeWords = (array) => {
@@ -12,18 +12,18 @@ const capitalizeWords = (array) => {
   return words;
 };
 
-const fillUsersName = applications => applications.map(app => user_controller
+const fillUsersName = applications => applications.map(app => userControllerr
   .getFullNameById({ id: app.user_id })
   .then((user) => Object.assign({}, app, { user: `${user[0].first_name} ${user[0].last_name}` })));
 
 const fillRole = applications => Promise.all(applications)
-  .then(apps => apps.map(app => role_controller.getRoles({ id: app.role_id })
+  .then(apps => apps.map(app => roleController.getRoles({ id: app.role_id })
   .then(role => Promise.all(role).then((role) => {
       app.role = role[0];
       return app;
     }))));
 
-const updateRole = (query, role, company, salary) => role_controller.updateRole(query, role, company, salary);
+const updateRole = (query, role, company, salary) => roleController.updateRole(query, role, company, salary);
 
 const updateLocation = (query, city, state) => db.knex('applications').where(query).update({ city, state }).then(updated => updated);
 
@@ -57,12 +57,12 @@ module.exports = {
     }
 
     // get the company information
-    return company_controller.getCompanyByName({ name })
+    return companyController.getCompanyByName({ name })
       .then((company) => {
       // if it does not exist
         if (!company.length) {
         // create new company
-          return company_controller.saveNewCompany({ name }).then(id =>
+          return companyController.saveNewCompany({ name }).then(id =>
           // return index of company
             Promise.all(id).then(id => id[0]));
         }
@@ -70,7 +70,7 @@ module.exports = {
       })
       .then((company) => {
         company = typeof company === 'object' ? company[0].id : company;
-        return role_controller.saveNewRole({ name: role, company_id: company, salary })
+        return roleController.saveNewRole({ name: role, company_id: company, salary })
           .then(roleIndex => db.knex('applications')
             .insert({
               user_id, role_id: roleIndex[0], city, state, accepted,
