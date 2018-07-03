@@ -103,12 +103,22 @@ router.route('/api/companies')
 
 */
 router.route('/api/roles').get((req, res) => {
-  role_controller.getRoles()
+  if(!req.query){
+    role_controller.getRoles()
     .then((roles) => {
       Promise.all(roles).then((roles) => {
         res.status(200).json(roles);
       });
     });
+  } else {
+    role_controller.getAppliedRoles(req.query)
+    .then(roles => {
+      console.log(roles);
+
+      res.status(200).json(roles)
+    })
+    .catch(err => res.status(400).json(err));
+  }
 });
 
 /*
