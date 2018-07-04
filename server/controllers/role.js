@@ -41,8 +41,9 @@ module.exports = {
             .then(id => Promise.all(id).then(id => id[0]));
         }
         return company[0].id;
-      }).then(company => db.knex('roles').where(query).update({ name: role, company_id: company, salary })
-        .then(updated => updated));
+      })
+      .then(company => db.knex('roles').where(query).update({ name: role, company_id: company, salary })
+      .then(updated => updated));
   },
   getAppliedRoles: query => db.knex('applications').where({ user_id: query.user_id })
     .then(apps => apps.map(app => app.role_id))
@@ -54,5 +55,9 @@ module.exports = {
       })))
     .then(roles => Promise.all(roles).then(roles => roles))
     .then(roles => roles),
+  updateRoleWithoutCompanyName: query => {
+    const {id, name, salary, company_id} = query;
+    return db.knex('roles').where({id}).update({name, salary, company_id}).then(updated => updated);
+  }
 
 };

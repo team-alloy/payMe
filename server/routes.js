@@ -104,13 +104,13 @@ router.route('/api/companies')
 
 */
 router.route('/api/roles').get((req, res) => {
-  if (!req.query) {
+  if (!Object.keys(req.query).length) {
     roleController.getRoles()
-      .then((roles) => {
-        Promise.all(roles).then((roles) => {
-          res.status(200).json(roles);
-        });
+    .then((roles) => {
+      Promise.all(roles).then((roles) => {
+        res.status(200).json(roles);
       });
+    });
   } else {
     roleController.getAppliedRoles(req.query)
       .then((roles) => {
@@ -211,7 +211,7 @@ router.route('/api/user')
             res.status(201).json(response);
           }
         })
-        .catch(err => res.status(404).json({ error: err }));
+        .catch(err => res.status(404).json( err ));
     } else {
       res.status(404).json({ error: 'User is needed' });
     }
