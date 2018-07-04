@@ -107,5 +107,3 @@ export default class ApplicationHistoryForm extends React.Component {
     );
   }
 }
-// add offers button?
-  // maybe a modal for offers application ex: have PTO?

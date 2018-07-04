@@ -30,7 +30,6 @@ class Login extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-
     axios.post('/api/login', this.state).then((response) => {
       this.props.setSession(response.data);
       this.setState({
@@ -39,8 +38,6 @@ class Login extends React.Component {
       });
       this.props.history.push('/');
     }).catch((err) => {
-      // dynamic error handling for login
-      console.log(err.response.data);
       $('#message').text(err.response.data.error);
       setTimeout(() => {
         $('#message').text('Please log in!');
