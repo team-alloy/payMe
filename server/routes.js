@@ -464,9 +464,9 @@ router.route('/rooms').get((req, res) => {
   const client = require('twilio')(accountSid, authToken);
 
   client.video.rooms.each({
-    status: 'completed',
+    status: 'in-progress',
   },
-    rooms => console.log(rooms.sid)
+    rooms => res.json(rooms.uniqueName)
   );
 });
 

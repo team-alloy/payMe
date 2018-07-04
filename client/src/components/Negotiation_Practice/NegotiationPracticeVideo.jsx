@@ -26,6 +26,7 @@ export default class NegotiationPracticeVideo extends Component {
       hasJoinedRoom: false,
       activeRoom: '', // Track the current active room
       remoteMedia: null,
+      roomsList: [],
     };
     this.joinRoom = this.joinRoom.bind(this);
     this.handleRoomNameChange = this.handleRoomNameChange.bind(this);
@@ -33,6 +34,7 @@ export default class NegotiationPracticeVideo extends Component {
     this.leaveRoom = this.leaveRoom.bind(this);
     this.detachTracks = this.detachTracks.bind(this);
     this.detachParticipantTracks = this.detachParticipantTracks.bind(this);
+    this.getRoomsList = this.getRoomsList.bind(this);
   }
 
   componentDidMount() {
@@ -41,8 +43,12 @@ export default class NegotiationPracticeVideo extends Component {
       this.setState({ identity, token });
     });
 
+    this.getRoomsList();
+  }
+
+  getRoomsList() {
     axios.get('/rooms').then((list) => {
-      console.log('list rooms', list);
+      this.setState({roomsList: list});
     });
   }
 
@@ -165,6 +171,7 @@ export default class NegotiationPracticeVideo extends Component {
   }
 
   render() {
+    console.log('STATES ROOM LIST', this.state.roomsList)
     /*
 	     Controls showing of the local track
 	    Only show video track after user has joined a room else show nothing
@@ -180,9 +187,13 @@ export default class NegotiationPracticeVideo extends Component {
 		 Hide 'Join Room' button if user has already joined a room otherwise
 		 show `Leave Room` button.
 		*/
-    const joinOrLeaveRoomButton = this.state.hasJoinedRoom ? (
-      <RaisedButton label="Leave Room" onClick={() => alert('Leave Room')} />) : (
-        <RaisedButton label="Join Room" onClick={this.joinRoom} />);
+    const joinOrLeaveRoomButton = this.state.hasJoinedRoom
+      ? (
+        <RaisedButton label="Leave Room" onClick={() => alert('Leave Room')} />
+      )
+      : (
+        <RaisedButton label="Join Room" onClick={(event) => { this.joinRoom(); this.getRoomsList();}} />
+      );
 
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
