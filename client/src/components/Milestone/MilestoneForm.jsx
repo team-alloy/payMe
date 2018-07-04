@@ -50,7 +50,13 @@ export class MilestoneForm extends React.Component {
 
     // axios.post(url[, data[, config]])
     // POST request to create a new milestone
-    // axios.post((`/api/milestones?userId=${}`))
+    axios.post((`/api/milestones?userId=${this.props.session.user.id}`), {
+      user_id: this.props.session.user.id, 
+      name: this.state.name, 
+      description: this.state.description, 
+      repo_link: this.state.repository, 
+      tech_used: this.state.stack, 
+    });
   }
  
   render() {
