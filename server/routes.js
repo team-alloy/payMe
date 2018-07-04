@@ -339,12 +339,7 @@ router.route('/api/milestones')
 
 
 router.route('/api/offers').post((req, res) => {
-<<<<<<< HEAD
   offerController.addOffer(req.body)
-=======
-  console.log(req.body,'helloHello');
-  offer_controller.addOffer(req.body)
->>>>>>> post new offers under specific application IDs
     .then((offers) => {
       res.status(200).json(offers);
     })

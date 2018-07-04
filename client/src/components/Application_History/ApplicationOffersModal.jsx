@@ -2,15 +2,29 @@ import React from 'react';
 import jquery from 'jquery';
 import { Button, Modal } from 'semantic-ui-react';
 import axios from 'axios';
+import ApplicationOffersFeed from './ApplicationOffersFeed.jsx';
 
 export default class ApplicationOffersModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      salary: 0
+      salary: 0,
+      offers:[]
     }
     this.saveOffer = this.saveOffer.bind(this);
     this.handleSalary = this.handleSalary.bind(this);
+  }
+
+  componentDidMount() {
+    axios.get('/api/offers?application_id='+this.props.appID)
+    .then((res) => {
+      console.log(res.data,'before iF');
+      if(res.data.length > 0) {
+        this.setState({
+          offers: this.state.offers.concat(res.data)
+        });
+      }
+    })
   }
 
   saveOffer(e) {
@@ -25,7 +39,7 @@ export default class ApplicationOffersModal extends React.Component {
     }
     axios.post('/api/offers', offerInfo)
     .then((res) => {
-      console.log(res,'offer');
+      console.log(res);
     });
   }
 
@@ -39,9 +53,14 @@ export default class ApplicationOffersModal extends React.Component {
   }
 
   render() {
+    console.log(this.state.offers,'statesssss');
+    // const style = {
+    //   color: 'blue',
+    //   marginBottom:"100%"
+    // }
     return (
       <div>
-        <Modal trigger={(<Button>Offers</Button>)} size="sm">
+        <Modal size={"tiny"} trigger={(<Button>Offers</Button>)}>
         <Modal.Header>Offers</Modal.Header>
           <Modal.Content>
             {"Offers"}
@@ -56,6 +75,10 @@ export default class ApplicationOffersModal extends React.Component {
             <br/>
             <input type="text" placeholder="Salary" onChange={this.handleSalary} name="salary" value={this.state.salary}/>
             <Button onClick={this.saveOffer}>Submit</Button>
+            <div>{this.state.offers.map((offer) => {
+              console.log(offer,'mapps');
+              return <ApplicationOffersFeed offer={offer}/>
+            })}</div>
           </Modal.Content>
         </Modal>
       </div>
@@ -64,4 +87,10 @@ export default class ApplicationOffersModal extends React.Component {
 }
 /*
 update modal???
+update offers modal so that offers render on it and when a user sends an offer it gets sent to the database and renders on the current modal
+// label tag for checkboxes? might make it look nicer?
+// notes
+  // changed error in offers.controller get
+  // offers response will respond once with full array
+    // then the rest empty arrays
 */

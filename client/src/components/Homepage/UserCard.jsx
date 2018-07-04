@@ -32,7 +32,10 @@ export default class UserCard extends React.Component {
   }
 
   render() {
+<<<<<<< HEAD
     // console.log(this.props.user)
+=======
+>>>>>>> render current offers in modal
     const currentUser = this.props.session.user;
     return (
       <div className="ui teal card">
@@ -45,7 +48,11 @@ export default class UserCard extends React.Component {
           </a>
           <div className="meta">
             <span className="description">
+<<<<<<< HEAD
               {currentUser.active_role[0] ? `${currentUser.active_role[0].name} at ${currentUser.active_role[0].company.name}`: undefined}
+=======
+              {currentUser.active_role[0] ? `${currentUser.active_role[0].name} at ${currentUser.active_role[0].company.name}` : undefined}
+>>>>>>> render current offers in modal
             </span>
           </div>
         </div>

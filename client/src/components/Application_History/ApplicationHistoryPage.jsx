@@ -50,7 +50,7 @@ class ApplicationHistoryPage extends React.Component {
             <div className="column">
               <ApplicationHistoryForm makeApp={this.makeApplication.bind(this)}/>
             </div>
-            <div className="column">
+            <div className="two column">
               <ApplicationHistoryFeed apps={this.state.applications}/>
             </div>
             <div className="column">

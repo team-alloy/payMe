@@ -30,7 +30,6 @@ class Login extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-
     axios.post('/api/login', this.state).then((response) => {
       this.props.setSession(response.data);
       this.setState({

@@ -70,8 +70,6 @@ export class UserCardForm extends React.Component {
   }
 
   render() {
-    console.log(this.state);
-
     return (
       <div className="ui teal card">
         <h4 className="ui dividing header left aligned segment">Edit User's Profile</h4>

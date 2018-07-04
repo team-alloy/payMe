@@ -21,8 +21,9 @@ export default class ApplicationHistoryFeedListView extends React.Component {
       <div>
         <div className="application-history-container">
           <label className="company-name" htmlFor="name" style={{ fontWeight: 'bold' }}>
-            {this.props.apps.role.company.name}
+            {'Company: '}
           </label>
+          {this.props.apps.role.company.name}
           <div className="role-display">
             <label htmlFor="position" style={{ fontWeight: 'bold' }}>
               {'Position Title: '}
