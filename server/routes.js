@@ -7,13 +7,13 @@ const faker = require('faker');
 const db = require('../database/index.js');
 
 const utils = require('./services/utils.js');
-const user_controller = require('./controllers/user-controller.js');
-const company_controller = require('./controllers/company-controller.js');
-const role_controller = require('./controllers/role-controller.js');
-const milestone_controller = require('./controllers/milestone-controller.js');
-const application_controller = require('./controllers/application-controller.js');
-const offer_controller = require('./controllers/offer-controller.js');
-const search_controller = require('./controllers/search-controller.js');
+const userController = require('./controllers/user');
+const companyController = require('./controllers/company');
+const roleController = require('./controllers/role');
+const milestoneController = require('./controllers/milestone');
+const applicationController = require('./controllers/application');
+const offerController = require('./controllers/offer');
+const searchController = require('./controllers/search');
 
 const AccessToken = require('twilio').jwt.AccessToken;
 
@@ -41,14 +41,14 @@ router.route('/api/companies')
   // make it work with names too.
     if (req.query.id) {
       const { id } = req.query;
-      company_controller
+      companyController
         .getCompanyById({ id })
         .then((company) => {
           if (!company.length) {
             throw ('No records found for this company');
           }
           const { id } = company[0];
-          return role_controller
+          return roleController
             .getRolesForCompany({ company_id: id })
             .then((roles) => {
               console.log('!!!!!!!!!!!1', roles);
@@ -64,14 +64,14 @@ router.route('/api/companies')
       let { name } = req.query;
 
       name = name.toLowerCase().split(' ').map(word => word[0].toUpperCase().concat(word.substr(1))).join(' ');
-      company_controller
+      companyController
         .getCompanyByName({ name })
         .then((company) => {
           if (!company.length) {
             throw ('No records found for this company');
           }
           const { id } = company[0];
-          return role_controller
+          return roleController
             .getRolesForCompany({ company_id: id })
             .then((roles) => {
               console.log('!!!!!!!!!!!1', roles);
@@ -84,7 +84,7 @@ router.route('/api/companies')
           res.status(404).json({ error: err });
         });
     } else {
-      company_controller
+      companyController
         .getCompanies()
         .then((companies) => {
           res.json(companies);
@@ -104,15 +104,15 @@ router.route('/api/companies')
 
 */
 router.route('/api/roles').get((req, res) => {
-  if (!req.query) {
-    role_controller.getRoles()
-      .then((roles) => {
-        Promise.all(roles).then((roles) => {
-          res.status(200).json(roles);
-        });
+  if (!Object.keys(req.query).length) {
+    roleController.getRoles()
+    .then((roles) => {
+      Promise.all(roles).then((roles) => {
+        res.status(200).json(roles);
       });
+    });
   } else {
-    role_controller.getAppliedRoles(req.query)
+    roleController.getAppliedRoles(req.query)
       .then((roles) => {
         console.log(roles);
 
@@ -139,7 +139,7 @@ router.route('/api/roles').get((req, res) => {
 router.route('/api/applications')
   .get((req, res) => {
     console.log(req.query, 'query at route');
-    application_controller.getAllApplications(req.query).then((applications) => {
+    applicationController.getAllApplications(req.query).then((applications) => {
       Promise.all(applications).then((applications) => {
         console.log(applications, 'res at route');
         res.json(applications);
@@ -147,14 +147,14 @@ router.route('/api/applications')
     });
   })
   .post((req, res) => { // req.body.offer
-    application_controller.saveNewApplication(req.body).then((app) => {
+    applicationController.saveNewApplication(req.body).then((app) => {
       Promise.all(app).then((app) => {
         res.status(200).json(app);
       });
     });
   })
   .patch((req, res) => {
-    application_controller.updateApplication(req).then(application => application_controller.getAllApplications({ id: application[0].id }).then(app => Promise.all(app).then(app => res.status(201).json(app))));
+    applicationController.updateApplication(req).then(application => applicationController.getAllApplications({ id: application[0].id }).then(app => Promise.all(app).then(app => res.status(201).json(app))));
   })
   .delete((req, res) => {
     res.json('delete/applications');
@@ -174,11 +174,11 @@ router.route('/api/user')
     const check = utils.isLoggedIn(currentSession, res);
     if (check && !check.error) {
       if (!req.query) {
-        user_controller.findAllUsers()
+        userController.findAllUsers()
           .then(users => res.status(200).json(users))
           .catch(err => res.status(400).json(err));
       } else {
-        user_controller.findOneUser(req.query)
+        userController.findOneUser(req.query)
           .then(user => res.status(200).json(user))
           .catch(err => res.status(400).json(err));
       }
@@ -198,8 +198,8 @@ router.route('/api/user')
     const { id } = req.query;
 
     if (req.query.id) {
-      user_controller.findOneUser({ id })
-        .then(user => user_controller.updateAccountInformation(user[0].id, req.body, user[0].hash))
+      userController.findOneUser({ id })
+        .then(user => userController.updateAccountInformation(user[0].id, req.body, user[0].hash))
         .then((response) => {
           if (!isNaN(response)) {
             if (response > 0) {
@@ -211,7 +211,7 @@ router.route('/api/user')
             res.status(201).json(response);
           }
         })
-        .catch(err => res.status(404).json({ error: err }));
+        .catch(err => res.status(404).json( err ));
     } else {
       res.status(404).json({ error: 'User is needed' });
     }
@@ -220,7 +220,7 @@ router.route('/api/user')
     if (!req.query) {
       res.status(400).json({ error: 'must provide username' });
     } else {
-      user_controller.deleteUser(req.query).then((response) => {
+      userController.deleteUser(req.query).then((response) => {
         res.status(200).json({ message: 'user was deleted from database' });
       });
     }
@@ -239,7 +239,7 @@ router.route('/api/signup')
       res.status(404).json({ error: 'An account needs a password' });
     }
 
-    user_controller.signUpNewUser(req.body)
+    userController.signUpNewUser(req.body)
       .then((newUser) => {
         res.status(200).json({ message: 'user created' });
       })
@@ -255,10 +255,10 @@ router.route('/api/login')
     } else if (!req.body.password) {
       res.status(400).json({ error: 'password must be provided' });
     } else {
-      user_controller.checkCredentials(req).then((session) => {
+      userController.checkCredentials(req).then((session) => {
         console.log(session);
         currentSession = session;
-        role_controller.getRoles({ id: currentSession.user.active_role }).then((role) => {
+        roleController.getRoles({ id: currentSession.user.active_role }).then((role) => {
           console.log(role);
           Promise.all(role).then((role) => {
             currentSession.user.active_role = role;
@@ -297,6 +297,7 @@ router.route('/api/logout')
 */
 router.route('/api/milestones')
   .get((req, res) => {
+
     if (req.query) { // for get request use ? after endpoint url
       milestone_controller.findAllMilestones(req.query)
         .then((milestones) => {
@@ -304,7 +305,7 @@ router.route('/api/milestones')
         })
         .catch(err => res.status(400).json(err));
     } else {
-      milestone_controller.findAllMilestones()
+      milestoneController.findAllMilestones()
         .then((milestones) => {
           res.status(200).json(milestones);
         })
@@ -315,14 +316,14 @@ router.route('/api/milestones')
     if (!req.body.user_id) {
       res.status(404).json({ error: 'An account needs a user_id' });
     }
-    milestone_controller.insertMilestone(req.body)
+    milestoneController.insertMilestone(req.body)
       .then((milestones) => {
         res.status(200).json('milestone inserted');
       })
       .catch(err => res.status(404).json({ error: err.sqlMessage }));
   })
   .patch((req, res) => {
-    milestone_controller.updateMilestone(req.body.id, req.body)
+    milestoneController.updateMilestone(req.body.id, req.body)
       .then((milestones) => {
         res.status(200).json('success!');
       })
@@ -331,8 +332,14 @@ router.route('/api/milestones')
       });
   });
 
+
+
+
+
+
+
 router.route('/api/offers').post((req, res) => {
-  offer_controller.addOffer(req.body)
+  offerController.addOffer(req.body)
     .then((offers) => {
       res.status(200).json(offers);
     })
@@ -340,7 +347,7 @@ router.route('/api/offers').post((req, res) => {
       res.status(404).json(err);
     });
 }).patch((req, res) => {
-  offer_controller.updateOffer(req)
+  offerController.updateOffer(req)
     .then((offers) => {
       res.status(200).json(offers);
     })
@@ -348,7 +355,7 @@ router.route('/api/offers').post((req, res) => {
       res.status(404).json(err);
     });
 }).get((req, res) => {
-  offer_controller.getOffers(req.query)
+  offerController.getOffers(req.query)
     .then((offers) => {
       res.status(200).json(offers);
     })
@@ -374,17 +381,17 @@ router.route('/api/search').get((req, res) => {
   if (req.query.cities && l <= 1) {
     console.log('ho');
 
-    search_controller.getCities().then((cities) => {
+    searchController.getCities().then((cities) => {
       res.status(200).json(cities);
     });
   } else if (req.query.states && l <= 1) {
     console.log('hey');
 
-    search_controller.getStates().then((states) => {
+    searchController.getStates().then((states) => {
       res.status(200).json(states);
     });
   } else if (req.query.roles && l <= 1) {
-    search_controller.getRoles().then((roles) => {
+    searchController.getRoles().then((roles) => {
       res.status(200).json(roles);
     });
   } else if (l >= 1 && !(req.query.cities || req.query.states || req.query.roles)) {
@@ -398,7 +405,7 @@ router.route('/api/search').get((req, res) => {
     company = company ? params.company = company : null;
     console.log(params, 'is this correct??');
 
-    search_controller.calculateAvgSalary(params).then((salary) => {
+    searchController.calculateAvgSalary(params).then((salary) => {
       console.log(salary);
       res.status(200).json(salary);
     })

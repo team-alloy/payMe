@@ -3,6 +3,7 @@ const db = require('../../database/index');
 module.exports = {
   getCities: () => db.knex('applications').distinct('city', 'state').groupBy('state', 'city').select(),
   getStates: () => db.knex('applications').distinct('state').select(),
+  //consolidate the two above to one function
   getRoles: () => db.knex('roles').distinct('name').select(),
   calculateAvgSalary: (query) => {
     if (query.city || query.state) {
