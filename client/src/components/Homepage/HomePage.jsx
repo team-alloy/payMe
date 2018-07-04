@@ -15,10 +15,6 @@ class HomePage extends React.Component {
   }
 
   render() {
-<<<<<<< HEAD
-    // console.log(this.props)
-=======
->>>>>>> render current offers in modal
     if (!this.props.session.user) {
       this.props.history.push('/login');
       return (
