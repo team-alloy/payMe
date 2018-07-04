@@ -48,7 +48,7 @@ export default class NegotiationPracticeVideo extends Component {
 
   getRoomsList() {
     axios.get('/rooms').then((list) => {
-      this.setState({roomsList: list});
+      this.setState({ roomsList: list });
     });
   }
 
@@ -171,7 +171,7 @@ export default class NegotiationPracticeVideo extends Component {
   }
 
   render() {
-    console.log('STATES ROOM LIST', this.state.roomsList)
+    console.log('STATES ROOM LIST', this.state.roomsList);
     /*
 	     Controls showing of the local track
 	    Only show video track after user has joined a room else show nothing
@@ -192,7 +192,7 @@ export default class NegotiationPracticeVideo extends Component {
         <RaisedButton label="Leave Room" onClick={() => alert('Leave Room')} />
       )
       : (
-        <RaisedButton label="Join Room" onClick={(event) => { this.joinRoom(); this.getRoomsList();}} />
+        <RaisedButton label="Join Room" onClick={(event) => { this.joinRoom(); this.getRoomsList(); }} />
       );
 
     return (
@@ -223,6 +223,11 @@ export default class NegotiationPracticeVideo extends Component {
 			          The following div element shows all remote media (other participant’s tracks)
 			        */}
               <div className="flex-item" ref="remoteMedia" id="remote-media" />
+            </div>
+
+            <div>
+              Currently available rooms to join:
+              { this.state.roomsList.data }
             </div>
           </CardText>
         </Card>
