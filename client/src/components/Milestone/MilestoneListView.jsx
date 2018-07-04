@@ -10,19 +10,25 @@ export default class MilestoneListView extends React.Component {
   }
 
   render() {
+    console.log(this.props)
+    const name = this.props.name;
+    const description = this.props.description;
+    const stack = this.props.stack;
+    const repo= this.props.repo;
+
     return (
       <Card raised className="ui teal segment">
-        <Card.Content header="Achievement's Name" />
-        <Card.Content description="This Application helps user negotiate their salary!" />
+        <Card.Content header={name} />
+        <Card.Content description={description} />
         <Card.Content extra>
           <div data-tooltip="Tech Stack">
             <Icon name="sitemap" />
-            JavaScript, ReactJS, mySQL, SemanticUI, Google.
+            {stack}
             <br />
           </div>
           <div data-tooltip="Repository Link">
             <Icon name="github" />
-            www.github.com/SirGitchardHubbard
+            {repo}
             <br />
           </div>
           <div data-tooltip="Date Completed">
