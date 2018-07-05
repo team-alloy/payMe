@@ -5,10 +5,11 @@
   "main": "server/index.js",
   "scripts": {
     "start": "node server/index.js ",
-    "postinstall": "NODE_ENV=production webpack --config webpack.config.js",
+    "postinstall": "NODE_ENV=production webpack -p --config webpack.config.js",
     "react:dev": "webpack -d --watch",
     "test": "jest --watch",
-    "migrate": "knex migrate:latest --knexfile database/knexfile.js"
+    "migrate": "knex migrate:latest --knexfile database/knexfile.js",
+    "build": "webpack --mode production"
   },
   "repository": {
     "type": "git",
