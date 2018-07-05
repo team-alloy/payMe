@@ -97,9 +97,9 @@ module.exports = {
               }
               let [queriedRole] = role;
 
-              if (isNaN(current_salary) || current_salary === '') {
-                current_salary = queriedRole.salary;
-              }
+              // if (isNaN(current_salary) || current_salary === '') {
+              //   current_salary = queriedRole.salary;
+              // }
               updatedUser.active_role = queriedRole.id;
                 // queriedRole.salary = current_salary;
               updatedUser.current_salary = queriedRole.salary;
