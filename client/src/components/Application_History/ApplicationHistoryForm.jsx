@@ -10,7 +10,7 @@ export default class ApplicationHistoryForm extends React.Component {
       city: '',
       state: '',
       salary: 0,
-      created_at: ''
+      application_date: ''
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -26,7 +26,7 @@ export default class ApplicationHistoryForm extends React.Component {
         city: '',
         state: '',
         salary: 0,
-        created_at: '',
+        application_date: '',
       });
     });
   }
@@ -48,7 +48,7 @@ export default class ApplicationHistoryForm extends React.Component {
       city: '',
       state: '',
       salary: 0,
-      created_at: '',
+      application_date: '',
     });
   }
 
@@ -103,7 +103,7 @@ export default class ApplicationHistoryForm extends React.Component {
             <br />
           </label>
           <div className="app-field">
-            <input className="date-name" name="created_at" type="date" onChange={this.handleChange} />
+            <input className="date-name" name="application_date" type="date" onChange={this.handleChange} />
           </div>
         </form>
         <div className="button-container">

@@ -28,6 +28,8 @@ export default class UserCard extends React.Component {
   }
 
   render() {
+    console.log(this.props, '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+
     const currentUser = this.props.session.user;
     return (
       <div className="ui teal card">

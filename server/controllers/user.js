@@ -33,6 +33,8 @@ module.exports = {
   },
   getFullNameById: query => db.knex.select('first_name', 'last_name').from('users').where(query),
   updateAccountInformation: (id, query, currentPassword) => {
+    console.log('update', query);
+
     let {
       first_name, last_name, newPassword, email, current_salary, active_role, old_password, profile_pic
     } = query;
@@ -80,7 +82,7 @@ module.exports = {
         if(last_name) {
           updatedUser.last_name = capitalizeWords(last_name);
         }
-        if(profile_pic !== updatedUser.profile_pic) {
+        if(profile_pic !== updatedUser.profile_pic && profile_pic !== '') {
           updatedUser.profile_pic = profile_pic;
         }
         return updatedUser;
@@ -98,13 +100,11 @@ module.exports = {
               if (isNaN(current_salary) || current_salary === '') {
                 current_salary = queriedRole.salary;
               }
+              updatedUser.active_role = queriedRole.id;
+                // queriedRole.salary = current_salary;
+              updatedUser.current_salary = queriedRole.salary;
 
-              if(queriedRole.salary !== current_salary) {
-                queriedRole.salary = current_salary;
-                updatedUser.current_salary = current_salary;
-                updatedUser.active_role = queriedRole.id;
                 return roleController.updateRoleWithoutCompanyName(queriedRole);
-              }
             }).catch(err => err);
           }).catch(err => err);
         }
@@ -116,7 +116,6 @@ module.exports = {
         }
         // finally after all the check and updates of other document we can update the user stuf f
         delete updatedUser.id;
-        console.log(updatedUser, '123456');
         return db.knex('users').where({id}).update(updatedUser).then(updated => updated);
       })
       .catch(err => err)

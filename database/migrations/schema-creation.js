@@ -32,7 +32,8 @@ exports.up = (knex, Promise) => Promise.all([
     table.string('city', 100);
     table.string('state', 2);
     table.boolean('accepted');
-    table.string('created_at', 100);
+    table.string('application_date', 100);
+    table.timestamp('created_at', true);
   }),
   knex.schema.createTable('offers', (table) => {
     table.increments('id').primary().notNullable();
@@ -54,7 +55,7 @@ exports.up = (knex, Promise) => Promise.all([
     table.string('repo_link', 200);
     table.string('goals', 1000)
     table.string('tech_used', 300);
-    table.string('created_at', 100);
+    table.string('milestone_date', 100);
   }),
 ]);
 

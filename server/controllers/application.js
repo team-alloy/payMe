@@ -30,7 +30,7 @@ const updateLocation = (query, city, state) => db.knex('applications').where(que
 module.exports = {
   getAllApplications: (query) => {
     if (query) {
-      return db.knex('applications').where(query)
+      return db.knex('applications').where(query).orderBy('created_at', 'desc')
         .then(applications => fillUsersName(applications))
         .then(applications => fillRole(applications))
         .then(applications => applications);
@@ -48,9 +48,9 @@ module.exports = {
     const state = capitalizeWords(values.state);
     const salary = Number.isNaN(values.salary) ? 0 : values.salary;
     const accepted = values.accepted !== undefined ? values.accepted === 1 ? 1 : 0 : 0;
-    const created_at = values.created_at || new Date().toLocaleDateString();
+    const application_date = values.application_date || new Date().toLocaleDateString();
     let user_id;
-    console.log(created_at, values)
+    console.log(application_date, values)
     if (values.user_id) {
       user_id = values.user_id;
     } else {
@@ -74,7 +74,7 @@ module.exports = {
         return roleController.saveNewRole({ name: role, company_id: company, salary })
           .then(roleIndex => db.knex('applications')
             .insert({
-              user_id, role_id: roleIndex[0], city, state, accepted, created_at
+              user_id, role_id: roleIndex[0], city, state, accepted, application_date
             }));
       })
       .then(application => db.knex('applications').select().where({ id: application[0] })
