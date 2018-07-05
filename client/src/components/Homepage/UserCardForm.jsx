@@ -17,7 +17,7 @@ export class UserCardForm extends React.Component {
     this.state = {
       firstName: '',
       lastName: '',
-      email: '',
+      profile_pic: '',
       active_role: '',
 
     };
@@ -25,7 +25,7 @@ export class UserCardForm extends React.Component {
     this.activeRoleChange = this.activeRoleChange.bind(this);
     this.firstNameChange = this.firstNameChange.bind(this);
     this.lastNameChange = this.lastNameChange.bind(this);
-    this.emailChange = this.emailChange.bind(this);
+    this.profilePicChange = this.profilePicChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -43,8 +43,8 @@ export class UserCardForm extends React.Component {
     this.setState({ lastName: event.target.value });
   }
 
-  emailChange(event) {
-    this.setState({ email: event.target.value });
+  profilePicChange(event) {
+    this.setState({ profile_pic: event.target.value });
   }
 
   activeRoleChange(event) {
@@ -64,7 +64,7 @@ export class UserCardForm extends React.Component {
     axios.patch((`/api/user?id=${this.props.session.user.id}`), {
       'first_name': this.state.firstName,
       'last_name': this.state.lastName,
-      'email': this.state.email || this.props.session.user.email,
+      'profile_pic': this.state.profile_pic,
       'active_role': this.state.active_role
     })
       .then((response) => {
@@ -114,12 +114,12 @@ export class UserCardForm extends React.Component {
                     <div className="field">
                       <select id="applied-roles" style={{'width': '100%'}} onChange={this.activeRoleChange}>
                         { this.props.session.roles ? this.props.session.roles.map((role, index) => {
-                          if (this.props.session.user.active_role[0] 
+                          if (this.props.session.user.active_role[0]
                           && this.props.session.user.active_role[0].id === role.id) {
                             return (
                               <option
-                                key={index} 
-                                value={role.id} 
+                                key={index}
+                                value={role.id}
                                 elected
                               >
                                 {`${role.name} at ${role.company.name}`}
@@ -128,7 +128,7 @@ export class UserCardForm extends React.Component {
                           }
                           return (
                             <option
-                              key={index} 
+                              key={index}
                               value={role.id}
                             >
                               {`${role.name} at ${role.company.name}`}
@@ -154,13 +154,22 @@ export class UserCardForm extends React.Component {
                 </form>
               </div>
             </div>
-            <div className="eight wide column centered">
-              <Reminder />
+          </div>
+
+          <div className="field">
+            <label style={{fontWeight: 'bold'}}>
+              {'Profile picture: '}
+            </label>
+            <div className="field">
+              <input type="text" value={this.state.profile_pic} onChange={this.profilePicChange} />
             </div>
             <div className="four wide column centered">
               <TipOfTheDay />
             </div>
           </div>
+        <div className="button-container">
+          <button className="ui-button-cancel">Cancel</button>
+          <button className="ui-button-confirm">Confirm</button>
         </div>
       </div>
     );

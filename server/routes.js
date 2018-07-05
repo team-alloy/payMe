@@ -147,11 +147,17 @@ router.route('/api/applications')
     });
   })
   .post((req, res) => { // req.body.offer
-    applicationController.saveNewApplication(req.body).then((app) => {
-      Promise.all(app).then((app) => {
-        res.status(200).json(app);
-      });
-    });
+    let { company, role, city, state} = req.body;
+
+    if (company === '' || role === '' || city === '' || state === '') {
+      res.status(400).json(new Error('company, role, city, and state are required fields'));
+    } else {
+      applicationController.saveNewApplication(req.body).then((app) => {
+        Promise.all(app).then((app) => {
+          res.status(200).json(app);
+        }).catch(err => res.status(400).json(err));
+      })
+    }
   })
   .patch((req, res) => {
     applicationController.updateApplication(req).then(application => applicationController.getAllApplications({ id: application[0].id }).then(app => Promise.all(app).then(app => res.status(201).json(app))));

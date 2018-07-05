@@ -11,12 +11,28 @@ export default class UserCard extends React.Component {
     };
   }
 
+  // this function will change the state to form display
+  formViewSwitch() {
+    this.setState({ display: !this.state.display});
+  }
+
+  viewChecker() {
+    const { display } = this.state;
+    if (display === true) {
+      return (
+        <div>
+          <UserCardForm {...this.props}/>
+        </div>
+      );
+    }
+  }
+
   render() {
     const currentUser = this.props.session.user;
     return (
       <div className="ui teal card">
         <div className="image">
-          <img src="/images/gitchardhubbard.png" alt=""/>
+          <img src={currentUser.profile_pic} alt=""/>
         </div>
         <div className="content">
           <a>
@@ -42,6 +58,7 @@ export default class UserCard extends React.Component {
               {currentUser.current_salary}
             </div>
           </a>
+<<<<<<< 60578c03d342223179d05f4bb74d437403fabd43
           <span className="right floated">
             <div data-tooltip="Edit">
               <Link to="/edit-user">
@@ -49,6 +66,14 @@ export default class UserCard extends React.Component {
               </Link>
             </div>
           </span>
+=======
+          <a>
+            <span className="right floated">
+              <i className="edit icon" onClick={() => { this.formViewSwitch() }} />
+            </span>
+          </a>
+          { this.viewChecker() }
+>>>>>>> Make the applications render dynamically and update when
         </div>
       </div>
     )

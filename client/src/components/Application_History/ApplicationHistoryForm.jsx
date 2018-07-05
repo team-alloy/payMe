@@ -7,8 +7,10 @@ export default class ApplicationHistoryForm extends React.Component {
     this.state = {
       company: '',
       role: '',
-      location: '',
-      salary: 0
+      city: '',
+      state: '',
+      salary: 0,
+      created_at: ''
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -21,8 +23,10 @@ export default class ApplicationHistoryForm extends React.Component {
       this.setState({
         company: '',
         role: '',
-        location: '',
-        salary: 0
+        city: '',
+        state: '',
+        salary: 0,
+        created_at: '',
       });
     });
   }
@@ -31,6 +35,7 @@ export default class ApplicationHistoryForm extends React.Component {
     e.preventDefault();
     var name = e.target.name;
     var value = e.target.value;
+
     this.setState({
       [name]: value
     });
@@ -40,12 +45,16 @@ export default class ApplicationHistoryForm extends React.Component {
     this.setState({
       company: '',
       role: '',
-      location: '',
-      salary: 0
+      city: '',
+      state: '',
+      salary: 0,
+      created_at: '',
     });
   }
 
   render() {
+    console.log(this.state, this.props);
+
     return (
       <div>
         <h4>
@@ -77,7 +86,9 @@ export default class ApplicationHistoryForm extends React.Component {
             <br />
           </label>
           <div className="app-field">
-            <input type="text" value={this.state.location} name="location" onChange={this.handleChange} className="location-name" placeholder="Company's Location" />
+            <input type="text" value={ this.state.city } name="city" onChange={this.handleChange} className="location-name" placeholder="city ex. Masscotte" />
+            <br/>
+            <input type="text" value={this.state.state} maxlength="2" name="state" onChange={this.handleChange} className="location-name" placeholder="state ex. Fl" />
           </div>
           <label htmlFor="salary">
             Salary
@@ -92,7 +103,7 @@ export default class ApplicationHistoryForm extends React.Component {
             <br />
           </label>
           <div className="app-field">
-            <input className="date-name" type="date" />
+            <input className="date-name" name="created_at" type="date" onChange={this.handleChange} />
           </div>
         </form>
         <div className="button-container">

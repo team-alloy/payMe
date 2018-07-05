@@ -48,8 +48,9 @@ module.exports = {
     const state = capitalizeWords(values.state);
     const salary = Number.isNaN(values.salary) ? 0 : values.salary;
     const accepted = values.accepted !== undefined ? values.accepted === 1 ? 1 : 0 : 0;
+    const created_at = values.created_at || new Date().toLocaleDateString();
     let user_id;
-
+    console.log(created_at, values)
     if (values.user_id) {
       user_id = values.user_id;
     } else {
@@ -73,7 +74,7 @@ module.exports = {
         return roleController.saveNewRole({ name: role, company_id: company, salary })
           .then(roleIndex => db.knex('applications')
             .insert({
-              user_id, role_id: roleIndex[0], city, state, accepted,
+              user_id, role_id: roleIndex[0], city, state, accepted, created_at
             }));
       })
       .then(application => db.knex('applications').select().where({ id: application[0] })

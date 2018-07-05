@@ -19,7 +19,7 @@ export default class MilestonePage extends React.Component {
             <MilestoneForm />
           </div>
           <div className="column">
-            <MilestoneList />
+            <MilestoneList {...this.props} />
           </div>
         </div>
       </div>

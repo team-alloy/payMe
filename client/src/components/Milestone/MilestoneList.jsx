@@ -10,13 +10,15 @@ export class MilestoneList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      milestones: '',
+      milestones: [],
     };
   }
 
   componentDidMount() {
     const set = this.setState.bind(this);
-    this.fetchMilestone((data) => { console.log(data); });
+    this.fetchMilestone((data) => {
+      set({milestones: data})
+    });
   }
 
   // this function will invoke our state change
@@ -30,15 +32,19 @@ export class MilestoneList extends React.Component {
     );
   }
 
-  fetchMilestone() {
-    axios.get(`api/milestones?user_Id=${this.props.session.user.id}`)
-      .then((response) => {
-        this.setState({ milestones: response });
-      });
+  fetchMilestone(callback) {
+    if(this.props.session.user) {
+      axios.get(`api/milestones?user_id=${this.props.session.user.id}`)
+        .then((response) => {
+          callback(response.data)
+        });
+    } else {
+      this.props.history.push('/login')
+    }
   }
 
   render() {
-    const data = this.state.milestones.data;
+    const data = this.state.milestones;
     if (!data) {
       return (
         <div />
