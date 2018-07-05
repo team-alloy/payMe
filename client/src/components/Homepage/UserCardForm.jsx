@@ -146,8 +146,10 @@ export class UserCardForm extends React.Component {
                     </div>
                   </div>
                   <div className="button-container">
-                    <button className="ui-button-cancel">Cancel</button>
-                    <button className="ui-button-confirm">Confirm</button>
+                    <Link to="/">
+                      <button className="ui-button-cancel" type="button">Cancel</button>
+                    </Link>
+                      <button className="ui-button-confirm">Confirm</button>
                   </div>
                 </form>
               </div>
