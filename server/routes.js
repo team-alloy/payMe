@@ -299,7 +299,7 @@ router.route('/api/milestones')
   .get((req, res) => {
 
     if (req.query) { // for get request use ? after endpoint url
-      milestone_controller.findAllMilestones(req.query)
+      milestoneController.findAllMilestones(req.query)
         .then((milestones) => {
           res.status(200).json(milestones);
         })
@@ -331,12 +331,6 @@ router.route('/api/milestones')
         res.status(404).json(err);
       });
   });
-
-
-
-
-
-
 
 router.route('/api/offers').post((req, res) => {
   offerController.addOffer(req.body)

@@ -15,6 +15,7 @@ export class MilestoneForm extends React.Component {
       stack: '',
       repository: '',
       completedDate: '',
+      currentMilestones: '',
     };
     this.milestoneNameChange = this.milestoneNameChange.bind(this);
     this.descriptionNameChange = this.descriptionNameChange.bind(this);
@@ -56,9 +57,13 @@ export class MilestoneForm extends React.Component {
       description: this.state.description, 
       repo_link: this.state.repository, 
       tech_used: this.state.stack, 
-    });
+    })
+      .then((response) => {
+        console.log(response);
+        this.setState({ currentMilestones: response });
+      });
   }
- 
+
   render() {
     console.log(this.props)
     return (

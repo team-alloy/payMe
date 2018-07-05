@@ -1,6 +1,7 @@
 import React from 'react';
 import UserCardForm from './UserCardForm';
 import { Segment } from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
 
 export default class UserCard extends React.Component {
   constructor(props) {
@@ -8,27 +9,6 @@ export default class UserCard extends React.Component {
     this.state = {
       display: 'default',
     };
-  }
-
-  // this function will change the state to form display
-  formViewSwitch() {
-    this.setState({ display: 'form' });
-  }
-
-  // this function will change the state to form display
-  formViewSwitch() {
-    this.setState({ display: 'form' });
-  }
-
-  viewChecker() {
-    const { display } = this.state;
-    if (display === 'form') {
-      return (
-        <div>
-          <UserCardForm />
-        </div>
-      );
-    }
   }
 
   render() {
@@ -50,20 +30,25 @@ export default class UserCard extends React.Component {
         </div>
         <div className="extra content">
           <a>
-            <i className="envelope icon"></i>
-            {currentUser.email}
+            <div data-tooltip="Email">
+              <i className="envelope icon"></i>
+              {currentUser.email}
+            </div>
             <br />
           </a>
           <a>
-            <i className="dollar sign icon"></i>
-            {currentUser.current_salary}
+            <div data-tooltip="Current Salary">
+              <i className="dollar sign icon"></i>
+              {currentUser.current_salary}
+            </div>
           </a>
-          {/* <a>
-            <span className="right floated">
-              <i className="edit icon" onClick={() => { this.formViewSwitch() }} />
-            </span>
-          </a> */}
-          {/* { this.viewChecker() } */}
+          <span className="right floated">
+            <div data-tooltip="Edit">
+              <Link to="/edit-user">
+                <i className="edit icon" />
+              </Link>
+            </div>
+          </span>
         </div>
       </div>
     )
