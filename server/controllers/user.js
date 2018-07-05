@@ -142,6 +142,7 @@ module.exports = {
             // create session and return it.
           }
           throw ('wrong password');
+
         });
       }).catch(err => err);
     } else if (query.body.username) {
