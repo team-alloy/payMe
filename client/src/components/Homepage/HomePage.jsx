@@ -34,9 +34,6 @@ class HomePage extends React.Component {
               <Segment raised className="ui teal segment">
                 <UserCard {...this.props} />
               </Segment>
-              {/* <Segment raised className="ui teal segment">
-                <UserCardForm {...this.props} />
-              </Segment> */}
             </div>
             <div className="eight wide column centered">
               <Reminder />

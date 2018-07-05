@@ -45,6 +45,21 @@ export default class UserCard extends React.Component {
               {currentUser.active_role[0] ? `${currentUser.active_role[0].name} at ${currentUser.active_role[0].company.name}` : undefined}
             </span>
           </div>
+        </div>
+        <div className="extra content">
+          <a>
+            <div data-tooltip="Email">
+              <i className="envelope icon"></i>
+              {currentUser.email}
+            </div>
+            <br />
+          </a>
+          <a>
+            <div data-tooltip="Current Salary">
+              <i className="dollar sign icon"></i>
+              {currentUser.current_salary}
+            </div>
+          </a>
           <a>
             <span className="right floated">
               <i className="edit icon" onClick={() => { this.formViewSwitch() }} />
