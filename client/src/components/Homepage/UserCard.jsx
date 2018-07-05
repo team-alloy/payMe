@@ -44,7 +44,7 @@ export default class UserCard extends React.Component {
           </a>
           <span className="right floated">
             <div data-tooltip="Edit">
-              <Link to="/UserCardForm">
+              <Link to="/edit-user">
                 <i className="edit icon" />
               </Link>
             </div>

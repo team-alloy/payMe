@@ -35,7 +35,11 @@ export default class Main extends React.Component {
           <Route path="/search" component={SearchPage} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
-          <Route path="/UserCardForm" component={UserCardForm} />
+          <Route
+            exact
+            path="/edit-user"
+            component={UserCardForm}
+          />
         </Switch>
       </main>
     );
