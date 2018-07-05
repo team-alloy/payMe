@@ -5,12 +5,13 @@ import UserCard from './UserCard';
 import UserCardForm from './UserCardForm';
 import TipOfTheDay from './TipOfTheDay';
 import Reminder from './Reminder';
+import { Route, Switch } from 'react-router-dom';
 
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      display: 'view',
+
     };
   }
 
@@ -29,9 +30,6 @@ class HomePage extends React.Component {
             <div className="four wide column">
               <Segment raised className="ui teal segment">
                 <UserCard {...this.props} />
-              </Segment>
-              <Segment raised className="ui teal segment">
-                <UserCardForm {...this.props} />
               </Segment>
             </div>
             <div className="eight wide column centered">

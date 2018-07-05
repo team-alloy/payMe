@@ -9,6 +9,7 @@ import NegotiationPracticePage from './Negotiation_Practice/NegotiationPracticeP
 import SearchPage from './Search/SearchPage';
 import SignUp from './Signup/Signup';
 import TipsPage from './Tips/TipsPage';
+import UserCardForm from './Homepage/UserCardForm';
 import { SearchCategory } from 'semantic-ui-react';
 
 export default class Main extends React.Component {
@@ -34,6 +35,7 @@ export default class Main extends React.Component {
           <Route path="/search" component={SearchPage} />
           <Route path="/login" component={Login} />
           <Route path="/signup" component={SignUp} />
+          <Route path="/UserCardForm" component={UserCardForm} />
         </Switch>
       </main>
     );
