@@ -16,7 +16,7 @@ export default class ReminderListView extends React.Component {
           <thead>
             <tr>
               <th className="ui center aligned" text-align="center" >
-                {'Reminders '}
+                {'Reminders'}
                 <i className="calendar outline icon" />
               </th>
             </tr>

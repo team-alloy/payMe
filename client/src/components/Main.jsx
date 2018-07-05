@@ -28,7 +28,7 @@ export default class Main extends React.Component {
             path="/"
             render={props => <HomePage {...props} />}
           />
-          <Route path="/milestones" component={MilestonePage} />
+          <Route path="/milestones" render={props => <MilestonePage {...props} />} />
           <Route path="/tips" component={TipsPage} />
           <Route path="/applications" component={ApplicationHistoryPage} />
           <Route path="/practice" component={NegotiationPracticePage} />

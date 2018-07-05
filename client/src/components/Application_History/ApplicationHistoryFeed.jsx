@@ -1,11 +1,14 @@
 import React from 'react';
 import ApplicationHistoryFeedListView from './ApplicationHistoryFeedListView';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setApplications } from '../../store/actions/userActions'
 
-export default class ApplicationHistoryFeed extends React.Component {
+export class ApplicationHistoryFeed extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
+      apps: this.props.session.applications || []
     };
   }
 
@@ -24,3 +27,14 @@ export default class ApplicationHistoryFeed extends React.Component {
 
   }
 }
+const mapStateToProps = (state) => {
+  return { session: state.user }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    setApplications
+  }, dispatch);
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ApplicationHistoryFeed);

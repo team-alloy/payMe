@@ -15,6 +15,7 @@ exports.up = (knex, Promise) => Promise.all([
     table.increments('id').primary().notNullable();
     table.string('first_name', 100);
     table.string('last_name', 100);
+    table.string('profile_pic', 1000);
     table.string('email', 200).unique('email').notNullable();
     table.string('username', 100).unique('username').notNullable();
     table.string('hash', 200).notNullable();
@@ -31,7 +32,8 @@ exports.up = (knex, Promise) => Promise.all([
     table.string('city', 100);
     table.string('state', 2);
     table.boolean('accepted');
-    table.timestamp('created_at', true).notNullable();
+    table.string('application_date', 100);
+    table.timestamp('created_at', true);
   }),
   knex.schema.createTable('offers', (table) => {
     table.increments('id').primary().notNullable();
@@ -53,7 +55,7 @@ exports.up = (knex, Promise) => Promise.all([
     table.string('repo_link', 200);
     table.string('goals', 1000)
     table.string('tech_used', 300);
-    table.timestamp('created_at', true).notNullable();
+    table.string('milestone_date', 100);
   }),
 ]);
 

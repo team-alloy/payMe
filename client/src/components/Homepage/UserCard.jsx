@@ -11,12 +11,30 @@ export default class UserCard extends React.Component {
     };
   }
 
+  // this function will change the state to form display
+  formViewSwitch() {
+    this.setState({ display: !this.state.display});
+  }
+
+  viewChecker() {
+    const { display } = this.state;
+    if (display === true) {
+      return (
+        <div>
+          <UserCardForm {...this.props}/>
+        </div>
+      );
+    }
+  }
+
   render() {
+    console.log(this.props, '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
+
     const currentUser = this.props.session.user;
     return (
       <div className="ui teal card">
         <div className="image">
-          <img src="/images/gitchardhubbard.png" alt=""/>
+          <img src={currentUser.profile_pic} alt=""/>
         </div>
         <div className="content">
           <a>
@@ -27,28 +45,12 @@ export default class UserCard extends React.Component {
               {currentUser.active_role[0] ? `${currentUser.active_role[0].name} at ${currentUser.active_role[0].company.name}` : undefined}
             </span>
           </div>
-        </div>
-        <div className="extra content">
           <a>
-            <div data-tooltip="Email">
-              <i className="envelope icon"></i>
-              {currentUser.email}
-            </div>
-            <br />
+            <span className="right floated">
+              <i className="edit icon" onClick={() => { this.formViewSwitch() }} />
+            </span>
           </a>
-          <a>
-            <div data-tooltip="Current Salary">
-              <i className="dollar sign icon"></i>
-              {currentUser.current_salary}
-            </div>
-          </a>
-          <span className="right floated">
-            <div data-tooltip="Edit">
-              <Link to="/edit-user">
-                <i className="edit icon" />
-              </Link>
-            </div>
-          </span>
+          { this.viewChecker() }
         </div>
       </div>
     )

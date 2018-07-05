@@ -5,7 +5,8 @@ import UserCard from './UserCard';
 import UserCardForm from './UserCardForm';
 import TipOfTheDay from './TipOfTheDay';
 import Reminder from './Reminder';
-import { Route, Switch } from 'react-router-dom';
+import { bindActionCreators } from 'redux';
+import { setSession } from '../../store/actions/userActions';
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -15,7 +16,9 @@ class HomePage extends React.Component {
     };
   }
 
+
   render() {
+    console.log(this.props)
     if (!this.props.session.user) {
       this.props.history.push('/login');
       return (
@@ -31,6 +34,9 @@ class HomePage extends React.Component {
               <Segment raised className="ui teal segment">
                 <UserCard {...this.props} />
               </Segment>
+              {/* <Segment raised className="ui teal segment">
+                <UserCardForm {...this.props} />
+              </Segment> */}
             </div>
             <div className="eight wide column centered">
               <Reminder />
@@ -49,4 +55,9 @@ const mapStateToProps = (state) => {
   return { session: state.user, searchWords: state.searchWords };
 };
 
-export default connect(mapStateToProps)(HomePage);
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    setSession
+  }, dispatch);
+}
+export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

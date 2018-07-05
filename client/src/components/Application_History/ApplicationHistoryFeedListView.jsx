@@ -34,13 +34,13 @@ export default class ApplicationHistoryFeedListView extends React.Component {
             <label htmlFor="location" style={{ fontWeight: 'bold' }}>
               {'Position Location: '}
             </label>
-              {this.props.apps.location}
+              {`${this.props.apps.city}, ${this.props.apps.state}`}
           </div>
           <div className="applied-date-display">
             <label htmlFor="date" style={{ fontWeight: 'bold' }}>
               {'Application Date: '}
             </label>
-              1/1/2018
+            {new Date(this.props.apps.application_date).toLocaleDateString()}
           </div>
         </div>
         <div className="edit-button-container">
