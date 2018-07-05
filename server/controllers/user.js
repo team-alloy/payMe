@@ -39,6 +39,7 @@ module.exports = {
       first_name, last_name, newPassword, email, current_salary, active_role, old_password, profile_pic
     } = query;
     let updatedUser = {};
+    console.log(active_role);
 
     return db.knex('users').where({id})
       // first let's do something with the password and email
@@ -89,6 +90,8 @@ module.exports = {
       })
       .then(user => {
         // these varaibles are realated to the active role and current salary
+        console.log('active role id', active_role);
+
         if(active_role){
           return roleController.getRoles({ id : active_role}).then(role => {
             return Promise.all(role).then(role => {
@@ -101,6 +104,8 @@ module.exports = {
               //   current_salary = queriedRole.salary;
               // }
               updatedUser.active_role = queriedRole.id;
+              console.log(queriedRole);
+
                 // queriedRole.salary = current_salary;
               updatedUser.current_salary = queriedRole.salary;
 
@@ -137,8 +142,9 @@ module.exports = {
             // create session and return it.
           }
           throw ('wrong password');
+
         });
-      });
+      }).catch(err => err);
     } else if (query.body.username) {
       return db.knex('users').where({ username: query.body.username }).then((user) => {
         if (!user.length) {
@@ -155,7 +161,7 @@ module.exports = {
           }
           throw ('wrong password');
         });
-      });
+      }).catch(err => err);
     }
     throw ('username or email is required');
   },
