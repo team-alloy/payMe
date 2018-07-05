@@ -39,7 +39,6 @@ module.exports = {
       first_name, last_name, newPassword, email, current_salary, active_role, old_password, profile_pic
     } = query;
     let updatedUser = {};
-    console.log(active_role);
 
     return db.knex('users').where({id})
       // first let's do something with the password and email
@@ -48,13 +47,18 @@ module.exports = {
       .then( user => {
         if(old_password) {
           [updatedUser] = user;
-          return bcrypt.compare(old_password, currentPassword);
+          return bcrypt.compare(old_password.toString(), currentPassword.toString()).catch(err => {
+            throw err;
+          });
         }
         return false;
       }).then(correctPassword => {
         // the password is correct and the user wants to update their password
+        console.log('password was correct', correctPassword);
+        if(!correctPassword) {
+          throw new Error('Wrong password')
+        }
         if(correctPassword && newPassword) {
-          console.log('password was correct', correctPassword);
 
           if(email) {
             return hashPassword(newPassword).then(hash => {
@@ -127,7 +131,10 @@ module.exports = {
 
   },
   checkCredentials: (query) => {
+    console.log('in credentials');
+
     if (query.body.email) {
+      console.log('in credentials');
       return db.knex('users').where({ email: query.body.email }).then((user) => {
         if (!user.length) {
           throw ('email does not exist');

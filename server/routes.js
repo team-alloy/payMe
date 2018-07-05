@@ -193,6 +193,7 @@ router.route('/api/user')
     }
   })
   .patch((req, res) => {
+    console.log(req.body, 'made it in -------------------------------')
     const {
       first_name,
       last_name,
@@ -204,11 +205,14 @@ router.route('/api/user')
     const { id } = req.query;
 
     if (req.query.id) {
+      console.log('made it in req.query -------------------------------')
+
       userController.findOneUser({ id })
         .then(user => userController.updateAccountInformation(user[0].id, req.body, user[0].hash))
         .then((response) => {
           if (!isNaN(response)) {
             if (response > 0) {
+              console.log(response, '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
               res.status(201).json({ message: 'Account updated' });
             } else {
               res.status(200).json({ message: 'Account was not updated' });
@@ -262,17 +266,20 @@ router.route('/api/login')
       res.status(400).json({ error: 'password must be provided' });
     } else {
       userController.checkCredentials(req).then((session) => {
-        console.log(session);
         currentSession = session;
-        roleController.getRoles({ id: currentSession.user.active_role }).then((role) => {
-          console.log(role);
-          Promise.all(role).then((role) => {
-            currentSession.user.active_role = role;
-            console.log(currentSession);
-            res.status(200).json(currentSession);
+        if(session.user.active_role) {
+          roleController.getRoles({ id: currentSession.user.active_role }).then((role) => {
+            Promise.all(role).then((role) => {
+              currentSession.user.active_role = role;
+              res.status(200).json(currentSession);
+            });
           });
+        } else {
+          session.active_role === null ? session.active_role = [] : undefined;
+          currentSession = session;
+          res.status(200).json(currentSession)
+        }
         // res.status(200).json(role);
-        });
       // res.status(200).send(currentSession);
       })
         .catch(err => res.status(404).json({ error: err }));

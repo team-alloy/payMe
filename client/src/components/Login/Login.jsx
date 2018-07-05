@@ -40,7 +40,7 @@ class Login extends React.Component {
       });
       this.props.history.push('/');
     }).catch((err) => {
-      $('#message').text(err.response.data.error);
+      $('#message').text('something went wrong'||err.response.data.error);
       setTimeout(() => {
         $('#message').text('Please log in!');
       }, 1500);

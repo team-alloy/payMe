@@ -10,19 +10,24 @@ beforeAll(() => {
     email: 'real@user.com',
     pass: '123',
   };
-  request(app)
+  return request(app)
     .post('/api/signup')
     .send(parameters).then((response) => {
-      request(app)
+      return request(app)
         .post('/api/login')
         .send({ email: parameters.email, password: parameters.pass })
-        .then(response => response.body.user);
+        .then(response => {response.body.user});
     });
 });
 
 beforeEach((done) => {
+  const parameters = {
+    username: 'oldUser',
+    email: 'real@user.com',
+    pass: '123',
+  };
   request(app).post('/api/login')
-    .send({ email: 'sarah@silverman.com', password: '123' })
+    .send({ email: parameters.email, password: parameters.pass })
     .then((response) => {
       done();
     });
@@ -30,9 +35,9 @@ beforeEach((done) => {
 
 describe('Users functionality', () => {
   const parameters = {
-    username: 'newUser',
-    email: 'fake@user.com',
-    pass: 'test',
+    username: 'oldUser',
+    email: 'real@user.com',
+    pass: '123',
   };
 
   test('Should be able to update the user accounts first name and last_name', () => request(app)
@@ -49,7 +54,7 @@ describe('Users functionality', () => {
         });
     }));
 
-  test('Should not be able to update current salary without a role_id', () => request(app)
+  xtest('Should not be able to update current salary without a role_id', () => request(app)
     .post('/api/login')
     .send({ email: parameters.email, password: parameters.pass })
     .then((response) => {
@@ -64,7 +69,7 @@ describe('Users functionality', () => {
         });
     }));
 
-  test('Should be able to update current salary with a role_id', () => request(app)
+  xtest('Should be able to update current salary with a role_id', () => request(app)
     .post('/api/login')
     .send({ email: parameters.email, password: parameters.pass })
     .then((response) => {
@@ -85,9 +90,11 @@ describe('Users functionality', () => {
       const user = response.body.user;
 
       return request(app).patch(`/api/user?id=${user.id}`)
-        .send({ pass: 1234, old_password: 1234 })
+        .send({ newPassword: 1234, old_password: 1234111 })
         .then((response) => {
-          const error = response.body;
+          const error = response;
+          console.log(error, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+
           expect(response.statusCode).toBeGreaterThan(399);
           expect(error.error).toEqual('wrong password');
           // error message should appear in body telling the user that this is not allowed
