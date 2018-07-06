@@ -2,6 +2,7 @@ export const SET_APPLIED_ROLES = 'SET_APPLIED_ROLES'
 export const SET_SESSION = 'SET_SESSION';
 export const SET_MILESTONES = 'SET_MILESTONES';
 export const SET_APPLICATIONS = 'SET_APPLICATIONS';
+export const REMOVE_SESSION = 'REMOVE_SESSION';
 
 export const setSession = (session) => {
   return {
@@ -28,5 +29,12 @@ export const setApplications = (apps) => {
   return {
     type: SET_APPLICATIONS,
     payload: apps,
+  };
+};
+
+export const removeSession = (session) => {
+  return {
+    type: REMOVE_SESSION,
+    payload: session,
   };
 };

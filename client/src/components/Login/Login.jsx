@@ -5,7 +5,7 @@ import {
 } from 'semantic-ui-react';
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
-import {setSession} from '../../store/actions/userActions';
+import { setSession, removeSession } from '../../store/actions/userActions';
 import $ from 'jquery';
 
 class Login extends React.Component {
@@ -17,6 +17,10 @@ class Login extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+  }
+
+  componentDidMount (){
+    this.props.removeSession({});
   }
 
   handleChange(e) {
@@ -106,6 +110,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     setSession,
+    removeSession
   }, dispatch);
 };
 

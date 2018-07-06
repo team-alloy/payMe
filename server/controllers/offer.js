@@ -16,7 +16,7 @@ module.exports = {
     return db.knex('offers');
   },
   updateOffer: (req) => {
-    console.log(req.body)
+    console.log(req.body);
     let {
       application_id, base_salary, hasHealthBenefits, hasPTO, hasRetirement, coversRelocation, acceptedOffer,
     } = req.body;
@@ -30,17 +30,16 @@ module.exports = {
     return db.knex('offers').where({ id })
       .then((offer) => {
         // checks offer to see if any parmeters were not changed
-        if(isNaN(base_salary) || base_salary === offer[0].base_salary){
+        if (isNaN(base_salary) || base_salary === offer[0].base_salary) {
           base_salary = offer[0].base_salary;
         }
-        hasHealthBenefits =Number( hasHealthBenefits) || offer[0].hasHealthBenefits;
+        hasHealthBenefits = Number(hasHealthBenefits) || offer[0].hasHealthBenefits;
         hasPTO = Number(hasPTO) || offer[0].hasPTO;
         hasRetirement = Number(hasRetirement) || offer[0].hasRetirement;
         coversRelocation = Number(coversRelocation) || offer[0].coversRelocation;
         acceptedOffer = Number(acceptedOffer) || offer[0].acceptedOffer;
-          return;
       })
-      .then( () => db.knex('offers').where({ id })
+      .then(() => db.knex('offers').where({ id })
         .update({
           application_id,
           base_salary,
@@ -50,7 +49,7 @@ module.exports = {
           coversRelocation,
           acceptedOffer,
         }))
-      .then(() => db.knex('offers').where({ id: id}));
+      .then(() => db.knex('offers').where({ id }));
   },
   addOffer: (offer) => {
     if (!offer.id) {

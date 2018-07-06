@@ -14,11 +14,11 @@ const capitalizeWords = (array) => {
 
 const fillUsersName = applications => applications.map(app => userControllerr
   .getFullNameById({ id: app.user_id })
-  .then((user) => Object.assign({}, app, { user: `${user[0].first_name} ${user[0].last_name}` })));
+  .then(user => Object.assign({}, app, { user: `${user[0].first_name} ${user[0].last_name}` })));
 
 const fillRole = applications => Promise.all(applications)
   .then(apps => apps.map(app => roleController.getRoles({ id: app.role_id })
-  .then(role => Promise.all(role).then((role) => {
+    .then(role => Promise.all(role).then((role) => {
       app.role = role[0];
       return app;
     }))));
@@ -50,7 +50,7 @@ module.exports = {
     const accepted = values.accepted !== undefined ? values.accepted === 1 ? 1 : 0 : 0;
     const application_date = values.application_date || new Date().toLocaleDateString();
     let user_id;
-    console.log(application_date, values)
+    console.log(application_date, values);
     if (values.user_id) {
       user_id = values.user_id;
     } else {
@@ -74,7 +74,7 @@ module.exports = {
         return roleController.saveNewRole({ name: role, company_id: company, salary })
           .then(roleIndex => db.knex('applications')
             .insert({
-              user_id, role_id: roleIndex[0], city, state, accepted, application_date
+              user_id, role_id: roleIndex[0], city, state, accepted, application_date,
             }));
       })
       .then(application => db.knex('applications').select().where({ id: application[0] })

@@ -53,7 +53,7 @@ exports.up = (knex, Promise) => Promise.all([
     table.string('name', 100).notNullable();
     table.string('description', 1000).notNullable();
     table.string('repo_link', 200);
-    table.string('goals', 1000)
+    table.string('goals', 1000);
     table.string('tech_used', 300);
     table.string('milestone_date', 100);
   }),

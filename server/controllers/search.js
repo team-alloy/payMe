@@ -3,7 +3,7 @@ const db = require('../../database/index');
 module.exports = {
   getCities: () => db.knex('applications').distinct('city', 'state').groupBy('state', 'city').select(),
   getStates: () => db.knex('applications').distinct('state').select(),
-  //consolidate the two above to one function
+  // consolidate the two above to one function
   getRoles: () => db.knex('roles').distinct('name').select(),
   calculateAvgSalary: (query) => {
     if (query.city || query.state) {
@@ -40,7 +40,7 @@ module.exports = {
           })
           .then((source) => {
             console.log(source, '1111');
-            if(!source.length){
+            if (!source.length) {
               throw ('No results found  because we currently do not have enough data. Either add an application to start off this company at this location or come back later.');
             }
             const avgSalary = source.reduce((accumulator, app) => accumulator + app.salary, 0) / source.length;
