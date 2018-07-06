@@ -1,6 +1,7 @@
 import React from 'react';
 import ApplicationHistoryForm from 'react';
 import ApplicationOffersModal from './ApplicationOffersModal.jsx';
+import ApplicationUpdateModal from './ApplicationUpdateModal.jsx';
 
 export default class ApplicationHistoryFeedListView extends React.Component {
   constructor(props) {
@@ -44,12 +45,14 @@ export default class ApplicationHistoryFeedListView extends React.Component {
           </div>
         </div>
         <div className="edit-button-container">
-          <button className="ui-button-edit" type="submit" onClick={() => { this.displayChanger(); }}>
-            Update
-          </button>
+          <ApplicationUpdateModal />
           <ApplicationOffersModal appID={this.props.apps.id}/>
         </div>
       </div>
     );
   }
+          //   <button className="ui-button-edit" type="submit" onClick={() => { this.displayChanger(); }}>
+          //   Update
+          // </button>
 }
+
