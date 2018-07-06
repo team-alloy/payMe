@@ -1,12 +1,12 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { Segment } from 'semantic-ui-react';
-import UserCard from './UserCard';
-import UserCardForm from './UserCardForm';
-import TipOfTheDay from './TipOfTheDay';
-import Reminder from './Reminder';
-import { bindActionCreators } from 'redux';
 import { setSession } from '../../store/actions/userActions';
+
+import Reminder from './Reminder';
+import TipOfTheDay from './TipOfTheDay';
+import UserCard from './UserCard';
 
 class HomePage extends React.Component {
   constructor(props) {
@@ -16,9 +16,7 @@ class HomePage extends React.Component {
     };
   }
 
-
   render() {
-    console.log(this.props)
     if (!this.props.session.user) {
       this.props.history.push('/login');
       return (
@@ -54,7 +52,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    setSession
+    setSession,
   }, dispatch);
 }
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
