@@ -1,14 +1,11 @@
 import React from 'react';
 import axios from 'axios';
-<<<<<<< HEAD
 import $ from 'jquery';
-=======
 import {
   Button, Form, Grid, Header, Message, Segment,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
->>>>>>> Redesign our sign-up page to a professional design
 export default class SignUp extends React.Component {
   constructor(props) {
     super(props);

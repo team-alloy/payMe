@@ -258,18 +258,6 @@ router.route('/api/signup')
           res.status(404).json(err);
         });
     }
-<<<<<<< HEAD
-=======
-
-    userController.signUpNewUser(req.body)
-      .then((newUser) => {
-        res.status(200).json({ message: 'user created' });
-      })
-      .catch((err) => {
-        console.log('err ', err)
-        res.status(404).json({ error: err });
-      });
->>>>>>> Refactor signup page and remove username from required fields
   });
 
 router.route('/api/login')
