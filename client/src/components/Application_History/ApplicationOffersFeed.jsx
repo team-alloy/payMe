@@ -1,22 +1,35 @@
 import React from 'react';
+import {Card} from 'semantic-ui-react';
 
 const ApplicationOffersFeed = (props) => (
-  <div>
-    <label>{'Has Health Benefits: '}</label>
+  <Card>
+    <Card.Content>
+      <Card.Header>{'Has Health Benefits: '}</Card.Header>
+      <Card.Description>
       {props.offer.hasHealthBenefits}
-    <br/>
-    <label>{'Has PTO: '}</label>
+      </Card.Description>
+      <br/>
+      <Card.Header>{'Has PTO: '}</Card.Header>
+      <Card.Description>
       {props.offer.hasPTO}
-    <br/>
-    <label>{'Has Retirement: '}</label>
-      {props.offer.hasRetirement}
-    <br/>
-    <label>{'Covers Relocation: '}</label>
-      {props.offer.coversRelocation}
-    <br/>
-    <label>{'Salary: '}</label>
+      </Card.Description>
+      <br/>
+      <Card.Header>{'Has Retirement: '}</Card.Header>
+      <Card.Description>
+        {props.offer.hasRetirement}
+      </Card.Description>
+      <br/>
+      <Card.Header>{'Covers Relocation: '}</Card.Header>
+      <Card.Description>
+        {props.offer.coversRelocation}
+      </Card.Description>
+      <br/>
+      <Card.Header>{'Salary: '}</Card.Header>
+      <Card.Description>
       {props.offer.base_salary}
-  </div>
+      </Card.Description>
+    </Card.Content>
+  </Card>
 );
 
 export default ApplicationOffersFeed;

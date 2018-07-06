@@ -8,6 +8,7 @@ const companyController = require('./company');
 const capitalizeWords = (array) => {
   let words = array;
   words = words.toLowerCase().split(' ');
+  console.log(words,'capitlized');
   words = words.map(word => word[0].toUpperCase().concat(word.substr(1))).join(' ');
   return words;
 };
