@@ -24,8 +24,8 @@ export default class SignUp extends React.Component {
 
   handleChange(e) {
     e.preventDefault();
-    var name = e.target.name;
-    var value = e.target.value;
+    const name = e.target.name;
+    const value = e.target.value;
     this.setState({
       [name]: value,
     });
@@ -73,19 +73,21 @@ export default class SignUp extends React.Component {
               <Header as="h2" id="message" color="teal" textAlign="center">
                 Register
               </Header>
-              <h5>Get the Raise You Deserve!</h5>
+              <h5>
+                Get the Raise You Deserve!
+              </h5>
               <Form size="large">
                 <Segment raised>
-                  <Form.Input 
+                  <Form.Input
                     onChange={this.handleChange}
+                    value={this.state.first_name}
                     name="first_name"
                     fluid
                     icon="user"
                     iconPosition="left"
                     placeholder="First Name"
-                    value={this.state.first_name}
                   />
-                  <Form.Input 
+                  <Form.Input
                     onChange={this.handleChange}
                     value={this.state.last_name}
                     fluid
@@ -94,7 +96,7 @@ export default class SignUp extends React.Component {
                     name="last_name"
                     placeholder="Last Name"
                   />
-                  <Form.Input 
+                  <Form.Input
                     onChange={this.handleChange}
                     value={this.state.email}
                     fluid
@@ -103,7 +105,7 @@ export default class SignUp extends React.Component {
                     name="email"
                     placeholder="Email Address"
                   />
-                  <Form.Input 
+                  <Form.Input
                     onChange={this.handleChange}
                     value={this.state.pass}
                     fluid
@@ -113,7 +115,7 @@ export default class SignUp extends React.Component {
                     placeholder="Password"
                     type="password"
                   />
-                  <Form.Input 
+                  <Form.Input
                     onChange={this.handleChange}
                     value={this.state.reEnterPW}
                     fluid
@@ -124,7 +126,9 @@ export default class SignUp extends React.Component {
                     type="password"
                   />
                   <Button type="submit" onClick={this.handleClick} color="teal" fluid size="large">
-                    <Link to="/login">Confirm Registration</Link>
+                    <Link to="/login">
+                      Confirm Registration
+                    </Link>
                   </Button>
                 </Segment>
               </Form>

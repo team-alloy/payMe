@@ -23,6 +23,7 @@ export class UserCardForm extends React.Component {
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
     this.handleLastNameChange = this.handleLastNameChange.bind(this);
     this.handleProfilePicChange = this.handleProfilePicChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -32,30 +33,39 @@ export class UserCardForm extends React.Component {
     });
   }
 
-  handleFirstNameChange(event) {
-    this.setState({ firstName: event.target.value });
+  handleChange(e) {
+    e.preventDefault();
+    const name = e.target.name;
+    const value = e.target.value;
+    this.setState({
+      [name]: value,
+    });
   }
 
-  handleLastNameChange(event) {
-    this.setState({ lastName: event.target.value });
-  }
+  // handleFirstNameChange(event) {
+  //   this.setState({ firstName: event.target.value });
+  // }
 
-  handleProfilePicChange(event) {
-    this.setState({ profile_pic: event.target.value });
-  }
+  // handleLastNameChange(event) {
+  //   this.setState({ lastName: event.target.value });
+  // }
 
-  handleActiveRoleChange(event) {
-    console.log(event.target.value);
+  // handleProfilePicChange(event) {
+  //   this.setState({ profile_pic: event.target.value });
+  // }
 
-    this.setState({ active_role: event.target.value });
-  }
+  // handleActiveRoleChange(event) {
+  //   console.log(event.target.value);
 
-  handleGetAppliedRoles(callback) {
-    axios.get(`/api/roles?user_id=${this.props.session.user.id}`).then((res) => {
-      callback(res.data);
-    })
-      .catch(err => console.error(err));
-  }
+  //   this.setState({ active_role: event.target.value });
+  // }
+
+  // handleGetAppliedRoles(callback) {
+  //   axios.get(`/api/roles?user_id=${this.props.session.user.id}`).then((res) => {
+  //     callback(res.data);
+  //   })
+  //     .catch(err => console.error(err));
+  // }
 
   handleSubmit(event) {
     event.preventDefault();
@@ -67,6 +77,7 @@ export class UserCardForm extends React.Component {
       active_role: this.state.active_role,
     })
       .then((response) => {
+        console.log(this.state)
         console.log(response);
       });
   }
@@ -85,16 +96,18 @@ export class UserCardForm extends React.Component {
                 <input
                   type="text"
                   placeholder="First Name"
+                  name="firstName"
                   value={this.state.firstName}
-                  onChange={this.handleFirstNameChange}
+                  onChange={this.handleChange}
                 />
               </div>
               <div className="field">
                 <input
                   type="text"
                   placeholder="Last Name"
+                  name="lastName"
                   value={this.state.lastName} 
-                  onChange={this.handleLastNameChange}
+                  onChange={this.handleChange}
                 />
               </div>
             </div>
@@ -107,7 +120,8 @@ export class UserCardForm extends React.Component {
               <input
                 type="text"
                 value={this.state.profile_pic}
-                onChange={this.handleProfilePicChange}
+                name="profile_pic"
+                onChange={this.handleChange}
               />
             </div>
           </div>
@@ -116,7 +130,7 @@ export class UserCardForm extends React.Component {
               {'Active role: '}
             </label>
             <div className="field">
-              <select id="applied-roles" style={{ 'width': '100%' }} onChange={this.handleActiveRoleChange}>
+              <select id="applied-roles" style={{ 'width': '100%' }} onChange={this.handleChange}>
                 <option key="default" value="" selected>Select role</option>
                 {this.props.session.roles ? this.props.session.roles.map((role, index) => {
                   if (this.props.session.user.active_role[0] 
