@@ -1,6 +1,6 @@
 import React from 'react';
 import jquery from 'jquery';
-import { Button, Modal } from 'semantic-ui-react';
+import { Card, Button, Modal, Header, Image, Input, TextArea, Checkbox } from 'semantic-ui-react';
 import axios from 'axios';
 import ApplicationOffersFeed from './ApplicationOffersFeed.jsx';
 
@@ -21,7 +21,7 @@ export default class ApplicationOffersModal extends React.Component {
       console.log(res.data,'before iF');
       if(res.data.length > 0) {
         this.setState({
-          offers: this.state.offers.concat(res.data)
+          offers: res.data
         });
       }
     })
@@ -39,7 +39,7 @@ export default class ApplicationOffersModal extends React.Component {
     }
     axios.post('/api/offers', offerInfo)
     .then((res) => {
-      console.log(res);
+      this.componentDidMount();
     });
   }
 
@@ -54,31 +54,31 @@ export default class ApplicationOffersModal extends React.Component {
 
   render() {
     console.log(this.state.offers,'statesssss');
-    // const style = {
-    //   color: 'blue',
-    //   marginBottom:"100%"
-    // }
+    var style = {
+      top: '10%'
+    }
     return (
       <div>
-        <Modal size={"tiny"} trigger={(<Button>Offers</Button>)}>
+        <Modal style={style} trigger={(<Button>Offers</Button>)}>
         <Modal.Header>Offers</Modal.Header>
-          <Modal.Content>
-            {"Offers"}
+          <Modal.Content scrolling>
+            <Checkbox id="hasHealth" label='Has Health Benefits' />
             <br/>
-            <input id="hasHealth" type="checkbox" />{" Has Health Benefits"}
+            <Checkbox id="hasPTO" label='Has PTO' />
             <br/>
-            <input id="hasPTO" type="checkbox" />{" Has PTO"}
+            <Checkbox id="hasRetirement" label='Has Retirement' />
             <br/>
-            <input id="hasRetirement" type="checkbox" />{" Has Retirement"}
+            <Checkbox id="coversRelocation" label='Covers Relocation' />
             <br/>
-            <input id="coversRelocation" type="checkbox" />{" Covers Relocation"}
-            <br/>
-            <input type="text" placeholder="Salary" onChange={this.handleSalary} name="salary" value={this.state.salary}/>
-            <Button onClick={this.saveOffer}>Submit</Button>
-            <div>{this.state.offers.map((offer) => {
-              console.log(offer,'mapps');
+            <TextArea placeholder="Salary" onChange={this.handleSalary} name="salary" value={this.state.salary}/>
+            <Modal.Actions>
+              <Button basic color='green' labelPosition='left' onClick={this.saveOffer}>Submit</Button>
+            </Modal.Actions>
+            <Card.Group>
+              {this.state.offers.map((offer) => {
               return <ApplicationOffersFeed offer={offer}/>
-            })}</div>
+            })}
+            </Card.Group>
           </Modal.Content>
         </Modal>
       </div>
