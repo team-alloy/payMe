@@ -1,6 +1,14 @@
 import React from 'react';
 import axios from 'axios';
+<<<<<<< HEAD
 import $ from 'jquery';
+=======
+import {
+  Button, Form, Grid, Header, Message, Segment,
+} from 'semantic-ui-react';
+import { Link } from 'react-router-dom';
+
+>>>>>>> Redesign our sign-up page to a professional design
 export default class SignUp extends React.Component {
   constructor(props) {
     super(props);
@@ -49,48 +57,80 @@ export default class SignUp extends React.Component {
 
   render() {
     return (
-      <div className="ui column stackable center page grid">
-        <h2>
-           Register
-        </h2>
-        <h5>
-          ...to get that raise you deserve
-        </h5>
-        <div className="error" hidden></div>
-        <br />
-        <form className="ui form">
-
-          <div className="fields">
-            <div className="field">
-              <label>First Name</label>
-              <input type="text" onChange={this.handleChange} value={this.state.first_name} name="first_name" placeholder="First Name" />
-            </div>
-            <div className="field">
-              <label>Last Name</label>
-              <input type="text" onChange={this.handleChange} value={this.state.last_name} name="last_name" placeholder="Last Name" />
-            </div>
-            <div className="field">
-              <label>Email Address</label>
-              <input type="text" onChange={this.handleChange} value={this.state.email} name="email" placeholder="Email Address" />
-            </div>
-          </div>
-          <div className="fields">
-            <div className="field">
-              <label>Password</label>
-              <input type="text" onChange={this.handleChange} value={this.state.pass} name="pass" placeholder="Password" />
-            </div>
-            <div className="field">
-              <label>Re-enter Password</label>
-              <input type="text" onChange={this.handleChange} value={this.state.reEnterPW} name="reEnterPW" placeholder="Re-enter Password" />
-            </div>
-          </div>
-
-          <br />
-          <button className="small teal basic ui button" tabIndex="0" type="submit" onClick={this.handleClick}>
-            <a href='/login'>Login With Your New Account</a>
-          </button>
-
-        </form>
+      <div>
+        <div className="sign-up-form">
+          <style>
+            {`
+            body > div,
+            body > div > div,
+            body > div > div > div.sign-up-form {
+              height: 100%;
+            }
+            `}
+          </style>
+          <Grid textAlign="center" style={{ height: '100%' }} verticalAlign="middle">
+            <Grid.Column style={{ maxWidth: 450 }}>
+              <Header as="h2" id="message" color="teal" textAlign="center">
+                Register
+              </Header>
+              <h5>Get the Raise You Deserve!</h5>
+              <Form size="large">
+                <Segment raised>
+                  <Form.Input 
+                    onChange={this.handleChange}
+                    name="first_name"
+                    fluid
+                    icon="user"
+                    iconPosition="left"
+                    placeholder="First Name"
+                    value={this.state.first_name}
+                  />
+                  <Form.Input 
+                    onChange={this.handleChange}
+                    value={this.state.last_name}
+                    fluid
+                    icon="user"
+                    iconPosition="left"
+                    name="last_name"
+                    placeholder="Last Name"
+                  />
+                  <Form.Input 
+                    onChange={this.handleChange}
+                    value={this.state.email}
+                    fluid
+                    icon="envelope outline"
+                    iconPosition="left"
+                    name="email"
+                    placeholder="Email Address"
+                  />
+                  <Form.Input 
+                    onChange={this.handleChange}
+                    value={this.state.pass}
+                    fluid
+                    icon="eye"
+                    iconPosition="left"
+                    name="pass"
+                    placeholder="Password"
+                    type="password"
+                  />
+                  <Form.Input 
+                    onChange={this.handleChange}
+                    value={this.state.reEnterPW}
+                    fluid
+                    icon="eye"
+                    iconPosition="left"
+                    name="reEnterPW"
+                    placeholder="Re-enter Password"
+                    type="password"
+                  />
+                  <Button type="submit" onClick={this.handleClick} color="teal" fluid size="large">
+                    <Link to="/login">Confirm Registration</Link>
+                  </Button>
+                </Segment>
+              </Form>
+            </Grid.Column>
+          </Grid>
+        </div>
       </div>
     );
   }

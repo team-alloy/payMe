@@ -8,7 +8,6 @@ import { setAppliedRoles } from '../../store/actions/userActions'
 // import { BADHINTS } from 'dns';
 import axios from 'axios';
 
-
 export class UserCardForm extends React.Component {
   constructor(props) {
     super(props);
