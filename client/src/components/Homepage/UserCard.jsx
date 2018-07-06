@@ -12,24 +12,23 @@ export default class UserCard extends React.Component {
   }
 
   // this function will change the state to form display
-  formViewSwitch() {
+  handleFormViewSwitch() {
     this.setState({ display: !this.state.display});
   }
 
-  viewChecker() {
+  handleViewChecker() {
     const { display } = this.state;
     if (display === true) {
       return (
         <div>
-          <UserCardForm {...this.props}/>
+          <UserCardForm {...this.props} />
         </div>
       );
     }
+    return null;
   }
 
   render() {
-    console.log(this.props, '~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~');
-
     const currentUser = this.props.session.user;
     return (
       <div className="ui teal card">
@@ -49,25 +48,25 @@ export default class UserCard extends React.Component {
         <div className="extra content">
           <a>
             <div data-tooltip="Email">
-              <i className="envelope icon"></i>
+              <i className="envelope icon" />
               {currentUser.email}
             </div>
             <br />
           </a>
           <a>
             <div data-tooltip="Current Salary">
-              <i className="dollar sign icon"></i>
+              <i className="dollar sign icon" />
               {currentUser.current_salary}
             </div>
           </a>
           <a>
             <span className="right floated">
-              <i className="edit icon" onClick={() => { this.formViewSwitch() }} />
+              <i className="edit icon" onClick={() => { this.handleFormViewSwitch() }} />
             </span>
           </a>
-          { this.viewChecker() }
+          { this.handleViewChecker() }
         </div>
       </div>
-    )
+    );
   }
 }
