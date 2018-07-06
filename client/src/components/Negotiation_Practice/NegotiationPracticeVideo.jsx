@@ -192,7 +192,7 @@ export default class NegotiationPracticeVideo extends Component {
         <RaisedButton label="Leave Room" onClick={() => alert('Leave Room')} />
       )
       : (
-        <RaisedButton label="Join Room" onClick={(event) => { this.joinRoom(); this.getRoomsList(); }} />
+        <RaisedButton label="Join Room" onClick={() => { this.joinRoom(); this.getRoomsList(); }} />
       );
 
     return (
@@ -224,13 +224,13 @@ export default class NegotiationPracticeVideo extends Component {
 			        */}
               <div className="flex-item" ref="remoteMedia" id="remote-media" />
             </div>
-
-            <div>
-              Currently available rooms to join:
-              { this.state.roomsList.data }
-            </div>
           </CardText>
         </Card>
+        <div>
+          Currently available rooms to join:
+          <br />
+          { this.state.roomsList.data }
+        </div>
       </MuiThemeProvider>
     );
   }
