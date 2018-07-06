@@ -8,9 +8,8 @@ export default class SignUp extends React.Component {
       first_name: '',
       last_name: '',
       email: '',
-      username: '',
-      pass: ''
-    }
+      pass: '',
+    };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
   }
@@ -20,8 +19,8 @@ export default class SignUp extends React.Component {
     var name = e.target.name;
     var value = e.target.value;
     this.setState({
-      [name]: value
-    })
+      [name]: value,
+    });
   }
 
   handleClick(e) {
@@ -42,7 +41,6 @@ export default class SignUp extends React.Component {
         first_name: '',
         last_name: '',
         email: '',
-        username: '',
         pass: '',
         reEnterPW: '',
       });
@@ -71,19 +69,11 @@ export default class SignUp extends React.Component {
               <label>Last Name</label>
               <input type="text" onChange={this.handleChange} value={this.state.last_name} name="last_name" placeholder="Last Name" />
             </div>
-          </div>
-
-          <div className="fields">
             <div className="field">
               <label>Email Address</label>
               <input type="text" onChange={this.handleChange} value={this.state.email} name="email" placeholder="Email Address" />
             </div>
-            <div className="field">
-              <label>Username</label>
-              <input type="text" onChange={this.handleChange} value={this.state.username} name="username" placeholder="Username" />
-            </div>
           </div>
-
           <div className="fields">
             <div className="field">
               <label>Password</label>
