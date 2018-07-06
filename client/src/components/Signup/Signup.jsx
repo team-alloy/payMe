@@ -25,8 +25,8 @@ export default class SignUp extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    let {first_name, last_name, email, username, pass} = this.state;
-    if(this.state.pass !== this.state.reEnterPW) {
+    let {first_name, last_name, email, pass} = this.state;
+    if (this.state.pass !== this.state.reEnterPW) {
       console.log('passwords do not match');
     } else {
       axios.post('/api/signup', { first_name, last_name, email, pass })
