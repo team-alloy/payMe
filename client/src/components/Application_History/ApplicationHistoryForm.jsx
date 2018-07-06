@@ -88,7 +88,7 @@ export default class ApplicationHistoryForm extends React.Component {
           <div className="app-field">
             <input type="text" value={ this.state.city } name="city" onChange={this.handleChange} className="location-name" placeholder="city ex. Masscotte" />
             <br/>
-            <input type="text" value={this.state.state} maxlength="2" name="state" onChange={this.handleChange} className="location-name" placeholder="state ex. Fl" />
+            <input type="text" value={this.state.state} maxLength="2" name="state" onChange={this.handleChange} className="location-name" placeholder="state ex. Fl" />
           </div>
           <label htmlFor="salary">
             Salary

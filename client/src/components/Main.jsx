@@ -34,7 +34,7 @@ export default class Main extends React.Component {
           <Route path="/practice" component={NegotiationPracticePage} />
           <Route path="/search" component={SearchPage} />
           <Route path="/login" component={Login} />
-          <Route path="/signup" component={SignUp} />
+          <Route path="/signup" render={props => <SignUp {...props} />} />
           <Route
             exact
             path="/edit-user"

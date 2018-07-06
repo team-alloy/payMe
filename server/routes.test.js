@@ -12,12 +12,10 @@ beforeAll(() => {
   };
   return request(app)
     .post('/api/signup')
-    .send(parameters).then((response) => {
-      return request(app)
-        .post('/api/login')
-        .send({ email: parameters.email, password: parameters.pass })
-        .then(response => {response.body.user});
-    });
+    .send(parameters).then(() => request(app)
+      .post('/api/login')
+      .send({ email: parameters.email, password: parameters.pass })
+      .then((response) => { response.body.user; }));
 });
 
 beforeEach((done) => {
@@ -54,35 +52,6 @@ describe('Users functionality', () => {
         });
     }));
 
-  xtest('Should not be able to update current salary without a role_id', () => request(app)
-    .post('/api/login')
-    .send({ email: parameters.email, password: parameters.pass })
-    .then((response) => {
-      const user = response.body.user;
-
-      return request(app)
-        .patch(`/api/user?id=${user.id}`)
-        .send({ current_salary: 250000 })
-        .then((response) => {
-          expect(response.body.error).toBeDefined();
-        // error message should appear in body telling the user that this is not allowed
-        });
-    }));
-
-  xtest('Should be able to update current salary with a role_id', () => request(app)
-    .post('/api/login')
-    .send({ email: parameters.email, password: parameters.pass })
-    .then((response) => {
-      const user = response.body.user;
-
-      return request(app).patch(`/api/user?id=${user.id}`)
-        .send({ current_salary: 250000, active_role: 1 })
-        .then((response) => {
-          expect(response.body.message).toBeDefined();
-        // error message should appear in body telling the user that this is not allowed
-        });
-    }));
-
   test('User must provide the correct \'old_password\' and a new \'pass\' in order to update password', () => request(app)
     .post('/api/login')
     .send({ email: parameters.email, password: parameters.pass })
@@ -99,21 +68,19 @@ describe('Users functionality', () => {
         });
     }));
 
-  test('User can update their password with the correct credentials', () => {
-    return request(app)
-      .post('/api/login')
-      .send({ email: parameters.email, password: parameters.pass })
-      .then((response) => {
-        const user = response.body.user;
-        return request(app).patch(`/api/user?id=${user.id}`)
-          .send({ pass: 'test', old_password: parameters.pass })
-          .then((response) => {
-            expect(response.statusCode).toBeGreaterThanOrEqual(200);
-            expect(response.body.message).toBeDefined();
-            // error message should appear in body telling the user that this is not allowed
-          });
-      });
-  });
+  test('User can update their password with the correct credentials', () => request(app)
+    .post('/api/login')
+    .send({ email: parameters.email, password: parameters.pass })
+    .then((response) => {
+      const user = response.body.user;
+      return request(app).patch(`/api/user?id=${user.id}`)
+        .send({ pass: 'test', old_password: parameters.pass })
+        .then((response) => {
+          expect(response.statusCode).toBeGreaterThanOrEqual(200);
+          expect(response.body.message).toBeDefined();
+          // error message should appear in body telling the user that this is not allowed
+        });
+    }));
 });
 
 describe('GET request', () => {
@@ -134,14 +101,12 @@ describe('GET request', () => {
 
         return request(app).get(`/api/user?id=${user.id}`).expect(200).then((res) => {
           expect(res.body.length).toBeGreaterThan(0);
-        })
-      })
-    );
+        });
+      }));
 
     test('It should return an empty array if the user_id does not exist', () => request(app).get('/api/user?id=1200').expect(200).then((res) => {
       expect(res.body.length).toEqual(0);
     }));
-
 
 
     test('It should return a user record when querying their email \'?email=<email>\'', () => request(app)
@@ -149,11 +114,16 @@ describe('GET request', () => {
       .send({ email: parameters.email, password: parameters.pass })
       .then((response) => {
         const user = response.body.user;
-
-        return request(app).get(`/api/user?email=${parameters.email}`).expect(200).then((res) => {
-          expect(res.body[0].first_name).toEqual('Mark');
-      })
-    }));
+        return request(app)
+          .patch(`/api/user?id=${user.id}`)
+          .send({ first_name: 'mark', last_name: 'zuckerberg' })
+          .then((response) => {
+            expect(response.statusCode).toBeGreaterThanOrEqual(200);
+          })
+          .then(() => request(app).get(`/api/user?email=${parameters.email}`).expect(200).then((res) => {
+            expect(res.body[0].first_name).toEqual('Mark');
+          }));
+      }));
   }); // end GET
 
   test('It should connect to milestones GET', () => request(app).get('/api/milestones').expect(200));

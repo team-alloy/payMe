@@ -106,11 +106,11 @@ router.route('/api/companies')
 router.route('/api/roles').get((req, res) => {
   if (!Object.keys(req.query).length) {
     roleController.getRoles()
-    .then((roles) => {
-      Promise.all(roles).then((roles) => {
-        res.status(200).json(roles);
+      .then((roles) => {
+        Promise.all(roles).then((roles) => {
+          res.status(200).json(roles);
+        });
       });
-    });
   } else {
     roleController.getAppliedRoles(req.query)
       .then((roles) => {
@@ -147,7 +147,9 @@ router.route('/api/applications')
     });
   })
   .post((req, res) => { // req.body.offer
-    let { company, role, city, state} = req.body;
+    const {
+      company, role, city, state,
+    } = req.body;
 
     if (company === '' || role === '' || city === '' || state === '') {
       res.status(400).json(new Error('company, role, city, and state are required fields'));
@@ -156,7 +158,7 @@ router.route('/api/applications')
         Promise.all(app).then((app) => {
           res.status(200).json(app);
         }).catch(err => res.status(400).json(err));
-      })
+      });
     }
   })
   .patch((req, res) => {
@@ -202,12 +204,13 @@ router.route('/api/user')
     } = req.body;
 
     const { id } = req.query;
+    console.log(req.body, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
 
     if (req.query.id) {
       userController.findOneUser({ id })
         .then(user => userController.updateAccountInformation(user[0].id, req.body, user[0].hash))
         .then((response) => {
-          if(response instanceof Error) {
+          if (response instanceof Error) {
             throw response;
           }
           if (!isNaN(response)) {
@@ -220,7 +223,7 @@ router.route('/api/user')
             res.status(201).json(response);
           }
         })
-        .catch(err => res.status(404).json( err ));
+        .catch(err => res.status(404).json(err));
     } else {
       res.status(404).json({ error: 'User is needed' });
     }
@@ -240,19 +243,21 @@ router.route('/api/signup')
     if (!req.body.email) {
       console.log(res.body);
       res.status(404).json({ error: 'An account needs an email' });
-    }
-
-    if (!req.body.pass) {
+    } else if (!req.body.pass) {
       res.status(404).json({ error: 'An account needs a password' });
+    } else {
+      userController.signUpNewUser(req.body)
+        .then((newUser) => {
+          if (newUser instanceof Error) {
+            throw newUser;
+          }
+          res.status(200).json({ message: 'user created' });
+        })
+        .catch((err) => {
+          console.error(err);
+          res.status(404).json(err);
+        });
     }
-
-    userController.signUpNewUser(req.body)
-      .then((newUser) => {
-        res.status(200).json({ message: 'user created' });
-      })
-      .catch((err) => {
-        res.status(404).json({ error: err });
-      });
   });
 
 router.route('/api/login')
@@ -264,7 +269,7 @@ router.route('/api/login')
     } else {
       userController.checkCredentials(req).then((session) => {
         currentSession = session;
-        if(session.user.active_role) {
+        if (session.user.active_role) {
           roleController.getRoles({ id: currentSession.user.active_role }).then((role) => {
             Promise.all(role).then((role) => {
               currentSession.user.active_role = role;
@@ -274,7 +279,7 @@ router.route('/api/login')
         } else {
           session.active_role === null ? session.active_role = [] : undefined;
           currentSession = session;
-          res.status(200).json(currentSession)
+          res.status(200).json(currentSession);
         }
         // res.status(200).json(role);
       // res.status(200).send(currentSession);
@@ -307,7 +312,6 @@ router.route('/api/logout')
 */
 router.route('/api/milestones')
   .get((req, res) => {
-
     if (req.query) { // for get request use ? after endpoint url
       milestoneController.findAllMilestones(req.query)
         .then((milestones) => {
@@ -467,10 +471,11 @@ router.route('/rooms').get((req, res) => {
   const authToken = require('../config').twilio.TWILIO_AUTH_TOKEN;
   const client = require('twilio')(accountSid, authToken);
 
-  client.video.rooms.each({
-    status: 'in-progress',
-  },
-    rooms => res.json(rooms.uniqueName)
+  client.video.rooms.each(
+    {
+      status: 'in-progress',
+    },
+    rooms => res.json(rooms.uniqueName),
   );
 });
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-
+import $ from 'jquery';
 export default class SignUp extends React.Component {
   constructor(props) {
     super(props);
@@ -30,10 +30,13 @@ export default class SignUp extends React.Component {
     if(this.state.pass !== this.state.reEnterPW) {
       console.log('passwords do not match');
     } else {
-      axios({
-        method:'post',
-        url: '/api/signup',
-        data: {first_name, last_name, email, username, pass}
+      axios.post('/api/signup', { first_name, last_name, email, pass })
+      .then(res => {
+        this.props.history.push('/login');
+      })
+      .catch(err => {
+        $('.error').text('Email is in use').css('color', 'red').show();
+        this.props.history.push('/signup');
       });
       this.setState({
         first_name: '',
@@ -55,6 +58,7 @@ export default class SignUp extends React.Component {
         <h5>
           ...to get that raise you deserve
         </h5>
+        <div className="error" hidden></div>
         <br />
         <form className="ui form">
 
