@@ -15,12 +15,12 @@ export default class MilestonePage extends React.Component {
     return (
       <div>
         <div className="ui three column grid">
+          <div className="column" />
           <div className="column">
             <MilestoneForm />
-          </div>
-          <div className="column">
             <MilestoneList {...this.props} />
           </div>
+          <div className="column>" />
         </div>
       </div>
     );
