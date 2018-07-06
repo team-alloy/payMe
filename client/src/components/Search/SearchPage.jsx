@@ -17,7 +17,6 @@ class SearchPage extends Component {
     this.state = {
       query: ''
     };
-    this.onSelection = this.onSelection.bind(this);
   }
 
   componentDidMount() {
@@ -85,11 +84,6 @@ class SearchPage extends Component {
     }
   }
 
-  onSelection(component) {
-    // e.preventDefault();
-    $(component).show();
-  }
-
   render() {
     console.log(this.state, this.props);
 
@@ -99,7 +93,7 @@ class SearchPage extends Component {
           <p> We gather information from applications submitted to give you back userful data, provided by the users of our app. Help us find out more about your company by making an application if you do not see your company here. Don't worry your personal information is safe.</p>
         </div>
         <div className="three column row centered"  style={{'width': '100%'}}>
-          <RoleDropDown roles={this.props.searchWords.roles} onClick={this.onSelection('.hide-company')}/>
+          <RoleDropDown roles={this.props.searchWords.roles}/>
           <CompanyDropDown companies={this.props.searchWords.companies} />
           <CityDropDown cities={this.props.searchWords.cities} />
           <StateDropDown states={this.props.searchWords.states} />
