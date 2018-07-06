@@ -202,6 +202,7 @@ router.route('/api/user')
     } = req.body;
 
     const { id } = req.query;
+    console.log(req.body, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
 
     if (req.query.id) {
       userController.findOneUser({ id })
@@ -240,19 +241,21 @@ router.route('/api/signup')
     if (!req.body.email) {
       console.log(res.body);
       res.status(404).json({ error: 'An account needs an email' });
-    }
-
-    if (!req.body.pass) {
+    } else if (!req.body.pass) {
       res.status(404).json({ error: 'An account needs a password' });
+    } else {
+      userController.signUpNewUser(req.body)
+        .then((newUser) => {
+          if (newUser instanceof Error) {
+            throw newUser;
+          }
+          res.status(200).json({ message: 'user created' });
+        })
+        .catch((err) => {
+          console.error(err);
+          res.status(404).json(err);
+        });
     }
-
-    userController.signUpNewUser(req.body)
-      .then((newUser) => {
-        res.status(200).json({ message: 'user created' });
-      })
-      .catch((err) => {
-        res.status(404).json({ error: err });
-      });
   });
 
 router.route('/api/login')

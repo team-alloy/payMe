@@ -19,23 +19,41 @@ module.exports = {
   findAllUsers: () => db.knex.select().from('users'),
   findOneUser: query => db.knex.select().from('users').where(query),
   signUpNewUser: (userInfo) => {
-    console.log(userInfo);
-
     let {
-      first_name, last_name, email, pass, username,
+      first_name, last_name, email, pass,
     } = userInfo;
-
 
     first_name = first_name ? capitalizeWords(first_name) : null;
     last_name = last_name ? capitalizeWords(last_name) : null;
-    return bcrypt.hash(pass, saltRounds).then(pass => db.knex('users')
+
+    return bcrypt.hash(pass, saltRounds).then(hash => {
+      pass = hash;
+      console.log('pass is ', pass);
+      return pass;
+    })
+    .then(() => db.knex('users').where({ email }))
+    .then((user) => {
+      console.log(pass);
+
+      if(user.length) {
+        throw new Error('Email is in use');
+      }
+      return db.knex('users')
+        .insert({
+          first_name, last_name, email, hash: pass,
+        })
+    })
+    .catch(err => {
+      throw err
+    });
+
+    /* db.knex('users')
       .insert({
-        first_name, last_name, email, hash: pass, username,
-      }));
+        first_name, last_name, email, hash: pass,
+      }) */
   },
   getFullNameById: query => db.knex.select('first_name', 'last_name').from('users').where(query),
   updateAccountInformation: (id, query, currentPassword) => {
-    console.log('update', query);
 
     let {
       first_name, last_name, newPassword, email, current_salary, active_role, old_password, profile_pic
@@ -56,8 +74,7 @@ module.exports = {
         return false;
       }).then(correctPassword => {
         // the password is correct and the user wants to update their password
-        console.log('password was correct', correctPassword);
-        if(!correctPassword) {
+        if(!correctPassword && (newPassword || email)) {
           throw new Error('Wrong password')
         }
         if(correctPassword && newPassword) {
@@ -92,12 +109,11 @@ module.exports = {
         if(profile_pic !== updatedUser.profile_pic && profile_pic !== '') {
           updatedUser.profile_pic = profile_pic;
         }
+
         return updatedUser;
       })
       .then(user => {
         // these varaibles are realated to the active role and current salary
-        console.log('active role id', active_role);
-
         if(active_role){
           return roleController.getRoles({ id : active_role}).then(role => {
             return Promise.all(role).then(role => {
@@ -110,8 +126,6 @@ module.exports = {
               //   current_salary = queriedRole.salary;
               // }
               updatedUser.active_role = queriedRole.id;
-              console.log(queriedRole);
-
                 // queriedRole.salary = current_salary;
               updatedUser.current_salary = queriedRole.salary;
 

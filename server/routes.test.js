@@ -54,35 +54,6 @@ describe('Users functionality', () => {
         });
     }));
 
-  xtest('Should not be able to update current salary without a role_id', () => request(app)
-    .post('/api/login')
-    .send({ email: parameters.email, password: parameters.pass })
-    .then((response) => {
-      const user = response.body.user;
-
-      return request(app)
-        .patch(`/api/user?id=${user.id}`)
-        .send({ current_salary: 250000 })
-        .then((response) => {
-          expect(response.body.error).toBeDefined();
-        // error message should appear in body telling the user that this is not allowed
-        });
-    }));
-
-  xtest('Should be able to update current salary with a role_id', () => request(app)
-    .post('/api/login')
-    .send({ email: parameters.email, password: parameters.pass })
-    .then((response) => {
-      const user = response.body.user;
-
-      return request(app).patch(`/api/user?id=${user.id}`)
-        .send({ current_salary: 250000, active_role: 1 })
-        .then((response) => {
-          expect(response.body.message).toBeDefined();
-        // error message should appear in body telling the user that this is not allowed
-        });
-    }));
-
   test('User must provide the correct \'old_password\' and a new \'pass\' in order to update password', () => request(app)
     .post('/api/login')
     .send({ email: parameters.email, password: parameters.pass })
@@ -149,10 +120,17 @@ describe('GET request', () => {
       .send({ email: parameters.email, password: parameters.pass })
       .then((response) => {
         const user = response.body.user;
+        return request(app)
+          .patch(`/api/user?id=${user.id}`)
+          .send({ first_name: 'mark', last_name: 'zuckerberg' })
+          .then((response) => {
+            expect(response.statusCode).toBeGreaterThanOrEqual(200);
+            return;
+          })
+          .then(() => request(app).get(`/api/user?email=${parameters.email}`).expect(200).then((res) => {
 
-        return request(app).get(`/api/user?email=${parameters.email}`).expect(200).then((res) => {
-          expect(res.body[0].first_name).toEqual('Mark');
-      })
+            expect(res.body[0].first_name).toEqual('Mark')
+          }));
     }));
   }); // end GET
 
