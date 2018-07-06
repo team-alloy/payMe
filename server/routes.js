@@ -193,7 +193,6 @@ router.route('/api/user')
     }
   })
   .patch((req, res) => {
-    console.log(req.body, 'made it in -------------------------------')
     const {
       first_name,
       last_name,
@@ -205,14 +204,14 @@ router.route('/api/user')
     const { id } = req.query;
 
     if (req.query.id) {
-      console.log('made it in req.query -------------------------------')
-
       userController.findOneUser({ id })
         .then(user => userController.updateAccountInformation(user[0].id, req.body, user[0].hash))
         .then((response) => {
+          if(response instanceof Error) {
+            throw response;
+          }
           if (!isNaN(response)) {
             if (response > 0) {
-              console.log(response, '@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@')
               res.status(201).json({ message: 'Account updated' });
             } else {
               res.status(200).json({ message: 'Account was not updated' });
@@ -242,9 +241,7 @@ router.route('/api/signup')
       console.log(res.body);
       res.status(404).json({ error: 'An account needs an email' });
     }
-    if (!req.body.username) {
-      res.status(404).json({ error: 'An account needs a username' });
-    }
+
     if (!req.body.pass) {
       res.status(404).json({ error: 'An account needs a password' });
     }
@@ -254,7 +251,7 @@ router.route('/api/signup')
         res.status(200).json({ message: 'user created' });
       })
       .catch((err) => {
-        res.status(404).json({ error: err.sqlMessage });
+        res.status(404).json({ error: err });
       });
   });
 

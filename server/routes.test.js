@@ -92,17 +92,14 @@ describe('Users functionality', () => {
       return request(app).patch(`/api/user?id=${user.id}`)
         .send({ newPassword: 1234, old_password: 1234111 })
         .then((response) => {
-          const error = response;
-          console.log(error, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+          const error = response.error.status;
 
-          expect(response.statusCode).toBeGreaterThan(399);
-          expect(error.error).toEqual('wrong password');
+          expect(error).toBeGreaterThan(399);
           // error message should appear in body telling the user that this is not allowed
         });
     }));
 
   test('User can update their password with the correct credentials', () => {
-    console.log(parameters);
     return request(app)
       .post('/api/login')
       .send({ email: parameters.email, password: parameters.pass })
@@ -121,22 +118,41 @@ describe('Users functionality', () => {
 
 describe('GET request', () => {
   describe('users', () => {
+    const parameters = {
+      username: 'oldUser',
+      email: 'real@user.com',
+      pass: '123',
+    };
+
     test('It should connect to user GET', () => request(app).get('/api/user').expect(200));
 
-    test('It should return a user record when queried with \'?id=<user_id>\'', () => request(app).get('/api/user?id=2').expect(200).then((res) => {
-      expect(res.body.length).toBeGreaterThan(0);
-    }));
+    test('It should return a user record when queried with \'?id=<user_id>\'', () => request(app)
+      .post('/api/login')
+      .send({ email: parameters.email, password: parameters.pass })
+      .then((response) => {
+        const user = response.body.user;
+
+        return request(app).get(`/api/user?id=${user.id}`).expect(200).then((res) => {
+          expect(res.body.length).toBeGreaterThan(0);
+        })
+      })
+    );
 
     test('It should return an empty array if the user_id does not exist', () => request(app).get('/api/user?id=1200').expect(200).then((res) => {
       expect(res.body.length).toEqual(0);
     }));
 
-    test('It should return a user record when querying their username \'?username=<username>\'', () => request(app).get('/api/user?username=romcar').expect(200).then((res) => {
-      expect(res.body[0].username).toEqual('romcar');
-    }));
 
-    test('It should return a user record when querying their email \'?email=<email>\'', () => request(app).get('/api/user?email=sarah@silverman.com').expect(200).then((res) => {
-      expect(res.body[0].username).toEqual('sarahRocks');
+
+    test('It should return a user record when querying their email \'?email=<email>\'', () => request(app)
+      .post('/api/login')
+      .send({ email: parameters.email, password: parameters.pass })
+      .then((response) => {
+        const user = response.body.user;
+
+        return request(app).get(`/api/user?email=${parameters.email}`).expect(200).then((res) => {
+          expect(res.body[0].first_name).toEqual('Mark');
+      })
     }));
   }); // end GET
 
