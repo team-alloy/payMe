@@ -19,10 +19,10 @@ export class UserCardForm extends React.Component {
 
     };
 
-    this.handleActiveRoleChange = this.handleActiveRoleChange.bind(this);
+    // this.handleActiveRoleChange = this.handleActiveRoleChange.bind(this);
     this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
-    this.handleLastNameChange = this.handleLastNameChange.bind(this);
-    this.handleProfilePicChange = this.handleProfilePicChange.bind(this);
+    // this.handleLastNameChange = this.handleLastNameChange.bind(this);
+    // this.handleProfilePicChange = this.handleProfilePicChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -42,30 +42,12 @@ export class UserCardForm extends React.Component {
     });
   }
 
-  // handleFirstNameChange(event) {
-  //   this.setState({ firstName: event.target.value });
-  // }
-
-  // handleLastNameChange(event) {
-  //   this.setState({ lastName: event.target.value });
-  // }
-
-  // handleProfilePicChange(event) {
-  //   this.setState({ profile_pic: event.target.value });
-  // }
-
-  // handleActiveRoleChange(event) {
-  //   console.log(event.target.value);
-
-  //   this.setState({ active_role: event.target.value });
-  // }
-
-  // handleGetAppliedRoles(callback) {
-  //   axios.get(`/api/roles?user_id=${this.props.session.user.id}`).then((res) => {
-  //     callback(res.data);
-  //   })
-  //     .catch(err => console.error(err));
-  // }
+  handleGetAppliedRoles(callback) {
+    axios.get(`/api/roles?user_id=${this.props.session.user.id}`).then((res) => {
+      callback(res.data);
+    })
+      .catch(err => console.error(err));
+  }
 
   handleSubmit(event) {
     event.preventDefault();
@@ -77,7 +59,6 @@ export class UserCardForm extends React.Component {
       active_role: this.state.active_role,
     })
       .then((response) => {
-        console.log(this.state)
         console.log(response);
       });
   }
@@ -153,8 +134,9 @@ export class UserCardForm extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return { session: state.user }
-}
+  return { session: state.user };
+};
+
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     setAppliedRoles
