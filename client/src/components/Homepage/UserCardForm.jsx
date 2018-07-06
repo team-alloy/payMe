@@ -20,7 +20,7 @@ export class UserCardForm extends React.Component {
     };
 
     // this.handleActiveRoleChange = this.handleActiveRoleChange.bind(this);
-    this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
+    // this.handleFirstNameChange = this.handleFirstNameChange.bind(this);
     // this.handleLastNameChange = this.handleLastNameChange.bind(this);
     // this.handleProfilePicChange = this.handleProfilePicChange.bind(this);
     this.handleChange = this.handleChange.bind(this);

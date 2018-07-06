@@ -1,6 +1,4 @@
 import React from 'react';
-import MilestonePage from './MilestonePage.jsx';
-import MilestoneListView from './MilestoneListView.jsx';
 import { Button, Form } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -17,7 +15,6 @@ export class MilestoneForm extends React.Component {
       completedDate: '',
       currentMilestones: '',
     };
-    this.completedDate = this.completedDate.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }

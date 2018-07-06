@@ -73,8 +73,9 @@ module.exports = {
         return false;
       }).then((correctPassword) => {
         // the password is correct and the user wants to update their password
-        if (!correctPassword && (newPassword || email)) {
-          throw new Error('Wrong password');
+        console.log('password was correct', correctPassword);
+        if(!correctPassword && (email || newPassword)) {
+          throw new Error('Wrong password')
         }
         if (correctPassword && newPassword) {
           if (email) {
@@ -97,7 +98,8 @@ module.exports = {
       .then((user) => {
         // first_name, last_name, active_role are left at this point
         // these variables do not require a password
-        if (first_name) {
+        console.log('Hi, i am user ',user);
+        if(first_name) {
           updatedUser.first_name = capitalizeWords(first_name);
         }
         if (last_name) {
@@ -106,7 +108,6 @@ module.exports = {
         if (profile_pic !== updatedUser.profile_pic && profile_pic !== '') {
           updatedUser.profile_pic = profile_pic;
         }
-
         return updatedUser;
       })
       .then((user) => {
