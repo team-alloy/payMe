@@ -19,6 +19,8 @@ module.exports = {
   findAllUsers: () => db.knex.select().from('users'),
   findOneUser: query => db.knex.select().from('users').where(query),
   signUpNewUser: (userInfo) => {
+    console.log(userInfo);
+
     let {
       first_name, last_name, email, pass, username,
     } = userInfo;
@@ -39,7 +41,6 @@ module.exports = {
       first_name, last_name, newPassword, email, current_salary, active_role, old_password, profile_pic
     } = query;
     let updatedUser = {};
-    console.log(active_role);
 
     return db.knex('users').where({id})
       // first let's do something with the password and email
@@ -48,13 +49,18 @@ module.exports = {
       .then( user => {
         if(old_password) {
           [updatedUser] = user;
-          return bcrypt.compare(old_password, currentPassword);
+          return bcrypt.compare(old_password.toString(), currentPassword.toString()).catch(err => {
+            throw err;
+          });
         }
         return false;
       }).then(correctPassword => {
         // the password is correct and the user wants to update their password
+        console.log('password was correct', correctPassword);
+        if(!correctPassword) {
+          throw new Error('Wrong password')
+        }
         if(correctPassword && newPassword) {
-          console.log('password was correct', correctPassword);
 
           if(email) {
             return hashPassword(newPassword).then(hash => {
@@ -132,7 +138,8 @@ module.exports = {
         if (!user.length) {
           throw ('email does not exist');
         }
-        return bcrypt.compare(query.body.password, user[0].hash).then((res) => {
+        return bcrypt.compare(query.body.password, user[0].hash).then( res => {
+
           if (res) {
             const session = query.session.regenerate(() => {
               session.user = user[0];
@@ -143,7 +150,7 @@ module.exports = {
           }
           throw ('wrong password');
 
-        });
+        }).catch(err => err);
       }).catch(err => err);
     } else if (query.body.username) {
       return db.knex('users').where({ username: query.body.username }).then((user) => {

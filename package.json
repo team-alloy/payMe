@@ -3,12 +3,16 @@
   "version": "1.0.0",
   "description": "##### Information",
   "main": "server/index.js",
+  "engine": {
+    "node":  "8.11.2"
+  },
   "scripts": {
     "start": "nodemon --inspect server/index.js ",
-    "postinstall": "webpack --config webpack.config.js",
     "react:dev": "webpack -d --watch",
     "test": "jest --watch",
-    "migrate": "knex migrate:latest --knexfile database/knexfile.js"
+    "migrate": "knex migrate:latest --knexfile database/knexfile.js",
+    "build": "webpack --mode production",
+    "postinstall": "npm run build"
   },
   "repository": {
     "type": "git",

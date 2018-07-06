@@ -17,7 +17,7 @@ exports.up = (knex, Promise) => Promise.all([
     table.string('last_name', 100);
     table.string('profile_pic', 1000);
     table.string('email', 200).unique('email').notNullable();
-    table.string('username', 100).unique('username').notNullable();
+    table.string('username', 100).unique('username');
     table.string('hash', 200).notNullable();
     table.integer('current_salary');
     table.integer('active_role');

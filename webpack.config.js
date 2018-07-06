@@ -9,11 +9,12 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: DEST_DIR,
+    publicPath: '/dist'
   },
   module: {
     rules: [
       {
-        test: /\.jsx?/,
+        test: /\.(js|jsx)$/,
         include: SRC_DIR,
         exclude: ['node_modules'],
         loader: 'babel-loader',

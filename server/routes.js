@@ -207,6 +207,9 @@ router.route('/api/user')
       userController.findOneUser({ id })
         .then(user => userController.updateAccountInformation(user[0].id, req.body, user[0].hash))
         .then((response) => {
+          if(response instanceof Error) {
+            throw response;
+          }
           if (!isNaN(response)) {
             if (response > 0) {
               res.status(201).json({ message: 'Account updated' });
@@ -238,9 +241,7 @@ router.route('/api/signup')
       console.log(res.body);
       res.status(404).json({ error: 'An account needs an email' });
     }
-    if (!req.body.username) {
-      res.status(404).json({ error: 'An account needs a username' });
-    }
+
     if (!req.body.pass) {
       res.status(404).json({ error: 'An account needs a password' });
     }
@@ -250,7 +251,7 @@ router.route('/api/signup')
         res.status(200).json({ message: 'user created' });
       })
       .catch((err) => {
-        res.status(404).json({ error: err.sqlMessage });
+        res.status(404).json({ error: err });
       });
   });
 
@@ -262,17 +263,20 @@ router.route('/api/login')
       res.status(400).json({ error: 'password must be provided' });
     } else {
       userController.checkCredentials(req).then((session) => {
-        console.log(session);
         currentSession = session;
-        roleController.getRoles({ id: currentSession.user.active_role }).then((role) => {
-          console.log(role);
-          Promise.all(role).then((role) => {
-            currentSession.user.active_role = role;
-            console.log(currentSession);
-            res.status(200).json(currentSession);
+        if(session.user.active_role) {
+          roleController.getRoles({ id: currentSession.user.active_role }).then((role) => {
+            Promise.all(role).then((role) => {
+              currentSession.user.active_role = role;
+              res.status(200).json(currentSession);
+            });
           });
+        } else {
+          session.active_role === null ? session.active_role = [] : undefined;
+          currentSession = session;
+          res.status(200).json(currentSession)
+        }
         // res.status(200).json(role);
-        });
       // res.status(200).send(currentSession);
       })
         .catch(err => res.status(404).json({ error: err }));
