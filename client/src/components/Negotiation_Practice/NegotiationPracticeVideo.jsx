@@ -189,7 +189,7 @@ export default class NegotiationPracticeVideo extends Component {
 		*/
     const joinOrLeaveRoomButton = this.state.hasJoinedRoom
       ? (
-        <RaisedButton label="Leave Room" onClick={() => alert('Leave Room')} />
+        <RaisedButton label="Leave Room" onClick={() => this.leaveRoom()} />
       )
       : (
         <RaisedButton label="Join Room" onClick={() => { this.joinRoom(); this.getRoomsList(); }} />
