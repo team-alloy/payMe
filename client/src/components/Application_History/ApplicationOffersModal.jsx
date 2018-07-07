@@ -18,7 +18,6 @@ export default class ApplicationOffersModal extends React.Component {
   componentDidMount() {
     axios.get('/api/offers?application_id='+this.props.appID)
     .then((res) => {
-      console.log(res.data,'before iF');
       if(res.data.length > 0) {
         this.setState({
           offers: res.data
@@ -53,7 +52,6 @@ export default class ApplicationOffersModal extends React.Component {
   }
 
   render() {
-    console.log(this.state.offers,'statesssss');
     var style = {
       top: '10%'
     }
@@ -87,10 +85,4 @@ export default class ApplicationOffersModal extends React.Component {
 }
 /*
 update modal???
-update offers modal so that offers render on it and when a user sends an offer it gets sent to the database and renders on the current modal
-// label tag for checkboxes? might make it look nicer?
-// notes
-  // changed error in offers.controller get
-  // offers response will respond once with full array
-    // then the rest empty arrays
 */
