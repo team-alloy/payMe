@@ -6,7 +6,6 @@ import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import { Card, CardText } from 'material-ui/Card';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -178,7 +177,7 @@ export default class NegotiationPracticeVideo extends Component {
     const showLocalTrack = this.state.localMediaAvailable ? (
       <div className="flex-item">
         {' '}
-        <div ref="localMedia" />
+        <div className="flex-item" ref="localMedia" />
         {' '}
       </div>) : '';
     /*
@@ -188,64 +187,85 @@ export default class NegotiationPracticeVideo extends Component {
 		*/
     const joinOrLeaveRoomButton = this.state.hasJoinedRoom
       ? (
-        <RaisedButton label="Leave Room" onClick={() => this.leaveRoom()} />
+        <RaisedButton
+          label="Leave Room"
+          onClick={() => this.leaveRoom()}
+        />
       )
       : (
-        <RaisedButton label="Join Room" onClick={() => { this.joinRoom(); this.getRoomsList(); }} />
+        <RaisedButton
+          label="Join Room"
+          onClick={() => { this.joinRoom(); this.getRoomsList(); }}
+        />
       );
 
     return (
-      // inline container material ui
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-        <Card>
-          <CardText>
-            <div className="flex-container">
-              <div className="right aligned flex-item">
-                {/* Show either ‘Leave Room’ or ‘Join Room’ button */}
-                {joinOrLeaveRoomButton}
-                {/*
-                  The following text field is used to enter a room name.
-                  It calls  `handleRoomNameChange` method when the text changes which sets the
-                  `roomName` variable initialized in the state.
-                */}
+        <div className="ui four column grid">
+          <div className="two column row">
+
+            <div className="column">
+              <div className="flex-item">
+                <div id="container" style={{ height: '100%', width: '70%' }}>
+                  <table className="ui selectable teal table">
+                    <thead>
+                      <tr>
+                        <th>
+                      Currently available rooms to join:
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td>
+                          { this.state.roomsList.data }
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
                 <br />
                 {' '}
+
+                {/*
+                      The following text field is used to enter a room name.
+                      It calls  `handleRoomNameChange` method when the text changes which sets the
+                      `roomName` variable initialized in the state.
+                    */}
                 <TextField
                   hintText="Room Name"
                   onChange={this.handleRoomNameChange}
                   errorText={this.state.roomNameErr ? 'Room Name is required' : undefined}
                 />
+
+                <br />
+                {' '}
+
+                {/* Show either ‘Leave Room’ or ‘Join Room’ button */}
+                {joinOrLeaveRoomButton}
               </div>
-              {showLocalTrack}
-              {' '}
-              {/* Show local track if available */}
-              {/*
-			          The following div element shows all remote media (other participant’s tracks)
-			        */}
-              <div className="flex-item" ref="remoteMedia" id="remote-media" />
             </div>
-          </CardText>
-        </Card>
 
-        <div id="container" style={{ 'height': '100%', width: '50%' }}>
-          <table className="ui selectable teal table">
-            <thead>
-              <tr>
-                <th>
-                  Currently available rooms to join:
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  { this.state.roomsList.data }
-                </td>
-              </tr>
-            </tbody>
-          </table>
+            <div className="row">
+              {/*
+                The following div element shows all remote media (other participant’s tracks)
+              */}
+              <div className="flex-container" style={{ display: 'inline-block', height: '100%', width: '70%' }}>
+                <div className="flex-item" ref="remoteMedia" id="remote-media" />
+              </div>
+            </div>
+
+            <div className="column">
+              <div className="flex-container" style={{ display: 'inline-block', height: '100%', width: '70%' }}>
+                {showLocalTrack}
+                {' '}
+                {/* Show local track if available */}
+              </div>
+            </div>
+
+          </div>
         </div>
-
       </MuiThemeProvider>
     );
   }
