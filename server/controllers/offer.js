@@ -16,7 +16,6 @@ module.exports = {
     return db.knex('offers');
   },
   updateOffer: (req) => {
-    console.log(req.body);
     let {
       application_id, base_salary, hasHealthBenefits, hasPTO, hasRetirement, coversRelocation, acceptedOffer,
     } = req.body;
@@ -52,6 +51,7 @@ module.exports = {
       .then(() => db.knex('offers').where({ id }));
   },
   addOffer: (offer) => {
+    console.log('HERE');
     if (!offer.id) {
       return db.knex('offers')
         .insert(offer);

@@ -12,7 +12,6 @@ export default class ApplicationHistoryFeedListView extends React.Component {
   }
 
   render() {
-    console.log('hey',this.props.apps);
     return (
       <div>
         <div className="application-history-container">
