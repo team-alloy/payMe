@@ -1,6 +1,6 @@
 import React from 'react';
 import MilestoneList from './MilestoneList';
-import { Card, Icon } from 'semantic-ui-react';
+import { Card, Icon, Form } from 'semantic-ui-react';
 
 export default class MilestoneListView extends React.Component {
   constructor(props) {
@@ -17,10 +17,10 @@ export default class MilestoneListView extends React.Component {
     const repo= this.props.repo;
 
     return (
-      <Card raised className="ui teal segment">
-        <Card.Content header={name} />
+      <Form raised className="ui teal segment">
+        <h3 className="ui header">{name}</h3>
         <Card.Content description={description} />
-        <Card.Content extra>
+        <div className="ui divider"></div>
           <div data-tooltip="Tech Stack">
             <Icon name="sitemap" />
             {stack}
@@ -36,8 +36,7 @@ export default class MilestoneListView extends React.Component {
             1/1/2018
             <br />
           </div>
-        </Card.Content>
-      </Card>
+      </Form>
     );
   };
 }

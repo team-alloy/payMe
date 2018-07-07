@@ -58,20 +58,27 @@ class ApplicationHistoryPage extends React.Component {
     if(!this.props.session.user) {
       this.props.history.push('/login');
       return (<div>Redirecting</div>);
-    } else {
-        return (
-        <div>
-          <div className="ui three column grid">
-            <div className="column">
-              <ApplicationHistoryForm getApps={this.getApplicationByUserID.bind(this, )} makeApp={this.makeApplication.bind(this)}/>
-            </div>
-            <div className="column">
-              <ApplicationHistoryFeed updateApp={this.updateApp} apps={this.state.applications}/>
+    }
+    return (
+      <div className="ui equal width three column grid">
+        <div className="one wide column" />
+        <div className="column">
+          <div className="ui equal width grid">
+            <div className="equal width row">
+              <div className="column">
+                <ApplicationHistoryForm
+                  getApps={this.getApplicationByUserID.bind(this, )} 
+                  makeApp={this.makeApplication.bind(this)}/>
+              </div>
+              <div className="column">
+                <ApplicationHistoryFeed apps={this.state.applications}/>
+              </div>
             </div>
           </div>
         </div>
-      );
-    }
+        <div className="one wide column>" />
+      </div>
+    );
   }
 }
 const mapStateToProps = (state) => {
@@ -84,4 +91,3 @@ const mapDispatchToProps = (dispatch) => {
   }, dispatch);
 }
 export default connect(mapStateToProps, mapDispatchToProps)(ApplicationHistoryPage);
-

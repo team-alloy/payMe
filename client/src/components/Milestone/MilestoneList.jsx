@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import MilestoneForm from './MilestoneForm.jsx';
 import MilestoneListView from './MilestoneListView';
 import { connect } from 'react-redux';
@@ -51,7 +51,7 @@ export class MilestoneList extends React.Component {
       );
     }
     return (
-      <div>
+      <Fragment>
         {data.map((milestone, key) => (
           <MilestoneListView
             key={key}
@@ -61,7 +61,7 @@ export class MilestoneList extends React.Component {
             repo={milestone.repo_link}
           />
         ))}
-      </div>
+      </Fragment>
     );
   }
 }

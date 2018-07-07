@@ -1,4 +1,5 @@
 import React from 'react';
+import { Form } from 'semantic-ui-react'
 import axios from 'axios';
 
 export default class ApplicationHistoryForm extends React.Component {
@@ -33,8 +34,8 @@ export default class ApplicationHistoryForm extends React.Component {
 
   handleChange(e) {
     e.preventDefault();
-    var name = e.target.name;
-    var value = e.target.value;
+    const name = e.target.name;
+    const value = e.target.value;
 
     this.setState({
       [name]: value
@@ -54,65 +55,105 @@ export default class ApplicationHistoryForm extends React.Component {
 
   render() {
     return (
-      <div>
-        <h4>
-          Application Information:
+      <Form raised className="ui teal segment" onSubmit={this.handleSubmit}>
+        <h4 className="ui center aligned segment">
+          <i class="chart pie icon" />
+          Previously Applied Position
         </h4>
-        <form className="ui-form">
-          <label htmlFor="name">
-            <b>
-              {'Company\'s Name'}
-            </b>
-            <br />
-          </label>
-          <div className="app-field">
-            <input type="text" value={this.state.company} name="company" onChange={this.handleChange} className="company-name" placeholder="Company's Name" />
-          </div>
-          <label htmlFor="position">
-            <b>
-              {'Position Title: '}
-            </b>
-            <br />
-          </label>
-          <div className="app-field">
-            <input type="text" value={this.state.role} name="role" onChange={this.handleChange} className="position-name" placeholder="Position's Title" />
-          </div>
-          <label htmlFor="location">
-            <b>
-              {'Position Location: '}
-            </b>
-            <br />
-          </label>
-          <div className="app-field">
-            <input type="text" value={ this.state.city } name="city" onChange={this.handleChange} className="location-name" placeholder="city ex. Masscotte" />
-            <br/>
-            <input type="text" value={this.state.state} maxLength="2" name="state" onChange={this.handleChange} className="location-name" placeholder="state ex. Fl" />
-          </div>
-          <label htmlFor="salary">
-            Salary
-          </label>
-          <div className="app-field">
-            <input type="text" value={this.state.salary} name="salary" onChange={this.handleChange}className="salary" placeholder="Salary" />
-          </div>
-          <label htmlFor="date">
-            <b>
-              {'Application Date: '}
-            </b>
-            <br />
-          </label>
-          <div className="app-field">
-            <input className="date-name" name="application_date" type="date" onChange={this.handleChange} />
-          </div>
-        </form>
+        <label htmlFor="name">
+          <b>
+            {'Company\'s Name'}
+          </b>
+          <br />
+        </label>
+        <div className="app-field">
+          <input
+            type="text" 
+            value={this.state.company}
+            name="company"
+            onChange={this.handleChange}
+            className="company-name"
+            placeholder="Company's Name"
+          />
+        </div>
+        <label htmlFor="position">
+          <b>
+            {'Position Title: '}
+          </b>
+          <br />
+        </label>
+        <div className="app-field">
+          <input
+            type="text"
+            value={this.state.role}
+            name="role"
+            onChange={this.handleChange}
+            className="position-name"
+            placeholder="Position's Title"
+          />
+        </div>
+        <label htmlFor="location">
+          <b>
+            {'Position Location: '}
+          </b>
+          <br />
+        </label>
+        <div className="app-field">
+          <input
+            type="text"
+            value={ this.state.city }
+            name="city"
+            onChange={this.handleChange}
+            className="location-name"
+            placeholder="city ex. Masscotte"
+          />
+          <br/>
+          <input
+            type="text"
+            value={this.state.state} 
+            maxLength="2"
+            name="state"
+            onChange={this.handleChange} 
+            className="location-name"
+            placeholder="state ex. Fl"
+          />
+        </div>
+        <label htmlFor="salary">
+          Salary
+        </label>
+        <div className="app-field">
+          <input
+            type="text"
+            value={this.state.salary}
+            name="salary"
+            onChange={this.handleChange}
+            className="salary"
+            placeholder="Salary"
+          />
+        </div>
+        <label htmlFor="date">
+          <b>
+            {'Application Date: '}
+          </b>
+          <br />
+        </label>
+        <div className="app-field">
+          <input
+            className="date-name"
+            name="application_date"
+            type="date"
+            onChange={this.handleChange} 
+          />
+        </div>
         <div className="button-container">
-          <button onClick={this.clearFields} className="ui-button-cancel" type="reset">
+          <button onClick={this.clearFields} className="ui-button-cancel">
             Cancel
           </button>
           <button onClick={this.handleClick} className="ui-button-confirm" type="submit">
             Confirm
           </button>
         </div>
-      </div>
+      </Form>
     );
   }
 }

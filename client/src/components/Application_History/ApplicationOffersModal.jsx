@@ -57,8 +57,17 @@ export default class ApplicationOffersModal extends React.Component {
     }
     return (
       <div>
-        <Modal style={style} trigger={(<Button>Offers</Button>)}>
-        <Modal.Header>Offers</Modal.Header>
+        <Modal
+          style={style}
+          trigger={(
+            <Button color="teal">
+              Offers
+            </Button>
+          )}
+        >
+          <Modal.Header>
+            Offer
+          </Modal.Header>
           <Modal.Content scrolling>
             <Checkbox id="hasHealth" label='Has Health Benefits' />
             <br/>

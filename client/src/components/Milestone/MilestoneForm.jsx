@@ -52,6 +52,7 @@ export class MilestoneForm extends React.Component {
     return (
       <Form raised className="ui teal segment" onSubmit={this.handleSubmit}>
         <h4 className="ui center aligned segment">
+          <i className="trophy icon" />
           Career Milestones and Achievements
         </h4>
         <div className="employment-history-fill-in">
