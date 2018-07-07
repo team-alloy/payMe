@@ -27,11 +27,13 @@ export class TipsStatistic extends React.Component {
 
 
   getActiveRoleLocation(callback) {
-    axios.get(`/api/applications?role_id=${this.props.user.active_role[0].id}`).then( res => {
-      console.log(res.data);
-      callback(`${res.data[0].city}, ${res.data[0].state}`)
-      return;
-    });
+    if (this.props.user.active_role !== null) {
+      axios.get(`/api/applications?role_id=${this.props.user.active_role[0].id}`).then(res => {
+        console.log(res.data);
+        callback(`${res.data[0].city}, ${res.data[0].state}`)
+        return;
+      });
+    }
   }
 
   getAverageSalary(loc, data) {
@@ -70,11 +72,11 @@ export class TipsStatistic extends React.Component {
     } else if(user && !user.active_role) {
       return (
         <div>
-        You have to first tell us where you work, go to
+          Let us know where you currently 
         {' '}
           <Link to="/applications">
-             applications
-          </Link> make an application and then update it on your user card in the homepage!
+            work
+          </Link> and we will give you your salary range!
         </div>
       );
     } else {
