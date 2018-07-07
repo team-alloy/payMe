@@ -57,7 +57,7 @@ export default class ApplicationHistoryForm extends React.Component {
     return (
       <Form raised className="ui teal segment" onSubmit={this.handleSubmit}>
         <h4 className="ui center aligned segment">
-          <i class="chart pie icon" />
+          <i className="chart pie icon" />
           Previously Applied Position
         </h4>
         <label htmlFor="name">
