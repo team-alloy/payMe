@@ -11,12 +11,6 @@ export default class ApplicationHistoryFeedListView extends React.Component {
     }
   }
 
-  displayChanger() {
-    this.setState({
-      display: 'form',
-    });
-  }
-
   render() {
     return (
       <div>
@@ -45,14 +39,11 @@ export default class ApplicationHistoryFeedListView extends React.Component {
           </div>
         </div>
         <div className="edit-button-container">
-          <ApplicationUpdateModal />
+          <ApplicationUpdateModal updateApp={this.props.updateApp} app={this.props.apps}/>
           <ApplicationOffersModal appID={this.props.apps.id}/>
         </div>
       </div>
     );
   }
-          //   <button className="ui-button-edit" type="submit" onClick={() => { this.displayChanger(); }}>
-          //   Update
-          // </button>
 }
 

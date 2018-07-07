@@ -51,7 +51,6 @@ router.route('/api/companies')
           return roleController
             .getRolesForCompany({ company_id: id })
             .then((roles) => {
-              console.log('!!!!!!!!!!!1', roles);
               company[0].roles = roles;
               return company;
             });
@@ -74,7 +73,6 @@ router.route('/api/companies')
           return roleController
             .getRolesForCompany({ company_id: id })
             .then((roles) => {
-              console.log('!!!!!!!!!!!1', roles);
               company[0].roles = roles;
               return company;
             });
@@ -114,7 +112,6 @@ router.route('/api/roles').get((req, res) => {
   } else {
     roleController.getAppliedRoles(req.query)
       .then((roles) => {
-        console.log(roles);
 
         res.status(200).json(roles);
       })
@@ -138,10 +135,8 @@ router.route('/api/roles').get((req, res) => {
 
 router.route('/api/applications')
   .get((req, res) => {
-    console.log(req.query, 'query at route');
     applicationController.getAllApplications(req.query).then((applications) => {
       Promise.all(applications).then((applications) => {
-        console.log(applications, 'res at route');
         res.json(applications);
       });
     });
@@ -204,7 +199,6 @@ router.route('/api/user')
     } = req.body;
 
     const { id } = req.query;
-    console.log(req.body, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
 
     if (req.query.id) {
       userController.findOneUser({ id })
@@ -241,7 +235,6 @@ router.route('/api/user')
 router.route('/api/signup')
   .post((req, res) => {
     if (!req.body.email) {
-      console.log(res.body);
       res.status(404).json({ error: 'An account needs an email' });
     } else if (!req.body.pass) {
       res.status(404).json({ error: 'An account needs a password' });
@@ -347,11 +340,13 @@ router.route('/api/milestones')
   });
 
 router.route('/api/offers').post((req, res) => {
+  console.log(req.body,'inOffers');
   offerController.addOffer(req.body)
     .then((offers) => {
       res.status(200).json(offers);
     })
     .catch((err) => {
+      console.log(err,'ERROR');
       res.status(404).json(err);
     });
 }).patch((req, res) => {
@@ -385,16 +380,11 @@ aa    ]8I "8b,   ,aa 88,    ,88 88         "8a,   ,aa 88       88
 
 router.route('/api/search').get((req, res) => {
   const l = Object.keys(req.query).length;
-  console.log(req.query, l);
   if (req.query.cities && l <= 1) {
-    console.log('ho');
-
     searchController.getCities().then((cities) => {
       res.status(200).json(cities);
     });
   } else if (req.query.states && l <= 1) {
-    console.log('hey');
-
     searchController.getStates().then((states) => {
       res.status(200).json(states);
     });
@@ -411,10 +401,8 @@ router.route('/api/search').get((req, res) => {
     city = city ? params.city = city : null;
     role = role ? params.role = role : null;
     company = company ? params.company = company : null;
-    console.log(params, 'is this correct??');
 
     searchController.calculateAvgSalary(params).then((salary) => {
-      console.log(salary);
       res.status(200).json(salary);
     })
       .catch((err) => {
@@ -443,7 +431,6 @@ router.route('/api/search').get((req, res) => {
 router.route('/token').get((req, res) => {
   // const identity = req.session.passport.user.profile.displayName;
   const identity = faker.name.findName();
-  console.log('identity', identity);
 
   // Create access token, signed and returned to client containing grant
   const token = new AccessToken(

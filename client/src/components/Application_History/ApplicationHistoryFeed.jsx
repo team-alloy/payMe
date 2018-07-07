@@ -17,7 +17,7 @@ export class ApplicationHistoryFeed extends React.Component {
       return (
         <div>
         {this.props.apps.map((app) => {
-          return <ApplicationHistoryFeedListView apps={app}/>
+          return <ApplicationHistoryFeedListView updateApp={this.props.updateApp} apps={app}/>
         })}
         </div>
       );
