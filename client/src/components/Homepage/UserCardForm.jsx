@@ -64,6 +64,8 @@ export class UserCardForm extends React.Component {
   }
 
   render() {
+    console.log(this.props, this.state, 'hhhhhhhh');
+
     return (
       <div className="ui teal card">
         <h4 className="ui dividing header left aligned segment">Edit User's Profile</h4>
@@ -87,7 +89,7 @@ export class UserCardForm extends React.Component {
                   type="text"
                   placeholder="Last Name"
                   name="lastName"
-                  value={this.state.lastName} 
+                  value={this.state.lastName}
                   onChange={this.handleChange}
                 />
               </div>
@@ -111,10 +113,10 @@ export class UserCardForm extends React.Component {
               {'Active role: '}
             </label>
             <div className="field">
-              <select id="applied-roles" style={{ 'width': '100%' }} onChange={this.handleChange}>
+              <select id="applied-roles" name="active_role" style={{ 'width': '100%' }} onChange={this.handleChange}>
                 <option key="default" value="" selected>Select role</option>
                 {this.props.session.roles ? this.props.session.roles.map((role, index) => {
-                  if (this.props.session.user.active_role[0] 
+                  if (this.props.session.user.active_role !== null
                     && this.props.session.user.active_role[0].id === role.id) {
                     return <option key={index} value={role.id} selected>{`${role.name} at ${role.company.name}`}</option>;
                   }
@@ -134,6 +136,8 @@ export class UserCardForm extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+  console.log(state.user, 'user abuser');
+
   return { session: state.user };
 };
 
