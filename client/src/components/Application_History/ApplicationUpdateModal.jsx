@@ -14,7 +14,6 @@ export default class ApplicationUpdateModal extends React.Component {
       salary:this.props.app.role.salary
     }
     this.handleChange = this.handleChange.bind(this);
-    this.updateApp = this.updateApp.bind(this);
   }
 
   componentDidMount() {
@@ -33,14 +32,6 @@ export default class ApplicationUpdateModal extends React.Component {
     this.setState({
       [name]: value
     });
-  }
-
-  updateApp(e) {
-    e.preventDefault();
-    axios.patch('/api/applications/?id='+this.props.app.id, this.state)
-    .then((data) => {
-      this.props.refresh();
-    })
   }
 
   render() {
@@ -63,7 +54,10 @@ export default class ApplicationUpdateModal extends React.Component {
             <TextArea onChange={this.handleChange} name="salary" value={this.state.salary} style={{maxHeight: 35}} />
             <Modal.Actions>
               <Button basic color='green' labelPosition='left'
-              onClick={this.updateApp}>Submit
+              onClick={() => {
+                this.props.updateApp(this.props.app.id, this.state)
+                this.componentDidMount();
+              }}>Submit
               </Button>
             </Modal.Actions>
           </Modal.Content>

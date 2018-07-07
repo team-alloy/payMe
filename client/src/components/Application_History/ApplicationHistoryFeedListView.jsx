@@ -40,7 +40,7 @@ export default class ApplicationHistoryFeedListView extends React.Component {
           </div>
         </div>
         <div className="edit-button-container">
-          <ApplicationUpdateModal refresh={this.props.refresh} app={this.props.apps}/>
+          <ApplicationUpdateModal updateApp={this.props.updateApp} app={this.props.apps}/>
           <ApplicationOffersModal appID={this.props.apps.id}/>
         </div>
       </div>

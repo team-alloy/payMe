@@ -12,7 +12,7 @@ class ApplicationHistoryPage extends React.Component {
     this.state = {
       applications: this.props.session.applications
     };
-    this.componentDidMount = this.componentDidMount.bind(this);
+    this.updateApp = this.updateApp.bind(this);
   }
 
   componentDidMount() {
@@ -44,6 +44,16 @@ class ApplicationHistoryPage extends React.Component {
     })
   }
 
+  updateApp(query, modalState) {
+    axios.patch('/api/applications/?id='+query, modalState)
+    .then((data) => {
+      console.log(data,'DATA');
+      this.getApplicationByUserID((data) => {
+      this.setState({applications: data});
+      });
+    })
+  }
+
   render() {
     if(!this.props.session.user) {
       this.props.history.push('/login');
@@ -56,7 +66,7 @@ class ApplicationHistoryPage extends React.Component {
               <ApplicationHistoryForm getApps={this.getApplicationByUserID.bind(this, )} makeApp={this.makeApplication.bind(this)}/>
             </div>
             <div className="column">
-              <ApplicationHistoryFeed refresh={this.componentDidMount} apps={this.state.applications}/>
+              <ApplicationHistoryFeed updateApp={this.updateApp} apps={this.state.applications}/>
             </div>
           </div>
         </div>
