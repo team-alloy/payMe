@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form } from 'semantic-ui-react'
+import { Button, Form } from 'semantic-ui-react'
 import axios from 'axios';
 
 export default class ApplicationHistoryForm extends React.Component {
@@ -145,13 +145,13 @@ export default class ApplicationHistoryForm extends React.Component {
             onChange={this.handleChange} 
           />
         </div>
-        <div className="button-container">
-          <button onClick={this.clearFields} className="ui-button-cancel">
+        <div className="ui two bottom attached buttons">
+          <Button className="ui-button-cancel">
             Cancel
-          </button>
-          <button onClick={this.handleClick} className="ui-button-confirm" type="submit">
+          </Button>
+          <Button className="ui-button-confirm" color="teal" type="submit" size="medium">
             Confirm
-          </button>
+          </Button>
         </div>
       </Form>
     );
