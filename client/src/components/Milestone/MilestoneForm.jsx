@@ -31,6 +31,7 @@ export class MilestoneForm extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+<<<<<<< 6b88a9009b6879250a58f75ad5e71cbf8fb82d00
     this.props.milestoneUpdate(this.state, () => {
       this.setState({
         name: '',
@@ -38,6 +39,22 @@ export class MilestoneForm extends React.Component {
         tech_used: '',
         repo_link: '',
         milestone_date: '',
+=======
+    console.log(this.state)
+
+    // axios.post(url[, data[, config]])
+    // POST request to create a new milestone
+    axios.post((`/api/milestones?userId=${this.props.session.user.id}`), {
+      user_id: this.props.session.user.id,
+      name: this.state.name,
+      description: this.state.description,
+      repo_link: this.state.repository,
+      tech_used: this.state.stack,
+    })
+      .then((response) => {
+        console.log(response);
+        this.setState({ currentMilestones: response });
+>>>>>>> Add top tech functionality to TipStatistic component
       });
     });
   }

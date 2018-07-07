@@ -1,5 +1,18 @@
 const db = require('../../database/index');
 
+const orderTechs = (unordered) => {
+  let ordered = {};
+  let count = 0;
+  Object.keys(unordered).sort((a, b) => {
+    return unordered[a] - unordered[b];
+  })
+  .reverse().slice(0,10).forEach((tech)=> {
+    ordered[tech] = unordered[tech];
+    count++;
+  });
+  return ordered;
+};
+
 module.exports = {
   getCities: () => db.knex('applications').distinct('city', 'state').groupBy('state', 'city').select(),
   getStates: () => db.knex('applications').distinct('state').select(),
@@ -7,12 +20,8 @@ module.exports = {
   getRoles: () => db.knex('roles').distinct('name').select(),
   calculateAvgSalary: (query) => {
     if (query.city || query.state) {
-      console.log(1);
-
       // find the company id from the company name
       if (query.company) {
-        console.log(2);
-
         return db.knex('companies').where({ name: query.company })
           .then(company => Object.assign({}, { query, company: company[0] }))
           .then(source => db.knex('roles').select().where({ name: source.query.role, company_id: source.company.id })
@@ -133,15 +142,17 @@ module.exports = {
         currentTech.forEach(tech => {
           if(tech === '') {return;}
           if(!techCache[tech]){
-            techCache[tech] = 1;
+            techCache[tech.trim()] = 1;
           } else {
-              techCache[tech]++;
+              techCache[tech.trim()]++;
           }
         });
         return techCache;
       }, {});
-      console.table(techs);
-      return techs;
+      console.table(orderTechs(techs));
+      return orderTechs(techs);
     })
+    // .then(reccomendations => reccomendations)
+    .catch(err => err);
   }
 };

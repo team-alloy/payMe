@@ -10,6 +10,7 @@ export class TipsStatistic extends React.Component {
       location: ''
     };
     this.getAverageSalary = this.getAverageSalary.bind(this);
+    this.renderMessage = this.renderMessage.bind(this);
   }
 
   componentDidMount () {
@@ -25,6 +26,17 @@ export class TipsStatistic extends React.Component {
     }
   }
 
+  renderMessage() {
+    if(this.state.results) {
+      console.log('ho');
+      const numOfApps = this.state.results.numberOfApplications;
+      if ( numOfApps <= 1) {
+        console.log('hey');
+
+        return ( `You have some wiggle room, if salary isn't negotiable. See if your manager will budge on number of vacation days. Or learn a new tech, here is a list of the 10 most common ones used according to our database.`)
+      } else if () {}
+    }
+  }
 
   getActiveRoleLocation(callback) {
     if (this.props.user.active_role !== null) {
@@ -44,18 +56,7 @@ export class TipsStatistic extends React.Component {
   }
 
   placeCommasOnSalary(salary) {
-    let results = '$';
-    salary = salary.toString().split('.');
-    while(salary[0].length) {
-      results += salary[0].substring(0, 3);
-      salary[0] = salary[0].substring(3);
-
-      if(salary[0].length) {
-        results += ',';
-      }
-    }
-    results += '.00';
-    return results;
+    return Number(salary).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
   }
   render() {
     console.log('Damn girl, ', this.props, this.state);
@@ -97,6 +98,13 @@ export class TipsStatistic extends React.Component {
           </b>
             <br />
             Based on this data, here is what we suggest:
+            <br />
+            {this.renderMessage()}
+            <ul>
+            {this.state.results ? Object.keys(this.state.results.tech).map((tech, index) => {
+                return <li key={index}>{tech}</li>
+              }) : undefined}
+            </ul>
       </div>
       );
     }

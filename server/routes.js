@@ -21,12 +21,17 @@ const VideoGrant = AccessToken.VideoGrant;
 
 let currentSession, techCache;
 
-(function() {
   setInterval(() => {
-    techCache = searchController.getAllTechStack();
-  }, 300000);
-  console.log(techCache);
-})();
+    console.log(techCache, '109381029')
+  }, 5200)
+
+  setInterval(() => {
+    console.log(techCache, '109381029')
+    searchController.getAllTechStack().then(tech => {
+      techCache = tech;
+    });
+  }, 5000)
+
 /*
 
                                                                              88
@@ -412,7 +417,12 @@ router.route('/api/search').get((req, res) => {
     company = company ? params.company = company : null;
 
     searchController.calculateAvgSalary(params).then((salary) => {
-      res.status(200).json(salary);
+      console.log(techCache)
+      var response = salary;
+      response.tech = techCache
+      // Object.assign({}, salary, {techReccomendations: techCache});
+      console.log(response, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1')
+      res.status(200).json(response);
     })
       .catch((err) => {
         console.log(err);
@@ -478,9 +488,9 @@ router.route('/rooms').get((req, res) => {
 // End Twilio
 
 
-router.route('/test').get((req, res) => {
-  searchController.getAllTechStack();
-});
+// router.route('/test').get((req, res) => {
+//   searchController.getAllTechStack();
+// });
 
 router.route('/*').get((req, res) => {
   res.status(200).sendFile(staticFile);
