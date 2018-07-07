@@ -16,7 +16,7 @@ export default class MilestonePage extends React.Component {
         <div className="ui equal width three column grid">
           <div className="one wide column" />
           <div className="column">
-            <div class="ui equal width grid">
+            <div className="ui equal width grid">
               <div className="equal width row">
                 <div className="column">
                   <MilestoneForm />
