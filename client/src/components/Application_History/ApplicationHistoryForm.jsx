@@ -73,7 +73,7 @@ export default class ApplicationHistoryForm extends React.Component {
             name="company"
             onChange={this.handleChange}
             className="company-name"
-            placeholder="Company's Name" 
+            placeholder="Company's Name"
           />
         </div>
         <label htmlFor="position">

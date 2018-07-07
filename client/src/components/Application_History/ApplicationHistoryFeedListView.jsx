@@ -46,4 +46,3 @@ export default class ApplicationHistoryFeedListView extends React.Component {
     );
   }
 }
-

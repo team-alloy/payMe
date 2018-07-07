@@ -60,11 +60,9 @@ export default class ApplicationOffersModal extends React.Component {
         <Modal
           style={style}
           trigger={(
-            <div className="ui two bottom attached buttons">
-              <Button color="teal">
-                Offers
-              </Button>
-            </div>
+            <Button color="teal">
+              Offers
+            </Button>
           )}
         >
           <Modal.Header>
@@ -97,4 +95,3 @@ export default class ApplicationOffersModal extends React.Component {
 /*
 update modal???
 */
-
