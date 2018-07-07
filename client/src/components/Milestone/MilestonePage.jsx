@@ -1,7 +1,6 @@
 import React from 'react';
 import MilestoneForm from './MilestoneForm';
 import MilestoneList from './MilestoneList';
-import MilestoneListView from './MilestoneListView'
 
 export default class MilestonePage extends React.Component {
   constructor(props) {
@@ -14,13 +13,21 @@ export default class MilestonePage extends React.Component {
   render() {
     return (
       <div>
-        <div className="ui three column grid">
-          <div className="column" />
+        <div className="ui equal width three column grid">
+          <div className="one wide column" />
           <div className="column">
-            <MilestoneForm />
-            <MilestoneList {...this.props} />
+            <div class="ui equal width grid">
+              <div className="equal width row">
+                <div className="column">
+                  <MilestoneForm />
+                </div>
+                <div className="column">
+                  <MilestoneList {...this.props} />
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="column>" />
+          <div className="one wide column>" />
         </div>
       </div>
     );

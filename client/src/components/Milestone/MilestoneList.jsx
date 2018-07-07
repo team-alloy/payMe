@@ -51,7 +51,7 @@ export class MilestoneList extends React.Component {
       );
     }
     return (
-      <div>
+      <div className="column">
         {data.map((milestone, key) => (
           <MilestoneListView
             key={key}
