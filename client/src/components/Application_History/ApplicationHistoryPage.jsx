@@ -63,7 +63,7 @@ class ApplicationHistoryPage extends React.Component {
         <div>
           <div className="ui three column grid">
             <div className="column">
-              <ApplicationHistoryForm getApps={this.getApplicationByUserID.bind(this, )} makeApp={this.makeApplication.bind(this)}/>
+              <ApplicationHistoryForm getApps={this.getApplicationByUserID.bind(this)} makeApp={this.makeApplication.bind(this)}/>
             </div>
             <div className="column">
               <ApplicationHistoryFeed updateApp={this.updateApp} apps={this.state.applications}/>
