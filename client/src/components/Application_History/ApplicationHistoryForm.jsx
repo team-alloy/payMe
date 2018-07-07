@@ -34,8 +34,8 @@ export default class ApplicationHistoryForm extends React.Component {
 
   handleChange(e) {
     e.preventDefault();
-    var name = e.target.name;
-    var value = e.target.value;
+    const name = e.target.name;
+    const value = e.target.value;
 
     this.setState({
       [name]: value
@@ -57,7 +57,8 @@ export default class ApplicationHistoryForm extends React.Component {
     return (
       <Form raised className="ui teal segment" onSubmit={this.handleSubmit}>
         <h4 className="ui center aligned segment">
-          Application Information:
+          <i class="chart pie icon" />
+          Previously Applied Position
         </h4>
         <label htmlFor="name">
           <b>
