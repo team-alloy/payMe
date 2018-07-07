@@ -19,8 +19,14 @@ const AccessToken = require('twilio').jwt.AccessToken;
 
 const VideoGrant = AccessToken.VideoGrant;
 
-let currentSession;
+let currentSession, techCache;
 
+(function() {
+  setInterval(() => {
+    techCache = searchController.getAllTechStack();
+  }, 300000);
+  console.log(techCache);
+})();
 /*
 
                                                                              88
@@ -277,7 +283,10 @@ router.route('/api/login')
         // res.status(200).json(role);
       // res.status(200).send(currentSession);
       })
-        .catch(err => res.status(404).json({ error: err }));
+        .catch(err => {
+          console.log(err);
+          res.status(404).json({ error: err })
+        });
     }
   });
 
@@ -467,6 +476,11 @@ router.route('/rooms').get((req, res) => {
 });
 
 // End Twilio
+
+
+router.route('/test').get((req, res) => {
+  searchController.getAllTechStack();
+});
 
 router.route('/*').get((req, res) => {
   res.status(200).sendFile(staticFile);
