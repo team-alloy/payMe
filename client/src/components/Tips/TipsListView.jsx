@@ -50,8 +50,7 @@ export default class TipsListView extends React.Component {
               Negotiation Tips
             </i>
             {' '}
-            section, based on data from Glassdoor and LinkedIn,
-            so that you don't have to worry about gathering the research yourself.
+            section, based on data provided by users of PayMe so that you don't have to worry about gathering the research yourself. As our database grows, the information will be more accurate.
           </li>
           <li>
              Start the negotiation conversation with

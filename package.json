@@ -19,12 +19,12 @@
     "url": "git+https://github.com/romcar/payMe.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Erwin Carrasquilla <rommel.carrasquilla@gmail.com>, Mealear Khiev <> , Donny De Rojas <>, Kenny Le <>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/romcar/payMe/issues"
+    "url": "https://github.com/team-alloy/payMe/issues"
   },
-  "homepage": "https://github.com/romcar/payMe#readme",
+  "homepage": "https://github.com/team-alloy/payMe#readme",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-jest": "^23.2.0",

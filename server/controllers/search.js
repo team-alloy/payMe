@@ -20,7 +20,6 @@ module.exports = {
               roles: roles.map(role => ({ id: role.id, salary: role.salary, name: role.name })),
             })))
           .then((source) => {
-            console.log(source, '2222');
             const roleIds = source.roles.map(role => role.id);
             return db.knex('applications').where({ state: source.query.state, city: source.query.city }).whereIn('role_id', roleIds).then((apps) => {
               const findSalary = (id) => {
@@ -39,7 +38,6 @@ module.exports = {
             });
           })
           .then((source) => {
-            console.log(source, '1111');
             if (!source.length) {
               throw ('No results found  because we currently do not have enough data. Either add an application to start off this company at this location or come back later.');
             }
@@ -128,4 +126,22 @@ module.exports = {
       }
     }
   },
+  getAllTechStack: () => {
+    return db.knex('milestones').then(milestones => {
+      let techs = milestones.map(milestone => milestone.tech_used.split(' ').map(x => x.includes(',') ?  x.substring(0, x.indexOf(',')) : x));
+      techs = techs.reduce((techCache, currentTech) => {
+        currentTech.forEach(tech => {
+          if(tech === '') {return;}
+          if(!techCache[tech]){
+            techCache[tech] = 1;
+          } else {
+              techCache[tech]++;
+          }
+        });
+        return techCache;
+      }, {});
+      console.table(techs);
+      return techs;
+    })
+  }
 };
