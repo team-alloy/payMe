@@ -171,7 +171,6 @@ export default class NegotiationPracticeVideo extends Component {
   }
 
   render() {
-    console.log('STATES ROOM LIST', this.state.roomsList);
     /*
 	     Controls showing of the local track
 	    Only show video track after user has joined a room else show nothing
@@ -196,29 +195,30 @@ export default class NegotiationPracticeVideo extends Component {
       );
 
     return (
+      // inline container material ui
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
         <Card>
           <CardText>
             <div className="flex-container">
-              {showLocalTrack}
-              {' '}
-              {/* Show local track if available */}
-              <div className="flex-item">
+              <div className="right aligned flex-item">
+                {/* Show either ‘Leave Room’ or ‘Join Room’ button */}
+                {joinOrLeaveRoomButton}
                 {/*
                   The following text field is used to enter a room name.
                   It calls  `handleRoomNameChange` method when the text changes which sets the
                   `roomName` variable initialized in the state.
-				        */}
+                */}
+                <br />
+                {' '}
                 <TextField
                   hintText="Room Name"
                   onChange={this.handleRoomNameChange}
                   errorText={this.state.roomNameErr ? 'Room Name is required' : undefined}
                 />
-                <br />
-                {joinOrLeaveRoomButton}
-                {' '}
-                {/* Show either ‘Leave Room’ or ‘Join Room’ button */}
               </div>
+              {showLocalTrack}
+              {' '}
+              {/* Show local track if available */}
               {/*
 			          The following div element shows all remote media (other participant’s tracks)
 			        */}
@@ -226,11 +226,26 @@ export default class NegotiationPracticeVideo extends Component {
             </div>
           </CardText>
         </Card>
-        <div>
-          Currently available rooms to join:
-          <br />
-          { this.state.roomsList.data }
+
+        <div id="container" style={{ 'height': '100%', width: '50%' }}>
+          <table className="ui selectable teal table">
+            <thead>
+              <tr>
+                <th>
+                  Currently available rooms to join:
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  { this.state.roomsList.data }
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
+
       </MuiThemeProvider>
     );
   }
