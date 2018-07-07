@@ -39,7 +39,6 @@ export class TipsStatistic extends React.Component {
       }
     }
   }
-
   getActiveRoleLocation(callback) {
     if (this.props.user.active_role !== null) {
       axios.get(`/api/applications?role_id=${this.props.user.active_role[0].id}`).then(res => {
@@ -75,7 +74,7 @@ export class TipsStatistic extends React.Component {
     } else if(user && !user.active_role) {
       return (
         <div>
-          Let us know where you currently 
+          Let us know where you currently
         {' '}
           <Link to="/applications">
             work
