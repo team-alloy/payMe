@@ -79,6 +79,7 @@ class SearchPage extends Component {
       axios.get(`/api/search?role=${role}&company=${company}&city=${city}&state=${state}`).then(res => {
         this.props.saveResults(res.data);
       })
+      .catch(err => console.error(err))
     } else {
       this.throwError('You must choose something in each field to search');
     }
