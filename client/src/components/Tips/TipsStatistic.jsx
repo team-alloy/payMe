@@ -33,8 +33,10 @@ export class TipsStatistic extends React.Component {
       if ( numOfApps <= 1) {
         console.log('hey');
 
-        return ( `You have some wiggle room, if salary isn't negotiable. See if your manager will budge on number of vacation days. Or learn a new tech, here is a list of the 10 most common ones used according to our database.`)
-      } else if () {}
+        return ( `You have a good salary, if you want more and it isn't negotiable. See if your manager will budge on number of vacation days. Or learn a new tech, here is a list of the 10 most common ones used according to our database.`)
+      } else if ( numOfApps > 5) {
+
+      }
     }
   }
 
@@ -100,11 +102,22 @@ export class TipsStatistic extends React.Component {
             Based on this data, here is what we suggest:
             <br />
             {this.renderMessage()}
+            <br/>
             <ul>
             {this.state.results ? Object.keys(this.state.results.tech).map((tech, index) => {
                 return <li key={index}>{tech}</li>
               }) : undefined}
             </ul>
+            <br/>
+            <b>
+              Possible benefits:
+            </b>
+            <ul>
+               {this.state.results ? Object.keys(this.state.results.benefits).map((benefit , index) => {
+                 return <li key={benefit}>{this.state.results.benefits[benefit]}</li>
+               }) : undefined}
+            </ul>
+            <br/>
       </div>
       );
     }

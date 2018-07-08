@@ -32,23 +32,27 @@ export default class SignUp extends React.Component {
     e.preventDefault();
     let {first_name, last_name, email, pass} = this.state;
     if (this.state.pass !== this.state.reEnterPW) {
-      console.log('passwords do not match');
+      $('.error-message').text('Passwords do not match').css('color', 'red').show();
     } else {
-      axios.post('/api/signup', { first_name, last_name, email, pass })
-      .then(res => {
-        this.props.history.push('/login');
-      })
-      .catch(err => {
-        $('.error').text('Email is in use').css('color', 'red').show();
-        this.props.history.push('/signup');
-      });
-      this.setState({
-        first_name: '',
-        last_name: '',
-        email: '',
-        pass: '',
-        reEnterPW: '',
-      });
+      if(email === '' || pass === '') {
+        $('.error-message').text('Not allowed to leave email or password empty').css('color', 'red').show();
+      } else {
+        axios.post('/api/signup', { first_name, last_name, email, pass })
+        .then(res => {
+          this.props.history.push('/login');
+        })
+        .catch(err => {
+          $('.error-message').text('Email is in use').css('color', 'red').show();
+          this.props.history.push('/signup');
+        });
+        this.setState({
+          first_name: '',
+          last_name: '',
+          email: '',
+          pass: '',
+          reEnterPW: '',
+        });
+      }
     }
   }
 
@@ -73,6 +77,7 @@ export default class SignUp extends React.Component {
               <h5>
                 Get the Raise You Deserve!
               </h5>
+              <div className="error-message"></div>
               <Form size="large">
                 <Segment raised>
                   <Form.Input

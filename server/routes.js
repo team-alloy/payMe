@@ -420,9 +420,21 @@ router.route('/api/search').get((req, res) => {
       console.log(techCache)
       var response = salary;
       response.tech = techCache
-      // Object.assign({}, salary, {techReccomendations: techCache});
-      console.log(response, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1')
-      res.status(200).json(response);
+      if(params.company) {
+        return response;
+      } else {
+        res.status(200).json(searchResults);
+      }
+    })
+    .then(searchResults => {
+      console.log(searchResults);
+      searchController.deduceBenefits(params.company).then(results => {
+        searchResults.benefits = results;
+        // Object.assign({}, salary, {techReccomendations: techCache});
+        console.log(searchResults, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1')
+        res.status(200).json(searchResults);
+      });
+
     })
       .catch((err) => {
         console.log(err);
@@ -488,9 +500,9 @@ router.route('/rooms').get((req, res) => {
 // End Twilio
 
 
-// router.route('/test').get((req, res) => {
-//   searchController.getAllTechStack();
-// });
+router.route('/test').get((req, res) => {
+  searchController.deduceBenefits(req.query);
+});
 
 router.route('/*').get((req, res) => {
   res.status(200).sendFile(staticFile);

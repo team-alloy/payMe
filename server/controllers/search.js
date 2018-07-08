@@ -1,5 +1,7 @@
 const db = require('../../database/index');
 
+const companyController = require('./company');
+const roleController = require('./role');
 const orderTechs = (unordered) => {
   let ordered = {};
   let count = 0;
@@ -153,6 +155,44 @@ module.exports = {
       return orderTechs(techs);
     })
     // .then(reccomendations => reccomendations)
+    .catch(err => err);
+  },
+  deduceBenefits: (company) => {
+    return companyController.getCompanyByName({name: company})
+    .then(company => {
+      console.table(company);
+      return company[0].id;
+    })
+    .then(companyId => roleController.getRoles({company_id: companyId}))
+    .then(roles => Promise.all(roles))
+    .then(roles => {
+      let roleIds = roles.map(role => role.id);
+      return db.knex('applications').whereIn('role_id', roleIds)
+    })
+    .then(apps => {
+      let appIds = apps.map(app => app.id);
+      return db.knex('offers').whereIn('application_id', appIds)
+    })
+    .then(offers => {
+      console.log(offers);
+      return offers.reduce((packageOptions, currentOffer) => {
+        console.log(currentOffer);
+        if(currentOffer.hasPTO) {
+          packageOptions.hasPTO = "This company offers paid time off, negotiating this could give you longer paid vacations."
+        }
+        if(currentOffer.hasRetirement) {
+          packageOptions.hasRetirement = "This company has offered it's employees in the past a retirement package. If you are towards the end of your career, negotiating this could help you get better benefits for your retirement needs."
+        }
+        if(currentOffer.coversRelocation) {
+          packageOptions.coversRelocation = "This company has covered relocation for it's employees in the past. Any money helps, getting hired sometimes means a big move. Negotiate these cost with your company to see if they can be given to you."
+        }
+        if(currentOffer.hasHealthBenefits) {
+          packageOptions.hasHealthBenefits = "This company offers health benefits, ask about the different options available."
+        }
+        return packageOptions;
+      }, {});
+    })
+    .then( results => results)
     .catch(err => err);
   }
 };
