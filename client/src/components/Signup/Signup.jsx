@@ -6,6 +6,9 @@ import {
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
+const verifyEmailFormat = (email) => {
+  return email.match(/\w+(@)\w+.+(com|net|org|edu|co)/gi);
+};
 export default class SignUp extends React.Component {
   constructor(props) {
     super(props);
@@ -31,6 +34,11 @@ export default class SignUp extends React.Component {
   handleClick(e) {
     e.preventDefault();
     let {first_name, last_name, email, pass} = this.state;
+     if (verifyEmailFormat(email) === null) {
+       $('.error-message').text('Not a valid email').css('color', 'red').show();
+       return;
+     }
+
     if (this.state.pass !== this.state.reEnterPW) {
       $('.error-message').text('Passwords do not match').css('color', 'red').show();
     } else {
