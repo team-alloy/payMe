@@ -177,7 +177,11 @@ export default class NegotiationPracticeVideo extends Component {
     const showLocalTrack = this.state.localMediaAvailable ? (
       <div className="flex-item">
         {' '}
-        <div className="flex-item" ref="localMedia" />
+        <div
+          className="flex-item"
+          ref="localMedia"
+          id="local-media"
+        />
         {' '}
       </div>) : '';
     /*
@@ -201,17 +205,40 @@ export default class NegotiationPracticeVideo extends Component {
 
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-        <div className="ui four column grid">
-          <div className="two column row">
+        <div className="ui grid">
+          <div className="four column grid">
 
-            <div className="column">
-              <div className="flex-item">
+<twilio-video identity="phil"></twilio-video>
+
+            <div className="left floated column">
+              {/*
+                The following div element shows all remote media (other participant’s tracks)
+              */}
+              <div className="flex-container">
+                <div
+                  className="flex-item"
+                  ref="remoteMedia"
+                  id="remote-media"
+                />
+              </div>
+            </div>
+
+            <div className="right floated column">
+              <div className="flex-container">
+                {showLocalTrack}
+                {' '}
+                {/* Show local track if available */}
+              </div>
+            </div>
+
+            <div className="left floated column">
+              <div className="item">
                 <div id="container" style={{ height: '100%', width: '70%' }}>
                   <table className="ui selectable teal table">
                     <thead>
                       <tr>
                         <th>
-                      Currently available rooms to join:
+                      Available Rooms:
                         </th>
                       </tr>
                     </thead>
@@ -228,39 +255,25 @@ export default class NegotiationPracticeVideo extends Component {
                 <br />
                 {' '}
 
-                {/*
-                      The following text field is used to enter a room name.
-                      It calls  `handleRoomNameChange` method when the text changes which sets the
-                      `roomName` variable initialized in the state.
-                    */}
-                <TextField
-                  hintText="Room Name"
-                  onChange={this.handleRoomNameChange}
-                  errorText={this.state.roomNameErr ? 'Room Name is required' : undefined}
-                />
+                <div className="item">
+                  {/*
+                        The following text field is used to enter a room name.
+                        It calls  `handleRoomNameChange` method when the text changes which sets the
+                        `roomName` variable initialized in the state.
+                      */}
+                  <TextField
+                    hintText="Room Name"
+                    onChange={this.handleRoomNameChange}
+                    errorText={this.state.roomNameErr ? 'Room Name is required' : undefined}
+                    style={{ width: '70%' }}
+                  />
 
-                <br />
-                {' '}
+                  <br />
+                  {' '}
 
-                {/* Show either ‘Leave Room’ or ‘Join Room’ button */}
-                {joinOrLeaveRoomButton}
-              </div>
-            </div>
-
-            <div className="row">
-              {/*
-                The following div element shows all remote media (other participant’s tracks)
-              */}
-              <div className="flex-container" style={{ display: 'inline-block', height: '100%', width: '70%' }}>
-                <div className="flex-item" ref="remoteMedia" id="remote-media" />
-              </div>
-            </div>
-
-            <div className="column">
-              <div className="flex-container" style={{ display: 'inline-block', height: '100%', width: '70%' }}>
-                {showLocalTrack}
-                {' '}
-                {/* Show local track if available */}
+                  {/* Show either ‘Leave Room’ or ‘Join Room’ button */}
+                  {joinOrLeaveRoomButton}
+                </div>
               </div>
             </div>
 
