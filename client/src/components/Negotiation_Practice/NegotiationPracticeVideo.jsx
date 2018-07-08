@@ -193,6 +193,7 @@ export default class NegotiationPracticeVideo extends Component {
       ? (
         <RaisedButton
           label="Leave Room"
+          id="hangup"
           onClick={() => this.leaveRoom()}
         />
       )
@@ -205,10 +206,8 @@ export default class NegotiationPracticeVideo extends Component {
 
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-        <div className="ui grid">
+        <div className="ui grid" id="picture-in-picture">
           <div className="four column grid">
-
-<twilio-video identity="phil"></twilio-video>
 
             <div className="left floated column">
               {/*
