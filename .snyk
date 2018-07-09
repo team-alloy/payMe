@@ -21,26 +21,38 @@ patch:
   'npm:hoek:20180212':
     - semantic-ui > gulp-less > less > request > hawk > boom > hoek:
         patched: '2018-07-09T16:27:18.182Z'
+      semantic-ui > gulp-less > less > request > hawk > sntp > hoek:
+        patched: '2018-07-09T16:58:27.368Z'
     - semantic-ui > gulp-less > less > request > hawk > sntp > hoek:
         patched: '2018-07-09T16:27:18.182Z'
+      semantic-ui > gulp-less > less > request > hawk > cryptiles > boom > hoek:
+        patched: '2018-07-09T16:58:27.368Z'
     - semantic-ui > gulp-less > less > request > hawk > cryptiles > boom > hoek:
         patched: '2018-07-09T16:27:18.182Z'
+      semantic-ui > gulp-less > less > request > hawk > boom > hoek:
+        patched: '2018-07-09T16:58:27.368Z'
     - semantic-ui > gulp-less > less > request > hawk > hoek:
-        patched: '2018-07-09T16:27:18.182Z'
+        patched: '2018-07-09T16:58:27.368Z'
   'npm:minimatch:20160620':
     - semantic-ui > gulp > vinyl-fs > glob-stream > glob > minimatch:
-        patched: '2018-07-09T16:27:18.182Z'
+        patched: '2018-07-09T16:58:27.368Z'
     - semantic-ui > gulp-copy > gulp > vinyl-fs > glob-stream > minimatch:
         patched: '2018-07-09T16:27:18.182Z'
+      semantic-ui > gulp-copy > gulp > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
+        patched: '2018-07-09T16:58:27.368Z'
     - semantic-ui > gulp-copy > gulp > vinyl-fs > glob-stream > glob > minimatch:
-        patched: '2018-07-09T16:27:18.182Z'
+        patched: '2018-07-09T16:58:27.368Z'
     - semantic-ui > gulp > vinyl-fs > glob-watcher > gaze > globule > minimatch:
-        patched: '2018-07-09T16:27:18.182Z'
+        patched: '2018-07-09T16:58:27.368Z'
     - semantic-ui > gulp > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
-        patched: '2018-07-09T16:27:18.182Z'
+        patched: '2018-07-09T16:58:27.368Z'
     - semantic-ui > gulp-copy > gulp > vinyl-fs > glob-watcher > gaze > globule > minimatch:
-        patched: '2018-07-09T16:27:18.182Z'
+        patched: '2018-07-09T16:58:27.368Z'
     - semantic-ui > gulp > vinyl-fs > glob-stream > minimatch:
         patched: '2018-07-09T16:27:18.182Z'
+      semantic-ui > gulp-copy > gulp > vinyl-fs > glob-stream > minimatch:
+        patched: '2018-07-09T16:58:27.368Z'
     - semantic-ui > gulp-copy > gulp > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
         patched: '2018-07-09T16:27:18.182Z'
+      semantic-ui > gulp > vinyl-fs > glob-stream > minimatch:
+        patched: '2018-07-09T16:58:27.368Z'
