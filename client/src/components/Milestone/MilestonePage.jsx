@@ -1,17 +1,21 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import MilestoneForm from './MilestoneForm';
 import MilestoneList from './MilestoneList';
 
-export default class MilestonePage extends React.Component {
+export class MilestonePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-
     };
+    this.handleGetMilestone = this.handleGetMilestone.bind(this);
+    this.handleMilestoneUpdate = this.handleMilestoneUpdate.bind(this);
   }
 
   handleGetMilestone(callback) {
-    if (this.props.session.user) {
+    let {id} = this.props.session.user;
+    if (id) {
       axios.get(`api/milestones?user_id=${this.props.session.user.id}`)
         .then((response) => {
           callback(response.data)
@@ -21,21 +25,19 @@ export default class MilestonePage extends React.Component {
     }
   }
 
-  handlePostMilestone(query, callback) {
-    axios.post((`/api/milestones?userId=${this.props.session.user.id}`), {
-      user_id: this.props.session.user.id, 
-      name: this.state.name, 
-      description: this.state.description, 
-      repo_link: this.state.repository, 
-      tech_used: this.state.stack, 
-    })
+  handleMilestoneUpdate(query, callback) {
+    let milestoneInfo = Object.assign({}, query, {user_id: this.props.session.user.id})
+    axios.post((`/api/milestones?userId=${this.props.session.user.id}`), milestoneInfo)
       .then((response) => {
-        console.log(response);
-        this.setState({ currentMilestones: response });
+        this.handleGetMilestone((data) => { 
+          this.setState({ currentMilestones: response });
+        });
+        callback();
       });
   }
 
   render() {
+    console.log('THIS IS MY SESSION', this.props.session)
     return (
       <div>
         <div className="ui equal width three column grid">
@@ -45,8 +47,8 @@ export default class MilestonePage extends React.Component {
               <div className="equal width row">
                 <div className="column">
                   <MilestoneForm
-                    milestonePost={this.handlePostMilestone.bind(this)} 
-                    milestoneGet={this.handleGetMilestone.bind(this)}
+                    milestoneUpdate={this.handleMilestoneUpdate} 
+                    milestoneGet={this.handleGetMilestone}
                   />
                 </div>
                 <div className="column">
@@ -61,3 +63,15 @@ export default class MilestonePage extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return ({ session: state.user });
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    
+  });
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(MilestonePage)

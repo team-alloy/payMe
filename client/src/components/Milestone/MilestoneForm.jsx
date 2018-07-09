@@ -35,17 +35,27 @@ export class MilestoneForm extends React.Component {
 
     // axios.post(url[, data[, config]])
     // POST request to create a new milestone
-    axios.post((`/api/milestones?userId=${this.props.session.user.id}`), {
-      user_id: this.props.session.user.id, 
-      name: this.state.name, 
-      description: this.state.description, 
-      repo_link: this.state.repository, 
-      tech_used: this.state.stack, 
-    })
-      .then((response) => {
-        console.log(response);
-        this.setState({ currentMilestones: response });
+    // axios.post((`/api/milestones?userId=${this.props.session.user.id}`), {
+    //   user_id: this.props.session.user.id, 
+    //   name: this.state.name, 
+    //   description: this.state.description, 
+    //   repo_link: this.state.repository, 
+    //   tech_used: this.state.stack, 
+    // })
+    //   .then((response) => {
+    //     console.log(response);
+    //     this.setState({ currentMilestones: response });
+    //   });
+    this.props.milestoneUpdate(this.state, () => {
+      this.setState({
+        name: '',
+        description: '',
+        stack: '',
+        repository: '',
+        completedDate: '',
+        currentMilestones: '',
       });
+    });
   }
 
   handleClearFields() {
@@ -62,7 +72,7 @@ export class MilestoneForm extends React.Component {
   render() {
     console.log('this is the props ', this.props)
     return (
-      <Form raised className="ui teal segment" onSubmit={this.handleSubmit}>
+      <Form raised="true" className="ui teal segment" onSubmit={this.handleSubmit}>
         <h4 className="ui center aligned segment">
           <i className="trophy icon" />
           Career Milestones and Achievements
