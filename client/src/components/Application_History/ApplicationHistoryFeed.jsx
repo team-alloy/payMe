@@ -8,7 +8,7 @@ export class ApplicationHistoryFeed extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      apps: this.props.session.applications || []
+      apps: this.props.session.applications || [],
     };
   }
 
