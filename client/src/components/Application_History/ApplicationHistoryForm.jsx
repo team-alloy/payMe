@@ -52,17 +52,9 @@ export default class ApplicationHistoryForm extends React.Component {
       application_date: '',
     });
   }
-
-<<<<<<< HEAD
-  render() {
-    console.log('blahblah', this.props)
-    return (
-      <Form raised className="ui teal segment">
-=======
  render() {
     return (
       <Form raised className="ui teal segment" >
->>>>>>> import button semantic ui into ApplicationHistoryForm
         <h4 className="ui center aligned segment">
           <i className="chart pie icon" />
           Previously Applied Position

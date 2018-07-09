@@ -14,6 +14,7 @@ export default class ApplicationUpdateModal extends React.Component {
       salary:this.props.app.role.salary
     }
     this.handleChange = this.handleChange.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   componentDidMount() {
@@ -40,7 +41,7 @@ export default class ApplicationUpdateModal extends React.Component {
     }
     return (
       <div>
-        <Modal style={style} trigger={(<Button>UpdateApp</Button>)}>
+        <Modal style={style} trigger={(<Button onClick={this.componentDidMount}>UpdateApp</Button>)}>
         <Modal.Header>UpdateApp</Modal.Header>
           <Modal.Content scrolling>
             <TextArea onChange={this.handleChange} name="company" value={this.state.company} style={{maxHeight: 35}} />

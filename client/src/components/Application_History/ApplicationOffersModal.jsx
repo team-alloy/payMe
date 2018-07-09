@@ -13,6 +13,7 @@ export default class ApplicationOffersModal extends React.Component {
     }
     this.saveOffer = this.saveOffer.bind(this);
     this.handleSalary = this.handleSalary.bind(this);
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   componentDidMount() {
@@ -21,6 +22,10 @@ export default class ApplicationOffersModal extends React.Component {
       if(res.data.length > 0) {
         this.setState({
           offers: res.data
+        });
+      } else {
+        this.setState({
+          offers: []
         });
       }
     })
@@ -60,7 +65,7 @@ export default class ApplicationOffersModal extends React.Component {
         <Modal
           style={style}
           trigger={(
-            <Button color="teal">
+            <Button onClick={this.componentDidMount} color="teal">
               Offers
             </Button>
           )}
