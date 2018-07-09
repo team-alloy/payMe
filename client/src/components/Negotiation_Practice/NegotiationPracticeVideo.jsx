@@ -46,9 +46,10 @@ export default class NegotiationPracticeVideo extends Component {
   }
 
   getRoomsList() {
-    axios.get('/rooms').then((list) => {
-      this.setState({ roomsList: list });
+    axios.get('/rooms').then((room) => {
+      this.setState({ roomsList: room });
     });
+    console.log('rooms list', this.state.roomsList);
   }
 
   handleRoomNameChange(e) {
@@ -181,6 +182,7 @@ export default class NegotiationPracticeVideo extends Component {
           className="flex-item"
           ref="localMedia"
           id="local-media"
+          style={{ display: 'inline-block' }}
         />
         {' '}
       </div>) : '';
@@ -218,6 +220,7 @@ export default class NegotiationPracticeVideo extends Component {
                   className="flex-item"
                   ref="remoteMedia"
                   id="remote-media"
+                  style={{ display: 'inline-block' }}
                 />
               </div>
             </div>

@@ -19,7 +19,9 @@ const AccessToken = require('twilio').jwt.AccessToken;
 
 const VideoGrant = AccessToken.VideoGrant;
 
-let currentSession, techCache;
+let currentSession, 
+techCache;
+ 
 
   setInterval(() => {
     console.log(techCache, '109381029')
@@ -123,7 +125,6 @@ router.route('/api/roles').get((req, res) => {
   } else {
     roleController.getAppliedRoles(req.query)
       .then((roles) => {
-
         res.status(200).json(roles);
       })
       .catch(err => res.status(400).json(err));
@@ -289,9 +290,9 @@ router.route('/api/login')
         // res.status(200).json(role);
       // res.status(200).send(currentSession);
       })
-        .catch(err => {
+        .catch((err) => {
           console.log(err);
-          res.status(404).json({ error: err })
+          res.status(404).json({ error: err });
         });
     }
   });
@@ -355,13 +356,13 @@ router.route('/api/milestones')
   });
 
 router.route('/api/offers').post((req, res) => {
-  console.log(req.body,'inOffers');
+  console.log(req.body, 'inOffers');
   offerController.addOffer(req.body)
     .then((offers) => {
       res.status(200).json(offers);
     })
     .catch((err) => {
-      console.log(err,'ERROR');
+      console.log(err, 'ERROR');
       res.status(404).json(err);
     });
 }).patch((req, res) => {
@@ -489,13 +490,18 @@ router.route('/rooms').get((req, res) => {
   const accountSid = require('../config').twilio.TWILIO_ACCOUNT_SID;
   const authToken = require('../config').twilio.TWILIO_AUTH_TOKEN;
   const client = require('twilio')(accountSid, authToken);
+  let rooms = [1];
 
-  client.video.rooms.each(
-    {
-      status: 'in-progress',
-    },
-    rooms => res.json(rooms.uniqueName),
+  console.log('CLIENT VIDEO ROOM'. client.video.rooms)
+
+  client.video.rooms.each({status: 'in-progress'}, (room) => {
+      rooms.push(room.uniqueName);
+      console.log('HERE IS ROOMS')
+      console.log('room', rooms);
+
+    }
   );
+  console.log('YOU MADE IT', rooms)
 });
 
 // End Twilio
