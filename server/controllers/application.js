@@ -46,7 +46,7 @@ module.exports = {
     const name = capitalizeWords(values.company);
     const role = capitalizeWords(values.role);
     const city = capitalizeWords(values.city);
-    const state = capitalizeWords(values.state);
+    const state = values.state.toUpperCase();
     const salary = Number.isNaN(values.salary) ? 0 : values.salary;
     const accepted = values.accepted !== undefined ? values.accepted === 1 ? 1 : 0 : 0;
     const application_date = values.application_date || new Date().toLocaleDateString();

@@ -1,0 +1,46 @@
+# Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
+version: v1.12.0
+# ignores vulnerabilities until expiry date; change duration by modifying expiry date
+ignore:
+  'npm:braces:20180219':
+    - semantic-ui > gulp-watch > anymatch > micromatch > braces:
+        reason: No patch available
+        expires: '2018-08-08T16:30:30.969Z'
+    - semantic-ui > gulp-watch > chokidar > anymatch > micromatch > braces:
+        reason: None given
+        expires: '2018-08-08T16:30:30.969Z'
+  'npm:lodash:20180130':
+    - semantic-ui > gulp > vinyl-fs > glob-watcher > gaze > globule > lodash:
+        reason: None given
+        expires: '2018-08-08T16:30:30.969Z'
+    - semantic-ui > gulp-copy > gulp > vinyl-fs > glob-watcher > gaze > globule > lodash:
+        reason: None given
+        expires: '2018-08-08T16:30:30.969Z'
+# patches apply the minimum changes required to fix a vulnerability
+patch:
+  'npm:hoek:20180212':
+    - semantic-ui > gulp-less > less > request > hawk > boom > hoek:
+        patched: '2018-07-09T16:27:18.182Z'
+    - semantic-ui > gulp-less > less > request > hawk > sntp > hoek:
+        patched: '2018-07-09T16:27:18.182Z'
+    - semantic-ui > gulp-less > less > request > hawk > cryptiles > boom > hoek:
+        patched: '2018-07-09T16:27:18.182Z'
+    - semantic-ui > gulp-less > less > request > hawk > hoek:
+        patched: '2018-07-09T16:27:18.182Z'
+  'npm:minimatch:20160620':
+    - semantic-ui > gulp > vinyl-fs > glob-stream > glob > minimatch:
+        patched: '2018-07-09T16:27:18.182Z'
+    - semantic-ui > gulp-copy > gulp > vinyl-fs > glob-stream > minimatch:
+        patched: '2018-07-09T16:27:18.182Z'
+    - semantic-ui > gulp-copy > gulp > vinyl-fs > glob-stream > glob > minimatch:
+        patched: '2018-07-09T16:27:18.182Z'
+    - semantic-ui > gulp > vinyl-fs > glob-watcher > gaze > globule > minimatch:
+        patched: '2018-07-09T16:27:18.182Z'
+    - semantic-ui > gulp > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
+        patched: '2018-07-09T16:27:18.182Z'
+    - semantic-ui > gulp-copy > gulp > vinyl-fs > glob-watcher > gaze > globule > minimatch:
+        patched: '2018-07-09T16:27:18.182Z'
+    - semantic-ui > gulp > vinyl-fs > glob-stream > minimatch:
+        patched: '2018-07-09T16:27:18.182Z'
+    - semantic-ui > gulp-copy > gulp > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
+        patched: '2018-07-09T16:27:18.182Z'

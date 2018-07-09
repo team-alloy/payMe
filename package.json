@@ -9,10 +9,12 @@
   "scripts": {
     "start": "nodemon --inspect server/index.js ",
     "react:dev": "webpack -d --watch",
-    "test": "jest --watch",
+    "test": "snyk test && jest --watch",
     "migrate": "knex migrate:latest --knexfile database/knexfile.js",
     "build": "webpack --mode production",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build",
+    "snyk-protect": "snyk protect",
+    "prepare": "npm run snyk-protect"
   },
   "repository": {
     "type": "git",
@@ -56,7 +58,7 @@
     "express-session": "^1.15.6",
     "faker": "^4.1.0",
     "jquery": "^3.3.1",
-    "knex": "^0.13.0",
+    "knex": "^0.14.3",
     "material-ui": "^0.20.1",
     "moment": "^2.22.2",
     "morgan": "^1.9.0",
@@ -74,6 +76,8 @@
     "semantic-ui-react": "^0.81.1",
     "sinon": "^6.0.1",
     "twilio": "^3.17.4",
-    "twilio-video": "^1.10.0"
-  }
+    "twilio-video": "^1.10.0",
+    "snyk": "^1.88.2"
+  },
+  "snyk": true
 }
