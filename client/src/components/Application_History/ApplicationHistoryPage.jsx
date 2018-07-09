@@ -67,11 +67,11 @@ class ApplicationHistoryPage extends React.Component {
             <div className="equal width row">
               <div className="column">
                 <ApplicationHistoryForm
-                  getApps={this.getApplicationByUserID.bind(this)} 
+                  getApps={this.getApplicationByUserID.bind(this)}
                   makeApp={this.makeApplication.bind(this)}/>
               </div>
               <div className="column">
-                <ApplicationHistoryFeed apps={this.state.applications}/>
+                <ApplicationHistoryFeed updateApp={this.updateApp} apps={this.state.applications}/>
               </div>
             </div>
           </div>
