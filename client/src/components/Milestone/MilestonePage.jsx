@@ -22,14 +22,14 @@ export class MilestonePage extends React.Component {
   }
 
   handleGetMilestone(callback) {
-    let {id} = this.props.session.user;
-    if (id) {
+    if (!this.props.session.user) {
+      this.props.history.push('/login')
+    } else {
+      let {id} = this.props.session.user;
       axios.get(`api/milestones?user_id=${id}`)
         .then((response) => {
-          callback(response.data)
+          callback(response.data);
         });
-    } else {
-      this.props.history.push('/login')
     }
   }
 
