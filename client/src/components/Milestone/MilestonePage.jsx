@@ -24,7 +24,7 @@ export class MilestonePage extends React.Component {
   handleGetMilestone(callback) {
     let {id} = this.props.session.user;
     if (id) {
-      axios.get(`api/milestones?user_id=${this.props.session.user.id}`)
+      axios.get(`api/milestones?user_id=${id}`)
         .then((response) => {
           callback(response.data)
         });
@@ -60,7 +60,7 @@ export class MilestonePage extends React.Component {
               <div className="equal width row">
                 <div className="column">
                   <MilestoneForm
-                    milestoneUpdate={this.handleMilestoneUpdate} 
+                    milestoneUpdate={this.handleMilestoneUpdate}
                     milestoneGet={this.handleGetMilestone}
                   />
                 </div>
@@ -93,7 +93,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    
+
   });
 };
 
