@@ -143,7 +143,7 @@ describe('Application functionality', () => {
 
 
 afterAll(() => request(app)
-  .delete('/api/user?username=oldUser')
+  .delete('/api/user?email=real@user.com')
   .then((response) => {
     expect(response.body.message).toEqual('user was deleted from database');
     server.close();

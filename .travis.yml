@@ -1,8 +1,17 @@
 language: node_js
-node_js:
-  - "iojs"
-  - "7"
+node_js: node
 
-cache:
-  directories:
-    - "node_modules"
+services:
+  - mysql
+
+before_install:
+  - mysql -e 'CREATE DATABASE payme;'
+
+install:
+  - npm install
+
+script:
+  - npm run migrate
+  - npm run test
+  - npm run coverage
+  - npm run build

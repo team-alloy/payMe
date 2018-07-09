@@ -1,5 +1,5 @@
 module.exports = {
-  isLoggedIn: (req, res) => {
+  isLoggedIn: (req) => {
     if (req.user !== undefined) {
       return true;
     }
