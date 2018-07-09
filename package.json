@@ -9,7 +9,7 @@
   "scripts": {
     "start": "nodemon --inspect server/index.js ",
     "react:dev": "webpack -d --watch",
-    "test": "snyk test && jest",
+    "test": "snyk auth && snyk test && jest",
     "migrate": "knex migrate:latest --knexfile database/knexfile.js",
     "build": "webpack --mode production",
     "postinstall": "npm run build",
