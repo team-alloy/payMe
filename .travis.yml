@@ -9,6 +9,7 @@ before_install:
 
 install:
   - npm install
+  - npm snyk auth
 
 script:
   - npm run migrate
