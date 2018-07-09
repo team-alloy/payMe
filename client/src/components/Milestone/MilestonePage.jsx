@@ -2,7 +2,6 @@ import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import MilestoneForm from './MilestoneForm';
-import MilestoneList from './MilestoneList';
 import MilestoneListView from './MilestoneListView';
 import axios from 'axios';
 
