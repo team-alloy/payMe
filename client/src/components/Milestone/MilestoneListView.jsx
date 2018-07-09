@@ -14,8 +14,8 @@ export default class MilestoneListView extends React.Component {
     const description = this.props.description;
     const stack = this.props.stack;
     const repo= this.props.repo;
-    const date = this.props.date
-    console.log('nagggaaa' ,this.props)
+    const date = this.props.date;
+    
     return (
       <Form raised className="ui teal segment">
         <h3 className="ui header">{name}</h3>
