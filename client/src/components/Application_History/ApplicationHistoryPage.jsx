@@ -1,7 +1,7 @@
 import React from 'react';
 import ApplicationHistoryFeed from './ApplicationHistoryFeed.jsx';
 import ApplicationHistoryForm from './ApplicationHistoryForm.jsx';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { setApplications } from '../../store/actions/userActions'
@@ -10,7 +10,7 @@ class ApplicationHistoryPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      applications: this.props.session.applications
+      applications: this.props.session.applications,
     };
     this.updateApp = this.updateApp.bind(this);
   }
@@ -67,7 +67,7 @@ class ApplicationHistoryPage extends React.Component {
             <div className="equal width row">
               <div className="column">
                 <ApplicationHistoryForm
-                  getApps={this.getApplicationByUserID.bind(this, )} 
+                  getApps={this.getApplicationByUserID.bind(this)} 
                   makeApp={this.makeApplication.bind(this)}/>
               </div>
               <div className="column">
@@ -89,5 +89,6 @@ const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     setApplications
   }, dispatch);
-}
+};
+
 export default connect(mapStateToProps, mapDispatchToProps)(ApplicationHistoryPage);

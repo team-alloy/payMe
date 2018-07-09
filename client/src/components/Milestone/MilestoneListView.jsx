@@ -10,7 +10,6 @@ export default class MilestoneListView extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     const name = this.props.name;
     const description = this.props.description;
     const stack = this.props.stack;

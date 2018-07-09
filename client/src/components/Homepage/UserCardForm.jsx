@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { ENGINE_METHOD_CIPHERS } from 'constants';
 import { setAppliedRoles } from '../../store/actions/userActions'
 // import { BADHINTS } from 'dns';
+import { Button, Form } from 'semantic-ui-react';
 import axios from 'axios';
 
 export class UserCardForm extends React.Component {
@@ -16,7 +17,6 @@ export class UserCardForm extends React.Component {
       lastName: '',
       profile_pic: '',
       active_role: '',
-
     };
 
     // this.handleActiveRoleChange = this.handleActiveRoleChange.bind(this);
@@ -63,13 +63,22 @@ export class UserCardForm extends React.Component {
       });
   }
 
+  handleClearField() {
+    this.setState({
+      firstName: '',
+      lastName: '',
+      profile_pic: '',
+      active_role: '',
+    });
+  }
+
   render() {
     console.log(this.props, this.state, 'hhhhhhhh');
 
     return (
       <div className="ui teal card">
         <h4 className="ui dividing header left aligned segment">Edit User's Profile</h4>
-        <form className="ui-form" onSubmit={this.handleSubmit}>
+        <Form className="ui-form" onSubmit={this.handleSubmit}>
           <div className="field">
             <div className="left aligned segment" style={{ fontWeight: 'bold' }}>
               Full Name
@@ -125,11 +134,15 @@ export class UserCardForm extends React.Component {
               </select>
             </div>
           </div>
-          <div className="button-container">
-            <button className="ui-button-cancel">Cancel</button>
-            <button className="ui-button-confirm">Confirm</button>
+          <div className="ui two bottom attached buttons">
+            <Button className="ui-button-cancel" onClick={this.handleClearField}>
+              Cancel
+            </Button>
+            <Button className="ui-button-confirm" color="teal">
+              Confirm
+            </Button>
           </div>
-        </form>
+        </Form>
       </div>
     );
   }
