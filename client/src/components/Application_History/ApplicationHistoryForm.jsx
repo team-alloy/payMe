@@ -53,10 +53,16 @@ export default class ApplicationHistoryForm extends React.Component {
     });
   }
 
+<<<<<<< HEAD
   render() {
     console.log('blahblah', this.props)
     return (
       <Form raised className="ui teal segment">
+=======
+ render() {
+    return (
+      <Form raised className="ui teal segment" >
+>>>>>>> import button semantic ui into ApplicationHistoryForm
         <h4 className="ui center aligned segment">
           <i className="chart pie icon" />
           Previously Applied Position
@@ -69,7 +75,7 @@ export default class ApplicationHistoryForm extends React.Component {
         </label>
         <div className="app-field">
           <input
-            type="text" 
+            type="text"
             value={this.state.company}
             name="company"
             onChange={this.handleChange}
@@ -111,10 +117,10 @@ export default class ApplicationHistoryForm extends React.Component {
           <br/>
           <input
             type="text"
-            value={this.state.state} 
+            value={this.state.state}
             maxLength="2"
             name="state"
-            onChange={this.handleChange} 
+            onChange={this.handleChange}
             className="location-name"
             placeholder="state ex. Fl"
           />
@@ -143,7 +149,7 @@ export default class ApplicationHistoryForm extends React.Component {
             className="date-name"
             name="application_date"
             type="date"
-            onChange={this.handleChange} 
+            onChange={this.handleChange}
           />
         </div>
         <div className="ui two bottom attached buttons">
