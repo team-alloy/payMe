@@ -14,7 +14,8 @@ export default class MilestoneListView extends React.Component {
     const description = this.props.description;
     const stack = this.props.stack;
     const repo= this.props.repo;
-
+    const date = this.props.date
+    console.log('nagggaaa' ,this.props)
     return (
       <Form raised className="ui teal segment">
         <h3 className="ui header">{name}</h3>
@@ -32,7 +33,7 @@ export default class MilestoneListView extends React.Component {
           </div>
           <div data-tooltip="Date Completed">
             <Icon name="check square outline" />
-            1/1/2018
+            {date}
             <br />
           </div>
       </Form>

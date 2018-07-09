@@ -73,6 +73,7 @@ export class MilestonePage extends React.Component {
                         description={milestone.description}
                         stack={milestone.tech_used}
                         repo={milestone.repo_link}
+                        date={milestone.milestone_date}
                       />
                     ))}
                   </Fragment>
