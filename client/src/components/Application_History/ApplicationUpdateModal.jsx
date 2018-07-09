@@ -55,8 +55,7 @@ export default class ApplicationUpdateModal extends React.Component {
             <Modal.Actions>
               <Button basic color='green' labelPosition='left'
               onClick={() => {
-                this.props.updateApp(this.props.app.id, this.state)
-                this.componentDidMount();
+                this.props.updateApp(this.props.app.id, this.state);
               }}>Submit
               </Button>
             </Modal.Actions>
