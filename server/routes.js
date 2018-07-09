@@ -185,7 +185,8 @@ router.route('/api/applications')
 */
 router.route('/api/user')
   .get((req, res) => {
-    const check = utils.isLoggedIn(currentSession, res);
+
+    const check = utils.isLoggedIn(currentSession);
     if (check && !check.error) {
       if (!req.query) {
         userController.findAllUsers()
