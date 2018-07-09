@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Form } from 'semantic-ui-react'
+import { Button, Form } from 'semantic-ui-react';
 import axios from 'axios';
 
 export default class ApplicationHistoryForm extends React.Component {
@@ -11,7 +11,7 @@ export default class ApplicationHistoryForm extends React.Component {
       city: '',
       state: '',
       salary: 0,
-      application_date: ''
+      application_date: '',
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -20,7 +20,7 @@ export default class ApplicationHistoryForm extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    this.props.makeApp(this.state, ()=>{
+    this.props.makeApp(this.state, () => {
       this.setState({
         company: '',
         role: '',
@@ -54,8 +54,9 @@ export default class ApplicationHistoryForm extends React.Component {
   }
 
   render() {
+    console.log('blahblah', this.props)
     return (
-      <Form raised className="ui teal segment" onSubmit={this.handleSubmit}>
+      <Form raised className="ui teal segment">
         <h4 className="ui center aligned segment">
           <i className="chart pie icon" />
           Previously Applied Position
@@ -146,10 +147,10 @@ export default class ApplicationHistoryForm extends React.Component {
           />
         </div>
         <div className="ui two bottom attached buttons">
-          <Button className="ui-button-cancel">
+          <Button className="ui-button-cancel" onClick={this.clearFields}>
             Cancel
           </Button>
-          <Button className="ui-button-confirm" color="teal" type="submit" size="medium">
+          <Button className="ui-button-confirm" onClick={this.handleClick} color="teal" type="submit" size="medium">
             Confirm
           </Button>
         </div>

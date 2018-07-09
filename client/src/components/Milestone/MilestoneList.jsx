@@ -12,12 +12,13 @@ export class MilestoneList extends React.Component {
     this.state = {
       milestones: [],
     };
+    this.componentDidMount = this.componentDidMount.bind(this);
   }
 
   componentDidMount() {
     const set = this.setState.bind(this);
     this.fetchMilestone((data) => {
-      set({milestones: data})
+      set({ milestones: data });
     });
   }
 
@@ -33,7 +34,7 @@ export class MilestoneList extends React.Component {
   }
 
   fetchMilestone(callback) {
-    if(this.props.session.user) {
+    if (this.props.session.user) {
       axios.get(`api/milestones?user_id=${this.props.session.user.id}`)
         .then((response) => {
           callback(response.data)

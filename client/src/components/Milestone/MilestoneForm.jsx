@@ -16,6 +16,7 @@ export class MilestoneForm extends React.Component {
       currentMilestones: '',
     };
     this.handleChange = this.handleChange.bind(this);
+    this.handleClearFields = this.handleClearFields.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -47,8 +48,19 @@ export class MilestoneForm extends React.Component {
       });
   }
 
+  handleClearFields() {
+    this.setState({
+      name: '',
+      description: '',
+      stack: '',
+      repository: '',
+      completedDate: '',
+      currentMilestones: '',
+    });
+  }
+
   render() {
-    console.log(this.props)
+    console.log('this is the props ', this.props)
     return (
       <Form raised className="ui teal segment" onSubmit={this.handleSubmit}>
         <h4 className="ui center aligned segment">
@@ -132,7 +144,7 @@ export class MilestoneForm extends React.Component {
           />
         </div>
         <div className="ui two bottom attached buttons">
-          <Button className="ui-button-cancel">
+          <Button className="ui-button-cancel" onClick={this.handleClearFields}>
             Cancel
           </Button>
           <Button className="ui-button-confirm" color="teal" type="submit" size="medium">
