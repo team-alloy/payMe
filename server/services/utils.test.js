@@ -8,7 +8,6 @@ describe("isLoggedIn", () => {
   });
 
   test("should return an error if user is not present in session", (done) => {
-    console.log(utils.isLoggedIn({ user: null}), '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
     expect(() => {
       utils.isLoggedIn();
     }).toThrowError();
