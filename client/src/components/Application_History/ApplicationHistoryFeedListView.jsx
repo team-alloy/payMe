@@ -1,15 +1,15 @@
 import React from 'react';
-import ApplicationHistoryForm from 'react';
-import ApplicationOffersModal from './ApplicationOffersModal.jsx';
-import ApplicationUpdateModal from './ApplicationUpdateModal.jsx';
 import { Form } from 'semantic-ui-react';
+
+import ApplicationOffersModal from './ApplicationOffersModal';
+import ApplicationUpdateModal from './ApplicationUpdateModal';
+
 
 export default class ApplicationHistoryFeedListView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      display: 'default',
-    }
+    };
   }
 
   render() {

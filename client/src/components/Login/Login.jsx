@@ -1,4 +1,5 @@
 import React from 'react';
+import $ from 'jquery';
 import { connect } from 'react-redux';
 import {
   Button, Form, Grid, Header, Message, Segment,
@@ -6,7 +7,6 @@ import {
 import axios from 'axios';
 import { bindActionCreators } from 'redux';
 import { setSession, removeSession } from '../../store/actions/userActions';
-import $ from 'jquery';
 
 class Login extends React.Component {
   constructor(props) {
@@ -19,32 +19,32 @@ class Login extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  componentDidMount (){
+  componentDidMount () {
     this.props.removeSession({});
   }
 
   handleChange(e) {
     e.preventDefault();
-    const name  = e.target.name;
-    const value = e.target.value;
+    const { name }  = e.target;
+    const { value } = e.target;
     this.setState({
-      [name]: value
+      [name]: value,
     });
   }
 
   handleClick(e) {
     e.preventDefault();
     axios.post('/api/login', this.state).then((response) => {
-      console.log(response);
+      const { history } = this.props;
 
       this.props.setSession(response.data);
       this.setState({
         email: '',
         password: '',
       });
-      this.props.history.push('/');
+      history.push('/');
     }).catch((err) => {
-      console.log(JSON.stringify(err.response.data.error))
+      console.log(JSON.stringify(err.response.data.error));
       $('#message').text(err.response.data.error);
       setTimeout(() => {
         $('#message').text('Please log in!');
@@ -110,7 +110,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     setSession,
-    removeSession
+    removeSession,
   }, dispatch);
 };
 

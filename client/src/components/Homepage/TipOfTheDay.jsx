@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import { Segment } from 'semantic-ui-react';
 
-let tips = [
+const tips = [
   'Don\'t be apologetic, you don\'t need to be sorry for asking for what you deserve.',
   'When asking for that raise, make sure you tell your supervisor what you have already done for the company and why you deserve to be paid more. You can jot down your accomplishments in our PayMe',
   'If they start you off at a low salary, negotiate a bi-yearly review. PayMe can help you keep track of the achivements you\'ve made over time.',

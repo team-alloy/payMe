@@ -1,6 +1,5 @@
 import React from 'react';
 import { Button, Form } from 'semantic-ui-react';
-import axios from 'axios';
 
 export default class ApplicationHistoryForm extends React.Component {
   constructor(props) {
@@ -38,7 +37,7 @@ export default class ApplicationHistoryForm extends React.Component {
     const value = e.target.value;
 
     this.setState({
-      [name]: value
+      [name]: value,
     });
   }
 
@@ -52,7 +51,8 @@ export default class ApplicationHistoryForm extends React.Component {
       application_date: '',
     });
   }
- render() {
+
+  render() {
     return (
       <Form raised className="ui teal segment" >
         <h4 className="ui center aligned segment">

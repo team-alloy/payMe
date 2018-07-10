@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux';
 import MilestoneForm from './MilestoneForm';
 import MilestoneListView from './MilestoneListView';
 import axios from 'axios';
+import { setMilestones } from '../../store/actions/userActions';
 
 export class MilestonePage extends React.Component {
   constructor(props) {
@@ -11,17 +12,18 @@ export class MilestonePage extends React.Component {
     this.state = {
       currentMilestones: [],
     };
-    this.handleGetMilestone = this.handleGetMilestone.bind(this);
+    this.handleMilestoneGet = this.handleMilestoneGet.bind(this);
+    this.handleMilestonePost = this.handleMilestonePost.bind(this);
     this.handleMilestoneUpdate = this.handleMilestoneUpdate.bind(this);
   }
 
   componentDidMount() {
-    this.handleGetMilestone((response) => {
+    this.handleMilestoneGet((response) => {
       this.setState({currentMilestones: response})
     });
   }
 
-  handleGetMilestone(callback) {
+  handleMilestoneGet(callback) {
     if (!this.props.session.user) {
       this.props.history.push('/login')
     } else {
@@ -33,20 +35,35 @@ export class MilestonePage extends React.Component {
     }
   }
 
-  handleMilestoneUpdate(query, callback) {
+  handleMilestonePost(query, callback) {
     let milestoneInfo = Object.assign({}, query, {user_id: this.props.session.user.id})
-    console.log(milestoneInfo);
     axios.post((`/api/milestones?user_id=${this.props.session.user.id}`), milestoneInfo)
       .then((response) => {
-        this.handleGetMilestone((data) => {
+        this.handleMilestoneGet((data) => {
           this.setState({ currentMilestones: data });
         });
         callback();
       });
   }
 
+  // this function updates the milestone
+  handleMilestoneUpdate(query, updateState) {
+    axios.patch((`/api/milestones?user_id=${query}`), updateState)
+      .then((response) => {
+        this.handleMilestoneGet((data) => {
+          this.setState({ currentMilestones: data });
+        });
+      });
+  }
+
+  // //this function deletes the milestone
+  // hanldeMilestoneDelete() {
+
+  // }
+
   render() {
-    if (this.state.currentMilestones === 0) {
+    const { currentMilestones } = this.state;
+    if (currentMilestones === 0) {
       return (
         <div />
       );
@@ -60,20 +77,17 @@ export class MilestonePage extends React.Component {
               <div className="equal width row">
                 <div className="column">
                   <MilestoneForm
-                    milestoneUpdate={this.handleMilestoneUpdate}
-                    milestoneGet={this.handleGetMilestone}
+                    milestoneUpdate={this.handleMilestonePost}
+                    milestoneGet={this.handleMilestoneGet}
                   />
                 </div>
                 <div className="column">
                   <Fragment>
-                    {this.state.currentMilestones.map((milestone, key) => (
+                    {currentMilestones.map(milestone => (
                       <MilestoneListView
-                        key={key}
-                        name={milestone.name}
-                        description={milestone.description}
-                        stack={milestone.tech_used}
-                        repo={milestone.repo_link}
-                        date={milestone.milestone_date}
+                        key={milestone.id}
+                        update={this.handleMilestoneUpdate}
+                        milestone={milestone}
                       />
                     ))}
                   </Fragment>
@@ -94,8 +108,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-
-  });
+    setMilestones
+  }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(MilestonePage)
