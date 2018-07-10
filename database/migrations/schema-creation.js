@@ -56,6 +56,7 @@ exports.up = (knex, Promise) => Promise.all([
     table.string('goals', 1000);
     table.string('tech_used', 300);
     table.string('milestone_date', 100);
+    table.timestamp('created_at', true);
   }),
 ]);
 
