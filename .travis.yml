@@ -1,0 +1,17 @@
+language: node_js
+node_js: node
+
+services:
+  - mysql
+
+before_install:
+  - mysql -e 'CREATE DATABASE payme;'
+
+install:
+  - npm install
+
+script:
+  - npm run migrate
+  - npm run test
+  - npm run coverage
+  - npm run build

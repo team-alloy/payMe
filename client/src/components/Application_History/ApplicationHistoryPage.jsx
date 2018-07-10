@@ -1,63 +1,71 @@
 import React from 'react';
-import ApplicationHistoryFeed from './ApplicationHistoryFeed.jsx';
-import ApplicationHistoryForm from './ApplicationHistoryForm.jsx';
-import {connect} from 'react-redux';
 import axios from 'axios';
+
 import { bindActionCreators } from 'redux';
-import { setApplications } from '../../store/actions/userActions'
+import { connect } from 'react-redux';
+import { setApplications } from '../../store/actions/userActions';
+
+import ApplicationHistoryFeed from './ApplicationHistoryFeed';
+import ApplicationHistoryForm from './ApplicationHistoryForm';
 
 class ApplicationHistoryPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      applications: this.props.session.applications
+      applications: this.props.session.applications,
     };
     this.updateApp = this.updateApp.bind(this);
+    this.getApplicationByUserID = this.getApplicationByUserID.bind(this);
+    this.makeApplication = this.makeApplication.bind(this);
   }
 
   componentDidMount() {
     const set = this.setState.bind(this);
-    if(this.props.session.user) {
+    if (this.props.session.user) {
       this.getApplicationByUserID((data) => {
         this.props.setApplications(data);
-        set({applications: data})
+        set({ applications: data });
       });
     }
   }
-   getApplicationByUserID(callback) {
-    let {id} = this.props.session.user;
-      axios.get('/api/applications?user_id='+id)
+
+  getApplicationByUserID(callback) {
+    const { id } = this.props.session.user;
+    axios.get(`/api/applications?user_id=${id}`)
       .then((res) => {
         callback(res.data);
-        // return res;
       });
   }
 
   makeApplication(query, callback) {
-    let appInfo = Object.assign({}, query, {user_id: this.props.session.user.id});
+    const { id } = this.props.session.user;
+    const appInfo = Object.assign({}, query, { user_id: id });
     axios.post('/api/applications', appInfo)
-    .then((res) => {
-      this.getApplicationByUserID((data) => {
-        this.setState({applications: data});
+      .then((res) => {
+        this.getApplicationByUserID((data) => {
+          this.setState({ applications: data });
+        });
+        callback();
       });
-      callback();
-    })
   }
 
   updateApp(query, modalState) {
-    axios.patch('/api/applications/?id='+query, modalState)
-    .then((data) => {
-      console.log(data,'DATA');
-      this.getApplicationByUserID((data) => {
-      this.setState({applications: data});
+    axios.patch(`/api/applications/?id=${query}`, modalState)
+      .then((res) => {
+        this.getApplicationByUserID((data) => {
+          this.setState({ applications: data });
+        });
       });
-    })
   }
 
   render() {
-    if(!this.props.session.user) {
+    if (!this.props.session.user) {
       this.props.history.push('/login');
-      return (<div>Redirecting</div>);
+      return (
+        <div>
+         Redirecting
+        </div>
+      );
     }
     return (
       <div className="ui equal width three column grid">
@@ -67,11 +75,12 @@ class ApplicationHistoryPage extends React.Component {
             <div className="equal width row">
               <div className="column">
                 <ApplicationHistoryForm
-                  getApps={this.getApplicationByUserID.bind(this, )} 
-                  makeApp={this.makeApplication.bind(this)}/>
+                  getApps={this.getApplicationByUserID}
+                  makeApp={this.makeApplication}
+                />
               </div>
               <div className="column">
-                <ApplicationHistoryFeed apps={this.state.applications}/>
+                <ApplicationHistoryFeed updateApp={this.updateApp} apps={this.state.applications}/>
               </div>
             </div>
           </div>
@@ -82,12 +91,13 @@ class ApplicationHistoryPage extends React.Component {
   }
 }
 const mapStateToProps = (state) => {
-  return {session: state.user}
-}
+  return { session: state.user }
+};
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
     setApplications
   }, dispatch);
-}
+};
+
 export default connect(mapStateToProps, mapDispatchToProps)(ApplicationHistoryPage);

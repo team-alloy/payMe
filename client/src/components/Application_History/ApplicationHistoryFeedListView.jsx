@@ -1,19 +1,20 @@
 import React from 'react';
-import ApplicationHistoryForm from 'react';
-import ApplicationOffersModal from './ApplicationOffersModal.jsx';
-import ApplicationUpdateModal from './ApplicationUpdateModal.jsx';
+import { Form } from 'semantic-ui-react';
+
+import ApplicationOffersModal from './ApplicationOffersModal';
+import ApplicationUpdateModal from './ApplicationUpdateModal';
+
 
 export default class ApplicationHistoryFeedListView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      display: 'default',
-    }
+    };
   }
 
   render() {
     return (
-      <div>
+      <Form raised className="ui teal segment" onSubmit={this.handleSubmit}>
         <div className="application-history-container">
           <label className="company-name" htmlFor="name" style={{ fontWeight: 'bold' }}>
             {'Company: '}
@@ -38,11 +39,11 @@ export default class ApplicationHistoryFeedListView extends React.Component {
             {new Date(this.props.apps.application_date).toLocaleDateString()}
           </div>
         </div>
-        <div className="edit-button-container">
+        <div className="ui two bottom attached buttons">
           <ApplicationUpdateModal updateApp={this.props.updateApp} app={this.props.apps}/>
           <ApplicationOffersModal appID={this.props.apps.id}/>
         </div>
-      </div>
+      </Form>
     );
   }
 }

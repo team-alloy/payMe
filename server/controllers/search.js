@@ -1,5 +1,20 @@
 const db = require('../../database/index');
 
+const companyController = require('./company');
+const roleController = require('./role');
+const orderTechs = (unordered) => {
+  let ordered = {};
+  let count = 0;
+  Object.keys(unordered).sort((a, b) => {
+    return unordered[a] - unordered[b];
+  })
+  .reverse().slice(0,10).forEach((tech)=> {
+    ordered[tech] = unordered[tech];
+    count++;
+  });
+  return ordered;
+};
+
 module.exports = {
   getCities: () => db.knex('applications').distinct('city', 'state').groupBy('state', 'city').select(),
   getStates: () => db.knex('applications').distinct('state').select(),
@@ -7,12 +22,8 @@ module.exports = {
   getRoles: () => db.knex('roles').distinct('name').select(),
   calculateAvgSalary: (query) => {
     if (query.city || query.state) {
-      console.log(1);
-
       // find the company id from the company name
       if (query.company) {
-        console.log(2);
-
         return db.knex('companies').where({ name: query.company })
           .then(company => Object.assign({}, { query, company: company[0] }))
           .then(source => db.knex('roles').select().where({ name: source.query.role, company_id: source.company.id })
@@ -20,7 +31,6 @@ module.exports = {
               roles: roles.map(role => ({ id: role.id, salary: role.salary, name: role.name })),
             })))
           .then((source) => {
-            console.log(source, '2222');
             const roleIds = source.roles.map(role => role.id);
             return db.knex('applications').where({ state: source.query.state, city: source.query.city }).whereIn('role_id', roleIds).then((apps) => {
               const findSalary = (id) => {
@@ -39,7 +49,6 @@ module.exports = {
             });
           })
           .then((source) => {
-            console.log(source, '1111');
             if (!source.length) {
               throw ('No results found  because we currently do not have enough data. Either add an application to start off this company at this location or come back later.');
             }
@@ -128,4 +137,62 @@ module.exports = {
       }
     }
   },
+  getAllTechStack: () => {
+    return db.knex('milestones').then(milestones => {
+      let techs = milestones.map(milestone => milestone.tech_used.split(' ').map(x => x.includes(',') ?  x.substring(0, x.indexOf(',')) : x));
+      techs = techs.reduce((techCache, currentTech) => {
+        currentTech.forEach(tech => {
+          if(tech === '') {return;}
+          if(!techCache[tech]){
+            techCache[tech.trim()] = 1;
+          } else {
+              techCache[tech.trim()]++;
+          }
+        });
+        return techCache;
+      }, {});
+      console.table(orderTechs(techs));
+      return orderTechs(techs);
+    })
+    // .then(reccomendations => reccomendations)
+    .catch(err => err);
+  },
+  deduceBenefits: (company) => {
+    return companyController.getCompanyByName({name: company})
+    .then(company => {
+      console.table(company);
+      return company[0].id;
+    })
+    .then(companyId => roleController.getRoles({company_id: companyId}))
+    .then(roles => Promise.all(roles))
+    .then(roles => {
+      let roleIds = roles.map(role => role.id);
+      return db.knex('applications').whereIn('role_id', roleIds)
+    })
+    .then(apps => {
+      let appIds = apps.map(app => app.id);
+      return db.knex('offers').whereIn('application_id', appIds)
+    })
+    .then(offers => {
+      console.log(offers);
+      return offers.reduce((packageOptions, currentOffer) => {
+        console.log(currentOffer);
+        if(currentOffer.hasPTO) {
+          packageOptions.hasPTO = "This company offers paid time off, negotiating this could give you longer paid vacations."
+        }
+        if(currentOffer.hasRetirement) {
+          packageOptions.hasRetirement = "This company has offered it's employees in the past a retirement package. If you are towards the end of your career, negotiating this could help you get better benefits for your retirement needs."
+        }
+        if(currentOffer.coversRelocation) {
+          packageOptions.coversRelocation = "This company has covered relocation for it's employees in the past. Any money helps, getting hired sometimes means a big move. Negotiate these cost with your company to see if they can be given to you."
+        }
+        if(currentOffer.hasHealthBenefits) {
+          packageOptions.hasHealthBenefits = "This company offers health benefits, ask about the different options available."
+        }
+        return packageOptions;
+      }, {});
+    })
+    .then( results => results)
+    .catch(err => err);
+  }
 };

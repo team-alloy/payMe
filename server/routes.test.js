@@ -14,8 +14,7 @@ beforeAll(() => {
     .post('/api/signup')
     .send(parameters).then(() => request(app)
       .post('/api/login')
-      .send({ email: parameters.email, password: parameters.pass })
-      .then((response) => { response.body.user; }));
+      .send({ email: parameters.email, password: parameters.pass }));
 });
 
 beforeEach((done) => {
@@ -143,7 +142,7 @@ describe('Application functionality', () => {
 
 
 afterAll(() => request(app)
-  .delete('/api/user?username=oldUser')
+  .delete('/api/user?email=real@user.com')
   .then((response) => {
     expect(response.body.message).toEqual('user was deleted from database');
     server.close();

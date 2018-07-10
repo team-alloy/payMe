@@ -1,7 +1,5 @@
 import React from 'react';
 import UserCardForm from './UserCardForm';
-import { Segment } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
 
 export default class UserCard extends React.Component {
   constructor(props) {
@@ -13,7 +11,8 @@ export default class UserCard extends React.Component {
 
   // this function will change the state to form display
   handleFormViewSwitch() {
-    this.setState({ display: !this.state.display});
+    const { display } = this.state;
+    this.setState({ display });
   }
 
   handleViewChecker() {
@@ -29,19 +28,19 @@ export default class UserCard extends React.Component {
   }
 
   render() {
-    const currentUser = this.props.session.user;
+    const { user } = this.props.session;
     return (
       <div className="ui teal card">
         <div className="image">
-          <img src={currentUser.profile_pic} alt=""/>
+          <img src={user.profile_pic} alt=""/>
         </div>
         <div className="content">
           <a>
-            {`${currentUser.first_name} ${currentUser.last_name}`}
+            {`${user.first_name} ${user.last_name}`}
           </a>
           <div className="meta">
             <span className="description">
-              {currentUser.active_role !== null ? `${currentUser.active_role[0].name} at ${currentUser.active_role[0].company.name}` : undefined}
+              {user.active_role !== null ? `${user.active_role[0].name} at ${user.active_role[0].company.name}` : undefined}
             </span>
           </div>
         </div>
@@ -49,14 +48,14 @@ export default class UserCard extends React.Component {
           <a>
             <div data-tooltip="Email">
               <i className="envelope icon" />
-              {currentUser.email}
+              {user.email}
             </div>
             <br />
           </a>
           <a>
             <div data-tooltip="Current Salary">
               <i className="dollar sign icon" />
-              {currentUser.current_salary}
+              {user.current_salary}
             </div>
           </a>
           <a>

@@ -1,6 +1,5 @@
 import React from 'react';
-import { Form } from 'semantic-ui-react'
-import axios from 'axios';
+import { Button, Form } from 'semantic-ui-react';
 
 export default class ApplicationHistoryForm extends React.Component {
   constructor(props) {
@@ -11,7 +10,7 @@ export default class ApplicationHistoryForm extends React.Component {
       city: '',
       state: '',
       salary: 0,
-      application_date: ''
+      application_date: '',
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -20,7 +19,7 @@ export default class ApplicationHistoryForm extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    this.props.makeApp(this.state, ()=>{
+    this.props.makeApp(this.state, () => {
       this.setState({
         company: '',
         role: '',
@@ -38,7 +37,7 @@ export default class ApplicationHistoryForm extends React.Component {
     const value = e.target.value;
 
     this.setState({
-      [name]: value
+      [name]: value,
     });
   }
 
@@ -55,9 +54,9 @@ export default class ApplicationHistoryForm extends React.Component {
 
   render() {
     return (
-      <Form raised className="ui teal segment" onSubmit={this.handleSubmit}>
+      <Form raised className="ui teal segment" >
         <h4 className="ui center aligned segment">
-          <i class="chart pie icon" />
+          <i className="chart pie icon" />
           Previously Applied Position
         </h4>
         <label htmlFor="name">
@@ -68,7 +67,7 @@ export default class ApplicationHistoryForm extends React.Component {
         </label>
         <div className="app-field">
           <input
-            type="text" 
+            type="text"
             value={this.state.company}
             name="company"
             onChange={this.handleChange}
@@ -110,10 +109,10 @@ export default class ApplicationHistoryForm extends React.Component {
           <br/>
           <input
             type="text"
-            value={this.state.state} 
+            value={this.state.state}
             maxLength="2"
             name="state"
-            onChange={this.handleChange} 
+            onChange={this.handleChange}
             className="location-name"
             placeholder="state ex. Fl"
           />
@@ -142,16 +141,16 @@ export default class ApplicationHistoryForm extends React.Component {
             className="date-name"
             name="application_date"
             type="date"
-            onChange={this.handleChange} 
+            onChange={this.handleChange}
           />
         </div>
-        <div className="button-container">
-          <button onClick={this.clearFields} className="ui-button-cancel">
+        <div className="ui two bottom attached buttons">
+          <Button className="ui-button-cancel" onClick={this.clearFields}>
             Cancel
-          </button>
-          <button onClick={this.handleClick} className="ui-button-confirm" type="submit">
+          </Button>
+          <Button className="ui-button-confirm" onClick={this.handleClick} color="teal" type="submit" size="medium">
             Confirm
-          </button>
+          </Button>
         </div>
       </Form>
     );

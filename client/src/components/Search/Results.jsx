@@ -2,7 +2,6 @@ import React from 'react'
 import { Segment } from 'semantic-ui-react';
 
 export default (props) => {
-  console.log(props);
   if(typeof props.results === 'object') {
     return (
       <div>

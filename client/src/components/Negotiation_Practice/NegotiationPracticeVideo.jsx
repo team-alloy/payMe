@@ -6,7 +6,6 @@ import lightBaseTheme from 'material-ui/styles/baseThemes/lightBaseTheme';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import { Card, CardText } from 'material-ui/Card';
 
 import injectTapEventPlugin from 'react-tap-event-plugin';
 
@@ -47,8 +46,9 @@ export default class NegotiationPracticeVideo extends Component {
   }
 
   getRoomsList() {
-    axios.get('/rooms').then((list) => {
-      this.setState({ roomsList: list });
+    axios.get('/rooms').then((rooms) => {
+      console.log('all rooms in front end', rooms)
+      this.setState({ roomsList: rooms.data });
     });
   }
 
@@ -171,7 +171,6 @@ export default class NegotiationPracticeVideo extends Component {
   }
 
   render() {
-    console.log('STATES ROOM LIST', this.state.roomsList);
     /*
 	     Controls showing of the local track
 	    Only show video track after user has joined a room else show nothing
@@ -179,7 +178,12 @@ export default class NegotiationPracticeVideo extends Component {
     const showLocalTrack = this.state.localMediaAvailable ? (
       <div className="flex-item">
         {' '}
-        <div ref="localMedia" />
+        <div
+          className="flex-item"
+          ref="localMedia"
+          id="local-media"
+          style={{ display: 'inline-block' }}
+        />
         {' '}
       </div>) : '';
     /*
@@ -189,47 +193,104 @@ export default class NegotiationPracticeVideo extends Component {
 		*/
     const joinOrLeaveRoomButton = this.state.hasJoinedRoom
       ? (
-        <RaisedButton label="Leave Room" onClick={() => this.leaveRoom()} />
+        <RaisedButton
+          label="Leave Room"
+          id="hangup"
+          onClick={() => this.leaveRoom()}
+        />
       )
       : (
-        <RaisedButton label="Join Room" onClick={() => { this.joinRoom(); this.getRoomsList(); }} />
+        <RaisedButton
+          label="Join Room"
+          onClick={() => { this.joinRoom(); this.getRoomsList(); }}
+        />
       );
 
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-        <Card>
-          <CardText>
-            <div className="flex-container">
-              {showLocalTrack}
-              {' '}
-              {/* Show local track if available */}
-              <div className="flex-item">
-                {/*
-                  The following text field is used to enter a room name.
-                  It calls  `handleRoomNameChange` method when the text changes which sets the
-                  `roomName` variable initialized in the state.
-				        */}
-                <TextField
-                  hintText="Room Name"
-                  onChange={this.handleRoomNameChange}
-                  errorText={this.state.roomNameErr ? 'Room Name is required' : undefined}
-                />
-                <br />
-                {joinOrLeaveRoomButton}
-                {' '}
-                {/* Show either ‘Leave Room’ or ‘Join Room’ button */}
-              </div>
+        <div className="ui grid" id="picture-in-picture">
+          <div className="four column grid">
+
+            <div className="left floated column">
               {/*
-			          The following div element shows all remote media (other participant’s tracks)
-			        */}
-              <div className="flex-item" ref="remoteMedia" id="remote-media" />
+                The following div element shows all remote media (other participant’s tracks)
+              */}
+              <div className="flex-container">
+                <div
+                  className="flex-item"
+                  ref="remoteMedia"
+                  id="remote-media"
+                  style={{ display: 'inline-block' }}
+                />
+              </div>
             </div>
-          </CardText>
-        </Card>
-        <div>
-          Currently available rooms to join:
-          <br />
-          { this.state.roomsList.data }
+
+            <div className="right floated column">
+              <div className="flex-container">
+                {showLocalTrack}
+                {' '}
+                {/* Show local track if available */}
+              </div>
+            </div>
+
+            <div className="left floated column">
+              <div className="item">
+                <div id="container" style={{ height: '100%', width: '70%' }}>
+                  <table className="ui selectable teal table">
+                    <thead>
+                      <tr>
+                        <th>
+                      Available Rooms:
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      { this.state.roomsList.map((room, idx) => {
+                        return (
+                          <tr key={idx}>
+                            <td key={idx}> 
+                              <RaisedButton
+                                label={room} 
+                                onClick={() => { 
+                                  this.setState({roomName: room});
+                                  this.joinRoom();
+                                  this.getRoomsList(); 
+                                }}
+                              />
+                            </td>
+                          </tr>
+                        )
+                      }) }
+                    </tbody>
+                  </table>
+                </div>
+
+                <br />
+                {' '}
+
+                <div className="item">
+                  {/*
+                        The following text field is used to enter a room name.
+                        It calls  `handleRoomNameChange` method when the text changes which sets the
+                        `roomName` variable initialized in the state.
+                      */}
+                  <TextField
+                    hintText="Room Name"
+                    onChange={this.handleRoomNameChange}
+                    errorText={this.state.roomNameErr ? 'Room Name is required' : undefined}
+                    style={{ width: '70%' }}
+                  />
+
+                  <br />
+                  {' '}
+
+                  {/* Show either ‘Leave Room’ or ‘Join Room’ button */}
+                  {joinOrLeaveRoomButton}
+                </div>
+              </div>
+            </div>
+
+          </div>
         </div>
       </MuiThemeProvider>
     );

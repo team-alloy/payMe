@@ -33,7 +33,6 @@ module.exports = {
     })
       .then(() => db.knex('users').where({ email }))
       .then((user) => {
-        console.log(pass);
 
         if (user.length) {
           throw new Error('Email is in use');
@@ -64,8 +63,8 @@ module.exports = {
       // we do the email because it's what identifies the user in the real world.
       // to change either of these fields we need a password
       .then((user) => {
+        updatedUser = user[0];
         if (old_password) {
-          [updatedUser] = user;
           return bcrypt.compare(old_password.toString(), currentPassword.toString()).catch((err) => {
             throw err;
           });
@@ -73,7 +72,6 @@ module.exports = {
         return false;
       }).then((correctPassword) => {
         // the password is correct and the user wants to update their password
-        console.log('password was correct', correctPassword);
         if(!correctPassword && (email || newPassword)) {
           throw new Error('Wrong password')
         }
@@ -98,7 +96,6 @@ module.exports = {
       .then((user) => {
         // first_name, last_name, active_role are left at this point
         // these variables do not require a password
-        console.log('Hi, i am user ',user);
         if(first_name) {
           updatedUser.first_name = capitalizeWords(first_name);
         }
@@ -125,8 +122,6 @@ module.exports = {
             updatedUser.active_role = queriedRole.id;
             // queriedRole.salary = current_salary;
             updatedUser.current_salary = queriedRole.salary;
-
-            return roleController.updateRoleWithoutCompanyName(queriedRole);
           }).catch(err => err)).catch(err => err);
         }
         return updatedUser;
