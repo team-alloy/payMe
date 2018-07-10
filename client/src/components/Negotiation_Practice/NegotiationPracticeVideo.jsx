@@ -47,8 +47,9 @@ export default class NegotiationPracticeVideo extends Component {
 
   getRoomsList() {
     axios.get('/rooms').then((rooms) => {
-      console.log('all rooms in front end', rooms)
+      console.log('all rooms in front end', rooms);
       this.setState({ roomsList: rooms.data });
+      console.log('CURRENT ROOM NAME IN STATE', this.state.roomName)
     });
   }
 
@@ -62,7 +63,7 @@ export default class NegotiationPracticeVideo extends Component {
       this.setState({ roomNameErr: true });
       return;
     }
-
+    
     console.log(`Joining room '${this.state.roomName}'...`);
     const connectOptions = {
       name: this.state.roomName,
@@ -202,9 +203,9 @@ export default class NegotiationPracticeVideo extends Component {
       : (
         <RaisedButton
           label="Join Room"
-          onClick={() => { this.joinRoom(); this.getRoomsList(); }}
+          onClick={ () => { this.joinRoom(); this.getRoomsList(); } }
         />
-      );
+      )
 
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
@@ -245,22 +246,25 @@ export default class NegotiationPracticeVideo extends Component {
                       </tr>
                     </thead>
                     <tbody>
-                      { this.state.roomsList.map((room, idx) => {
-                        return (
-                          <tr key={idx}>
-                            <td key={idx}> 
-                              <RaisedButton
-                                label={room} 
-                                onClick={() => { 
-                                  this.setState({roomName: room});
+                      { this.state.roomsList.map((room, idx) => (
+                        <tr key={idx}>
+                          <td key={idx}>
+                            <a
+                              key={idx}
+                              id="click-room"
+                              onClick={() => {
+                                this.getRoomsList();
+                                this.setState({ roomName: room });
+                                setTimeout(() => {
                                   this.joinRoom();
-                                  this.getRoomsList(); 
-                                }}
-                              />
-                            </td>
-                          </tr>
-                        )
-                      }) }
+                                }, 500);
+                              }}
+                            >
+                              {room}
+                            </a>
+                          </td>
+                        </tr>
+                      )) }
                     </tbody>
                   </table>
                 </div>

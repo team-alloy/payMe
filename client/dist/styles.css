@@ -5,6 +5,10 @@
 /* 
 TWILIO VIDEO
 */
+#click-room {
+  color: teal;
+}
+
 #picture-in-picture {
   position: absolute;
   width: 400px;
