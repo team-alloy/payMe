@@ -10,6 +10,7 @@ export default class MilestoneListView extends React.Component {
   }
 
   render() {
+    const { milestone } = this.props;
     const { description, name, milestone_date, tech_used, repo_link} = this.props.milestone;
     const { update } = this.props;
     return (
@@ -35,7 +36,7 @@ export default class MilestoneListView extends React.Component {
           <br />
         </div>
         <div>
-          <MilestoneUpdate update={update}/>
+          <MilestoneUpdate update={update} milestone={milestone} />
         </div>
       </Form>
     );

@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import $ from 'jquery';
 import {
-  Button, Form, Grid, Header, Message, Segment,
+  Button, Form, Grid, Header, Segment,
 } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 

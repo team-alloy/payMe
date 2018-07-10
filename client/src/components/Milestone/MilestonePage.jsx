@@ -14,7 +14,7 @@ export class MilestonePage extends React.Component {
     };
     this.handleMilestoneGet = this.handleMilestoneGet.bind(this);
     this.handleMilestonePost = this.handleMilestonePost.bind(this);
-    this.handleMlestoneUpdate = this.handleMlestoneUpdate.bind(this);
+    this.handleMilestoneUpdate = this.handleMilestoneUpdate.bind(this);
   }
 
   componentDidMount() {
@@ -47,7 +47,7 @@ export class MilestonePage extends React.Component {
   }
 
   // this function updates the milestone
-  handleMlestoneUpdate(query, updateState) {
+  handleMilestoneUpdate(query, updateState) {
     axios.patch((`/api/milestones?user_id=${query}`), updateState)
       .then((response) => {
         this.handleMilestoneGet((data) => {
@@ -86,7 +86,7 @@ export class MilestonePage extends React.Component {
                     {currentMilestones.map(milestone => (
                       <MilestoneListView
                         key={milestone.id}
-                        update={this.handleMlestoneUpdate}
+                        update={this.handleMilestoneUpdate}
                         milestone={milestone}
                       />
                     ))}
