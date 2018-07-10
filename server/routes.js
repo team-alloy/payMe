@@ -171,14 +171,10 @@ router.route('/api/applications')
     applicationController.updateApplication(req).then(application => applicationController.getAllApplications({ id: application[0].id }).then(app => Promise.all(app).then(app => res.status(201).json(app))));
   })
   .delete((req, res) => {
-    applicationController.deleteApplication(req.query)
-    .then((response) => {
-      res.json(response);
-    })
-    .catch((err) => {
-      console.log(err,'ERROR');
-    })
-    // res.json('delete/applications');
+    applicationController.deleteApplication(req.query, req.body)
+    .then((data) => {
+      res.json(data);
+    });
   });
 
 /*

@@ -113,10 +113,8 @@ module.exports = {
       .then(() => db.knex('applications').where({ id: results.application[0].id })));
   },
   deleteApplication: (query) => {
-    db.knex('applications').dropColumn(query)
-    .then((res) => {
-      console.log(res,'deleted app');
-    })
+    return db.knex('offers').where('application_id', query.id).del()
+    .then(data => db.knex('applications').where('id', query.id).del())
   }
 };
 
