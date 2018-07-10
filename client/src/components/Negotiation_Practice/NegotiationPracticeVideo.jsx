@@ -206,8 +206,6 @@ export default class NegotiationPracticeVideo extends Component {
         />
       );
 
-      console.log('STATE ROOMS', this.state.roomsList)
-
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
         <div className="ui grid" id="picture-in-picture">
@@ -251,7 +249,14 @@ export default class NegotiationPracticeVideo extends Component {
                         return (
                           <tr key={idx}>
                             <td key={idx}> 
-                              {room} 
+                              <RaisedButton
+                                label={room} 
+                                onClick={() => { 
+                                  this.setState({roomName: room});
+                                  this.joinRoom();
+                                  this.getRoomsList(); 
+                                }}
+                              />
                             </td>
                           </tr>
                         )
