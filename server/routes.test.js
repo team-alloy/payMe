@@ -14,8 +14,7 @@ beforeAll(() => {
     .post('/api/signup')
     .send(parameters).then(() => request(app)
       .post('/api/login')
-      .send({ email: parameters.email, password: parameters.pass })
-      .then((response) => { response.body.user; }));
+      .send({ email: parameters.email, password: parameters.pass }));
 });
 
 beforeEach((done) => {
