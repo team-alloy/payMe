@@ -1,12 +1,16 @@
 const utils = require('./utils');
 
 describe("isLoggedIn", () => {
-  const currentSession = {
-    user : true
-  }
 
   test("should return true if user is present in session", (done) => {
-    expect(utils.isLoggedIn(currentSession)).toBe(true);
+    expect(utils.isLoggedIn({ user: true })).toBe(true);
+    done();
+  });
+
+  test("should return an error if user is not present in session", (done) => {
+    console.log(utils.isLoggedIn({user: undefined }), '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!');
+
+    // expect(utils.isLoggedIn({ user: false })).();
     done();
   })
 });

@@ -69,10 +69,10 @@ class SearchPage extends Component {
   }
   searchDatabase(e) {
     e.preventDefault();
-    let role = $('#selected-role > .selected').text() === 'Select role' ? '' : $('#selected-role > .selected').text();
-    let company = $('#selected-company > .selected').text() === 'Select company' ? '' : $('#selected-company > .selected').text();
-    let city = $('#selected-city > .selected').text() === 'Select city' ? '' : $('#selected-city > .selected').text();;
-    let state = $('#selected-state > .selected').text() === 'Select state' ? '' : $('#selected-state > .selected').text();
+    let role = this.props.selection.role === 'Select role' ? '' : this.props.selection.role;
+    let company = this.props.selection.company === 'Select company' ? '' : this.props.selection.company;
+    let city =  this.props.selection.city === 'Select city' ? '' :  this.props.selection.city;
+    let state = this.props.selection.state === 'Select state' ? '' : this.props.selection.state;
 
     if(role && company && city && state) {
       $('.search-error').hide();
@@ -86,8 +86,6 @@ class SearchPage extends Component {
   }
 
   render() {
-    console.log(this.state, this.props);
-
     return (
       <div className="ui grid">
         <div className="four column row centered">
@@ -112,7 +110,7 @@ class SearchPage extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {searchWords: state.searchWords};
+  return {searchWords: state.searchWords, selection: state.selection};
 }
 
 const mapDispatchToProps = (dispatch) => {
