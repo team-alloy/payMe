@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Icon, Form } from 'semantic-ui-react';
+import MilestoneUpdate from './MilestoneUpdate';
 
 export default class MilestoneListView extends React.Component {
   constructor(props) {

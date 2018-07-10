@@ -168,10 +168,10 @@ const mapStateToProps = (state) => {
   return { session: state.user };
 };
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    setAppliedRoles,
+    setAppliedRoles
   }, dispatch);
-});
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserCardForm);

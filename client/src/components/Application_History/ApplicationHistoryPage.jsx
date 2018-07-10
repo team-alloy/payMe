@@ -94,10 +94,10 @@ const mapStateToProps = (state) => {
   return { session: state.user }
 };
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    setApplications,
-  }, dispatch),
-});
+    setApplications
+  }, dispatch);
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(ApplicationHistoryPage);
