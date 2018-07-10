@@ -46,7 +46,8 @@ export class MilestonePage extends React.Component {
   }
 
   render() {
-    if (this.state.currentMilestones === 0) {
+    const { currentMilestones } = this.state;
+    if (currentMilestones === 0) {
       return (
         <div />
       );
@@ -92,10 +93,10 @@ const mapStateToProps = (state) => {
   return ({ session: state.user });
 };
 
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = (dispatch) => ({
   return bindActionCreators({
-
-  });
-};
+    setMilestones,
+  }, dispatch),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(MilestonePage)

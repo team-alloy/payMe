@@ -113,11 +113,12 @@ export default class ApplicationOffersModal extends React.Component {
             </Modal.Actions>
             <Card.Group>
               {offers.map((offer, index) => {
-                return (<ApplicationOffersFeed
-                  offer={offer}
-                  key={index}
-                />
-                )
+                return (
+                  <ApplicationOffersFeed
+                    offer={offer}
+                    key={index}
+                  />
+                );
               })}
             </Card.Group>
           </Modal.Content>

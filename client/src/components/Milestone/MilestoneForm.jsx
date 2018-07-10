@@ -3,7 +3,6 @@ import { Button, Form } from 'semantic-ui-react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setMilestones } from '../../store/actions/userActions';
-import axios from 'axios';
 
 export class MilestoneForm extends React.Component {
   constructor(props) {
@@ -22,8 +21,8 @@ export class MilestoneForm extends React.Component {
 
   handleChange(e) {
     e.preventDefault();
-    const name = e.target.name;
-    const value = e.target.value;
+    const { name } = e.target;
+    const { value } = e.target;
     this.setState({
       [name]: value,
     });
@@ -53,7 +52,7 @@ export class MilestoneForm extends React.Component {
   }
 
   render() {
-    console.log('this is the props ', this.props)
+    const { description, milestone_date, name, tech_used, repo_link } = this.state;
     return (
       <Form raised="true" className="ui teal segment" onSubmit={this.handleSubmit}>
         <h4 className="ui center aligned segment">
@@ -71,7 +70,7 @@ export class MilestoneForm extends React.Component {
             rows="1"
             type="text"
             placeholder="Enter Your Project's Name Here!"
-            value={this.state.name}
+            value={name}
             name="name"
             onChange={this.handleChange}
           />
@@ -86,7 +85,7 @@ export class MilestoneForm extends React.Component {
           <textarea
             rows="2"
             placeholder="Please provide a brief description regarding your project."
-            value={this.state.description}
+            value={description}
             name="description"
             onChange={this.handleChange}
           />
@@ -101,7 +100,7 @@ export class MilestoneForm extends React.Component {
           <textarea
             rows="3"
             placeholder="Please enter the tech stack used at your previous company, separated by commas."
-            value={this.state.tech_used}
+            value={tech_used}
             name="tech_used"
             onChange={this.handleChange}
           />
@@ -116,7 +115,7 @@ export class MilestoneForm extends React.Component {
           <textarea
             rows="2"
             placeholder="Please enter your repository link here."
-            value={this.state.repo_link}
+            value={repo_link}
             name="repo_link"
             onChange={this.handleChange}
           />
@@ -130,7 +129,7 @@ export class MilestoneForm extends React.Component {
           </label>
           <input
             type="date"
-            value={this.state.milestone_date}
+            value={milestone_date}
             name="milestone_date"
             onChange={this.handleChange}
           />
@@ -154,7 +153,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({
-    setMilestones
+    setMilestones,
   }, dispatch);
 };
 

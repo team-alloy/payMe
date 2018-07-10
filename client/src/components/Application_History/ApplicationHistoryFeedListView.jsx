@@ -9,7 +9,6 @@ export default class ApplicationHistoryFeedListView extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      display: 'default',
     };
   }
 
