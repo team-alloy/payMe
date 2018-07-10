@@ -10,7 +10,7 @@ export default class ApplicationUpdateModal extends React.Component {
       state: this.props.app.state,
       role: this.props.app.role.name,
       salary: this.props.app.role.salary
-    }
+    };
     this.handleChange = this.handleChange.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
   }
@@ -28,14 +28,14 @@ export default class ApplicationUpdateModal extends React.Component {
   handleChange(e) {
     e.preventDefault();
 
-    const { name } = e.target;
-    const { value } = e.target;
+    const { name, value } = e.target;
     this.setState({
       [name]: value,
     });
   }
 
   render() {
+    console.log('this is my app props', this.props)
     const {
       city, company, role, state, salary,
     } = this.state;

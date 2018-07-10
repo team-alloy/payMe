@@ -14,6 +14,7 @@ export class MilestonePage extends React.Component {
     };
     this.handleMilestoneGet = this.handleMilestoneGet.bind(this);
     this.handleMilestonePost = this.handleMilestonePost.bind(this);
+    this.handleMlestoneUpdate = this.handleMlestoneUpdate.bind(this);
   }
 
   componentDidMount() {
@@ -45,17 +46,15 @@ export class MilestonePage extends React.Component {
       });
   }
 
-  //this function updates the milestone
-  // handleMlestoneUpdate(query, callback) {
-  //   let milestoneInfo = Object.assign({}, query, {user_id: this.props.session.user.id})
-  //   axios.patch((`/api/milestones?user_id=${this.props.session.user.id}`), milestoneInfo)
-  //     .then((response) => {
-  //       this.handleMilestoneGet((data) => {
-  //         this.setState({ currentMilestones: data });
-  //       });
-  //       callback();
-  //     });
-  // }
+  // this function updates the milestone
+  handleMlestoneUpdate(query, updateState) {
+    axios.patch((`/api/milestones?user_id=${query}`), updateState)
+      .then((response) => {
+        this.handleMilestoneGet((data) => {
+          this.setState({ currentMilestones: data });
+        });
+      });
+  }
 
   // //this function deletes the milestone
   // hanldeMilestoneDelete() {
@@ -84,14 +83,11 @@ export class MilestonePage extends React.Component {
                 </div>
                 <div className="column">
                   <Fragment>
-                    {this.state.currentMilestones.map((milestone, key) => (
+                    {currentMilestones.map(milestone => (
                       <MilestoneListView
-                        key={key}
-                        name={milestone.name}
-                        description={milestone.description}
-                        stack={milestone.tech_used}
-                        repo={milestone.repo_link}
-                        date={milestone.milestone_date}
+                        key={milestone.id}
+                        update={this.handleMlestoneUpdate}
+                        milestone={milestone}
                       />
                     ))}
                   </Fragment>

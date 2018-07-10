@@ -10,8 +10,8 @@ export default class MilestoneListView extends React.Component {
   }
 
   render() {
-    const { date, description, name, repo, stack} = this.props;
-
+    const { description, name, milestone_date, tech_used, repo_link} = this.props.milestone;
+    const { update } = this.props;
     return (
       <Form raised className="ui teal segment">
         <h3 className="ui header">
@@ -21,18 +21,21 @@ export default class MilestoneListView extends React.Component {
         <div className="ui divider" />
         <div data-tooltip="Tech Stack">
           <Icon name="sitemap" />
-          {stack}
+          {tech_used}
           <br />
         </div>
         <div data-tooltip="Repository Link">
           <Icon name="github" />
-          {repo}
+          {repo_link}
           <br />
         </div>
         <div data-tooltip="Date Completed">
           <Icon name="check square outline" />
-          {date}
+          {milestone_date}
           <br />
+        </div>
+        <div>
+          <MilestoneUpdate update={update}/>
         </div>
       </Form>
     );
