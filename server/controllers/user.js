@@ -33,7 +33,6 @@ module.exports = {
     })
       .then(() => db.knex('users').where({ email }))
       .then((user) => {
-        console.log(pass);
 
         if (user.length) {
           throw new Error('Email is in use');
@@ -64,10 +63,8 @@ module.exports = {
       // we do the email because it's what identifies the user in the real world.
       // to change either of these fields we need a password
       .then((user) => {
-        console.log(user, 'woooo')
         updatedUser = user[0];
         if (old_password) {
-          console.log(updatedUser, 'woooo')
           return bcrypt.compare(old_password.toString(), currentPassword.toString()).catch((err) => {
             throw err;
           });
