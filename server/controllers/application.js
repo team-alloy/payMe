@@ -112,5 +112,11 @@ module.exports = {
     }).then(results => db.knex('applications').where({ id: results.application[0].id }).update({ accepted: results.accepted })
       .then(() => db.knex('applications').where({ id: results.application[0].id })));
   },
+  deleteApplication: (query) => {
+    db.knex('applications').dropColumn(query)
+    .then((res) => {
+      console.log(res,'deleted app');
+    })
+  }
 };
 
