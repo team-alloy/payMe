@@ -46,10 +46,10 @@ export default class NegotiationPracticeVideo extends Component {
   }
 
   getRoomsList() {
-    axios.get('/rooms').then((room) => {
-      this.setState({ roomsList: room });
+    axios.get('/rooms').then((rooms) => {
+      console.log('all rooms in front end', rooms)
+      this.setState({ roomsList: rooms.data });
     });
-    console.log('rooms list', this.state.roomsList);
   }
 
   handleRoomNameChange(e) {
@@ -206,6 +206,8 @@ export default class NegotiationPracticeVideo extends Component {
         />
       );
 
+      console.log('STATE ROOMS', this.state.roomsList)
+
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
         <div className="ui grid" id="picture-in-picture">
@@ -245,11 +247,15 @@ export default class NegotiationPracticeVideo extends Component {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>
-                          { this.state.roomsList.data }
-                        </td>
-                      </tr>
+                      { this.state.roomsList.map((room, idx) => {
+                        return (
+                          <tr key={idx}>
+                            <td key={idx}> 
+                              {room} 
+                            </td>
+                          </tr>
+                        )
+                      }) }
                     </tbody>
                   </table>
                 </div>

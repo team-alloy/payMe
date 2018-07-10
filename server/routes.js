@@ -19,20 +19,19 @@ const AccessToken = require('twilio').jwt.AccessToken;
 
 const VideoGrant = AccessToken.VideoGrant;
 
-let currentSession, 
-techCache;
- 
+let currentSession,
+  techCache;
 
-  setInterval(() => {
-    console.log(techCache, '109381029')
-  }, 5200)
+setInterval(() => {
+  console.log(techCache, '109381029');
+}, 5200);
 
-  setInterval(() => {
-    console.log(techCache, '109381029')
-    searchController.getAllTechStack().then(tech => {
-      techCache = tech;
-    });
-  }, 5000)
+setInterval(() => {
+  console.log(techCache, '109381029');
+  searchController.getAllTechStack().then((tech) => {
+    techCache = tech;
+  });
+}, 5000);
 
 /*
 
@@ -186,7 +185,6 @@ router.route('/api/applications')
 */
 router.route('/api/user')
   .get((req, res) => {
-
     const check = utils.isLoggedIn(currentSession);
     if (check && !check.error) {
       if (!req.query) {
@@ -419,25 +417,23 @@ router.route('/api/search').get((req, res) => {
     company = company ? params.company = company : null;
 
     searchController.calculateAvgSalary(params).then((salary) => {
-      console.log(techCache)
-      var response = salary;
-      response.tech = techCache
-      if(params.company) {
+      console.log(techCache);
+      const response = salary;
+      response.tech = techCache;
+      if (params.company) {
         return response;
-      } else {
-        res.status(200).json(searchResults);
       }
+      res.status(200).json(searchResults);
     })
-    .then(searchResults => {
-      console.log(searchResults);
-      searchController.deduceBenefits(params.company).then(results => {
-        searchResults.benefits = results;
-        // Object.assign({}, salary, {techReccomendations: techCache});
-        console.log(searchResults, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1')
-        res.status(200).json(searchResults);
-      });
-
-    })
+      .then((searchResults) => {
+        console.log(searchResults);
+        searchController.deduceBenefits(params.company).then((results) => {
+          searchResults.benefits = results;
+          // Object.assign({}, salary, {techReccomendations: techCache});
+          console.log(searchResults, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
+          res.status(200).json(searchResults);
+        });
+      })
       .catch((err) => {
         console.log(err);
         res.status(400).json(err);
@@ -490,18 +486,14 @@ router.route('/rooms').get((req, res) => {
   const accountSid = require('../config').twilio.TWILIO_ACCOUNT_SID;
   const authToken = require('../config').twilio.TWILIO_AUTH_TOKEN;
   const client = require('twilio')(accountSid, authToken);
-  let rooms = [1];
-
-  console.log('CLIENT VIDEO ROOM'. client.video.rooms)
-
-  client.video.rooms.each({status: 'in-progress'}, (room) => {
-      rooms.push(room.uniqueName);
-      console.log('HERE IS ROOMS')
-      console.log('room', rooms);
-
-    }
-  );
-  console.log('YOU MADE IT', rooms)
+  const rooms = [];
+  client.video.rooms.each({ status: 'in-progress' }, (room) => {
+    rooms.push(room.uniqueName);
+    // console.log('ROOMS HERE!! ', rooms);
+  });
+  setTimeout(() => {
+    res.status(200).json(rooms);
+  }, 500);
 });
 
 // End Twilio
