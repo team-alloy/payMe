@@ -17,6 +17,7 @@ class ApplicationHistoryPage extends React.Component {
     this.updateApp = this.updateApp.bind(this);
     this.getApplicationByUserID = this.getApplicationByUserID.bind(this);
     this.makeApplication = this.makeApplication.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
@@ -58,6 +59,16 @@ class ApplicationHistoryPage extends React.Component {
       });
   }
 
+  handleDelete(id) {
+    axios.delete('/api/applications?id='+id)
+    .then((res) => {
+      this.getApplicationByUserID((data) => {
+        this.setState({ applications: data });
+      });
+    })
+  }
+
+
   render() {
     if (!this.props.session.user) {
       this.props.history.push('/login');
@@ -80,7 +91,7 @@ class ApplicationHistoryPage extends React.Component {
                 />
               </div>
               <div className="column">
-                <ApplicationHistoryFeed updateApp={this.updateApp} apps={this.state.applications}/>
+                <ApplicationHistoryFeed updateApp={this.updateApp} apps={this.state.applications} delete={this.handleDelete}/>
               </div>
             </div>
           </div>

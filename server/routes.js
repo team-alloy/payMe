@@ -171,7 +171,7 @@ router.route('/api/applications')
     applicationController.updateApplication(req).then(application => applicationController.getAllApplications({ id: application[0].id }).then(app => Promise.all(app).then(app => res.status(201).json(app))));
   })
   .delete((req, res) => {
-    applicationController.deleteApplication(req.query, req.body)
+    applicationController.deleteApplication(req.query)
     .then((data) => {
       res.json(data);
     });
