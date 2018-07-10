@@ -13,7 +13,7 @@ export default class NegotiationPracticePage extends React.Component {
     return (
       <div className="ui column stackable center page grid"> 
         <NegotiationPracticeVideo />
-        <NegotiationPracticeTopic />
+        {/* <NegotiationPracticeTopic /> */}
       </div>
     );
   }
