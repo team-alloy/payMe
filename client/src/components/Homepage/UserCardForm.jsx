@@ -64,7 +64,7 @@ export class UserCardForm extends React.Component {
     return (
       <div>
         <Modal
-          style={style} 
+          style={style}
           trigger={(
           <i className="edit icon right floated"  align="right" onClick={this.componentDidMount} />
           )}
@@ -136,7 +136,7 @@ export class UserCardForm extends React.Component {
                       }
                       return (
                         <option
-                          key={index} 
+                          key={index}
                           value={role.id}
                         >
                           {`${role.name} at ${role.company.name}`}

@@ -1,3 +1,4 @@
+/* eslint  no-nested-ternary:0 camelcase:0 */
 const db = require('../../database/index.js');
 
 const roleController = require('./role');
@@ -8,7 +9,6 @@ const companyController = require('./company');
 const capitalizeWords = (array) => {
   let words = array;
   words = words.toLowerCase().split(' ');
-  console.log(words,'capitlized');
   words = words.map(word => word[0].toUpperCase().concat(word.substr(1))).join(' ');
   return words;
 };
@@ -19,14 +19,16 @@ const fillUsersName = applications => applications.map(app => userControllerr
 
 const fillRole = applications => Promise.all(applications)
   .then(apps => apps.map(app => roleController.getRoles({ id: app.role_id })
-    .then(role => Promise.all(role).then((role) => {
-      app.role = role[0];
-      return app;
+    .then(role => Promise.all(role).then((selectedRole) => {
+      const [chosenRole] = selectedRole;
+      return Object.assign({}, app, { role: chosenRole });
     }))));
 
-const updateRole = (query, role, company, salary) => roleController.updateRole(query, role, company, salary);
+const updateRole = (query, role, company, salary) => roleController
+  .updateRole(query, role, company, salary);
 
-const updateLocation = (query, city, state) => db.knex('applications').where(query).update({ city, state }).then(updated => updated);
+const updateLocation = (query, city, state) => db.knex('applications').where(query)
+  .update({ city, state }).then(updated => updated);
 
 module.exports = {
   getAllApplications: (query) => {
@@ -51,7 +53,6 @@ module.exports = {
     const accepted = values.accepted !== undefined ? values.accepted === 1 ? 1 : 0 : 0;
     const application_date = values.application_date || new Date().toLocaleDateString();
     let user_id;
-    console.log(application_date, values);
     if (values.user_id) {
       user_id = values.user_id;
     } else {
@@ -71,8 +72,8 @@ module.exports = {
         return company;
       })
       .then((company) => {
-        company = typeof company === 'object' ? company[0].id : company;
-        return roleController.saveNewRole({ name: role, company_id: company, salary })
+        const currentCompany = typeof company === 'object' ? company[0].id : company;
+        return roleController.saveNewRole({ name: role, company_id: currentCompany, salary })
           .then(roleIndex => db.knex('applications')
             .insert({
               user_id, role_id: roleIndex[0], city, state, accepted, application_date,
@@ -92,7 +93,7 @@ module.exports = {
     state = capitalizeWords(state);
     company = capitalizeWords(company);
     role = capitalizeWords(role);
-    salary = isNaN(salary) === NaN ? 0 : salary;
+    salary = isNaN(salary) === true ? 0 : salary;
 
     if (!id) {
       throw new Error('Application Id is needed as a query after the endpoints');

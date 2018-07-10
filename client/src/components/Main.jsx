@@ -1,6 +1,7 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
+import AboutUs from './AboutUs/AboutUs';
 import ApplicationHistoryPage from './Application_History/ApplicationHistoryPage';
 import HomePage from './Homepage/HomePage';
 import Login from './Login/Login';
@@ -34,6 +35,7 @@ export default class Main extends React.Component {
           <Route path="/practice" component={NegotiationPracticePage} />
           <Route path="/search" component={SearchPage} />
           <Route path="/login" component={Login} />
+          <Route path="/aboutUs" component={AboutUs} />
           <Route path="/signup" render={props => <SignUp {...props} />} />
           <Route
             exact

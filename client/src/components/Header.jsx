@@ -10,7 +10,7 @@ export default class Header extends React.Component {
 
   render() {
     return (
-      <div className="ui top grey inverted eight item menu">
+      <div className="ui top grey inverted nine item menu">
         <span className="item">
           <Link to="/">
              <img src="/images/logo.png" style={{width: 75, height: 75}}/>
@@ -44,6 +44,11 @@ export default class Header extends React.Component {
         <span className="item">
           <Link to="/search">
             Search
+          </Link>
+        </span>
+        <span className="item">
+          <Link to="/aboutUs">
+            About us
           </Link>
         </span>
         <span className="item">

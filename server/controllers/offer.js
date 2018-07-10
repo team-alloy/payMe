@@ -51,7 +51,6 @@ module.exports = {
       .then(() => db.knex('offers').where({ id }));
   },
   addOffer: (offer) => {
-    console.log('HERE');
     if (!offer.id) {
       return db.knex('offers')
         .insert(offer);

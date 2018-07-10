@@ -33,7 +33,6 @@ module.exports = {
     })
       .then(() => db.knex('users').where({ email }))
       .then((user) => {
-
         if (user.length) {
           throw new Error('Email is in use');
         }
@@ -72,8 +71,8 @@ module.exports = {
         return false;
       }).then((correctPassword) => {
         // the password is correct and the user wants to update their password
-        if(!correctPassword && (email || newPassword)) {
-          throw new Error('Wrong password')
+        if (!correctPassword && (email || newPassword)) {
+          throw new Error('Wrong password');
         }
         if (correctPassword && newPassword) {
           if (email) {
@@ -96,7 +95,7 @@ module.exports = {
       .then((user) => {
         // first_name, last_name, active_role are left at this point
         // these variables do not require a password
-        if(first_name) {
+        if (first_name) {
           updatedUser.first_name = capitalizeWords(first_name);
         }
         if (last_name) {

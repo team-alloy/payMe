@@ -4,8 +4,8 @@ module.exports = {
   findAllMilestones: (query) => {
     if (query) {
       return db.knex.select().from('milestones')
-      .where(query)
-      .orderBy('created_at', 'desc');
+        .where(query)
+        .orderBy('created_at', 'desc');
     }
     return db.knex.select().from('milestones');
   },

@@ -448,8 +448,6 @@ router.route('/api/search').get((req, res) => {
         console.log(searchResults);
         searchController.deduceBenefits(params.company).then((results) => {
           searchResults.benefits = results;
-          // Object.assign({}, salary, {techReccomendations: techCache});
-          console.log(searchResults, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1');
           res.status(200).json(searchResults);
         });
       })

@@ -1,3 +1,42 @@
 .hidden {
   display: none;
+<<<<<<< 6f28a2e3072eaf867ae497be2466618d61b899ae
+=======
+}
+
+/*
+TWILIO VIDEO
+*/
+#picture-in-picture {
+  position: absolute;
+  width: 400px;
+  height: 300px;
+}
+
+#local-media {
+  position: absolute;
+  width: 25%;
+  bottom: 5%;
+  right: 5%;
+}
+
+#remote-media {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+#hangup {
+  position: absolute;
+  bottom: 5%;
+  left: 5%;
+}
+
+/* About us */
+
+#aboutus-header {
+  text-align: center
+>>>>>>> Add about us page with stack and team pictures
 }
