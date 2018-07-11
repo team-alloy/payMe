@@ -171,7 +171,10 @@ router.route('/api/applications')
     applicationController.updateApplication(req).then(application => applicationController.getAllApplications({ id: application[0].id }).then(app => Promise.all(app).then(app => res.status(201).json(app))));
   })
   .delete((req, res) => {
-    res.json('delete/applications');
+    applicationController.deleteApplication(req.query)
+    .then((data) => {
+      res.json(data);
+    });
   });
 
 /*
@@ -351,7 +354,16 @@ router.route('/api/milestones')
       .catch((err) => {
         res.status(404).json(err);
       });
-  });
+  })
+  .delete((req, res) => {
+    milestoneController.deleteMilestone(req.query)
+    .then((data) => {
+      res.status(200).json('success!');
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    })
+  })
 
 router.route('/api/offers').post((req, res) => {
   console.log(req.body, 'inOffers');
