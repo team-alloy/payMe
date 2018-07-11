@@ -182,7 +182,6 @@ export default class NegotiationPracticeVideo extends Component {
         <div
           className="flex-item"
           ref="localMedia"
-          id="local-media"
           style={{ display: 'inline-block' }}
         />
         {' '}
@@ -196,7 +195,6 @@ export default class NegotiationPracticeVideo extends Component {
       ? (
         <RaisedButton
           label="Leave Room"
-          id="hangup"
           onClick={() => this.leaveRoom()}
         />
       )
@@ -209,7 +207,7 @@ export default class NegotiationPracticeVideo extends Component {
 
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-        <div className="ui grid" id="picture-in-picture">
+        <div className="ui grid">
           <div className="four column grid">
 
             <div className="left floated column">
@@ -220,7 +218,6 @@ export default class NegotiationPracticeVideo extends Component {
                 <div
                   className="flex-item"
                   ref="remoteMedia"
-                  id="remote-media"
                   style={{ display: 'inline-block' }}
                 />
               </div>
@@ -250,8 +247,8 @@ export default class NegotiationPracticeVideo extends Component {
                         <tr key={idx}>
                           <td key={idx}>
                             <a
+                              style={{ color: 'teal' }}
                               key={idx}
-                              id="click-room"
                               onClick={() => {
                                 this.getRoomsList();
                                 this.setState({ roomName: room });
