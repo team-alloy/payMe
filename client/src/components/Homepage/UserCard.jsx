@@ -71,6 +71,17 @@ export default class UserCard extends React.Component {
   //     });
   // }
 
+  handleDisplayRoles() {
+    let temp = '';
+
+    for (let i = 0; i < this.props.roles.length; i++) {
+      if (this.props.roles[i].id === this.props.user.active_role) {
+        temp = `${this.props.roles[i].name} at ${this.props.roles[i].company.name}`;
+      }
+    }
+    return temp;
+  }
+
   render() {
     const { user } = this.props;
     if (!user) {
@@ -91,7 +102,7 @@ export default class UserCard extends React.Component {
          </a>
          <div className="meta">
            <span className="description">
-             {this.props.session.user.active_role !== null ? `${this.props.session.user.active_role[0].name} at ${this.props.session.user.active_role[0].company.name}` : undefined}
+             {this.props.roles ? this.handleDisplayRoles() : undefined}
            </span>
          </div>
        </div>
@@ -112,7 +123,7 @@ export default class UserCard extends React.Component {
          <a>
            <div>
              <UserCardForm
-               update={this.props.update} user={this.props.user}
+               update={this.props.update} user={this.props.user} roles={this.props.roles}
              />
            </div>
          </a>

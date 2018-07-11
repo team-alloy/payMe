@@ -86,6 +86,7 @@ class HomePage extends React.Component {
                   key={this.state.currentUser.id}
                   user={this.state.currentUser[0]}
                   update={this.handleUserCardUpdate}
+                  roles={this.state.currentRoles}
                 />
               </Segment>
             </div>

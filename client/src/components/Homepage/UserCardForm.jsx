@@ -79,7 +79,8 @@ export class UserCardForm extends React.Component {
     // console.log('is it reaching', this.props)
     // console.log('reached state', this.state)
     console.log('THIS IS THE USER ID', this.props.user.id)
-    console.log('wah ==>', this.props.session)
+    console.log('wah ==>', this.props)
+    console.log('dnfdnfkdjfkldjfklj', this.state);
     const { 
       first_name, last_name, profile_pic
     } = this.state;
@@ -147,7 +148,7 @@ export class UserCardForm extends React.Component {
                     <option key="default" value="" selected>
                       Select role
                     </option>
-                    {this.props.session.roles ? this.props.session.roles.map((role, index) => {
+                    {this.props.roles ? this.props.roles.map((role, index) => {
                       if (this.props.session.user.active_role !== null
                         && this.props.session.user.active_role[0].id === role.id) {
                         return (
