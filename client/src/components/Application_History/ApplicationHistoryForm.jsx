@@ -9,7 +9,7 @@ export default class ApplicationHistoryForm extends React.Component {
       role: '',
       city: '',
       state: '',
-      salary: 0,
+      salary: '',
       application_date: '',
     };
     this.handleClick = this.handleClick.bind(this);
@@ -29,7 +29,7 @@ export default class ApplicationHistoryForm extends React.Component {
         role: '',
         city: '',
         state: '',
-        salary: 0,
+        salary: '',
         application_date: '',
       });
     });
@@ -50,7 +50,7 @@ export default class ApplicationHistoryForm extends React.Component {
       role: '',
       city: '',
       state: '',
-      salary: 0,
+      salary: '',
       application_date: '',
     });
   }
