@@ -27,7 +27,7 @@ export class MilestonePage extends React.Component {
     if (!this.props.session.user) {
       this.props.history.push('/login')
     } else {
-      let {id} = this.props.session.user;
+      let { id } = this.props.session.user;
       axios.get(`api/milestones?user_id=${id}`)
         .then((response) => {
           callback(response.data);
