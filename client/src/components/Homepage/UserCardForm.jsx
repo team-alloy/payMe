@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { Button, Form, Modal } from 'semantic-ui-react';
 import { setAppliedRoles } from '../../store/actions/userActions';
 
+
 export class UserCardForm extends React.Component {
   constructor(props) {
     super(props);
