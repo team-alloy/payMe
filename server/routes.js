@@ -354,7 +354,16 @@ router.route('/api/milestones')
       .catch((err) => {
         res.status(404).json(err);
       });
-  });
+  })
+  .delete((req, res) => {
+    milestoneController.deleteMilestone(req.query)
+    .then((data) => {
+      res.status(200).json('success!');
+    })
+    .catch((err) => {
+      res.status(404).json(err);
+    })
+  })
 
 router.route('/api/offers').post((req, res) => {
   console.log(req.body, 'inOffers');
