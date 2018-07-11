@@ -14,6 +14,6 @@ module.exports = {
     .where('id', id)
     .update(update),
   deleteMilestone: (query) => {
-    return db.knex('milestones').where('user_id', query.user_id).del();
+    return db.knex('milestones').where('id', query.id).del();
   }
 };

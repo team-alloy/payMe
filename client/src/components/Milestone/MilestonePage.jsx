@@ -15,6 +15,7 @@ export class MilestonePage extends React.Component {
     this.handleMilestoneGet = this.handleMilestoneGet.bind(this);
     this.handleMilestonePost = this.handleMilestonePost.bind(this);
     this.handleMilestoneUpdate = this.handleMilestoneUpdate.bind(this);
+    this.hanldeMilestoneDelete = this.hanldeMilestoneDelete.bind(this);
   }
 
   componentDidMount() {
@@ -56,10 +57,15 @@ export class MilestonePage extends React.Component {
       });
   }
 
-  // //this function deletes the milestone
-  // hanldeMilestoneDelete() {
-
-  // }
+  //this function deletes the milestone
+  hanldeMilestoneDelete(milestoneID) {
+    axios.delete(`/api/milestones?id=${milestoneID}`)
+    .then((reponse) => {
+      this.handleMilestoneGet((data) => {
+        this.setState({currentMilestones: data})
+      });
+    })
+  }
 
   render() {
     const { currentMilestones } = this.state;
@@ -88,6 +94,7 @@ export class MilestonePage extends React.Component {
                         key={milestone.id}
                         update={this.handleMilestoneUpdate}
                         milestone={milestone}
+                        deleteMilestone={this.hanldeMilestoneDelete}
                       />
                     ))}
                   </Fragment>
