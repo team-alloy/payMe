@@ -47,8 +47,9 @@ export default class NegotiationPracticeVideo extends Component {
 
   getRoomsList() {
     axios.get('/rooms').then((rooms) => {
-      console.log('all rooms in front end', rooms)
+      console.log('all rooms in front end', rooms);
       this.setState({ roomsList: rooms.data });
+      console.log('CURRENT ROOM NAME IN STATE', this.state.roomName)
     });
   }
 
@@ -62,7 +63,7 @@ export default class NegotiationPracticeVideo extends Component {
       this.setState({ roomNameErr: true });
       return;
     }
-
+    
     console.log(`Joining room '${this.state.roomName}'...`);
     const connectOptions = {
       name: this.state.roomName,
@@ -181,7 +182,6 @@ export default class NegotiationPracticeVideo extends Component {
         <div
           className="flex-item"
           ref="localMedia"
-          id="local-media"
           style={{ display: 'inline-block' }}
         />
         {' '}
@@ -195,38 +195,36 @@ export default class NegotiationPracticeVideo extends Component {
       ? (
         <RaisedButton
           label="Leave Room"
-          id="hangup"
           onClick={() => this.leaveRoom()}
         />
       )
       : (
         <RaisedButton
           label="Join Room"
-          onClick={() => { this.joinRoom(); this.getRoomsList(); }}
+          onClick={ () => { this.joinRoom(); this.getRoomsList(); } }
         />
-      );
+      )
 
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-        <div className="ui grid" id="picture-in-picture">
+        <div className="ui grid">
           <div className="four column grid">
 
             <div className="left floated column">
               {/*
                 The following div element shows all remote media (other participant’s tracks)
               */}
-              <div className="flex-container">
+              <div className="flex-container" style={{ display: 'inline-block',height: '70%', width: '70%'  }}>
                 <div
                   className="flex-item"
                   ref="remoteMedia"
-                  id="remote-media"
-                  style={{ display: 'inline-block' }}
+                  style={{ display: 'inline-block', height: '70%', width: '70%' }}
                 />
               </div>
             </div>
 
             <div className="right floated column">
-              <div className="flex-container">
+              <div className="flex-container" style={{ display: 'inline-block' }}>
                 {showLocalTrack}
                 {' '}
                 {/* Show local track if available */}
@@ -245,22 +243,25 @@ export default class NegotiationPracticeVideo extends Component {
                       </tr>
                     </thead>
                     <tbody>
-                      { this.state.roomsList.map((room, idx) => {
-                        return (
-                          <tr key={idx}>
-                            <td key={idx}> 
-                              <RaisedButton
-                                label={room} 
-                                onClick={() => { 
-                                  this.setState({roomName: room});
+                      { this.state.roomsList.map((room, idx) => (
+                        <tr key={idx}>
+                          <td key={idx}>
+                            <a
+                              style={{ color: 'teal' }}
+                              key={idx}
+                              onClick={() => {
+                                this.getRoomsList();
+                                this.setState({ roomName: room });
+                                setTimeout(() => {
                                   this.joinRoom();
-                                  this.getRoomsList(); 
-                                }}
-                              />
-                            </td>
-                          </tr>
-                        )
-                      }) }
+                                }, 500);
+                              }}
+                            >
+                              {room}
+                            </a>
+                          </td>
+                        </tr>
+                      )) }
                     </tbody>
                   </table>
                 </div>
@@ -276,6 +277,7 @@ export default class NegotiationPracticeVideo extends Component {
                       */}
                   <TextField
                     hintText="Room Name"
+                    value={this.state.roomName}
                     onChange={this.handleRoomNameChange}
                     errorText={this.state.roomNameErr ? 'Room Name is required' : undefined}
                     style={{ width: '70%' }}
