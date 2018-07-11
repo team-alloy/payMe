@@ -277,6 +277,7 @@ export default class NegotiationPracticeVideo extends Component {
                       */}
                   <TextField
                     hintText="Room Name"
+                    value={this.state.roomName}
                     onChange={this.handleRoomNameChange}
                     errorText={this.state.roomNameErr ? 'Room Name is required' : undefined}
                     style={{ width: '70%' }}
