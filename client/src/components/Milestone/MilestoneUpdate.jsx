@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal, Form } from 'semantic-ui-react';
+import { Button, Form, Modal } from 'semantic-ui-react';
 
 export default class MilestoneUpdate extends React.Component {
   constructor(props) {
@@ -27,16 +27,16 @@ export default class MilestoneUpdate extends React.Component {
   }
 
   handleChange(e) {
+    const { name, value } = e.target;
     e.preventDefault();
 
-    const { name, value } = e.target;
     this.setState({
       [name]: value,
     });
   }
 
   render() {
-    const { 
+    const {
       description, milestone_date, name, repo_link, tech_used,
     } = this.state;
     const style = {
