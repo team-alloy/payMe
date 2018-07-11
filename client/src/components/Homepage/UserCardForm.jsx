@@ -282,7 +282,7 @@ export class UserCardForm extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state.user, 'user abuser');
+  console.log('EWWWWWWWWW', state);
 
   return { session: state.user };
 };
