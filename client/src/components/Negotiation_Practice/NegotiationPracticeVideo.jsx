@@ -214,17 +214,17 @@ export default class NegotiationPracticeVideo extends Component {
               {/*
                 The following div element shows all remote media (other participant’s tracks)
               */}
-              <div className="flex-container">
+              <div className="flex-container" style={{ display: 'inline-block',height: '70%', width: '70%'  }}>
                 <div
                   className="flex-item"
                   ref="remoteMedia"
-                  style={{ display: 'inline-block' }}
+                  style={{ display: 'inline-block', height: '70%', width: '70%' }}
                 />
               </div>
             </div>
 
             <div className="right floated column">
-              <div className="flex-container">
+              <div className="flex-container" style={{ display: 'inline-block' }}>
                 {showLocalTrack}
                 {' '}
                 {/* Show local track if available */}
