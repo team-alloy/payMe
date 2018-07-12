@@ -86,13 +86,8 @@
     "twilio": "^3.17.4",
     "twilio-video": "^1.10.0"
   },
-  "snyk": true,
   "jest": {
-    "setupFiles": [
-      "./test/jestsetup.js"
-    ],
-    "snapshotSerializers": [
-      "enzyme-to-json/serializer"
-    ]
-  }
+    "setupTestFrameworkScriptFile": "./setupTests.js"
+  },
+  "snyk": true
 }

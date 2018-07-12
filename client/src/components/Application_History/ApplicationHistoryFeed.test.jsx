@@ -1,15 +1,15 @@
 import React from 'react';
 import { ApplicationHistoryFeed } from './ApplicationHistoryFeed.jsx';
-import renderer from 'react-test-renderer';
+import { shallow }from 'enzyme';
 
 
 test('renders correctly', () => {
-  let component = renderer.create(
-    <ApplicationHistoryFeed />
+  let component = shallow(
+    <ApplicationHistoryFeed session={{appliction:[]}} apps={['something']}/>
   );
 
-  let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+  let tree = component.find('div');
+  expect(tree.length).toEqual(1);
 });
 
 test('should render an array', () => {
