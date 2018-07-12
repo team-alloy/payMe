@@ -13,6 +13,9 @@ export default class ApplicationHistoryFeedListView extends React.Component {
   }
 
   render() {
+    const style = {
+      top: '10%',
+    };
     return (
       <Form raised="true" className="ui teal segment" onSubmit={this.handleSubmit}>
         <div className="application-history-container">
@@ -39,10 +42,12 @@ export default class ApplicationHistoryFeedListView extends React.Component {
             {new Date(this.props.apps.application_date).toLocaleDateString()}
           </div>
         </div>
-        <div className="ui two bottom attached buttons">
+        <br />
+        <div className="ui three bottom attached buttons">
           <ApplicationUpdateModal updateApp={this.props.updateApp} app={this.props.apps}/>
           <ApplicationOffersModal appID={this.props.apps.id}/>
           <Button
+            style={style}
             className="ui-button-confirm"
             color="red"
             size="tiny"

@@ -40,9 +40,8 @@ export default class MilestoneUpdate extends React.Component {
       description, milestone_date, name, repo_link, tech_used,
     } = this.state;
     const style = {
-      top: '10%',
+      top: '50%',
     };
-    // console.log('this is mah props', this.props)
 
     return (
       <div>
@@ -124,7 +123,7 @@ export default class MilestoneUpdate extends React.Component {
                       this.props.update(this.props.milestone.user_id, this.state);
                     }}
                   >
-                      Submit
+                    Submit
                   </Button>
                 </div>
               </Modal.Actions>

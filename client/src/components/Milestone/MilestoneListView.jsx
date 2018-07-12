@@ -37,7 +37,7 @@ export default class MilestoneListView extends React.Component {
           {milestone_date}
           <br />
         </div>
-        <div>
+        <div className="ui two bottom attached buttons">
           <MilestoneUpdate update={update} milestone={milestone} />
           <Button onClick={() => {
             this.props.deleteMilestone(this.props.milestone.id);

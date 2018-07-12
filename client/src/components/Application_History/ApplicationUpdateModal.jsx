@@ -52,9 +52,9 @@ export default class ApplicationUpdateModal extends React.Component {
             </Button>
             )}
         >
-          <Modal.Header>
-            Update Your Application!
-          </Modal.Header>
+        <Modal.Header>
+          Update Your Application!
+        </Modal.Header>
           <Form raised="true" className="ui teal segment">
             <Modal.Content>
               <b>
@@ -103,19 +103,21 @@ export default class ApplicationUpdateModal extends React.Component {
                 value={salary}
                 style={{ maxHeight: 35 }}
               />
+              <br />
               <Modal.Actions>
-                <Button
-                  className="ui approve button"
-                  color="teal"
-                  size="medium"
-                  type="submit"
-                  labelPosition="left"
-                  onClick={() => {
-                    this.props.updateApp(this.props.app.id, this.state);
-                  }}
-                >
-                  Submit
-                </Button>
+                <div className="ui one bottom attached buttons">
+                  <Button
+                    className="ui approve button"
+                    color="teal"
+                    size="medium"
+                    type="submit"
+                    onClick={() => {
+                      this.props.updateApp(this.props.app.id, this.state);
+                    }}
+                  >
+                    Submit
+                  </Button>
+                </div>
               </Modal.Actions>
             </Modal.Content>
           </Form>
