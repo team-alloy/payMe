@@ -50,6 +50,7 @@ class HomePage extends React.Component {
     if (!user) {
       history.push('/login');
     }
+
     axios.get(`api/user?id=${id}`)
       .then((res) => {
         this.handleGetAppliedRoles((data) => {
@@ -61,8 +62,7 @@ class HomePage extends React.Component {
               }
             }
 
-            temp = temp === undefined ? this.props.session.user : temp;
-            // debugger;
+            temp = temp === undefined ? this.state.currentUser[0] : temp;
             this.setState({currentUser: [temp], currentRoles : data});
             this.props.setSession({ user: temp});
         });
@@ -75,7 +75,7 @@ class HomePage extends React.Component {
     axios.patch((`/api/user?id=${id}`), query)
       .then((res) => {
         this.handleGetUserInformation((data) => {
-
+          console.log('handleUserCardUpdate', data)
           this.setState({ currentUser: data });
         });
       });

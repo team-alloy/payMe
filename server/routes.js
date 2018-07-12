@@ -224,11 +224,12 @@ router.route('/api/user')
     } = req.body;
 
     const { id } = req.query;
-
+    console.table(req.body)
     if (req.query.id) {
       userController.findOneUser({ id })
         .then(user => userController.updateAccountInformation(user[0].id, req.body, user[0].hash))
         .then((response) => {
+          console.error('response', response)
           if (response instanceof Error) {
             throw response;
           }
