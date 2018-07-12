@@ -10,15 +10,7 @@ export default class NegotiationPracticeTopic extends React.Component {
   render() {
     return (
       <div>
-        This is your negotiation topic of the day:
-        <ul>
-          <li>
-            Paid Time Off
-          </li>
-        </ul>
-        Your partner who will interview you is:
-        Kenny Le,
-        Software Engineer at Google
+        For future use, this can be used for varying negotiation topics to be assigned to users to practice.
       </div>
     );
   }

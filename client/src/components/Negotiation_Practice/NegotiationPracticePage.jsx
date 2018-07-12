@@ -1,5 +1,4 @@
 import React from 'react';
-import NegotiationPracticeTopic from './NegotiationPracticeTopic';
 import NegotiationPracticeVideo from './NegotiationPracticeVideo';
 
 export default class NegotiationPracticePage extends React.Component {
@@ -11,10 +10,13 @@ export default class NegotiationPracticePage extends React.Component {
 
   render() {
     return (
-      <div className="ui column stackable center page grid"> 
-        <NegotiationPracticeVideo />
-        {/* <NegotiationPracticeTopic /> */}
-      </div>
+        <div className="ui two column centered grid">
+
+          <div className="column">
+            <NegotiationPracticeVideo />
+          </div>
+
+        </div>
     );
   }
 }
