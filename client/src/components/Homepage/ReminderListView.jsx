@@ -14,11 +14,13 @@ export class ReminderListView extends React.Component {
     const set = this.setState.bind(this);
     if(this.props.session) {
       this.getApplications((data) => {
-        set({applications: data[0]});
+        let rand = Math.floor(Math.random() * data.length);
+        set({applications: data[rand]});
       });
 
       this.getMilestones((data) => {
-        set({milestones: data[0]});
+        let rand = Math.floor(Math.random() * data.length);
+        set({milestones: data[rand]});
       });
     }
   }
@@ -39,7 +41,6 @@ export class ReminderListView extends React.Component {
       });
   }
   render() {
-    console.log(this.props, '!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!', this.state.milestones)
     return (
       <Segment raised className="segment ui teal segment">
         <table className="ui celled striped table">
@@ -52,18 +53,26 @@ export class ReminderListView extends React.Component {
             </tr>
           </thead>
           <tbody>
+            {/* This will help with not rendering an empty table row if the user does not have any milestones */}
+            {
+              this.state.milestones ?
+              <tr>
+                <td className="wrap line">Have you made any interesting updates on the {this.state.milestones.name} project ?
+                </td>
+              </tr> : undefined
+            }
+
+            {
+              this.state.applications ?
+              <tr>
+                <td className="wrap line">
+                Have you heard back from {this.state.applications.role.company.name}? It may be time to update your application.
+                </td>
+              </tr>
+              : undefined
+            }
             <tr>
-              <td className="single line">
-                Have you made any interesting updates on the {this.state.milestones? this.state.milestones.name : undefined} project?
-              </td>
-            </tr>
-            <tr>
-              <td className="single line">
-                Have you heard back from {this.state.applications? this.state.applications.role.company.name: undefined}? It may be time to update your application.
-              </td>
-            </tr>
-            <tr>
-              <td className="single line">
+              <td className="wrap line">
                 Did you do anything interesting recently for a project? Record it in Milestones!
               </td>
             </tr>

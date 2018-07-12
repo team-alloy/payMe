@@ -19,10 +19,12 @@ class Login extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
+  // removes the session as login is mounting.
   componentDidMount () {
     this.props.removeSession({});
   }
 
+  // handles a change in the input fields
   handleChange(e) {
     e.preventDefault();
     const { name }  = e.target;
@@ -36,17 +38,21 @@ class Login extends React.Component {
   // they user is not logged in, redirect user to login page.
   handleClick(e) {
     e.preventDefault();
+    // makes an axios request to verify credentials
     axios.post('/api/login', this.state).then((response) => {
       const { history } = this.props;
 
+      // uses a redux action to set the new session data
       this.props.setSession(response.data);
+      // reset state
       this.setState({
         email: '',
         password: '',
       });
+      // if successful redirect to home page.
       history.push('/');
     }).catch((err) => {
-      console.log(JSON.stringify(err.response.data.error));
+      console.error(err, '!!!!');
       $('#message').text(err.response.data.error);
       setTimeout(() => {
         $('#message').text('Please log in!');

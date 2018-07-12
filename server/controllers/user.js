@@ -56,12 +56,15 @@ module.exports = {
       first_name, last_name, newPassword, email, current_salary, active_role, old_password, profile_pic,
     } = query;
     let updatedUser = {};
+    console.log(query);
 
     return db.knex('users').where({ id })
       // first let's do something with the password and email
       // we do the email because it's what identifies the user in the real world.
       // to change either of these fields we need a password
       .then((user) => {
+        console.log(user);
+
         updatedUser = user[0];
         if (old_password) {
           return bcrypt.compare(old_password.toString(), currentPassword.toString()).catch((err) => {
@@ -108,6 +111,7 @@ module.exports = {
       })
       .then((user) => {
         // these varaibles are realated to the active role and current salary
+        console.log(updatedUser, active_role === "", '!!!!!!!!!!!!!!!!!!!!');
         if (active_role) {
           return roleController.getRoles({ id: active_role }).then(role => Promise.all(role).then((role) => {
             if (role.length < 1) {
@@ -123,9 +127,13 @@ module.exports = {
             updatedUser.current_salary = queriedRole.salary;
           }).catch(err => err)).catch(err => err);
         }
+        console.log(updatedUser, active_role);
+        updatedUser.active_role = null;
+        updatedUser.current_salary = 0;
         return updatedUser;
       })
       .then((updatedRolesCount) => {
+        console.log(updatedRolesCount, 'count')
         if (updatedRolesCount < 1) {
           throw new Error('Something happend to the role nothing was updated according to our logic');
         }
@@ -136,15 +144,21 @@ module.exports = {
       .catch(err => err);
   },
   checkCredentials: (query) => {
+    let currentUser = {};
     if (query.body.email) {
-      return db.knex('users').where({ email: query.body.email }).then((user) => {
+      return db.knex('users').where({ email: query.body.email })
+      .then((user) => {
         if (!user.length) {
           throw ('email does not exist');
         }
-        return bcrypt.compare(query.body.password, user[0].hash).then((res) => {
+        currentUser = user[0];
+        return currentUser;
+      })
+      .then( (foundUser) => {
+        return bcrypt.compare(query.body.password, foundUser.hash).then((res) => {
           if (res) {
             const session = query.session.regenerate(() => {
-              session.user = user[0];
+              session.user = foundUser;
               return session;
             });
             return session;
@@ -152,7 +166,8 @@ module.exports = {
           }
           throw ('wrong password');
         }).catch(err => err);
-      }).catch(err => err);
+      })
+      .catch(err => err);
     } else if (query.body.username) {
       return db.knex('users').where({ username: query.body.username }).then((user) => {
         if (!user.length) {

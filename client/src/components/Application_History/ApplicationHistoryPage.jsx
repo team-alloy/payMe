@@ -60,6 +60,7 @@ class ApplicationHistoryPage extends React.Component {
       });
   }
 
+<<<<<<< 8fced3534af85e6976fe93645ace0421f7e0eb07
   handleDelete(id) {
     axios.delete('/api/applications?id='+id)
       .then((res) => {
@@ -67,6 +68,15 @@ class ApplicationHistoryPage extends React.Component {
           this.setState({ applications: data });
         });
       })
+=======
+  handleDelete(id, userId) {
+    axios.delete('/api/applications?id='+id + '&user_id=' + this.props.session.user.id)
+    .then((res) => {
+      this.getApplicationByUserID((data) => {
+        this.setState({ applications: data });
+      });
+    })
+>>>>>>> Fix bugs with homepage, user card, negotiation tips and more
   }
 
 

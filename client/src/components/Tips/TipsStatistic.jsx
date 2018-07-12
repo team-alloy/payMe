@@ -20,8 +20,8 @@ export class TipsStatistic extends React.Component {
     if (user) {
       this.getActiveRoleLocation((data) => {
         set({location: data});
-        this.handleGetAverageSalary(data.split(',').map(l => l.trim()), (data) => {
-          this.setState({ avgSalary: data })
+        this.getAverageSalary(data.split(',').map(l => l.trim()), (data) => {
+          set({ avgSalary: data })
         });
       });
     }
@@ -41,7 +41,7 @@ export class TipsStatistic extends React.Component {
       const numOfApps = this.state.results.numberOfApplications;
       if ( numOfApps <= 1) {
         return ( 'You have a good salary, if you want more and it isn\'t negotiable. See if your manager will budge on number of vacation days. Or learn a new tech, here is a list of the 10 most common ones used according to our database.')
-      } 
+      }
     }
   }
 

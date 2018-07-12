@@ -75,6 +75,7 @@ class HomePage extends React.Component {
     axios.patch((`/api/user?id=${id}`), query)
       .then((res) => {
         this.handleGetUserInformation((data) => {
+
           this.setState({ currentUser: data });
         });
       });

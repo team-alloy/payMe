@@ -150,14 +150,12 @@ module.exports = {
       });
       return techCache;
     }, {});
-    console.table(orderTechs(techs));
     return orderTechs(techs);
   })
     // .then(reccomendations => reccomendations)
     .catch(err => err),
   deduceBenefits: company => companyController.getCompanyByName({ name: company })
     .then((company) => {
-      console.table(company);
       return company[0].id;
     })
     .then(companyId => roleController.getRoles({ company_id: companyId }))
@@ -171,8 +169,8 @@ module.exports = {
       return db.knex('offers').whereIn('application_id', appIds);
     })
     .then((offers) => {
-      console.log(offers);
-      return offers.reduce((packageOptions, currentOffer) => {
+      let salary = 0;
+      let options = offers.reduce((packageOptions, currentOffer) => {
         console.log(currentOffer);
         if (currentOffer.hasPTO) {
           packageOptions.hasPTO = 'This company offers paid time off, negotiating this could give you longer paid vacations.';
@@ -186,8 +184,14 @@ module.exports = {
         if (currentOffer.hasHealthBenefits) {
           packageOptions.hasHealthBenefits = 'This company offers health benefits, ask about the different options available.';
         }
+        console.log(currentOffer);
+
+        salary += Number(currentOffer.base_salary);
         return packageOptions;
       }, {});
+      options.base_salary = (salary/offers.length);
+      console.log(salary, offers.length)
+      return options;
     })
     .then(results => results)
     .catch(err => err),

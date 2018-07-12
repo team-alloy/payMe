@@ -22,12 +22,11 @@ const VideoGrant = AccessToken.VideoGrant;
 let currentSession,
   techCache;
 
-setInterval(() => {
-  console.log(techCache, '109381029');
-}, 5200);
+// setInterval(() => {
+//   console.log(techCache, '109381029');
+// }, 5200);
 
 setInterval(() => {
-  console.log(techCache, '109381029');
   searchController.getAllTechStack().then((tech) => {
     techCache = tech;
   });
@@ -171,7 +170,19 @@ router.route('/api/applications')
     applicationController.updateApplication(req).then(application => applicationController.getAllApplications({ id: application[0].id }).then(app => Promise.all(app).then(app => res.status(201).json(app))));
   })
   .delete((req, res) => {
-    applicationController.deleteApplication(req.query)
+    if(req.query.user_id) {
+
+      userController.findOneUser({id: req.query.user_id}).then(user => {
+        if(user[0].active_role+'' === req.query.id){
+
+          return userController.updateAccountInformation(user[0].id, {
+            active_role: ''
+          })
+          .catch(err => res.status(400).json(err));
+        }
+      })
+    }
+    return applicationController.deleteApplication(req.query)
     .then((data) => {
       res.json(data);
     });
@@ -269,13 +280,19 @@ router.route('/api/signup')
 
 router.route('/api/login')
   .post((req, res) => {
+    /*
+      handle no email or password provided
+    */
     if (!req.body.email) {
       res.status(400).json({ error: 'email must be provided' });
     } else if (!req.body.password) {
       res.status(400).json({ error: 'password must be provided' });
     } else {
       userController.checkCredentials(req).then((session) => {
+        // if a session with a user key is not returned then it's a thrown error
+        if(!session.user) { throw session}
         currentSession = session;
+        // populate the active role
         if (session.user.active_role) {
           roleController.getRoles({ id: currentSession.user.active_role }).then((role) => {
             Promise.all(role).then((role) => {
@@ -284,15 +301,13 @@ router.route('/api/login')
             });
           });
         } else {
+          // just make the active_role undefined
           session.active_role === null ? session.active_role = [] : undefined;
           currentSession = session;
           res.status(200).json(currentSession);
         }
-        // res.status(200).json(role);
-      // res.status(200).send(currentSession);
       })
         .catch((err) => {
-          console.log(err);
           res.status(404).json({ error: err });
         });
     }
