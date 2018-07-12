@@ -8,19 +8,6 @@ export default class UserCard extends React.Component {
     };
   }
 
-  // Iterate through all the available roles
-  // and display the current role + company onto the user's profile
-  // handleDisplayRoles() {
-  //   let temp = '';
-
-  //   for (let i = 0; i < this.props.roles.length; i++) {
-  //     if (this.props.roles[i].id === this.props.user.active_role) {
-  //       temp = `${this.props.roles[i].name} at ${this.props.roles[i].company.name}`;
-  //     }
-  //   }
-  //   return temp;
-  // }
-
   render() {
     const { user } = this.props;
     if (!user) {
@@ -39,7 +26,7 @@ export default class UserCard extends React.Component {
           </a>
           <div className="meta">
             <span className="description">
-              {this.props.session.user.active_role ? `${this.props.session.user.active_role[0].name} at ${this.props.session.user.active_role[0].company.name}`: undefined}
+              { this.props.session.user.active_role ? `${this.props.session.user.active_role[0].name} at ${this.props.session.user.active_role[0].company.name}`: undefined}
             </span>
           </div>
         </div>

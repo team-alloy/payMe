@@ -38,7 +38,7 @@ class HomePage extends React.Component {
     axios.get(`/api/roles?user_id=${id}`).then((res) => {
       callback(res.data);
     })
-      .catch(err => console.error(err));
+      .catch(err => err);
   }
 
   // Fetches the user's session and data pertaining to their profile
@@ -75,7 +75,6 @@ class HomePage extends React.Component {
     axios.patch((`/api/user?id=${id}`), query)
       .then((res) => {
         this.handleGetUserInformation((data) => {
-          console.log('handleUserCardUpdate', data)
           this.setState({ currentUser: data });
         });
       });

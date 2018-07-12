@@ -171,21 +171,18 @@ router.route('/api/applications')
   })
   .delete((req, res) => {
     if(req.query.user_id) {
-
       userController.findOneUser({id: req.query.user_id}).then(user => {
-        if(user[0].active_role+'' === req.query.id){
-
+        // console.warn(req.query.user_id, 'made it 222');
+        // if(user[0].active_role+'' === req.query.id){
           return userController.updateAccountInformation(user[0].id, {
             active_role: ''
           })
           .catch(err => res.status(400).json(err));
-        }
+        // }
       })
     }
     return applicationController.deleteApplication(req.query)
-    .then((data) => {
-      res.json(data);
-    });
+    .then((data) => res.json(data));
   });
 
 /*

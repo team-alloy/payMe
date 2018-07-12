@@ -63,7 +63,7 @@ class ApplicationHistoryPage extends React.Component {
   handleDelete(id) {
     axios.delete('/api/applications?id='+id + '&user_id=' + this.props.session.user.id)
     .then((res) => {
-      this.getApplicationByUserID((data) => {
+      this.handleGetApplicationByUserId((data) => {
         this.setState({ applications: data });
       });
     })
