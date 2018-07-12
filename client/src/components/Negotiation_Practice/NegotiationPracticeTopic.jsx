@@ -10,7 +10,7 @@ export default class NegotiationPracticeTopic extends React.Component {
   render() {
     return (
       <div>
-        Decide with your partner who will first serve as the interviewer and the interviewee. Then switch!
+        For future use, this can be used for varying negotiation topics to be assigned to users to practice.
       </div>
     );
   }
