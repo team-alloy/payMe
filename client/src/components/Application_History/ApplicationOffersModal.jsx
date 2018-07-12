@@ -2,11 +2,7 @@ import React from 'react';
 import $ from 'jquery';
 import axios from 'axios';
 import {
-  Card,
-  Button,
-  Modal,
-  TextArea,
-  Checkbox,
+  Card, Button, Modal, TextArea, Checkbox, Form,
 } from 'semantic-ui-react';
 
 import ApplicationOffersFeed from './ApplicationOffersFeed';
@@ -19,7 +15,7 @@ export default class ApplicationOffersModal extends React.Component {
       offers: [],
     };
 
-    this.saveOffer = this.saveOffer.bind(this);
+    this.handleSaveOffer = this.handleSaveOffer.bind(this);
     this.handleSalary = this.handleSalary.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
   }
@@ -40,7 +36,8 @@ export default class ApplicationOffersModal extends React.Component {
       });
   }
 
-  saveOffer(e) {
+  // Save the user's offer for later retrieval
+  handleSaveOffer(e) {
     e.preventDefault();
     const { appID } = this.props;
     const { salary } = this.state;
@@ -84,44 +81,68 @@ export default class ApplicationOffersModal extends React.Component {
           )}
         >
           <Modal.Header>
-            Offer
+            {'Input Your Offer '}
+            <i className="money bill alternate icon" />
           </Modal.Header>
-          <Modal.Content scrolling>
-            <Checkbox id="hasHealth" label="Has Health Benefits" />
-            <br />
-            <Checkbox id="hasPTO" label="Has PTO" />
-            <br />
-            <Checkbox id="hasRetirement" label="Has Retirement" />
-            <br />
-            <Checkbox id="coversRelocation" label="Covers Relocation" />
-            <br />
-            <TextArea
-              placeholder="Salary"
-              onChange={this.handleSalary}
-              name="salary"
-              value={salary}
-            />
-            <Modal.Actions>
-              <Button
-                basic="true"
-                color="green"
-                labelPosition="left"
-                onClick={this.saveOffer}
-              >
-              Submit
-              </Button>
-            </Modal.Actions>
-            <Card.Group>
-              {offers.map((offer, index) => {
-                return (
-                  <ApplicationOffersFeed
-                    offer={offer}
-                    key={index}
-                  />
-                );
-              })}
-            </Card.Group>
-          </Modal.Content>
+          <Form raised="true" className="ui teal segment">
+            <Modal.Content>
+              <Checkbox
+                id="hasHealth"
+                label="Has Health Benefits"
+              />
+              <br />
+              <Checkbox
+                id="hasPTO"
+                label="Has PTO"
+              />
+              <br />
+              <Checkbox
+                id="hasRetirement"
+                label="Has Retirement"
+              />
+              <br />
+              <Checkbox
+                id="coversRelocation"
+                label="Covers Relocation"
+              />
+              <br/>
+              <b>
+                {'Salary'}
+              </b>
+              <input
+                row="0"
+                placeholder="Salary"
+                onChange={this.handleSalary}
+                name="salary"
+                value={salary}
+              />
+              <br />
+              <Modal.Actions>
+                <div className="ui one bottom attached buttons">
+                  <Button
+                    className="ui approve button"
+                    color="teal"
+                    size="medium"
+                    type="submit"
+                    onClick={this.handleSaveOffer}
+                  >
+                    Submit
+                  </Button>
+                </div>
+              </Modal.Actions>
+              <br />
+              <Card.Group>
+                {offers.map((offer, index) => {
+                  return (
+                    <ApplicationOffersFeed
+                      offer={offer}
+                      key={index}
+                    />
+                  );
+                })}
+              </Card.Group>
+            </Modal.Content>
+          </Form>
         </Modal>
       </div>
     );

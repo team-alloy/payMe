@@ -14,7 +14,6 @@ class HomePage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      // currentRoles: this.props.session.user.active_role,
       currentUser: this.props.session.user,
     };
     this.handleUserCardUpdate = this.handleUserCardUpdate.bind(this);
@@ -23,35 +22,44 @@ class HomePage extends React.Component {
     this.componentDidMount = this.componentDidMount.bind(this);
   }
 
+  // Fetches user's information upon component render
   componentDidMount() {
     const { user } = this.props.session;
     if (user) {
       this.handleGetUserInformation((res) => {
         this.setState({ currentUser: res });
-      })
+      });
     }
   }
 
+  // Fetches all user's previously applied role
   handleGetAppliedRoles(callback) {
-    axios.get(`/api/roles?user_id=${this.props.session.user.id}`).then((res) => {
+    const { id } = this.props.session.user;
+    axios.get(`/api/roles?user_id=${id}`).then((res) => {
       callback(res.data);
     })
       .catch(err => console.error(err));
   }
 
+  // Fetches the user's session and data pertaining to their profile
   handleGetUserInformation(callback) {
-    if (!this.props.session.user) {
-      this.props.history.push('/login');
+    const { history } = this.props;
+    const { user } = this.props.session;
+    const { id } = user;
+
+    if (!user) {
+      history.push('/login');
     }
-    axios.get(`api/user?id=${this.props.session.user.id}`)
+    axios.get(`api/user?id=${id}`)
       .then((res) => {
         this.handleGetAppliedRoles((data) => {
-          this.setState({ currentRoles : data})
+          this.setState({ currentRoles: data });
         });
         callback(res.data);
       });
   }
 
+  // Patches the user's personal information and update the state
   handleUserCardUpdate(id, query) {
     axios.patch((`/api/user?id=${id}`), query)
       .then((res) => {
@@ -69,13 +77,6 @@ class HomePage extends React.Component {
          Redirecting
         </div>);
     }
-    if (this.state.currentUser.length === 0) {
-      return (
-        <div />
-      );
-    }
-    console.log('THIS IS PROPS ', this.props)
-    console.log('THIS IS STATE', this.state)
     return (
       <div>
         <div className="ui three column grid">

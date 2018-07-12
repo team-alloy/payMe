@@ -14,7 +14,7 @@ export default class ApplicationHistoryFeedListView extends React.Component {
 
   render() {
     return (
-      <Form raised className="ui teal segment" onSubmit={this.handleSubmit}>
+      <Form raised="true" className="ui teal segment" onSubmit={this.handleSubmit}>
         <div className="application-history-container">
           <label className="company-name" htmlFor="name" style={{ fontWeight: 'bold' }}>
             {'Company: '}
@@ -39,13 +39,14 @@ export default class ApplicationHistoryFeedListView extends React.Component {
             {new Date(this.props.apps.application_date).toLocaleDateString()}
           </div>
         </div>
+        <br />
         <div className="ui two bottom attached buttons">
-          <ApplicationUpdateModal updateApp={this.props.updateApp} app={this.props.apps}/>
+          <ApplicationUpdateModal
+            updateApp={this.props.updateApp}
+            app={this.props.apps}
+            delete={this.props.delete}
+          />
           <ApplicationOffersModal appID={this.props.apps.id}/>
-          <Button className="ui-button-confirm" color="red" size="tiny" onClick={() => {
-           this.props.delete(this.props.apps.id);
-           }
-          }>Delete</Button>
         </div>
       </Form>
     );

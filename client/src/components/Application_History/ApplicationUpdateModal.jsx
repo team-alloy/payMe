@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal, TextArea } from 'semantic-ui-react';
+import { Button, Modal, Form } from 'semantic-ui-react';
 
 export default class ApplicationUpdateModal extends React.Component {
   constructor(props) {
@@ -35,7 +35,6 @@ export default class ApplicationUpdateModal extends React.Component {
   }
 
   render() {
-    // console.log('this is my app props', this.props)
     const {
       city, company, role, state, salary,
     } = this.state;
@@ -49,36 +48,82 @@ export default class ApplicationUpdateModal extends React.Component {
           style={style} 
           trigger={(
             <Button onClick={this.componentDidMount}>
-              UpdateApp
+              Update Appplication
             </Button>
             )}
         >
-          <Modal.Header>
-            UpdateApp
-          </Modal.Header>
-          <Modal.Content scrolling>
-            <TextArea onChange={this.handleChange} name="company" value={company} style={{ maxHeight: 35 }} />
-            <br />
-            <TextArea onChange={this.handleChange} name="role" value={role} style={{ maxHeight: 35 }} />
-            <br />
-            <TextArea onChange={this.handleChange} name="city" value={city} style={{ maxHeight: 35 }} />
-            <br />
-            <TextArea onChange={this.handleChange} name="state" value={state} style={{ maxHeight: 35 }} />
-            <br />
-            <TextArea onChange={this.handleChange} name="salary" value={salary} style={{ maxHeight: 35 }} />
-            <Modal.Actions>
-              <Button
-                basic="true"
-                color="green"
-                labelPosition="left"
-                onClick={() => {
-                  this.props.updateApp(this.props.app.id, this.state);
-                }}
-              >
-                Submit
-              </Button>
-            </Modal.Actions>
-          </Modal.Content>
+        <Modal.Header>
+          Update Your Application!
+        </Modal.Header>
+          <Form raised="true" className="ui teal segment">
+            <Modal.Content>
+              <b>
+                {'Company\'s Name'}
+              </b>
+              <input
+                onChange={this.handleChange} 
+                name="company" 
+                value={company} 
+                style={{ maxHeight: 35 }} />
+              <br />
+              <b>
+                {'Position Title'}
+              </b>
+              <input
+                onChange={this.handleChange} 
+                name="role" value={role} 
+                style={{ maxHeight: 35 }} />
+              <br />
+              <b>
+                {'Position\'s City'}
+              </b>
+              <input
+                onChange={this.handleChange}
+                name="city"
+                value={city}
+                style={{ maxHeight: 35 }}
+              />
+              <br />
+              <b>
+                {'Position\'s State'}
+              </b>
+              <input
+                onChange={this.handleChange}
+                name="state"
+                value={state}
+                style={{ maxHeight: 35 }}
+              />
+              <br />
+              <b>
+                {'Salary'}
+              </b>
+              <input
+                onChange={this.handleChange}
+                name="salary"
+                value={salary}
+                style={{ maxHeight: 35 }}
+              />
+              <br />
+              <Modal.Actions>
+                <div className="ui two bottom attached buttons">
+                  <Button
+                    className="ui approve button"
+                    color="teal"
+                    size="medium"
+                    type="submit"
+                    onClick={() => {
+                      this.props.updateApp(this.props.app.id, this.state);
+                    }}
+                  >
+                    Submit
+                  </Button>
+                  <Button color="red" onClick={() => {this.props.delete(this.props.app.id)}}>
+                    Delete
+                  </Button>
+                </div>
+              </Modal.Actions>
+            </Modal.Content>
+          </Form>
         </Modal>
       </div>
     );

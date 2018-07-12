@@ -40,18 +40,17 @@ export default class MilestoneUpdate extends React.Component {
       description, milestone_date, name, repo_link, tech_used,
     } = this.state;
     const style = {
-      top: '10%',
+      top: '50%',
     };
-    // console.log('this is mah props', this.props)
-
+    const { milestone } = this.props;
     return (
       <div>
         <Modal
           style={style} 
           trigger={(
-          <Button onClick={this.componentDidMount}>
-            Update
-          </Button>
+            <Button onClick={this.componentDidMount}>
+              Update Milestone
+            </Button>
           )}
         >
         <Modal.Header>
@@ -111,7 +110,7 @@ export default class MilestoneUpdate extends React.Component {
               />
               <br />
               <Modal.Actions>
-                <div className="ui two bottom attached buttons">
+                <div className="ui three bottom attached buttons">
                   <Button className="ui cancel button">
                     Cancel
                   </Button>
@@ -124,7 +123,10 @@ export default class MilestoneUpdate extends React.Component {
                       this.props.update(this.props.milestone.user_id, this.state);
                     }}
                   >
-                      Submit
+                    Submit
+                  </Button>
+                  <Button color="red" onClick={() => {this.props.deleteMilestone(milestone.id)}}>
+                    Delete
                   </Button>
                 </div>
               </Modal.Actions>

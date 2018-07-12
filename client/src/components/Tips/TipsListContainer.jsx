@@ -11,7 +11,6 @@ export default class TipsListContainer extends React.Component {
   render() {
     return (
       <div>
-        {/* Handle all tips, pass down to tipsListView */}
         <TipsListView />
       </div>
     );
