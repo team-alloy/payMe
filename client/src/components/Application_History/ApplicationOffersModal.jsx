@@ -19,7 +19,7 @@ export default class ApplicationOffersModal extends React.Component {
     this.handleSalary = this.handleSalary.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
   }
-
+// get new offers based off of application id
   componentDidMount() {
     const { appID } = this.props;
     axios.get(`/api/offers?application_id=${appID}`)

@@ -45,7 +45,7 @@ export default class ApplicationUpdateModal extends React.Component {
     return (
       <div>
         <Modal
-          style={style} 
+          style={style}
           trigger={(
             <Button onClick={this.componentDidMount}>
               Update Appplication

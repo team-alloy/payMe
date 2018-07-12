@@ -16,7 +16,7 @@ export default class ApplicationHistoryForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.clearFields = this.clearFields.bind(this);
   }
-
+// sends new application to database and clears fields
   handleClick(e) {
     e.preventDefault();
     let params = {};
@@ -43,7 +43,7 @@ export default class ApplicationHistoryForm extends React.Component {
       [name]: value,
     });
   }
-
+// clears form fields
   clearFields() {
     this.setState({
       company: '',
