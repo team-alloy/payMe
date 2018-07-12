@@ -20,6 +20,7 @@ export class ApplicationHistoryFeed extends React.Component {
         <div>
           {this.props.apps.map(app => (
             <ApplicationHistoryFeedListView
+              key={app.id}
               updateApp={this.props.updateApp}
               apps={app}
               delete={this.props.delete}

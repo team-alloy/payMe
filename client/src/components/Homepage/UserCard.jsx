@@ -49,7 +49,6 @@ export default class UserCard extends React.Component {
               <i className="envelope icon" />
               {user.email}
             </div>
-            <br />
           </a>
           <a>
             <div data-tooltip="Current Salary">

@@ -40,7 +40,7 @@ export class TipsStatistic extends React.Component {
     if (this.state.results) {
       const numOfApps = this.state.results.numberOfApplications;
       if ( numOfApps <= 1) {
-        return ( `You have a good salary, if you want more and it isn't negotiable. See if your manager will budge on number of vacation days. Or learn a new tech, here is a list of the 10 most common ones used according to our database.`)
+        return ( 'You have a good salary, if you want more and it isn\'t negotiable. See if your manager will budge on number of vacation days. Or learn a new tech, here is a list of the 10 most common ones used according to our database.')
       } 
     }
   }
@@ -91,9 +91,10 @@ export class TipsStatistic extends React.Component {
         <b>
             {` ${this.state.location} `}
         </b>
-          has an average market value range of:
+        {'has an average market value range between '}
         <b>
-          {this.state.results ? `${this.placeCommasOnSalary(Number(this.state.results.avgSalary * .93).toFixed(0))} - ${this.placeCommasOnSalary(Number(this.state.results.avgSalary * 1.07).toFixed(0))}`: undefined}
+          {this.state.results ? `${this.placeCommasOnSalary(Number(this.state.results.avgSalary * .93).toFixed(0))} and ${this.placeCommasOnSalary(Number(this.state.results.avgSalary * 1.07).toFixed(0))}`: undefined}
+          .
         </b>
         <br />
           Based on this data, here is what we suggest:

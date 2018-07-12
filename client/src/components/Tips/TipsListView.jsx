@@ -10,7 +10,6 @@ export default class TipsListView extends React.Component {
   render() {
     return (
       <div>
-        {/* Tips List View receives props from Tips parent: */}
         Glassdoor found that the average American worker
         could be earning
         {' '}

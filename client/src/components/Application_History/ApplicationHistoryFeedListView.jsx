@@ -14,7 +14,7 @@ export default class ApplicationHistoryFeedListView extends React.Component {
 
   render() {
     return (
-      <Form raised className="ui teal segment" onSubmit={this.handleSubmit}>
+      <Form raised="true" className="ui teal segment" onSubmit={this.handleSubmit}>
         <div className="application-history-container">
           <label className="company-name" htmlFor="name" style={{ fontWeight: 'bold' }}>
             {'Company: '}

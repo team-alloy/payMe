@@ -66,7 +66,7 @@ export class UserCardForm extends React.Component {
         <Modal
           style={style} 
           trigger={(
-          <i className="edit icon"  onClick={this.componentDidMount} />
+          <i className="edit icon right floated"  align="right" onClick={this.componentDidMount} />
           )}
         >
           <Modal.Header>

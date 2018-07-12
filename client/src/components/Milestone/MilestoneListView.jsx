@@ -16,7 +16,7 @@ export default class MilestoneListView extends React.Component {
     } = this.props.milestone;
     const { update } = this.props;
     return (
-      <Form raised className="ui teal segment">
+      <Form raised="true" className="ui teal segment">
         <h3 className="ui header">
           {name}
         </h3>
@@ -40,9 +40,12 @@ export default class MilestoneListView extends React.Component {
         <div>
           <MilestoneUpdate update={update} milestone={milestone} />
           <Button onClick={() => {
-           this.props.deleteMilestone(this.props.milestone.id);
-           }
-          }>Delete</Button>
+            this.props.deleteMilestone(this.props.milestone.id);
+          }
+          }
+          >
+            Delete
+          </Button>
         </div>
       </Form>
     );

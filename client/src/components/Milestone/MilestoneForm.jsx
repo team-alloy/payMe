@@ -42,6 +42,7 @@ export class MilestoneForm extends React.Component {
   }
 
   handleClearFields() {
+    e.preventDefault();
     this.setState({
       name: '',
       description: '',
@@ -135,7 +136,7 @@ export class MilestoneForm extends React.Component {
           />
         </div>
         <div className="ui two bottom attached buttons">
-          <Button className="ui-button-cancel" onClick={this.handleClearFields}>
+          <Button className="ui-button-cancel" type="neutral" onClick={this.handleClearFields}>
             Cancel
           </Button>
           <Button className="ui-button-confirm" color="teal" type="submit" size="medium">
