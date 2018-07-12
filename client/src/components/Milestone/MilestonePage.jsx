@@ -1,9 +1,10 @@
 import React, { Fragment } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import axios from 'axios';
+
 import MilestoneForm from './MilestoneForm';
 import MilestoneListView from './MilestoneListView';
-import axios from 'axios';
 import { setMilestones } from '../../store/actions/userActions';
 
 export class MilestonePage extends React.Component {
@@ -57,14 +58,14 @@ export class MilestonePage extends React.Component {
       });
   }
 
-  //this function deletes the milestone
+  // this function deletes the milestone
   hanldeMilestoneDelete(milestoneID) {
     axios.delete(`/api/milestones?id=${milestoneID}`)
-    .then((reponse) => {
-      this.handleMilestoneGet((data) => {
-        this.setState({currentMilestones: data})
+      .then((reponse) => {
+        this.handleMilestoneGet((data) => {
+          this.setState({ currentMilestones: data })
+        });
       });
-    })
   }
 
   render() {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Modal, Form, TextArea } from 'semantic-ui-react';
+import { Button, Modal, Form } from 'semantic-ui-react';
 
 export default class ApplicationUpdateModal extends React.Component {
   constructor(props) {
@@ -48,7 +48,7 @@ export default class ApplicationUpdateModal extends React.Component {
           style={style} 
           trigger={(
             <Button onClick={this.componentDidMount}>
-              Update App
+              Update Appplication
             </Button>
             )}
         >
@@ -105,7 +105,7 @@ export default class ApplicationUpdateModal extends React.Component {
               />
               <br />
               <Modal.Actions>
-                <div className="ui one bottom attached buttons">
+                <div className="ui two bottom attached buttons">
                   <Button
                     className="ui approve button"
                     color="teal"
@@ -116,6 +116,9 @@ export default class ApplicationUpdateModal extends React.Component {
                     }}
                   >
                     Submit
+                  </Button>
+                  <Button color="red" onClick={() => {this.props.delete(this.props.app.id)}}>
+                    Delete
                   </Button>
                 </div>
               </Modal.Actions>

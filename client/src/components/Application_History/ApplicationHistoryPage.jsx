@@ -92,7 +92,11 @@ class ApplicationHistoryPage extends React.Component {
                 />
               </div>
               <div className="column">
-                <ApplicationHistoryFeed handleUpdateApp={this.handleUpdateApp} apps={this.state.applications} delete={this.handleDelete}/>
+                <ApplicationHistoryFeed
+                  updateApp={this.handleUpdateApp}
+                  apps={this.state.applications} 
+                  delete={this.handleDelete}
+                />
               </div>
             </div>
           </div>

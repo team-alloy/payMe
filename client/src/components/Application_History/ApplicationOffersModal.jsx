@@ -36,7 +36,7 @@ export default class ApplicationOffersModal extends React.Component {
       });
   }
 
-    // Save the user's offer for later retrieval
+  // Save the user's offer for later retrieval
   handleSaveOffer(e) {
     e.preventDefault();
     const { appID } = this.props;
@@ -76,7 +76,7 @@ export default class ApplicationOffersModal extends React.Component {
           style={style}
           trigger={(
             <Button onClick={this.componentDidMount} color="teal">
-              Update
+              Offers
             </Button>
           )}
         >

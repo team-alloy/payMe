@@ -23,6 +23,7 @@ export class MilestoneForm extends React.Component {
     e.preventDefault();
     const { name } = e.target;
     const { value } = e.target;
+
     this.setState({
       [name]: value,
     });
