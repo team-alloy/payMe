@@ -337,14 +337,21 @@ router.route('/api/milestones')
     }
   })
   .post((req, res) => {
+    const {
+      name, description, tech_used, repo_link,
+    } = req.body;
     if (!req.body.user_id) {
       res.status(404).json({ error: 'An account needs a user_id' });
     }
-    milestoneController.insertMilestone(req.body)
-      .then((milestones) => {
-        res.status(200).json('milestone inserted');
-      })
-      .catch(err => res.status(404).json({ error: err.sqlMessage }));
+    if (name === '' || description === '' || tech_used === '' || repo_link === '') {
+      res.status(400).json(new Error('name, description, tech_used, and repo_link cannot be empty!'))
+    } else {
+      milestoneController.insertMilestone(req.body)
+        .then((milestones) => {
+          res.status(200).json('milestone inserted');
+        })
+        .catch(err => res.status(404).json({ error: err.sqlMessage }));
+    }
   })
   .patch((req, res) => {
     milestoneController.updateMilestone(req.body.id, req.body)
