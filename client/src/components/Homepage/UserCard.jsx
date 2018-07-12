@@ -20,7 +20,7 @@ export default class UserCard extends React.Component {
         <div className="image">
           <img src={user.profile_pic} alt="" />
         </div>
-        <div className="content">
+        <div className="content wrap line">
           <a>
             {`${user.first_name} ${user.last_name}`}
           </a>

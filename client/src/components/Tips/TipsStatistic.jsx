@@ -40,7 +40,9 @@ export class TipsStatistic extends React.Component {
     if (this.state.results) {
       const numOfApps = this.state.results.numberOfApplications;
       if ( numOfApps <= 1) {
-        return ( 'You have a good salary, if you want more and it isn\'t negotiable. See if your manager will budge on number of vacation days. Or learn a new tech, here is a list of the 10 most common ones used according to our database.')
+        return ( 'You have a good salary, if you want more and it isn\'t negotiable. See if your manager will budge on number of vacation days. Or learn a new technology, here is a list of the 10 most common ones used according to our database.')
+      } else if( numOfApps >= 5) {
+        return ('You have a decent salary, according to our record, asking for remote working access could be a huge bonus! Or learn a new technology, here is a list of the 10 most common ones used according to our database.')
       }
     }
   }

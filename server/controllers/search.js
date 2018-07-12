@@ -3,6 +3,10 @@ const db = require('../../database/index');
 const companyController = require('./company');
 const roleController = require('./role');
 
+/*
+  This function gives the tops tech an order from most used to least used
+  only returns top 10 technologies
+*/
 const orderTechs = (unordered) => {
   const ordered = {};
   let count = 0;
