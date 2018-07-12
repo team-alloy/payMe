@@ -20,7 +20,7 @@ export class TipsStatistic extends React.Component {
     if (user) {
       this.getActiveRoleLocation((data) => {
         set({location: data});
-        this.getAverageSalary(data.split(',').map(l => l.trim()), (data) => {
+        this.handleGetAverageSalary(data.split(',').map(l => l.trim()), (data) => {
           set({ avgSalary: data })
         });
       });
@@ -80,6 +80,7 @@ export class TipsStatistic extends React.Component {
         </div>
       );
     }
+    console.warn(this.states)
     return (
       <div>
         <br />
@@ -107,13 +108,20 @@ export class TipsStatistic extends React.Component {
           }) : undefined}
         </ul>
         <br />
-          <b>
-            Possible benefits:
-          </b>
+          { this.state.results ?
+            <b>
+              Possible benefits:
+            </b>
+            : undefined}
         <ul>
           {this.state.results ? Object.keys(this.state.results.benefits).map((benefit , index) => {
-            return <li key={benefit}>{this.state.results.benefits[benefit]}</li>
-          }) : undefined}
+                 if(benefit === 'base_salary' && (this.state.results.benefits[benefit] === undefined || this.state.results.benefits[benefit] === null)) {
+                   return <li key={benefit}>No base salaries were given to us yet, keep negotiating even without this information. Usually whatever the salary you are thinking, unless its absurdly high, can have another $10,000 added onto it.</li>
+                 } else if (benefit === 'base_salary') {
+                   return <li key={benefit}>Base salary of ${this.placeCommasOnSalary(this.state.results.benefits[benefit]*.8)} - {this.placeCommasOnSalary(this.state.results.benefits[benefit]*1.1)}</li>
+                 }
+                 return <li key={benefit}>{this.state.results.benefits[benefit]}</li>
+               }) : undefined}
         </ul>
         <br />
       </div>
