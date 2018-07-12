@@ -1,4 +1,4 @@
-const { app, server } = require('./index');
+const app = require('./server');
 const request = require('supertest');
 
 const user = {};
@@ -145,5 +145,4 @@ afterAll(() => request(app)
   .delete('/api/user?email=real@user.com')
   .then((response) => {
     expect(response.body.message).toEqual('user was deleted from database');
-    server.close();
   }));

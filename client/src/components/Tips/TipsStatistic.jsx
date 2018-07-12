@@ -21,7 +21,7 @@ export class TipsStatistic extends React.Component {
       this.getActiveRoleLocation((data) => {
         set({location: data});
         this.handleGetAverageSalary(data.split(',').map(l => l.trim()), (data) => {
-          this.setState({ avgSalary: data })
+          set({ avgSalary: data })
         });
       });
     }
@@ -40,8 +40,10 @@ export class TipsStatistic extends React.Component {
     if (this.state.results) {
       const numOfApps = this.state.results.numberOfApplications;
       if ( numOfApps <= 1) {
-        return ( 'You have a good salary, if you want more and it isn\'t negotiable. See if your manager will budge on number of vacation days. Or learn a new tech, here is a list of the 10 most common ones used according to our database.')
-      } 
+        return ( 'You have a good salary, if you want more and it isn\'t negotiable. See if your manager will budge on number of vacation days. Or learn a new technology, here is a list of the 10 most common ones used according to our database.')
+      } else if( numOfApps >= 5) {
+        return ('You have a decent salary, according to our record, asking for remote working access could be a huge bonus! Or learn a new technology, here is a list of the 10 most common ones used according to our database.')
+      }
     }
   }
 
@@ -80,6 +82,7 @@ export class TipsStatistic extends React.Component {
         </div>
       );
     }
+    console.warn(this.states)
     return (
       <div>
         <br />
@@ -107,13 +110,20 @@ export class TipsStatistic extends React.Component {
           }) : undefined}
         </ul>
         <br />
-          <b>
-            Possible benefits:
-          </b>
+          { this.state.results ?
+            <b>
+              Possible benefits:
+            </b>
+            : undefined}
         <ul>
           {this.state.results ? Object.keys(this.state.results.benefits).map((benefit , index) => {
-            return <li key={benefit}>{this.state.results.benefits[benefit]}</li>
-          }) : undefined}
+                 if(benefit === 'base_salary' && (this.state.results.benefits[benefit] === undefined || this.state.results.benefits[benefit] === null)) {
+                   return <li key={benefit}>No base salaries were given to us yet, keep negotiating even without this information. Usually whatever the salary you are thinking, unless its absurdly high, can have another $10,000 added onto it.</li>
+                 } else if (benefit === 'base_salary') {
+                   return <li key={benefit}>Base salary of ${this.placeCommasOnSalary(this.state.results.benefits[benefit]*.8)} - {this.placeCommasOnSalary(this.state.results.benefits[benefit]*1.1)}</li>
+                 }
+                 return <li key={benefit}>{this.state.results.benefits[benefit]}</li>
+               }) : undefined}
         </ul>
         <br />
       </div>

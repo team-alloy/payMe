@@ -3,6 +3,10 @@ export const SET_COMPANY = 'SET_COMPANY';
 export const SET_CITY = 'SET_CITY';
 export const SET_STATE = 'SET_STATE';
 
+/*
+  These store functions just store strings into redux store variables.
+  The purpose is to make the retrieval of the options selected in the drop downs in the search page easier to retrieve.
+*/
 
 export function setCompany (company) {
   return {
@@ -12,7 +16,6 @@ export function setCompany (company) {
 }
 
 export function setRole (role) {
-  console.log("!!!!!!!!!!!!!!!!!!!!!1", role)
   return {
     type: SET_ROLE,
     payload: role

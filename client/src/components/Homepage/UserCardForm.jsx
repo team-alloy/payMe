@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { Button, Form, Modal } from 'semantic-ui-react';
 import { setAppliedRoles } from '../../store/actions/userActions';
 
+
 export class UserCardForm extends React.Component {
   constructor(props) {
     super(props);
@@ -64,7 +65,7 @@ export class UserCardForm extends React.Component {
     return (
       <div>
         <Modal
-          style={style} 
+          style={style}
           trigger={(
           <i className="edit icon right floated"  align="right" onClick={this.componentDidMount} />
           )}
@@ -136,7 +137,7 @@ export class UserCardForm extends React.Component {
                       }
                       return (
                         <option
-                          key={index} 
+                          key={index}
                           value={role.id}
                         >
                           {`${role.name} at ${role.company.name}`}

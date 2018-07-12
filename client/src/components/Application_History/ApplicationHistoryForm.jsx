@@ -19,7 +19,11 @@ export default class ApplicationHistoryForm extends React.Component {
 
   handleClick(e) {
     e.preventDefault();
-    this.props.makeApp(this.state, () => {
+    let params = {};
+    for( let key in this.state) {
+      params[key] = this.state[key].trim();
+    }
+    this.props.makeApp(params, () => {
       this.setState({
         company: '',
         role: '',

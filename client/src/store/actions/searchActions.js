@@ -4,6 +4,10 @@ export const SAVE_STATES = 'SAVE_STATES';
 export const SAVE_CITIES = 'SAVE_CITIES';
 export const SAVE_RESULTS = 'SAVE_RESULTS';
 
+/*
+  These store functions save the array of companies, roles, cities, and states to the
+  store. It also saves the search results to the store
+*/
 export const saveCompanies = (companies) => {
   return {
     type: SAVE_COMPANIES,

@@ -19,11 +19,11 @@ const tips = [
 export default class TipOfTheDay extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-
-    };
   }
 
+  /*
+  Renders a random tip from the array above.
+  */
   render() {
     return (
       <Segment raised className="segment ui teal segment">

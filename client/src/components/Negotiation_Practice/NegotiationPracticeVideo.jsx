@@ -47,9 +47,7 @@ export default class NegotiationPracticeVideo extends Component {
 
   getRoomsList() {
     axios.get('/rooms').then((rooms) => {
-      console.log('all rooms in front end', rooms);
       this.setState({ roomsList: rooms.data });
-      console.log('CURRENT ROOM NAME IN STATE', this.state.roomName)
     });
   }
 
@@ -63,8 +61,7 @@ export default class NegotiationPracticeVideo extends Component {
       this.setState({ roomNameErr: true });
       return;
     }
-    
-    console.log(`Joining room '${this.state.roomName}'...`);
+
     const connectOptions = {
       name: this.state.roomName,
     };
@@ -107,7 +104,6 @@ export default class NegotiationPracticeVideo extends Component {
 
   roomJoined(room) {
     // Called when a participant joins a room
-    console.log(`Joined as '${this.state.identity}'`);
     this.setState({
       activeRoom: room,
       localMediaAvailable: true,
@@ -122,19 +118,16 @@ export default class NegotiationPracticeVideo extends Component {
 
     // Attach the Tracks of the Room's Participants.
     room.participants.forEach((participant) => {
-      console.log(`Already in Room: '${participant.identity}'`);
       const previewContainer = this.refs.remoteMedia;
       this.attachParticipantTracks(participant, previewContainer);
     });
 
     // When a Participant joins the Room, log the event.
     room.on('participantConnected', (participant) => {
-      console.log(`Joining: '${participant.identity}'`);
     });
 
     // When a Participant adds a Track, attach it to the DOM.
     room.on('trackAdded', (track, participant) => {
-      console.log(`${participant.identity} added track: ${track.kind}`);
       const previewContainer = this.refs.remoteMedia;
       this.attachTracks([track], previewContainer);
     });
@@ -147,7 +140,6 @@ export default class NegotiationPracticeVideo extends Component {
 
     // When a Participant leaves the Room, detach its Tracks.
     room.on('participantDisconnected', (participant) => {
-      console.log(`Participant '${participant.identity}' left the room`);
       this.detachParticipantTracks(participant);
     });
 

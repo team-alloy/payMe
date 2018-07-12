@@ -61,12 +61,12 @@ class ApplicationHistoryPage extends React.Component {
   }
 
   handleDelete(id) {
-    axios.delete('/api/applications?id='+id)
-      .then((res) => {
-        this.handleGetApplicationByUserId((data) => {
-          this.setState({ applications: data });
-        });
-      })
+    axios.delete('/api/applications?id='+id + '&user_id=' + this.props.session.user.id)
+    .then((res) => {
+      this.handleGetApplicationByUserId((data) => {
+        this.setState({ applications: data });
+      });
+    })
   }
 
 
@@ -94,7 +94,7 @@ class ApplicationHistoryPage extends React.Component {
               <div className="column">
                 <ApplicationHistoryFeed
                   updateApp={this.handleUpdateApp}
-                  apps={this.state.applications} 
+                  apps={this.state.applications}
                   delete={this.handleDelete}
                 />
               </div>

@@ -9,7 +9,7 @@ export class StateDropDown extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selection: 'Select role'
+      selection: 'Select state'
     }
   }
   render() {
