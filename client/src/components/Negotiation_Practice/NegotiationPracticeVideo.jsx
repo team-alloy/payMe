@@ -165,7 +165,7 @@ export default class NegotiationPracticeVideo extends Component {
 
   render() {
     /*
-	     Controls showing of the local track
+	    Controls showing of the local track
 	    Only show video track after user has joined a room else show nothing
 	  */
     const showLocalTrack = this.state.localMediaAvailable ? (
@@ -174,8 +174,8 @@ export default class NegotiationPracticeVideo extends Component {
         <div
           className="flex-item"
           ref="localMedia"
-          style={{ display: 'inline-block' }}
-        />
+        >
+        </div>
         {' '}
       </div>) : '';
     /*
@@ -207,17 +207,17 @@ export default class NegotiationPracticeVideo extends Component {
               {/*
                 The following div element shows all remote media (other participant’s tracks)
               */}
-              <div className="flex-container">
+              <div className="flex-container" style={{ "display" : "inline-flex" }}>
                 <div
                   className="flex-item"
                   ref="remoteMedia"
-                  style={{ display: 'inline-block' }}
-                />
+                >
+                </div>
               </div>
             </div>
 
             <div className="right floated column">
-              <div className="flex-container">
+              <div className="flex-container" style={{ "display" : "inline-flex" }}>
                 {showLocalTrack}
                 {' '}
                 {/* Show local track if available */}
