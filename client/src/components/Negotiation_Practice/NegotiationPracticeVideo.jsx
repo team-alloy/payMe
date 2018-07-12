@@ -199,8 +199,9 @@ export default class NegotiationPracticeVideo extends Component {
 
     return (
       <MuiThemeProvider muiTheme={getMuiTheme(lightBaseTheme)}>
-        <div className="ui grid">
+        <div className="ui centered grid">
           <div className="four column grid">
+          Decide with your partner who will first serve as the interviewer and the interviewee. Then switch!
 
             <div className="left floated column">
               {/*
