@@ -1,16 +1,20 @@
-import Enzyme, { shallow } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-// React 16 Enzyme adapter
-Enzyme.configure({ adapter: new Adapter() });
+import React from 'react';
+import { shallow }from 'enzyme';
+import { NegotiationPracticeVideo } from './NegotiationPracticeVideo';
 
-test('render Markdown in preview mode', () => {
-    const wrapper = shallow(
-        <MarkdownEditor value="*Hello* Jest!" />
-    );
+test('renders correctly', () => {
+  let component = shallow(
+    <NegotiationPracticeVideo />
+  );
 
-    expect(wrapper).toMatchSnapshot();
+  let tree = component.find('div');
+  expect(tree.length).toEqual(1);
+});
 
-    wrapper.find('[name="toggle-preview"]').simulate('click');
+test('should render an array', () => {
 
-    expect(wrapper).toMatchSnapshot();
+});
+
+test('', () => {
+
 });
