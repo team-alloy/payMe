@@ -48,7 +48,7 @@ export class TipsStatistic extends React.Component {
   handleGetAverageSalary(loc, data) {
     const { user } = this.props;
     axios.get(`/api/search?role=${user.active_role[0].name}&company=${user.active_role[0].company.name}&city=${loc[0]}&state=${loc[1]}`).then((res) => {
-      this.setState({results: res.data})
+      this.setState({ results: res.data })
     });
   }
 
@@ -63,7 +63,7 @@ export class TipsStatistic extends React.Component {
       return (
         <div>
           <Link to="/login">
-            Login
+            {'Login '}
           </Link>
             to find out more!
         </div>
