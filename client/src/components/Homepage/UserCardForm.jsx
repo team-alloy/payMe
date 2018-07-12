@@ -168,8 +168,6 @@ export class UserCardForm extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log('EWWWWWWWWW', state);
-
   return { session: state.user };
 };
 

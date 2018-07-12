@@ -19,7 +19,7 @@ export default class ApplicationOffersModal extends React.Component {
       offers: [],
     };
 
-    this.saveOffer = this.saveOffer.bind(this);
+    this.handleSaveOffer = this.handleSaveOffer.bind(this);
     this.handleSalary = this.handleSalary.bind(this);
     this.componentDidMount = this.componentDidMount.bind(this);
   }
@@ -40,7 +40,8 @@ export default class ApplicationOffersModal extends React.Component {
       });
   }
 
-  saveOffer(e) {
+    // Save the user's offer for later retrieval
+  handleSaveOffer(e) {
     e.preventDefault();
     const { appID } = this.props;
     const { salary } = this.state;
@@ -106,7 +107,7 @@ export default class ApplicationOffersModal extends React.Component {
                 basic="true"
                 color="green"
                 labelPosition="left"
-                onClick={this.saveOffer}
+                onClick={this.handleSaveOffer}
               >
               Submit
               </Button>

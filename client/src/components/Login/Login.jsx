@@ -32,6 +32,8 @@ class Login extends React.Component {
     });
   }
 
+  // This function sets the session and logs the user in,
+  // they user is not logged in, redirect user to login page.
   handleClick(e) {
     e.preventDefault();
     axios.post('/api/login', this.state).then((response) => {

@@ -42,10 +42,17 @@ export default class ApplicationHistoryFeedListView extends React.Component {
         <div className="ui two bottom attached buttons">
           <ApplicationUpdateModal updateApp={this.props.updateApp} app={this.props.apps}/>
           <ApplicationOffersModal appID={this.props.apps.id}/>
-          <Button className="ui-button-confirm" color="red" size="tiny" onClick={() => {
-           this.props.delete(this.props.apps.id);
-           }
-          }>Delete</Button>
+          <Button
+            className="ui-button-confirm"
+            color="red"
+            size="tiny"
+            onClick={() => {
+              this.props.delete(this.props.apps.id);
+            }
+          }
+          >
+            Delete
+          </Button>
         </div>
       </Form>
     );

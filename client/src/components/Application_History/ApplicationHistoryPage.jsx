@@ -14,23 +14,24 @@ class ApplicationHistoryPage extends React.Component {
     this.state = {
       applications: this.props.session.applications,
     };
-    this.updateApp = this.updateApp.bind(this);
-    this.getApplicationByUserID = this.getApplicationByUserID.bind(this);
-    this.makeApplication = this.makeApplication.bind(this);
+    this.handleUpdateApp = this.handleUpdateApp.bind(this);
+    this.handleGetApplicationByUserId = this.handleGetApplicationByUserId.bind(this);
+    this.handleMakeApplication = this.handleMakeApplication.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
 
   componentDidMount() {
     const set = this.setState.bind(this);
     if (this.props.session.user) {
-      this.getApplicationByUserID((data) => {
+      this.handleGetApplicationByUserId((data) => {
         this.props.setApplications(data);
         set({ applications: data });
       });
     }
   }
 
-  getApplicationByUserID(callback) {
+  // Get the user's application
+  handleGetApplicationByUserId(callback) {
     const { id } = this.props.session.user;
     axios.get(`/api/applications?user_id=${id}`)
       .then((res) => {
@@ -38,22 +39,22 @@ class ApplicationHistoryPage extends React.Component {
       });
   }
 
-  makeApplication(query, callback) {
+  handleMakeApplication(query, callback) {
     const { id } = this.props.session.user;
     const appInfo = Object.assign({}, query, { user_id: id });
     axios.post('/api/applications', appInfo)
       .then((res) => {
-        this.getApplicationByUserID((data) => {
+        this.handleGetApplicationByUserId((data) => {
           this.setState({ applications: data });
         });
         callback();
       });
   }
 
-  updateApp(query, modalState) {
+  handleUpdateApp(query, modalState) {
     axios.patch(`/api/applications/?id=${query}`, modalState)
       .then((res) => {
-        this.getApplicationByUserID((data) => {
+        this.handleGetApplicationByUserId((data) => {
           this.setState({ applications: data });
         });
       });
@@ -61,11 +62,11 @@ class ApplicationHistoryPage extends React.Component {
 
   handleDelete(id) {
     axios.delete('/api/applications?id='+id)
-    .then((res) => {
-      this.getApplicationByUserID((data) => {
-        this.setState({ applications: data });
-      });
-    })
+      .then((res) => {
+        this.handleGetApplicationByUserId((data) => {
+          this.setState({ applications: data });
+        });
+      })
   }
 
 
@@ -86,12 +87,12 @@ class ApplicationHistoryPage extends React.Component {
             <div className="equal width row">
               <div className="column">
                 <ApplicationHistoryForm
-                  getApps={this.getApplicationByUserID}
-                  makeApp={this.makeApplication}
+                  getApps={this.handleGetApplicationByUserId}
+                  makeApp={this.handleMakeApplication}
                 />
               </div>
               <div className="column">
-                <ApplicationHistoryFeed updateApp={this.updateApp} apps={this.state.applications} delete={this.handleDelete}/>
+                <ApplicationHistoryFeed handleUpdateApp={this.handleUpdateApp} apps={this.state.applications} delete={this.handleDelete}/>
               </div>
             </div>
           </div>

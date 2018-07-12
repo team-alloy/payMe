@@ -18,9 +18,13 @@ export class ApplicationHistoryFeed extends React.Component {
     if (this.props.apps) {
       return (
         <div>
-          {this.props.apps.map((app) => {
-            return <ApplicationHistoryFeedListView updateApp={this.props.updateApp} apps={app} delete={this.props.delete}/>
-          })}
+          {this.props.apps.map(app => (
+            <ApplicationHistoryFeedListView
+              updateApp={this.props.updateApp}
+              apps={app}
+              delete={this.props.delete}
+            />
+          ))}
         </div>
       );
     }

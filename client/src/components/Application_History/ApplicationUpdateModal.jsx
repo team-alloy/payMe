@@ -35,7 +35,6 @@ export default class ApplicationUpdateModal extends React.Component {
   }
 
   render() {
-    // console.log('this is my app props', this.props)
     const {
       city, company, role, state, salary,
     } = this.state;
