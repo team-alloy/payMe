@@ -206,17 +206,17 @@ export default class NegotiationPracticeVideo extends Component {
               {/*
                 The following div element shows all remote media (other participant’s tracks)
               */}
-              <div className="flex-container" style={{ display: 'inline-block',height: '70%', width: '70%'  }}>
+              <div className="flex-container">
                 <div
                   className="flex-item"
                   ref="remoteMedia"
-                  style={{ display: 'inline-block', height: '70%', width: '70%' }}
+                  style={{ display: 'inline-block' }}
                 />
               </div>
             </div>
 
             <div className="right floated column">
-              <div className="flex-container" style={{ display: 'inline-block' }}>
+              <div className="flex-container">
                 {showLocalTrack}
                 {' '}
                 {/* Show local track if available */}
@@ -225,7 +225,7 @@ export default class NegotiationPracticeVideo extends Component {
 
             <div className="left floated column">
               <div className="item">
-                <div id="container" style={{ height: '100%', width: '70%' }}>
+                <div id="container" style={{ height: '100%', width: '80%' }}>
                   <table className="ui selectable teal table">
                     <thead>
                       <tr>
@@ -272,7 +272,7 @@ export default class NegotiationPracticeVideo extends Component {
                     value={this.state.roomName}
                     onChange={this.handleRoomNameChange}
                     errorText={this.state.roomNameErr ? 'Room Name is required' : undefined}
-                    style={{ width: '70%' }}
+                    style={{ width: '80%' }}
                   />
 
                   <br />
