@@ -11,10 +11,10 @@ test('renders correctly', () => {
   expect(tree.length).toEqual(1);
 });
 
-test('should render an array', () => {
+// test('should render an array', () => {
 
-});
+// });
 
-test('', () => {
+// test('', () => {
 
-});
+// });
