@@ -10,4 +10,13 @@
 
 > Once those keys are placed, run **npm install**. You should be good to go!
 
+##### Production
+>npm start
+>npm run react:dev
+>mysql.server start
+>mysql -u root -p
+
+##### TODO
+>PayMe can help gather salary data and potential job opportunities to analyze the best personalized points to bring up during negotiation.
+
 ##### Endpoints

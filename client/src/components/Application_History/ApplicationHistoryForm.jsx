@@ -9,14 +9,14 @@ export default class ApplicationHistoryForm extends React.Component {
       role: '',
       city: '',
       state: '',
-      salary: 0,
+      salary: '',
       application_date: '',
     };
     this.handleClick = this.handleClick.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.clearFields = this.clearFields.bind(this);
   }
-
+// sends new application to database and clears fields
   handleClick(e) {
     e.preventDefault();
     let params = {};
@@ -29,7 +29,7 @@ export default class ApplicationHistoryForm extends React.Component {
         role: '',
         city: '',
         state: '',
-        salary: 0,
+        salary: '',
         application_date: '',
       });
     });
@@ -43,14 +43,14 @@ export default class ApplicationHistoryForm extends React.Component {
       [name]: value,
     });
   }
-
+// clears form fields
   clearFields() {
     this.setState({
       company: '',
       role: '',
       city: '',
       state: '',
-      salary: 0,
+      salary: '',
       application_date: '',
     });
   }

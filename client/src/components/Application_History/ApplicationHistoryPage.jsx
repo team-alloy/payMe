@@ -19,7 +19,7 @@ class ApplicationHistoryPage extends React.Component {
     this.handleMakeApplication = this.handleMakeApplication.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
   }
-
+// on state change rerender feed with updated applications
   componentDidMount() {
     const set = this.setState.bind(this);
     if (this.props.session.user) {
@@ -59,7 +59,7 @@ class ApplicationHistoryPage extends React.Component {
         });
       });
   }
-
+// delete selected application and updates feed accordingly
   handleDelete(id) {
     axios.delete('/api/applications?id='+id + '&user_id=' + this.props.session.user.id)
     .then((res) => {
@@ -71,6 +71,7 @@ class ApplicationHistoryPage extends React.Component {
 
 
   render() {
+    // if user is not logged in redirect to homepage
     if (!this.props.session.user) {
       this.props.history.push('/login');
       return (
