@@ -11,7 +11,7 @@ import App from './components/App';
 
 const middleware = applyMiddleware(ReduxPromise, thunk);
 
-const store = createStore( root, compose(middleware, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()) );
+const store = createStore( root, compose(middleware, window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose) );
 
 ReactDOM.render(
   (
