@@ -1,5 +1,5 @@
 # Snyk (https://snyk.io) policy file, patches or ignores known vulnerabilities.
-version: v1.12.0
+version: v1.14.1
 # ignores vulnerabilities until expiry date; change duration by modifying expiry date
 ignore:
   'npm:braces:20180219':
@@ -21,25 +21,23 @@ patch:
   'npm:hoek:20180212':
     - semantic-ui > gulp-less > less > request > hawk > boom > hoek:
         patched: '2018-07-09T16:27:18.182Z'
-      semantic-ui > gulp-less > less > request > hawk > sntp > hoek:
-        patched: '2018-07-09T16:58:27.368Z'
     - semantic-ui > gulp-less > less > request > hawk > sntp > hoek:
         patched: '2018-07-09T16:27:18.182Z'
-      semantic-ui > gulp-less > less > request > hawk > cryptiles > boom > hoek:
-        patched: '2018-07-09T16:58:27.368Z'
     - semantic-ui > gulp-less > less > request > hawk > cryptiles > boom > hoek:
         patched: '2018-07-09T16:27:18.182Z'
-      semantic-ui > gulp-less > less > request > hawk > boom > hoek:
-        patched: '2018-07-09T16:58:27.368Z'
     - semantic-ui > gulp-less > less > request > hawk > hoek:
+        patched: '2018-07-09T16:58:27.368Z'
+    - semantic-ui > gulp-less > less > request > hawk > sntp > hoek:
+        patched: '2018-07-09T16:58:27.368Z'
+    - semantic-ui > gulp-less > less > request > hawk > cryptiles > boom > hoek:
+        patched: '2018-07-09T16:58:27.368Z'
+    - semantic-ui > gulp-less > less > request > hawk > boom > hoek:
         patched: '2018-07-09T16:58:27.368Z'
   'npm:minimatch:20160620':
     - semantic-ui > gulp > vinyl-fs > glob-stream > glob > minimatch:
         patched: '2018-07-09T16:58:27.368Z'
     - semantic-ui > gulp-copy > gulp > vinyl-fs > glob-stream > minimatch:
         patched: '2018-07-09T16:27:18.182Z'
-      semantic-ui > gulp-copy > gulp > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
-        patched: '2018-07-09T16:58:27.368Z'
     - semantic-ui > gulp-copy > gulp > vinyl-fs > glob-stream > glob > minimatch:
         patched: '2018-07-09T16:58:27.368Z'
     - semantic-ui > gulp > vinyl-fs > glob-watcher > gaze > globule > minimatch:
@@ -50,9 +48,30 @@ patch:
         patched: '2018-07-09T16:58:27.368Z'
     - semantic-ui > gulp > vinyl-fs > glob-stream > minimatch:
         patched: '2018-07-09T16:27:18.182Z'
-      semantic-ui > gulp-copy > gulp > vinyl-fs > glob-stream > minimatch:
-        patched: '2018-07-09T16:58:27.368Z'
     - semantic-ui > gulp-copy > gulp > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
         patched: '2018-07-09T16:27:18.182Z'
-      semantic-ui > gulp > vinyl-fs > glob-stream > minimatch:
+    - semantic-ui > gulp-copy > gulp > vinyl-fs > glob-watcher > gaze > globule > glob > minimatch:
         patched: '2018-07-09T16:58:27.368Z'
+    - semantic-ui > gulp-copy > gulp > vinyl-fs > glob-stream > minimatch:
+        patched: '2018-07-09T16:58:27.368Z'
+    - semantic-ui > gulp > vinyl-fs > glob-stream > minimatch:
+        patched: '2018-07-09T16:58:27.368Z'
+  SNYK-JS-LODASH-567746:
+    - bookshelf > lodash:
+        patched: '2020-05-01T07:01:15.111Z'
+    - enzyme-to-json > lodash:
+        patched: '2020-05-01T07:01:15.111Z'
+    - knex > lodash:
+        patched: '2020-05-01T07:01:15.111Z'
+    - semantic-ui-react > lodash:
+        patched: '2020-05-01T07:01:15.111Z'
+    - twilio > lodash:
+        patched: '2020-05-01T07:01:15.111Z'
+    - redux-promise > flux-standard-action > lodash:
+        patched: '2020-05-01T07:01:15.111Z'
+    - semantic-ui > prompt-sui > inquirer > lodash:
+        patched: '2020-05-01T07:01:15.111Z'
+    - sinon > @sinonjs/formatio > @sinonjs/samsam > lodash:
+        patched: '2020-05-01T07:01:15.111Z'
+    - sinon > nise > @sinonjs/formatio > @sinonjs/samsam > lodash:
+        patched: '2020-05-01T07:01:15.111Z'
