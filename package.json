@@ -52,7 +52,7 @@
     "webpack-cli": "^2.1.4"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^1.6.0",
     "bcryptjs": "^2.4.3",
     "bluebird": "^3.5.1",
     "body-parser": "^1.18.3",
@@ -83,7 +83,7 @@
     "semantic-ui-react": "^0.81.1",
     "sinon": "^6.0.1",
     "snyk": "^1.88.2",
-    "twilio": "^3.17.4",
+    "twilio": "^4.6.0",
     "twilio-video": "^1.10.0"
   },
   "jest": {
