@@ -81,7 +81,7 @@
     "request": "^2.87.0",
     "semantic-ui": "^2.3.2",
     "semantic-ui-react": "^0.81.1",
-    "sinon": "^6.0.1",
+    "sinon": "^19.0.0",
     "snyk": "^1.88.2",
     "twilio": "^3.17.4",
     "twilio-video": "^1.10.0"
