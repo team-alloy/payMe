@@ -65,7 +65,7 @@
     "express-session": "^1.15.6",
     "faker": "^4.1.0",
     "jquery": "^3.3.1",
-    "knex": "^0.19.5",
+    "knex": "^0.21.13",
     "material-ui": "^0.20.1",
     "moment": "^2.22.2",
     "morgan": "^1.9.0",
